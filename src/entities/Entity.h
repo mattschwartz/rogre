@@ -4,7 +4,7 @@
 /**
  * Included files
  */
-#include <time.h>
+#include <string>
 
 /**
  * Defines
@@ -38,6 +38,5 @@ protected:
 
 public:
     Entity(int level, std::string name);
-    ~Entity();
 };
 #endif

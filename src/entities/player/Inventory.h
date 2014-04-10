@@ -4,12 +4,16 @@
 /**
  * Included files
  */
-#include "items/Item.h"
 
 /**
  * Defines
  */
 #define INVENTORY_SLOTS 24
+
+/**
+ * Forward declarations
+ */
+class Item;
 
 /**
  * Data

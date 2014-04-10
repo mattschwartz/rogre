@@ -2,8 +2,8 @@
  * Included files
  */
 #include "Equippable.h"
-#include "entities/Entity.h"
-#include "entities/player/Player.h"
+#include "src/entities/Entity.h"
+#include "src/entities/player/Player.h"
 
 /**
  * Defines
@@ -12,13 +12,7 @@
 /**
  * Data
  */
-Equippable::Equippable(int id, int level, int goldWorth, int stackSize, std::string name, int numAffixes, affix_t *affixes) {
-    this->id = id;
-    this->level = level;
-    this->goldWorth = goldWorth;
-    this->stackSize = stackSize;
-    this->name = name;
-
+Equippable::Equippable(int id, int level, int goldWorth, int stackSize, std::string name, int numAffixes, affix_t *affixes) : Item(id, level, goldWorth, stackSize, name) {
     numAffixes = numAffixes > MAX_AFFIXES ? MAX_AFFIXES : numAffixes;
 
     if (sizeof(affixes) != numAffixes * sizeof(affix_t)) {
@@ -29,6 +23,13 @@ Equippable::Equippable(int id, int level, int goldWorth, int stackSize, std::str
         this->affixes.push_back(affixes[i]);
     } // for
 } // constructor
+
+/**
+ * @return Returns the slot id into which this Equippable item fits
+ */
+equipmentSlot_t Equippable::getSlotId() {
+    return equipmentSlot;
+} // getSlotId
 
 /**
  * @return Returns the number of affixes on the Item

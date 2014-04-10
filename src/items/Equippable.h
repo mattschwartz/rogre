@@ -10,7 +10,6 @@
  * Forward declarations
  */
 class Player;
-typedef enum equipmentSlot_t;
 
 /**
  * Data
@@ -22,8 +21,7 @@ private:
 
 public:
     Equippable(int id, int level, int goldWorth, int stackSize, std::string name, int numAffixes, affix_t *affixes);
-    ~Equippable();
-    int getSlotId();
+    equipmentSlot_t getSlotId();
     int getNumAffixes();
     std::vector<affix_t> getAffixes();
 };

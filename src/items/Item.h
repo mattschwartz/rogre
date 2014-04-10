@@ -27,7 +27,6 @@ protected:
 
 public:
     Item(int id, int level, int goldWorth, int stackSize, std::string name);
-    ~Item();
 
     /**
      * Overriding operators

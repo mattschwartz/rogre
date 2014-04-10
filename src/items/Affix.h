@@ -1,7 +1,7 @@
 #ifndef _AFFIX_H_
 #define _AFFIX_H_
 
-#include "entities/Entity.h"
+#include "src/entities/Entity.h"
 
 typedef struct {
     double amount;

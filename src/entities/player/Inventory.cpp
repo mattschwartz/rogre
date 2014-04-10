@@ -3,6 +3,7 @@
  */
 #include <stdexcept>
 #include "Inventory.h"
+#include "src/items/Item.h"
 
 /**
  * Defines

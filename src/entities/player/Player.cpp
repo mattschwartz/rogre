@@ -2,9 +2,9 @@
  * Included files
  */
 #include "Player.h"
-#include "items/Item.h"
-#include "items/Equippable.h"
-#include "entities/player/Inventory.h"
+#include "src/items/Item.h"
+#include "src/items/Equippable.h"
+#include "src/entities/player/Inventory.h"
 
 /**
  * Data

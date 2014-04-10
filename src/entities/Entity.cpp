@@ -2,7 +2,7 @@
  * Included files
  */
 #include "Entity.h"
-#include "items/Item.h"
+#include "src/items/Item.h"
 
 /**
  * Defines
