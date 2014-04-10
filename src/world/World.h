@@ -24,8 +24,8 @@ private:
     Player *currentPlayer;
     Level *currentLevel;
     World() {}
-    World(World const&) {}
-    void operator=(World const&) {}
+    World(World const&);
+    void operator=(World const&);
 
 public:
     static World &getInstance() {
@@ -40,6 +40,8 @@ public:
     void setCurrentPlayer(Player *player);
     Level *getCurrentLevel();
     void setCurrentLevel(Level *level);
+
+    void playerQuit();
 };
 
 #endif

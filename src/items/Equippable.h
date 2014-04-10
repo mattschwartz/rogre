@@ -7,6 +7,16 @@
 #include "Item.h"
 
 /**
+ * Defines
+ */
+typedef enum {
+    helmet,
+    chest,
+    gloves,
+    boots
+} equipmentSlot_t;
+
+/**
  * Forward declarations
  */
 class Player;

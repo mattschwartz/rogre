@@ -3,7 +3,7 @@
  */
 #include "World.h"
 #include "src/entities/player/Player.h"
-#include "Level.h"
+#include "Zone.h"
 
 /**
  * Defines
@@ -27,7 +27,7 @@ Player *World::getCurrentPlayer() {
  * @param player The player to be playing
  */
 void World::setCurrentPlayer(Player *player) {
-    if (this->currentPlayer != NULL) {
+    if (player == NULL || this->currentPlayer != NULL) {
         throw std::invalid_argument("There is already a player playing!");
     } // if
     else {
@@ -52,3 +52,8 @@ Level *World::getCurrentLevel() {
 void World::setCurrentLevel(Level *level) {
     this->currentLevel = level;
 } // setCurrentLevel
+
+void World::playerQuit() {
+    delete this->currentPlayer;
+    this->currentPlayer = NULL;
+} // playerQuit

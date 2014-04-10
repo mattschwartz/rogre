@@ -18,13 +18,6 @@ typedef enum {
     armor = 2
 } attribute_t;
 
-typedef enum {
-    helmet,
-    chest,
-    gloves,
-    boots
-} equipmentSlot_t;
-
 /**
  * Data
  */

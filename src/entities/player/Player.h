@@ -29,7 +29,6 @@ private:
 
 public:
     Player(int level, std::string name);
-    ~Player();
     void equipItem(Equippable *equippable);
     Equippable *getEquippedItemAt(int slotId);
     Inventory *getInventory();
