@@ -14,7 +14,7 @@
  * Forward declarations
  */
 class Player;
-class Level;
+class Zone;
 
 /**
  * Data
@@ -22,7 +22,7 @@ class Level;
 class World {
 private:
     Player *currentPlayer;
-    Level *currentLevel;
+    Zone *currentZone;
     World() {}
     World(World const&);
     void operator=(World const&);
@@ -38,8 +38,8 @@ public:
      */
     Player *getCurrentPlayer();
     void setCurrentPlayer(Player *player);
-    Level *getCurrentLevel();
-    void setCurrentLevel(Level *level);
+    Zone *getCurrentZone();
+    void setCurrentZone(Zone *zone);
 
     void playerQuit();
 };

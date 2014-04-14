@@ -6,13 +6,6 @@
 #include "Zone.h"
 
 /**
- * Defines
- */
-
-/**
- * Data
- */
-/**
  * 
  * @return Returns the current player
  */
@@ -39,9 +32,9 @@ void World::setCurrentPlayer(Player *player) {
  * 
  * @return Returns the current level
  */
-Level *World::getCurrentLevel() {
-    return currentLevel;
-} // getCurrentLevel
+Zone *World::getCurrentZone() {
+    return currentZone;
+} // getCurrentZone
 
 /**
  * Sets the current level to the provided argument,
@@ -49,9 +42,9 @@ Level *World::getCurrentLevel() {
  * 
  * @param level The new level to be loaded in
  */
-void World::setCurrentLevel(Level *level) {
-    this->currentLevel = level;
-} // setCurrentLevel
+void World::setCurrentZone(Zone *zone) {
+    this->currentZone = zone;
+} // setCurrentZone
 
 void World::playerQuit() {
     delete this->currentPlayer;

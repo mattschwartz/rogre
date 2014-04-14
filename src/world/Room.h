@@ -23,14 +23,14 @@ class Doodad;
 
 class Room {
 private:
-    int width;
-    int depth;
+    float width;
+    float depth;
     std::vector<EntityObject*> monsters;
     std::vector<Loot*> loot;
     std::vector<DoodadObject*> doodads;
 
 public:
-    Room(int width, int depth);
+    Room(float width, float depth);
     void addMonster(Entity *entity, int x, int y);
     void addLoot(Item *loot, int x, int y);
     void addDoodad(Doodad *doodad, int x, int y);
