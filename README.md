@@ -3,7 +3,60 @@
 Authors:     Nick Carter (nac568), Alex Ip (ati84), Matt Schwartz (mas7279)
 Project:     Final Assignment
 Course:      CS 354R - Game Technology
-Date:        04.08.2014
+Date:        04.15.2014 (Updated)
+===============================================================================
+
+                            First Milestone Update
+===============================================================================
+Most of the work that we have completed so far has been dedicated to sketching
+our a solid design in the code for us to follow for the rest of development. 
+However, we do have a runnable application that displays two Room game objects
+that were created within the rules of our design.
+
+When our game is completed, we will have no keyboard movement - all the 
+movement of the player's character will be via mouse clicks as is typical in 
+modern dungeon crawlers. For now, we have enabled left (A) and right (D) 
+panning of the camera so that you can see that two rooms are displayed.
+
+I have included a couple of images that lay out some design features that we 
+will be implementing in this game.
+
+To summarize, this is what I have designed for our game:
+    Firstly, I have segmented the code into two distinct categories: game 
+    objects and game mechanics.
+
+    Game Objects
+    * An ObjectManager Singleton class manages all of our Game Objects (e.g., 
+      Room and Monster objects) and allows for their addition into the game.
+      Objects must be added this way so that they can be updated for rendering 
+      and allow for input handling from the user's mouse and keyboard. 
+    * Game Objects are created by their Game Mechanic counterparts. That is, a
+      RoomObject is spawned by the Room class when appropriate.
+    * To make this easier, all Game Objects are contained in the gameobjects/
+      directory.
+
+    Game Mechanics
+    * As previously mentioned, classes that fall into this category have a 
+      corresponding Game Object, which is their graphical realization within 
+      the game world.
+    * I am using a hierarchy of classes to closely mirror the abstract concept
+      of the game. 
+        - A World class is the entire game world, represented as Game Mechanics
+          classes. It contains a Player and is responsible for loading new 
+          Zones when the user starts the game and when the user takes a Nexus 
+          to another Zone.
+        - A Player is an Entity (as is a Monster) with an Inventory of Items 
+          and gold.
+        - A Zone is a collection of Rooms within the World with at least one
+          Nexus.
+        - A Room is a collection of Loot (the game world's representation of 
+          Items), Entities and Doodads.
+        - A Nexus is a stairway or some other means of travel from one Zone to
+          the next.
+        - A Doodad is an object with which the user can interact, like Chests
+          and Doors.  
+        - A Chest is a collection of Items.
+        - A Door connects two Rooms together.
 ===============================================================================
 
                                  Overall Design
