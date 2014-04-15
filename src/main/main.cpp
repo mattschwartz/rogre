@@ -8,6 +8,7 @@
  */
 #include "main.h"
 #include "src/gameobjects/RoomObject.h"
+#include "src/gameobjects/ObjectManager.h"
 
 /**
  * Data
@@ -19,14 +20,16 @@ MainApplication::~MainApplication() {
 } // destructor
 
 void MainApplication::createScene() {
+    ObjectManager::getInstance().init(mSceneMgr, mCamera);
+
     RoomObject *ro = new RoomObject(0, 75, 15, 10, Ogre::Vector3(0, 0, 0));
     RoomObject *ro2 = new RoomObject(1, 15, 75, 10, Ogre::Vector3(75/2 + 8, 0, 0));
     
-    ro->createObject(*mSceneMgr, mCamera);
-    ro2->createObject(*mSceneMgr, mCamera);
+    ObjectManager::getInstance().spawnObject(ro);
+    ObjectManager::getInstance().spawnObject(ro2);
 
     mCamera->setPosition(0, ro->getHeight() * 1.25, ro->getDepth() * 0.75);
-    mSceneMgr->setFog(Ogre::FOG_EXP, Ogre::ColourValue(0.5, 0.5, 0.5), 0.005);
+    mSceneMgr->setFog(Ogre::FOG_EXP, Ogre::ColourValue(0.5, 0.5, 0.5), Ogre::Real(0.005));
     mCamera->lookAt(0, 0, 0);
 } // createScene
 

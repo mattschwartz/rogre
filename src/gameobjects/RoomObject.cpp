@@ -171,18 +171,19 @@ void RoomObject::setPosition(Ogre::Vector3 pos) {
     this->position = pos;
 } // setPosition
 
-bool GameObject::contains(const OIS::MouseEvent &evt) {
+bool RoomObject::contains(const OIS::MouseEvent &evt) {
     return false;
 } // contains
 
-void GameObject::update(const Ogre::FrameEvent &evt) {
+void RoomObject::update(const Ogre::FrameEvent &evt) {
+
 } // render
 
-void GameObject::mouseMoved(const OIS::MouseEvent &evt) {
+void RoomObject::mouseMoved(const OIS::MouseEvent &evt) {
 } // mouseMoved
 
-void GameObject::mousePressed(const OIS::MouseEvent &evt, OIS::MouseButtonID id) {
+void RoomObject::mousePressed(const OIS::MouseEvent &evt, OIS::MouseButtonID id) {
 } // mousePressed
 
-void GameObject::mouseReleased(const OIS::MouseEvent &evt, OIS::MouseButtonID id) {
+void RoomObject::mouseReleased(const OIS::MouseEvent &evt, OIS::MouseButtonID id) {
 } // mouseReleased

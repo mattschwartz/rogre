@@ -281,6 +281,8 @@ bool BaseApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
         }
     }
 
+    ObjectManager::getInstance().update(evt);
+
     return true;
 }
 //-------------------------------------------------------------------------------------

@@ -32,12 +32,12 @@ public:
         this->position = position;
     } // constructor
     
-    virtual void createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera);
-    virtual void update(const Ogre::FrameEvent &evt);
-    virtual bool contains(const OIS::MouseEvent &evt);
-    virtual void mouseMoved(const OIS::MouseEvent &evt);
-    virtual void mousePressed(const OIS::MouseEvent &evt, OIS::MouseButtonID id);
-    virtual void mouseReleased(const OIS::MouseEvent &evt, OIS::MouseButtonID id);
+    virtual void createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera) = 0;
+    virtual void update(const Ogre::FrameEvent &evt) = 0;
+    virtual bool contains(const OIS::MouseEvent &evt) = 0;
+    virtual void mouseMoved(const OIS::MouseEvent &evt) = 0;
+    virtual void mousePressed(const OIS::MouseEvent &evt, OIS::MouseButtonID id) = 0;
+    virtual void mouseReleased(const OIS::MouseEvent &evt, OIS::MouseButtonID id) = 0;
 
 };
 

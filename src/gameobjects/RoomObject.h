@@ -35,6 +35,11 @@ public:
     RoomObject(int id, float width, float depth, float height, Ogre::Vector3 pos);
     RoomObject(int id, struct Dimension d, Ogre::Vector3 pos);
     void createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera);
+    void update(const Ogre::FrameEvent &evt);
+    bool contains(const OIS::MouseEvent &evt);
+    void mouseMoved(const OIS::MouseEvent &evt);
+    void mousePressed(const OIS::MouseEvent &evt, OIS::MouseButtonID id);
+    void mouseReleased(const OIS::MouseEvent &evt, OIS::MouseButtonID id);
     float getWidth();
     float getDepth();
     float getHeight();
