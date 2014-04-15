@@ -1,6 +1,7 @@
 /**
  * Included files
  */
+#include <stdexcept>
 #include "Equippable.h"
 #include "src/entities/Entity.h"
 #include "src/entities/player/Player.h"

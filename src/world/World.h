@@ -4,6 +4,7 @@
 /**
  * Included files
  */
+#include <stdexcept>
 #include <stdlib.h>
 
 /**

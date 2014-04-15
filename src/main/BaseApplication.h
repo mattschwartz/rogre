@@ -24,6 +24,8 @@
 
 #include "src/gameobjects/ObjectManager.h"
 
+ #define USE_OGRE_LEGACY 1
+
 class BaseApplication : public Ogre::FrameListener, public Ogre::WindowEventListener, public OIS::KeyListener, public OIS::MouseListener, OgreBites::SdkTrayListener
 {
 public:
@@ -69,17 +71,16 @@ protected:
     Ogre::String mResourcesCfg;
     Ogre::String mPluginsCfg;
 
+#if !USE_OGRE_LEGACY
 	//Fix for 1.9
 	Ogre::OverlaySystem *mOverlaySystem;
+    OgreBites::InputContext mInputContext;
+#endif
 
     // OgreBites
     OgreBites::SdkTrayManager* mTrayMgr;
     OgreBites::SdkCameraMan* mCameraMan;       // basic camera controller
     OgreBites::ParamsPanel* mDetailsPanel;     // sample details panel
-   
-	//Fix for 1.9:
-	OgreBites::InputContext mInputContext;
-	
 	bool mCursorWasVisible;                    // was cursor visible before dialog appeared
     bool mShutDown;
 

@@ -4,6 +4,7 @@
  */
 #include "BaseApplication.h"
 
+
 //-------------------------------------------------------------------------------------
 BaseApplication::BaseApplication(void)
     : mRoot(0),
@@ -19,18 +20,23 @@ BaseApplication::BaseApplication(void)
     mShutDown(false),
     mInputManager(0),
     mMouse(0),
-    mKeyboard(0),
-	mOverlaySystem(0)
+    mKeyboard(0)
+#if !USE_OGRE_LEGACY
+	,mOverlaySystem(0)
+#endif
 {
 }
 
 //-------------------------------------------------------------------------------------
 BaseApplication::~BaseApplication(void)
 {
-	//Fix for 1.9
 	if (mTrayMgr) delete mTrayMgr;
     if (mCameraMan) delete mCameraMan;
+
+#if !USE_OGRE_LEGACY
+    //Fix for 1.9
 	if (mOverlaySystem) delete mOverlaySystem;
+#endif
 
     //Remove ourself as a Window listener
     Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
@@ -62,9 +68,12 @@ void BaseApplication::chooseSceneManager(void)
 {
     // Get the SceneManager, in this case a generic one
     mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC);
+
+#if !USE_OGRE_LEGACY
 	//Fix for 1.9
     mOverlaySystem = new Ogre::OverlaySystem();
     mSceneMgr->addRenderQueueListener(mOverlaySystem);
+#endif
 }
 //-------------------------------------------------------------------------------------
 void BaseApplication::createCamera(void)
@@ -97,6 +106,22 @@ void BaseApplication::createFrameListener(void)
     mKeyboard = static_cast<OIS::Keyboard*>(mInputManager->createInputObject( OIS::OISKeyboard, true ));
     mMouse = static_cast<OIS::Mouse*>(mInputManager->createInputObject( OIS::OISMouse, true ));
 
+#if USE_OGRE_LEGACY
+    mMouse->setEventCallback(this);
+    mKeyboard->setEventCallback(this);
+
+    //Set initial mouse clipping size
+    windowResized(mWindow);
+
+    //Register as a Window listener
+    Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
+
+    mTrayMgr = new OgreBites::SdkTrayManager("InterfaceName", mWindow, mMouse, this);
+    mTrayMgr->showFrameStats(OgreBites::TL_BOTTOMLEFT);
+    mTrayMgr->showLogo(OgreBites::TL_BOTTOMRIGHT);
+    //mTrayMgr->hideCursor();
+
+#else 
 	//Fix for 1.9
 	mInputContext.mKeyboard = mKeyboard;
     mInputContext.mMouse = mMouse;
@@ -110,25 +135,13 @@ void BaseApplication::createFrameListener(void)
     //Register as a Window listener
     Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
 
-	//Fix for 1.9 - take this out:
-	/*OgreBites::InputContext inputContext;
-	inputContext.mMouse = mMouse; 
-	inputContext.mKeyboard = mKeyboard;
-	mTrayMgr = new OgreBites::SdkTrayManager("TrayMgr", mWindow, inputContext, this);*/
-
-	/*OgreBites::InputContext input;
-	input.mAccelerometer = NULL;
-	input.mKeyboard = mKeyboard;
-	input.mMouse = mMouse;
-	input.mMultiTouch = NULL;
-	mTrayMgr = new OgreBites::SdkTrayManager("InterfaceName", mWindow, input, this);*/
-
 	//Fix for 1.9 - put this in:
 	mTrayMgr = new OgreBites::SdkTrayManager("InterfaceName", mWindow, mInputContext, this);
 	//mTrayMgr = new OgreBites::SdkTrayManager("InterfaceName", mWindow, mMouse, this);
     mTrayMgr->showFrameStats(OgreBites::TL_BOTTOMLEFT);
     mTrayMgr->showLogo(OgreBites::TL_BOTTOMRIGHT);
     //mTrayMgr->hideCursor();
+#endif
 
     // create a params panel for displaying sample details
     Ogre::StringVector items;
@@ -258,11 +271,15 @@ bool BaseApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
     if(mShutDown)
         return false;
 
-	//Fix for 1.9
-	//Need to capture/update each device
-    /*mKeyboard->capture();
-    mMouse->capture();*/
-	mInputContext.capture();
+#if USE_OGRE_LEGACY
+    //Need to capture/update each device
+    mKeyboard->capture();
+    mMouse->capture();
+
+#else
+    //Fix for 1.9
+    mInputContext.capture();
+#endif
 
     mTrayMgr->frameRenderingQueued(evt);
 
