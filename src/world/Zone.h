@@ -22,6 +22,9 @@ private:
 
 public:
     Zone(int zoneLevel);
+    void generateRooms(int seed, int numRooms);
+    std::vector<Room*> getRooms();
+    Room *getRoom(int index);
 
     /**
      * Getters & Setters
