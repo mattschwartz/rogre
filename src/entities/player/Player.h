@@ -32,6 +32,11 @@ public:
     void equipItem(Equippable *equippable);
     Equippable *getEquippedItemAt(int slotId);
     Inventory *getInventory();
+
+    void onSpawn();
+    void onDeath();
+    void onDamageDealt();
+    void onDamageTaken();
 };
 
 #endif

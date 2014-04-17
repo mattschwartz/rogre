@@ -3,6 +3,8 @@
  */
 #include "PlayerObject.h"
 #include "src/entities/player/Player.h"
+#include "src/sound/SoundManager.h"
+#include "src/sound/SoundEffect.h"
 
 PlayerObject::PlayerObject(Player *player, float x, float y, float z) : GameObject(Ogre::Vector3(x, y, z)) {
     this->player = player;
@@ -75,6 +77,7 @@ void PlayerObject::move(const Ogre::FrameEvent &evt) {
         } // if
         else {
             playerNode->translate(mDirection * move);
+            SoundManager::getInstance().PLAYER_FOOTSTEP_SOUND->play();
             Ogre::Vector3 campos = camera->getPosition();
             campos.x = playerNode->getPosition().x;
             campos.z += playerNode->getPosition().z - initialPosition.z;

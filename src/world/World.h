@@ -30,6 +30,7 @@ public:
 
     void playerQuit();
     void loadZone();
+    void spawnCurrentPlayer(float x, float y, float z);
 
     /**
      * Getters & Setters

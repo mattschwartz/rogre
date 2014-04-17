@@ -45,3 +45,15 @@ Equippable *Player::getEquippedItemAt(int slotId) {
 Inventory *Player::getInventory() {
     return inventory;
 } // getInventory
+
+void Player::onSpawn() {
+} // onSpawn
+
+void Player::onDeath() {
+} // onDeath
+
+void Player::onDamageDealt() {
+}  // onDamageDealt
+
+void Player::onDamageTaken() {
+} // onDamageTaken

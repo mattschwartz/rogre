@@ -5,6 +5,8 @@
 #include "src/entities/player/Player.h"
 #include "Zone.h"
 #include "src/pcg/ZoneGenerator.h"
+#include "src/gameobjects/ObjectManager.h"
+#include "src/gameobjects/PlayerObject.h"
 
 /**
  * 
@@ -26,8 +28,14 @@ void World::setCurrentPlayer(Player *player) {
     } // if
     else {
         this->currentPlayer = player;
+
     } // else
 } // setCurrentPlayer
+
+void World::spawnCurrentPlayer(float x, float y, float z) {
+    PlayerObject *playerObject = new PlayerObject(this->currentPlayer, x, y, z);
+    ObjectManager::getInstance().spawnObject(playerObject);
+} // spawnCurrentPlayer
 
 /**
  * Terminates the player's game, saving it and exiting to the main menu.

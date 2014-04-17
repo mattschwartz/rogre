@@ -7,11 +7,13 @@
  * Included files
  */
 #include "main.h"
+#include "src/entities/player/Player.h"
 #include "src/gameobjects/ObjectManager.h"
 #include "src/gameobjects/RoomObject.h"
 #include "src/gameobjects/PlayerObject.h"
 #include "src/sound/SoundManager.h"
 #include "src/sound/SoundEffect.h"
+#include "src/world/World.h"
 
 /**
  * Data
@@ -29,18 +31,20 @@ void MainApplication::createScene() {
     
     mSceneMgr->setAmbientLight(Ogre::ColourValue(0, 0, 0));
     mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
+    mSceneMgr->setFog(Ogre::FOG_EXP, Ogre::ColourValue(0.25, 0.25, 0.25), Ogre::Real(0.025));
 
+    mCamera->setPosition(0, 15, 15);
+    mCamera->lookAt(0, 0, 0);
+    
+    // debug stuff
     RoomObject *ro = new RoomObject(0, 75, 15, 10, Ogre::Vector3(0, 5, 0));
     RoomObject *ro2 = new RoomObject(1, 15, 75, 10, Ogre::Vector3(75/2 + 8, 5, 0));
-    PlayerObject *po = new PlayerObject(NULL, 0, 0, 0);
+
+    World::getInstance().setCurrentPlayer(new Player(1, "test player"));
+    World::getInstance().spawnCurrentPlayer(0, 0, 0);
     
     ObjectManager::getInstance().spawnObject(ro);
     ObjectManager::getInstance().spawnObject(ro2);
-    ObjectManager::getInstance().spawnObject(po);
-
-    mCamera->setPosition(0, ro->getHeight() * 1.25, ro->getDepth() * 0.75);
-    mSceneMgr->setFog(Ogre::FOG_EXP, Ogre::ColourValue(0.25, 0.25, 0.25), Ogre::Real(0.025));
-    mCamera->lookAt(0, 0, 0);
 } // createScene
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
