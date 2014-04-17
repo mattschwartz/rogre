@@ -26,6 +26,9 @@ void MainApplication::createScene() {
     ObjectManager::getInstance().init(mSceneMgr, mCamera);
     SoundManager::getInstance().init();
     SoundManager::getInstance().AMBIANCE_RUMBLE_SOUND->loop(-1);
+    
+    mSceneMgr->setAmbientLight(Ogre::ColourValue(0, 0, 0));
+    mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
 
     RoomObject *ro = new RoomObject(0, 75, 15, 10, Ogre::Vector3(0, 5, 0));
     RoomObject *ro2 = new RoomObject(1, 15, 75, 10, Ogre::Vector3(75/2 + 8, 5, 0));
@@ -36,7 +39,7 @@ void MainApplication::createScene() {
     ObjectManager::getInstance().spawnObject(po);
 
     mCamera->setPosition(0, ro->getHeight() * 1.25, ro->getDepth() * 0.75);
-    mSceneMgr->setFog(Ogre::FOG_EXP, Ogre::ColourValue(0.5, 0.5, 0.5), Ogre::Real(0.005));
+    mSceneMgr->setFog(Ogre::FOG_EXP, Ogre::ColourValue(0.25, 0.25, 0.25), Ogre::Real(0.025));
     mCamera->lookAt(0, 0, 0);
 } // createScene
 

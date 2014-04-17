@@ -133,10 +133,11 @@ void PlayerObject::keyPressed(const OIS::KeyEvent &arg) {
             walkToLocation.x += moveAmount;
             break;
     } // switch-case
-
-    if (walkList.empty() && mDirection == Ogre::Vector3::ZERO) {
-        walkList.push_back(walkToLocation);
-    } // if
+    
+    mDirection = Ogre::Vector3::ZERO;
+    mDistance = 0;
+    walkList.clear();
+    walkList.push_back(walkToLocation);
 } // keyPressed
 
 void PlayerObject::mouseMoved(const OIS::MouseEvent &evt) {
