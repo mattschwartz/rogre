@@ -7,10 +7,6 @@
 #include <vector>
 
 /**
- * Defines
- */
-
-/**
  * Forward declarations
  */
 class EntityObject;
@@ -23,6 +19,9 @@ class Doodad;
 
 class Room {
 private:
+    int monsterLevel;
+    float x;
+    float z;
     float width;
     float depth;
     std::vector<EntityObject*> monsters;
@@ -30,10 +29,10 @@ private:
     std::vector<DoodadObject*> doodads;
 
 public:
-    Room(float width, float depth);
-    void addMonster(Entity *entity, int x, int y);
-    void addLoot(Item *loot, int x, int y);
-    void addDoodad(Doodad *doodad, int x, int y);
+    Room(int monsterLevel, float x, float z, float width, float depth);
+    void addMonster(Entity *monster, float x, float z);
+    void addLoot(Item *item, float x, float z);
+    void addDoodad(Doodad *doodad, float x, float z);
 };
 
 #endif

@@ -3,6 +3,10 @@
  */
 #include "EntityObject.h"
 
+EntityObject::EntityObject(Entity *entity, float x, float y, float z) : GameObject(Ogre::Vector3(x, y, z)) {
+    this->entity = entity;
+} // constructor
+
 EntityObject::EntityObject(Entity *entity, Ogre::Vector3 pos) : GameObject(pos) {
     this->entity = entity;
 } // constructor

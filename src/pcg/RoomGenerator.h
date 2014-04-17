@@ -1,14 +1,14 @@
+#ifndef _ROOM_GENERATOR_H_
+#define _ROOM_GENERATOR_H_
+
 /**
  * Included files
  */
 #include "src/world/Room.h"
 #include "src/doodad/Doodad.h"
 #include "src/entities/Entity.h"
+#include "src/entities/monsters/SkeletonEntity.h"
 #include "src/items/Item.h"
-
-/**
- * Defines
- */
 
 /**
  * Data
@@ -25,18 +25,18 @@ public:
         return instance;
     } // getInstance
 
-    Room *generate(int zoneLevel, int width, int depth) {
+    Room *generate(int seed, int zoneLevel, float x, float z, float width, float depth) {
         bool done;
         Room *r;
         Entity *e;
         Item *i;
         Doodad *d;
 
-        r = new Room(width, depth);
+        r = new Room(zoneLevel, x, z, width, depth);
         done = false;
 
         while (!done) {
-            e = new Entity(zoneLevel, "monster1");
+            e = new SkeletonEntity(zoneLevel, "monster1");
             i = new Item(1, zoneLevel, 0, 1, "item1");
             d = new Doodad();
 
@@ -50,3 +50,5 @@ public:
         return r;
     } // generate
 };
+
+#endif

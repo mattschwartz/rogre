@@ -16,6 +16,7 @@ private:
     Item *item;
 
 public:
+    LootObject(Item *item, float x, float y, float z);
     LootObject(Item *item, Ogre::Vector3 pos);
     void createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera);
     void update(const Ogre::FrameEvent &evt);

@@ -8,23 +8,23 @@
 /**
  * Data
  */
-RoomObject::RoomObject(int id, float width, float depth, float height, Ogre::Vector3 pos) : GameObject(pos) {
+RoomObject::RoomObject(int id, float width, float depth, float height, 
+                       Ogre::Vector3 pos) : GameObject(pos) {
     checkId(id);
 
     this->id = id;
     this->dimensions.width = width;
     this->dimensions.depth = depth;
     this->dimensions.height = height;
-    this->room = new Room(width, depth);
     init();
 } // constructor
 
-RoomObject::RoomObject(int id, struct Dimension d, Ogre::Vector3 pos) : GameObject(pos) {
+RoomObject::RoomObject(int id, struct Dimension d, Ogre::Vector3 pos) : 
+    GameObject(pos) {
     checkId(id);
 
     this->id = id;
     this->dimensions = d;
-    this->room = new Room(d.width, d.depth);
     init();
 } // constructor
 

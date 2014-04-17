@@ -4,6 +4,7 @@
 #include "World.h"
 #include "src/entities/player/Player.h"
 #include "Zone.h"
+#include "src/pcg/ZoneGenerator.h"
 
 /**
  * 
@@ -29,24 +30,36 @@ void World::setCurrentPlayer(Player *player) {
 } // setCurrentPlayer
 
 /**
- * 
- * @return Returns the current level
+ * Terminates the player's game, saving it and exiting to the main menu.
  */
-Zone *World::getCurrentZone() {
-    return currentZone;
-} // getCurrentZone
-
-/**
- * Sets the current level to the provided argument,
- * only one level may be loaded in at any given time.
- * 
- * @param level The new level to be loaded in
- */
-void World::setCurrentZone(Zone *zone) {
-    this->currentZone = zone;
-} // setCurrentZone
-
 void World::playerQuit() {
     delete this->currentPlayer;
     this->currentPlayer = NULL;
 } // playerQuit
+
+/**
+ * Generates a new Zone that is abstractly one level below the current Zone
+ * and thus one level more difficult.
+ */
+void World::loadZone() {
+    delete currentZone;
+    currentZoneLevel++;
+
+    currentZone = ZoneGenerator::getInstance().generate(0, currentZoneLevel, 5);
+} // loadZone
+
+int World::getZoneLevel() {
+    return currentZoneLevel;
+} // getZoneLevel
+
+void World::setZoneLevel(int zoneLevel) {
+    this->currentZoneLevel = zoneLevel;
+} // setZoneLevel
+
+Zone *World::getCurrentZone() {
+    return currentZone;
+} // getCurrentZone
+
+void World::setCurrentZone(Zone *zone) {
+    this->currentZone = zone;
+} // setCurrentZone

@@ -27,9 +27,41 @@ protected:
     double currentHitpoints;
     double attributes[NUM_ATTRIBUTES];
     std::string name;
-    // Position position;
 
 public:
     Entity(int level, std::string name);
+    void spawn();
+    void die(Entity *slayer);
+    double calculateHit();
+    void takeDamage(double amount, Entity *aggressor);
+
+    /**
+     * This optional function is invoked whenever the Entity is spawned into 
+     * the game and provides the Entity a way of performing some action or
+     * actions when it is created.
+     */
+    virtual void onSpawn() = 0;
+
+    /**
+     * This optional function is invoked whenever the Entity is killed and is
+     * about to be removed from the Game World and provides the Entity a way
+     * of performing some action or actions when it dies.
+     */
+    virtual void onDeath() = 0;
+
+    /**
+     * This optional function is invoked whenever the Entity attacks another
+     * Entity and provides the Entity a way of performing some action or 
+     * actions during this time.
+     */
+    virtual void onDamageDealt() = 0;
+
+    /**
+     * This optional function is invoked whenever the Entity receives damage
+     * from another Entity and provides the Entity a way of performing some
+     * action or actions during this time.
+     */
+    virtual void onDamageTaken() = 0;
+
 };
 #endif

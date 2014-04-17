@@ -8,11 +8,6 @@
 #include <vector>
 #include <algorithm>
 
-/** 
- * Forward declarations
- */
-class Room;
-
 static std::vector<int> idList;
 
 /**
@@ -21,7 +16,6 @@ static std::vector<int> idList;
 class RoomObject : public GameObject {
 private:
     int id;
-    Room *room;
     struct Dimension dimensions;
     Ogre::Plane *floor;
     Ogre::Plane *walls[4];

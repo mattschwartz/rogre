@@ -16,6 +16,7 @@ private:
     Entity *entity;
 
 public:
+    EntityObject(Entity *entity, float x, float y, float z);
     EntityObject(Entity *entity, Ogre::Vector3 pos);
     void createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera);
     void update(const Ogre::FrameEvent &evt);

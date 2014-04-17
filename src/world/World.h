@@ -22,6 +22,7 @@ class Zone;
  */
 class World {
 private:
+    int currentZoneLevel;
     Player *currentPlayer;
     Zone *currentZone;
     World() {}
@@ -34,15 +35,18 @@ public:
         return instance;
     } // getInstance
 
+    void playerQuit();
+    void loadZone();
+
     /**
      * Getters & Setters
      */
+    int getZoneLevel();
+    void setZoneLevel(int zoneLevel);
     Player *getCurrentPlayer();
     void setCurrentPlayer(Player *player);
     Zone *getCurrentZone();
     void setCurrentZone(Zone *zone);
-
-    void playerQuit();
 };
 
 #endif
