@@ -77,11 +77,11 @@ void RoomObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera
     wall4Entity->setMaterialName("Examples/Wall");
 
     // Cast no shadows
-    floorEntity->setCastShadows(false);
-    wall1Entity->setCastShadows(false);
-    wall2Entity->setCastShadows(false);
-    wall3Entity->setCastShadows(false);
-    wall4Entity->setCastShadows(false);
+    floorEntity->setCastShadows(true);
+    wall1Entity->setCastShadows(true);
+    wall2Entity->setCastShadows(true);
+    wall3Entity->setCastShadows(true);
+    wall4Entity->setCastShadows(true);
 
     floorNode->setPosition(this->position.x, this->position.y - dimensions.height / 2, this->position.z);
 
@@ -110,7 +110,7 @@ void RoomObject::createLights(Ogre::SceneManager &sceneMgr) {
     pointLight = sceneMgr.createLight("pointLight" + id);
 
     pointLight->setType(Ogre::Light::LT_POINT);
-    pointLight->setPosition(0, getHeight() / 2 - 1, 0);
+    pointLight->setPosition(position.x + 0, position.y + getHeight() / 2 - 1, position.z + 0);
     pointLight->setDiffuseColour(0.98f, 0.95f, 0.72f);
     pointLight->setSpecularColour(1.0, 0.0, 0.0);
 } // createLights
@@ -176,8 +176,9 @@ bool RoomObject::contains(const OIS::MouseEvent &evt) {
 } // contains
 
 void RoomObject::update(const Ogre::FrameEvent &evt) {
-
 } // render
+
+void RoomObject::keyPressed(const OIS::KeyEvent &arg) {}
 
 void RoomObject::mouseMoved(const OIS::MouseEvent &evt) {
 } // mouseMoved

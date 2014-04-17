@@ -57,6 +57,12 @@ bool ObjectManager::contains(const OIS::MouseEvent &evt) {
     return false;
 } // contains
 
+void ObjectManager::keyPressed(const OIS::KeyEvent &arg) {
+    for (GameObject *o : objects) {
+        o->keyPressed(arg);
+    } // for
+} // keyPressed
+
 void ObjectManager::mouseMoved(const OIS::MouseEvent &evt) {
 }
 

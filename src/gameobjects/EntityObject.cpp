@@ -21,6 +21,8 @@ bool EntityObject::contains(const OIS::MouseEvent &evt) {
     return false;
 } // contains
 
+void EntityObject::keyPressed(const OIS::KeyEvent &arg) {}
+
 void EntityObject::mouseMoved(const OIS::MouseEvent &evt) {
 } // mouseMoved
 

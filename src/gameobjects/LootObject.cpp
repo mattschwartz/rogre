@@ -27,6 +27,8 @@ bool LootObject::contains(const OIS::MouseEvent &evt) {
     return false;
 } // contains
 
+void LootObject::keyPressed(const OIS::KeyEvent &arg) {}
+
 void LootObject::mouseMoved(const OIS::MouseEvent &evt) {
 } // mouseMoved
 

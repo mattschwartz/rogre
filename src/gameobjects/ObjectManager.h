@@ -6,6 +6,7 @@
  */
 #include <Ogre.h>
 #include <OISMouse.h>
+#include <OISKeyboard.h>
 #include <vector>
 
 /**
@@ -33,6 +34,7 @@ public:
 
     void update(const Ogre::FrameEvent &evt);
     bool contains(const OIS::MouseEvent &evt);
+    void keyPressed(const OIS::KeyEvent &arg);
     void mouseMoved(const OIS::MouseEvent &evt);
     void mousePressed(const OIS::MouseEvent &evt, OIS::MouseButtonID id);
     void mouseReleased(const OIS::MouseEvent &evt, OIS::MouseButtonID id);

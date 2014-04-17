@@ -7,8 +7,9 @@
  * Included files
  */
 #include "main.h"
-#include "src/gameobjects/RoomObject.h"
 #include "src/gameobjects/ObjectManager.h"
+#include "src/gameobjects/RoomObject.h"
+#include "src/gameobjects/PlayerObject.h"
 #include "src/sound/SoundManager.h"
 #include "src/sound/SoundEffect.h"
 
@@ -26,11 +27,13 @@ void MainApplication::createScene() {
     SoundManager::getInstance().init();
     SoundManager::getInstance().AMBIANCE_RUMBLE_SOUND->loop(-1);
 
-    RoomObject *ro = new RoomObject(0, 75, 15, 10, Ogre::Vector3(0, 0, 0));
-    RoomObject *ro2 = new RoomObject(1, 15, 75, 10, Ogre::Vector3(75/2 + 8, 0, 0));
+    RoomObject *ro = new RoomObject(0, 75, 15, 10, Ogre::Vector3(0, 5, 0));
+    RoomObject *ro2 = new RoomObject(1, 15, 75, 10, Ogre::Vector3(75/2 + 8, 5, 0));
+    PlayerObject *po = new PlayerObject(NULL, 0, 0, 0);
     
     ObjectManager::getInstance().spawnObject(ro);
     ObjectManager::getInstance().spawnObject(ro2);
+    ObjectManager::getInstance().spawnObject(po);
 
     mCamera->setPosition(0, ro->getHeight() * 1.25, ro->getDepth() * 0.75);
     mSceneMgr->setFog(Ogre::FOG_EXP, Ogre::ColourValue(0.5, 0.5, 0.5), Ogre::Real(0.005));

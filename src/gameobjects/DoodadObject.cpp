@@ -21,6 +21,8 @@ bool DoodadObject::contains(const OIS::MouseEvent &evt) {
     return false;
 } // contains
 
+void DoodadObject::keyPressed(const OIS::KeyEvent &arg) {}
+
 void DoodadObject::mouseMoved(const OIS::MouseEvent &evt) {
 } // mouseMoved
 

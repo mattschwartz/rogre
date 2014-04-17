@@ -3,6 +3,7 @@
  *  http://www.ogre3d.org/tikiwiki/
  */
 #include "BaseApplication.h"
+#include "src/gameobjects/ObjectManager.h"
 #include "src/sound/SoundManager.h"
 #include "src/sound/SoundEffect.h"
 
@@ -398,14 +399,10 @@ bool BaseApplication::keyPressed( const OIS::KeyEvent &arg )
     {
         SoundManager::getInstance().toggleSound();
     }
-    else if (arg.key == OIS::KC_S || arg.key == OIS::KC_W) 
-    {
-        SoundManager::getInstance().PLAYER_FOOTSTEP_SOUND->loop(1);
+
+    if (arg.key == OIS::KC_W || arg.key == OIS::KC_A || arg.key == OIS::KC_S || arg.key == OIS::KC_D) {
+        ObjectManager::getInstance().keyPressed(arg);
         return true;
-    }
-    else if (arg.key == OIS::KC_A) 
-    {
-        SoundManager::getInstance().MENU_SELECT_SOUND->play();
     }
 
     mCameraMan->injectKeyDown(arg);
