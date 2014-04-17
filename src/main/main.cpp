@@ -9,6 +9,8 @@
 #include "main.h"
 #include "src/gameobjects/RoomObject.h"
 #include "src/gameobjects/ObjectManager.h"
+#include "src/sound/SoundManager.h"
+#include "src/sound/SoundEffect.h"
 
 /**
  * Data
@@ -21,6 +23,8 @@ MainApplication::~MainApplication() {
 
 void MainApplication::createScene() {
     ObjectManager::getInstance().init(mSceneMgr, mCamera);
+    SoundManager::getInstance().init();
+    SoundManager::getInstance().AMBIANCE_RUMBLE_SOUND->loop(-1);
 
     RoomObject *ro = new RoomObject(0, 75, 15, 10, Ogre::Vector3(0, 0, 0));
     RoomObject *ro2 = new RoomObject(1, 15, 75, 10, Ogre::Vector3(75/2 + 8, 0, 0));

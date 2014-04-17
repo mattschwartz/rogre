@@ -7,13 +7,6 @@
 #include <stdexcept>
 #include <stdlib.h>
 
-/**
- * Defines
- */
-
-/**
- * Forward declarations
- */
 class Player;
 class Zone;
 
