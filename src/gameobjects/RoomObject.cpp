@@ -1,9 +1,11 @@
 /**
  * Included files
  */
+#include "ObjectManager.h"
 #include "RoomObject.h"
 #include "src/world/Room.h"
 #include "src/utility/MathHelper.h"
+#include "src/utility/StringHelper.h"
 
 /**
  * Data
@@ -29,6 +31,24 @@ RoomObject::RoomObject(int id, Room *room, struct Dimension d, Ogre::Vector3 pos
     this->dimensions = d;
     init();
 } // constructor
+
+RoomObject::~RoomObject() {
+	int index = 0;
+
+	for (int id : idList) {
+		if (this->id == id) {
+			idList.erase(idList.begin() + index);
+			break;
+		}
+		index++;
+	} // for
+
+	// Remove entities
+	ObjectManager::getInstance().destroyEntity("");
+
+	// Remove scene nodes
+	ObjectManager::getInstance().destroySceneNode("");
+} // destructor
 
 void RoomObject::checkId(int id) {
     if (!idList.empty() &&
@@ -60,16 +80,18 @@ void RoomObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera
     createMeshes();
 
     // Create plane entities
-    Ogre::Entity *floorEntity = sceneMgr.createEntity("FloorEntity" + id, "floor" + id);
-    Ogre::Entity *wall1Entity = sceneMgr.createEntity("Wall1Entity" + id, "wall1" + id);
-    Ogre::Entity *wall2Entity = sceneMgr.createEntity("Wall2Entity" + id, "wall2" + id);
-    Ogre::Entity *wall3Entity = sceneMgr.createEntity("Wall3Entity" + id, "wall3" + id);
-    Ogre::Entity *wall4Entity = sceneMgr.createEntity("Wall4Entity" + id, "wall4" + id);
-    Ogre::SceneNode *floorNode = sceneMgr.getRootSceneNode()->createChildSceneNode("FloorNode" + id);
-    Ogre::SceneNode *wall1Node = sceneMgr.getRootSceneNode()->createChildSceneNode("Wall1Node" + id);
-    Ogre::SceneNode *wall2Node = sceneMgr.getRootSceneNode()->createChildSceneNode("Wall2Node" + id);
-    Ogre::SceneNode *wall3Node = sceneMgr.getRootSceneNode()->createChildSceneNode("Wall3Node" + id);
-    Ogre::SceneNode *wall4Node = sceneMgr.getRootSceneNode()->createChildSceneNode("Wall4Node" + id);
+	using namespace StringHelper;
+
+    Ogre::Entity *floorEntity = sceneMgr.createEntity(concat<int>("FloorEntity", id), concat<int>("floor", id));
+    Ogre::Entity *wall1Entity = sceneMgr.createEntity(concat<int>("Wall1Entity", id), concat<int>("wall1", id));
+    Ogre::Entity *wall2Entity = sceneMgr.createEntity(concat<int>("Wall2Entity", id), concat<int>("wall2", id));
+    Ogre::Entity *wall3Entity = sceneMgr.createEntity(concat<int>("Wall3Entity", id), concat<int>("wall3", id));
+    Ogre::Entity *wall4Entity = sceneMgr.createEntity(concat<int>("Wall4Entity", id), concat<int>("wall4", id));
+    floorNode = sceneMgr.getRootSceneNode()->createChildSceneNode(concat<int>("FloorNode", id));
+    wallNodes[0] = sceneMgr.getRootSceneNode()->createChildSceneNode(concat<int>("Wall1Node", id));
+    wallNodes[1] = sceneMgr.getRootSceneNode()->createChildSceneNode(concat<int>("Wall2Node", id));
+    wallNodes[2] = sceneMgr.getRootSceneNode()->createChildSceneNode(concat<int>("Wall3Node", id));
+    wallNodes[3] = sceneMgr.getRootSceneNode()->createChildSceneNode(concat<int>("Wall4Node", id));
 
     // Meshes
     floorEntity->setMaterialName("Examples/Floor");
@@ -85,19 +107,15 @@ void RoomObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera
     wall3Entity->setCastShadows(true);
     wall4Entity->setCastShadows(true);
 
-    floorNode->setPosition(this->position.x, this->position.y - dimensions.height / 2, this->position.z);
-
-    wall1Node->setPosition(this->position.x -dimensions.width / 2, this->position.y, this->position.z);
-    wall2Node->setPosition(this->position.x + dimensions.width / 2, this->position.y, this->position.z);
-    wall3Node->setPosition(this->position.x, this->position.y, this->position.z - dimensions.depth / 2);
-    wall4Node->setPosition(this->position.x, this->position.y, this->position.z + dimensions.depth / 2);
+	// Set position
+	setPosition(position);
 
     // Attach them to nodes
     floorNode->attachObject(floorEntity);
-    wall1Node->attachObject(wall1Entity);
-    wall2Node->attachObject(wall2Entity);
-    wall3Node->attachObject(wall3Entity);
-    wall4Node->attachObject(wall4Entity);
+    wallNodes[0]->attachObject(wall1Entity);
+    wallNodes[1]->attachObject(wall2Entity);
+    wallNodes[2]->attachObject(wall3Entity);
+    wallNodes[3]->attachObject(wall4Entity);
 } // createScene
 
 /**
@@ -105,9 +123,9 @@ void RoomObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera
  */
 void RoomObject::createLights(Ogre::SceneManager &sceneMgr) {
     Ogre::Light *pointLight;
+	using namespace StringHelper;
 
-
-    pointLight = sceneMgr.createLight("pointLight" + id);
+    pointLight = sceneMgr.createLight(concat<int>("pointLight", id));
 
     pointLight->setType(Ogre::Light::LT_POINT);
     pointLight->setPosition(position.x + 0, position.y + getHeight() / 2 - 1, position.z + 0);
@@ -119,25 +137,27 @@ void RoomObject::createLights(Ogre::SceneManager &sceneMgr) {
  * Create the meshes for the 6 planes of the room
  */
 void RoomObject::createMeshes() {
-    Ogre::MeshManager::getSingleton().createPlane("floor" + id, 
+	using namespace StringHelper;
+
+    Ogre::MeshManager::getSingleton().createPlane(concat<int>("floor", id), 
         Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, *floor, 
         dimensions.width, dimensions.depth, 1, 1, true, 1, MathHelper::max<float>(1, 
         dimensions.width / dimensions.height), MathHelper::max<float>(1, 
         dimensions.depth / dimensions.height), Ogre::Vector3::UNIT_Z);
     
-    Ogre::MeshManager::getSingleton().createPlane("wall1" + id, 
+    Ogre::MeshManager::getSingleton().createPlane(concat<int>("wall1", id), 
         Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, *walls[0], 
         dimensions.depth, dimensions.height, 1, 1, true, 1, MathHelper::max<float>(1, 
         dimensions.depth / dimensions.height), 1, Ogre::Vector3::UNIT_Y);
-    Ogre::MeshManager::getSingleton().createPlane("wall2" + id, 
+    Ogre::MeshManager::getSingleton().createPlane(concat<int>("wall2", id), 
         Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, *walls[1], 
         dimensions.depth, dimensions.height, 1, 1, true, 1, MathHelper::max<float>(1, 
         dimensions.depth / dimensions.height), 1, Ogre::Vector3::UNIT_Y);
-    Ogre::MeshManager::getSingleton().createPlane("wall3" + id, 
+    Ogre::MeshManager::getSingleton().createPlane(concat<int>("wall3", id), 
         Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, *walls[2], 
         dimensions.width, dimensions.height, 1, 1, true, 1, MathHelper::max<float>(1, 
         dimensions.width / dimensions.height), 1, Ogre::Vector3::UNIT_Y);
-    Ogre::MeshManager::getSingleton().createPlane("wall4" + id, 
+    Ogre::MeshManager::getSingleton().createPlane(concat<int>("wall4", id), 
         Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, *walls[3], 
         dimensions.width, dimensions.height, 1, 1, true, 1, MathHelper::max<float>(1, 
         dimensions.width / dimensions.height), 1, Ogre::Vector3::UNIT_Y);
@@ -155,13 +175,23 @@ float RoomObject::getHeight() {
     return dimensions.height;
 } // getHeight
 
+struct Bounds RoomObject::getBounds() { 
+	struct Bounds bounds;
+	
+	bounds.xStart = position.x;
+	bounds.yStart = position.y;
+	bounds.zStart = position.z;
+
+	bounds.xEnd = bounds.xStart + dimensions.width;
+	bounds.yEnd = bounds.yStart + dimensions.height;
+	bounds.zEnd = bounds.zStart + dimensions.depth;
+
+	return bounds;
+} // getBounds
+
 struct Dimension RoomObject::getDimensions() {
     return this->dimensions;
 } // getDimensions
-
-void RoomObject::setDimensions(struct Dimension d) {
-    this->dimensions = d;
-} // setDimensions
 
 Ogre::Vector3 RoomObject::getPosition() {
     return this->position;
@@ -169,7 +199,25 @@ Ogre::Vector3 RoomObject::getPosition() {
 
 void RoomObject::setPosition(Ogre::Vector3 pos) {
     this->position = pos;
+
+    floorNode->setPosition(this->position.x + dimensions.width / 2, this->position.y, this->position.z + dimensions.depth / 2);
+
+	wallNodes[0]->setPosition(this->position.x, this->position.y + dimensions.height / 2, this->position.z + dimensions.depth / 2);
+    wallNodes[1]->setPosition(this->position.x + dimensions.width, this->position.y + dimensions.height / 2, this->position.z + dimensions.depth / 2);
+    wallNodes[2]->setPosition(this->position.x + dimensions.width / 2, this->position.y + dimensions.height / 2, this->position.z);
+    wallNodes[3]->setPosition(this->position.x + dimensions.width / 2, this->position.y + dimensions.height / 2, this->position.z + dimensions.depth);
 } // setPosition
+
+bool RoomObject::overlaps(struct Bounds rectB) {
+	struct Bounds rectA = getBounds();
+
+	if (rectA.xStart < rectB.xEnd && rectA.xEnd > rectB.xStart &&
+		rectA.zStart < rectB.zEnd && rectA.zEnd > rectB.zStart) {
+		return true;
+	} // if
+
+	return false;
+} // containsPoint
 
 bool RoomObject::contains(const OIS::MouseEvent &evt) {
     return false;

@@ -21,6 +21,14 @@ void ObjectManager::init(Ogre::SceneManager *sceneMgr, Ogre::Camera *camera) {
     this->camera = camera;
 } // init
 
+void ObjectManager::destroyEntity(std::string name) {
+	sceneManager->destroyEntity(name);
+} // destroyEntity
+
+void ObjectManager::destroySceneNode(std::string name) {
+	sceneManager->destroySceneNode(name);
+} // destroySceneNode
+
 /**
  * Spawns the specified object within the game world. This object is stored
  * in a list and updated when the game has a rendered frame. All objects in

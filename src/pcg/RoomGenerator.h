@@ -13,6 +13,10 @@
 #include "src/gameobjects/ObjectManager.h"
 
 #define DEFAULT_ROOM_HEIGHT 15
+#define MIN_ROOM_WIDTH 10
+#define MIN_ROOM_DEPTH MIN_ROOM_WIDTH
+#define MAX_ROOM_WIDTH 50
+#define MAX_ROOM_DEPTH MAX_ROOM_WIDTH
 
 /**
  * Data
@@ -29,7 +33,7 @@ public:
         return instance;
     } // getInstance
 
-    Room *generate(int roomId, int zoneLevel, float x, float z, 
+    Room *generate(int zoneLevel, float x, float z, 
 		float width, float depth) {
         bool done;
         Room *r;
@@ -38,7 +42,7 @@ public:
         Doodad *d;
 
         r = new Room(zoneLevel, width, depth);
-        done = false;
+        done = true;
 
         while (!done) {
             e = new SkeletonEntity(zoneLevel, "monster1");

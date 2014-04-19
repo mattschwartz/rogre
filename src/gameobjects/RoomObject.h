@@ -28,9 +28,21 @@ private:
 public:
     Ogre::Plane *floor;
     Ogre::Plane *walls[4];
+	Ogre::SceneNode *floorNode;
+	Ogre::SceneNode *wallNodes[4];
 
     RoomObject(int id, Room *room, float width, float depth, float height, Ogre::Vector3 pos);
     RoomObject(int id, Room *room, struct Dimension d, Ogre::Vector3 pos);
+	~RoomObject();
+	bool overlaps(struct Bounds rectB);
+    float getWidth();
+    float getDepth();
+    float getHeight();
+	struct Bounds getBounds();
+    struct Dimension getDimensions();
+    Ogre::Vector3 getPosition();
+    void setPosition(Ogre::Vector3 pos);
+
     void createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera);
     void update(const Ogre::FrameEvent &evt);
     bool contains(const OIS::MouseEvent &evt);
@@ -38,13 +50,6 @@ public:
     void mouseMoved(const OIS::MouseEvent &evt);
     void mousePressed(const OIS::MouseEvent &evt, OIS::MouseButtonID id);
     void mouseReleased(const OIS::MouseEvent &evt, OIS::MouseButtonID id);
-    float getWidth();
-    float getDepth();
-    float getHeight();
-    struct Dimension getDimensions();
-    void setDimensions(struct Dimension d);
-    Ogre::Vector3 getPosition();
-    void setPosition(Ogre::Vector3 pos);
 
 };
 

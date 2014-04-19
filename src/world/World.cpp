@@ -50,10 +50,12 @@ void World::playerQuit() {
  * and thus one level more difficult.
  */
 void World::loadZone() {
-    delete currentZone;
-    currentZoneLevel++;
+    if (currentZone != NULL) {
+		delete currentZone;
+		currentZoneLevel++;
+	} // if
 
-    currentZone = ZoneGenerator::getInstance().generate(0, currentZoneLevel, 5);
+    currentZone = ZoneGenerator::getInstance().generate(4897, currentZoneLevel, 15);
 } // loadZone
 
 int World::getZoneLevel() {

@@ -17,6 +17,15 @@ struct Dimension {
     float height;
 };
 
+struct Bounds {
+	float xStart;
+	float yStart;
+	float zStart;
+	float xEnd;
+	float yEnd;
+	float zEnd;
+};
+
 /**
  * Data
  */
