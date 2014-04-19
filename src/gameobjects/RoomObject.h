@@ -10,6 +10,8 @@
 
 static std::vector<int> idList;
 
+class Room;
+
 /**
  * Data
  */
@@ -17,17 +19,18 @@ class RoomObject : public GameObject {
 private:
     int id;
     struct Dimension dimensions;
-    Ogre::Plane *floor;
-    Ogre::Plane *walls[4];
+	Room *room;
     void checkId(int id);
     void init();
 	void createLights(Ogre::SceneManager &sceneMgr);
     void createMeshes();
 
-
 public:
-    RoomObject(int id, float width, float depth, float height, Ogre::Vector3 pos);
-    RoomObject(int id, struct Dimension d, Ogre::Vector3 pos);
+    Ogre::Plane *floor;
+    Ogre::Plane *walls[4];
+
+    RoomObject(int id, Room *room, float width, float depth, float height, Ogre::Vector3 pos);
+    RoomObject(int id, Room *room, struct Dimension d, Ogre::Vector3 pos);
     void createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera);
     void update(const Ogre::FrameEvent &evt);
     bool contains(const OIS::MouseEvent &evt);

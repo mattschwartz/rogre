@@ -37,8 +37,8 @@ void MainApplication::createScene() {
     mCamera->lookAt(0, 0, 0);
     
     // debug stuff
-    RoomObject *ro = new RoomObject(0, 75, 15, 10, Ogre::Vector3(0, 5, 0));
-    RoomObject *ro2 = new RoomObject(1, 15, 75, 10, Ogre::Vector3(75/2 + 8, 5, 0));
+    RoomObject *ro = new RoomObject(0, NULL, 75, 15, 10, Ogre::Vector3(0, 5, 0));
+    RoomObject *ro2 = new RoomObject(1, NULL, 15, 75, 10, Ogre::Vector3(75/2 + 8, 5, 0));
 
     World::getInstance().setCurrentPlayer(new Player(1, "test player"));
     World::getInstance().spawnCurrentPlayer(0, 0, 0);

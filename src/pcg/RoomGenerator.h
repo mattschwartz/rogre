@@ -9,6 +9,10 @@
 #include "src/entities/Entity.h"
 #include "src/entities/monsters/SkeletonEntity.h"
 #include "src/items/Item.h"
+#include "src/gameobjects/RoomObject.h"
+#include "src/gameobjects/ObjectManager.h"
+
+#define DEFAULT_ROOM_HEIGHT 15
 
 /**
  * Data
@@ -25,14 +29,15 @@ public:
         return instance;
     } // getInstance
 
-    Room *generate(int seed, int zoneLevel, float x, float z, float width, float depth) {
+    Room *generate(int roomId, int zoneLevel, float x, float z, 
+		float width, float depth) {
         bool done;
         Room *r;
         Entity *e;
         Item *i;
         Doodad *d;
 
-        r = new Room(zoneLevel, x, z, width, depth);
+        r = new Room(zoneLevel, width, depth);
         done = false;
 
         while (!done) {
@@ -47,7 +52,7 @@ public:
             done = true;
         } // while
 
-        return r;
+		return r;
     } // generate
 };
 

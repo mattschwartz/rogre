@@ -10,9 +10,7 @@
 /**
  * Data
  */
-Room::Room(int monsterLevel, float x, float z, float width, float depth) {
-    this->x = x;
-    this->z = z;
+Room::Room(int monsterLevel, float width, float depth) {
     this->monsterLevel = monsterLevel;
     this->width = width;
     this->depth = depth;
