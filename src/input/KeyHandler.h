@@ -26,24 +26,25 @@ public:
 		//keys.insert(std::make_pair(OIS::KC_C, &openAttributes));
 		//keys.insert(std::make_pair(OIS::KC_F12, &toggleSound));
 		
-		keys[OIS::KC_I] = &openInventory;
-		keys[OIS::KC_C] = &openAttributes;
-		keys[OIS::KC_F12] = &toggleSound;
+		//keys[OIS::KC_I] = &openInventory;
+		//keys[OIS::KC_C] = &openAttributes;
+		//keys[OIS::KC_F12] = &toggleSound;
 	} // init
 
 	void invoke(OIS::KeyCode c) {
 		using namespace KeyMap;
 
-		func f = keys[c];
-		(*f)();
-
-		/*
-		key_map::iterator iter = keys.find(c);
-
-		if (iter != keys.end()) {
-			((iter->second))();
-		} // if
-		*/
+		switch (c) {
+		case OIS::KC_I:
+			openInventory();
+			break;
+		case OIS::KC_C:
+			openAttributes();
+			break;
+		case OIS::KC_F12:
+			toggleSound();
+			break;
+		}
 	} // invoke
 };
 

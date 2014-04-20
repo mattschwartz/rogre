@@ -6,6 +6,11 @@ namespace MathHelper {
     static Type max(Type a, Type b) {
         return a > b ? a : b;
     }
+
+	template <typename Type>
+	static Type min(Type a, Type b) {
+		return a < b ? a : b;
+	}
 };
 
 #endif

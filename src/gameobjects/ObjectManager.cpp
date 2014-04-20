@@ -1,6 +1,7 @@
 /** 
  * Included files
  */
+#include "src/utility/MathHelper.h"
 #include "ObjectManager.h"
 #include "GameObject.h"
 
@@ -72,7 +73,22 @@ void ObjectManager::keyPressed(const OIS::KeyEvent &arg) {
 } // keyPressed
 
 void ObjectManager::mouseMoved(const OIS::MouseEvent &evt) {
-}
+	if (evt.state.Z.rel > 0) {
+		Ogre::Vector3 oldpos = camera->getPosition();
+		oldpos.y = MathHelper::max<Ogre::Real>(15, oldpos.y - 5);
+		oldpos.z = MathHelper::max<Ogre::Real>(15, oldpos.z - 5);
+		camera->setPosition(oldpos);
+	} // if
+	else if (evt.state.Z.rel < 0) {
+		Ogre::Vector3 oldpos = camera->getPosition();
+		oldpos.y = MathHelper::min<Ogre::Real>(45, oldpos.y + 5);
+		oldpos.z = MathHelper::min<Ogre::Real>(45, oldpos.z + 5);
+		camera->setPosition(oldpos);
+	}
+	for (GameObject *o : objects) {
+		o->mouseMoved(evt);
+	} // for
+} // mouseMoved
 
 void ObjectManager::mousePressed(const OIS::MouseEvent &evt, OIS::MouseButtonID id) {
 	for (GameObject *o : objects) {
