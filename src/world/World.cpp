@@ -28,7 +28,6 @@ void World::setCurrentPlayer(Player *player) {
     } // if
     else {
         this->currentPlayer = player;
-
     } // else
 } // setCurrentPlayer
 
@@ -55,7 +54,7 @@ void World::loadZone() {
 		currentZoneLevel++;
 	} // if
 
-    currentZone = ZoneGenerator::getInstance().generate(4897, currentZoneLevel, 15);
+    currentZone = ZoneGenerator::getInstance().generate(time(NULL), currentZoneLevel, 15);
 } // loadZone
 
 int World::getZoneLevel() {

@@ -1,10 +1,13 @@
 /**
  * Included files
  */
+#include "src/world/World.h"
+#include "src/world/Zone.h"
 #include "PlayerObject.h"
 #include "src/entities/player/Player.h"
 #include "src/sound/SoundManager.h"
 #include "src/sound/SoundEffect.h"
+#include "src/utility/StringHelper.h"
 
 PlayerObject::PlayerObject(Player *player, float x, float y, float z) : GameObject(Ogre::Vector3(x, y, z)) {
     this->player = player;
@@ -27,11 +30,12 @@ void PlayerObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *came
     playerNode->setPosition(position);
 
     mDirection = Ogre::Vector3::ZERO;
-    mWalkSpeed = 5.0f;
+    mWalkSpeed = 8.0f;
     mAnimationState = playerEntity->getAnimationState("Idle2");
     mAnimationState->setLoop(true);
     mAnimationState->setEnabled(true);
     this->camera = camera;
+	this->rayScnQuery = sceneMgr.createRayQuery(Ogre::Ray());
 } // createObject
 
 void PlayerObject::update(const Ogre::FrameEvent &evt) {
@@ -119,34 +123,53 @@ bool PlayerObject::contains(const OIS::MouseEvent &evt) {
 } // contains
 
 void PlayerObject::keyPressed(const OIS::KeyEvent &arg) {
-    float moveAmount = 5;
-    Ogre::Vector3 walkToLocation = playerNode->getPosition();
+ //   float moveAmount = 5;
+ //   Ogre::Vector3 walkToLocation = playerNode->getPosition();
 
-    switch (arg.key) {
-        case OIS::KC_W:
-            walkToLocation.z -= moveAmount;
-            break;
-        case OIS::KC_A:
-            walkToLocation.x -= moveAmount;
-            break;
-        case OIS::KC_S:
-            walkToLocation.z += moveAmount;
-            break;
-        case OIS::KC_D:
-            walkToLocation.x += moveAmount;
-            break;
-    } // switch-case
-    
-    mDirection = Ogre::Vector3::ZERO;
-    mDistance = 0;
-    walkList.clear();
-    walkList.push_back(walkToLocation);
+ //   switch (arg.key) {
+ //       case OIS::KC_W:
+ //           walkToLocation.z -= moveAmount;
+ //           break;
+ //       case OIS::KC_A:
+ //           walkToLocation.x -= moveAmount;
+ //           break;
+ //       case OIS::KC_S:
+ //           walkToLocation.z += moveAmount;
+ //           break;
+ //       case OIS::KC_D:
+ //           walkToLocation.x += moveAmount;
+ //           break;
+ //   } // switch-case
+
+	//if (!World::getInstance().getCurrentZone()->containsPoint(walkToLocation)) {
+	//	walkToLocation = playerNode->getPosition();
+	//} // if
+ //   
+ //   mDirection = Ogre::Vector3::ZERO;
+ //   mDistance = 0;
+ //   walkList.clear();
+ //   walkList.push_back(walkToLocation);
 } // keyPressed
 
 void PlayerObject::mouseMoved(const OIS::MouseEvent &evt) {
 } // mouseMoved
 
 void PlayerObject::mousePressed(const OIS::MouseEvent &evt, OIS::MouseButtonID id) {
+	//find the current mouse position
+	float x = evt.state.X.abs;
+	float y = evt.state.Y.abs;
+ 
+	//then send a raycast straight out from the camera at the mouse's position
+	Ogre::Ray mouseRay = camera->getCameraToViewportRay(x/float(evt.state.width), y/float(evt.state.height));
+
+	Ogre::Vector3 point = World::getInstance().getCurrentZone()->getIntersectingPlane(mouseRay);
+
+	point.y = playerNode->getPosition().y;
+	
+	mDirection = Ogre::Vector3::ZERO;
+	mDistance = 0;
+	walkList.clear();
+	walkList.push_back(point);
 } // mousePresesd
 
 void PlayerObject::mouseReleased(const OIS::MouseEvent &evt, OIS::MouseButtonID id) {

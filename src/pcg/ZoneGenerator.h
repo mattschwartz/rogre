@@ -17,14 +17,13 @@ private:
 		float z2;
 		Ogre::Vector3 direction;
 	};
-	std::vector<RoomObject *> rooms;
 	std::vector<struct Wall> freeWalls;
 
     ZoneGenerator() {}
     ZoneGenerator(ZoneGenerator const&);
     void operator=(ZoneGenerator const&);
 
-	void spawnRoom(int roomId, Room *room, float x, float z, float width, 
+	void spawnRoom(int roomId, Zone *zone, Room *room, float x, float z, float width, 
 		float depth) {
 		struct Wall wall;
 		RoomObject *ro = new RoomObject(roomId, room, width, depth, 
@@ -58,10 +57,10 @@ private:
 		freeWalls.push_back(wall);
 
 		ObjectManager::getInstance().spawnObject(ro);
-		rooms.push_back(ro);
+		zone->rooms.push_back(ro);
 	} // addRoom
 
-	bool overlaps(float x, float z, float width, float depth) {
+	bool overlaps(Zone *zone, float x, float z, float width, float depth) {
 		struct Bounds bounds;
 
 		bounds.xStart = x;
@@ -69,7 +68,7 @@ private:
 		bounds.xEnd = x + width;
 		bounds.zEnd = z + depth;
 
-		for (RoomObject *r : rooms) {
+		for (RoomObject *r : zone->rooms) {
 			if (r->overlaps(bounds)) {
 				return true;
 			} // if
@@ -92,7 +91,6 @@ public:
         Room *r;
         Zone *zone = new Zone(monsterLevel);
 		struct Wall wall;
-		struct Bounds newRoomBounds;
         srand(seed);
 
         x = 0.0f;
@@ -102,9 +100,8 @@ public:
 
         r = RoomGenerator::getInstance().generate(zone->zoneLevel, x, z,
             width, depth);
-        zone->rooms.push_back(r);
 
-		spawnRoom(0, r, x, z, width, depth);
+		spawnRoom(0, zone, r, x, z, width, depth);
 
         for (int i = 1; i < numRooms; i++) {
 			if (!freeWalls.empty()) {
@@ -125,15 +122,14 @@ public:
 				x -= width;
 			}
 
-			if (overlaps(x, z, width, depth)) {
+			if (overlaps(zone, x, z, width, depth)) {
 				continue;
 			} // if
 
             r = RoomGenerator::getInstance().generate(zone->zoneLevel, x, z,
                 width, depth);
-            zone->rooms.push_back(r);
 
-			spawnRoom(i, r, x, z, width, depth);
+			spawnRoom(i, zone, r, x, z, width, depth);
 		} // for
 
         return zone;

@@ -34,6 +34,7 @@ public:
     RoomObject(int id, Room *room, float width, float depth, float height, Ogre::Vector3 pos);
     RoomObject(int id, Room *room, struct Dimension d, Ogre::Vector3 pos);
 	~RoomObject();
+	bool containsPoint(Ogre::Vector3 point);
 	bool overlaps(struct Bounds rectB);
     float getWidth();
     float getDepth();

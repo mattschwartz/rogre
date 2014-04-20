@@ -208,6 +208,13 @@ void RoomObject::setPosition(Ogre::Vector3 pos) {
     wallNodes[3]->setPosition(this->position.x + dimensions.width / 2, this->position.y + dimensions.height / 2, this->position.z + dimensions.depth);
 } // setPosition
 
+bool RoomObject::containsPoint(Ogre::Vector3 point) {
+	struct Bounds bounds = getBounds();
+
+	return point.x >= bounds.xStart && point.x <= bounds.xEnd &&
+		point.z >= bounds.zStart && point.z <= bounds.zEnd;
+} // containsPoint
+
 bool RoomObject::overlaps(struct Bounds rectB) {
 	struct Bounds rectA = getBounds();
 

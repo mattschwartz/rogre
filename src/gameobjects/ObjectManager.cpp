@@ -75,7 +75,10 @@ void ObjectManager::mouseMoved(const OIS::MouseEvent &evt) {
 }
 
 void ObjectManager::mousePressed(const OIS::MouseEvent &evt, OIS::MouseButtonID id) {
-}
+	for (GameObject *o : objects) {
+		o->mousePressed(evt, id);
+	} // for
+} // mousePressed
 
 void ObjectManager::mouseReleased(const OIS::MouseEvent &evt, OIS::MouseButtonID id) {
 }

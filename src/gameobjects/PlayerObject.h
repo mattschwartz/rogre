@@ -14,6 +14,7 @@ class Player;
 class PlayerObject : public GameObject {
 private:
     Player *player;
+	Ogre::RaySceneQuery* rayScnQuery;
     Ogre::Vector3 mDirection;
     Ogre::Real mWalkSpeed;
     Ogre::Vector3 mDestination;
