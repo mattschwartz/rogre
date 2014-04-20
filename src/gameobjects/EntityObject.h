@@ -7,16 +7,21 @@
 #include "src/gameobjects/GameObject.h"
 
 class Entity;
+static int entityCount = 0;
 
 /**
  * Data
  */
 class EntityObject : public GameObject {
 private:
+	int id;
     Entity *entity;
+	Ogre::Entity *entityEntity;
+	Ogre::SceneNode *entityNode;
+    Ogre::AnimationState *mAnimationState;
 
 public:
-    EntityObject(Entity *entity, float x, float y, float z);
+    EntityObject(Entity *entity, float x, float z);
     EntityObject(Entity *entity, Ogre::Vector3 pos);
     void createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera);
     void update(const Ogre::FrameEvent &evt);

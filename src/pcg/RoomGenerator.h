@@ -9,6 +9,7 @@
 #include "src/entities/Entity.h"
 #include "src/entities/monsters/SkeletonEntity.h"
 #include "src/items/Item.h"
+#include "src/gameobjects/EntityObject.h"
 #include "src/gameobjects/RoomObject.h"
 #include "src/gameobjects/ObjectManager.h"
 
@@ -35,23 +36,25 @@ public:
 
     Room *generate(int zoneLevel, float x, float z, 
 		float width, float depth) {
-        bool done;
+		float eX;
+		float eZ;
+        bool done = false;
         Room *r;
         Entity *e;
         Item *i;
         Doodad *d;
 
         r = new Room(zoneLevel, width, depth);
-        done = true;
 
         while (!done) {
             e = new SkeletonEntity(zoneLevel, "monster1");
             i = new Item(1, zoneLevel, 0, 1, "item1");
             d = new Doodad();
 
-            r->addMonster(e, 0, 0);
-            r->addLoot(i, 0, 0);
-            r->addDoodad(d, 0, 0);
+			eX = (rand() % (int)width) + x;
+			eZ = (rand() % (int)depth) + z;
+
+			ObjectManager::getInstance().spawnObject(new EntityObject(e, eX, eZ));
 
             done = true;
         } // while
