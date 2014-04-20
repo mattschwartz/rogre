@@ -17,9 +17,6 @@ Room::Room(int monsterLevel, float width, float depth) {
 } // constructor
 
 void Room::addMonster(Entity *monster, float x, float z) {
-    EntityObject *entityObject = new EntityObject(monster, x, 0, z);
-
-    this->monsters.push_back(entityObject);
 } // addMonster
 
 void Room::addLoot(Item *item, float x, float z) {

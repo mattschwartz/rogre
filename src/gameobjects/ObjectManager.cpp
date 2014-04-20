@@ -84,7 +84,7 @@ void ObjectManager::mouseMoved(const OIS::MouseEvent &evt) {
 		oldpos.y = MathHelper::min<Ogre::Real>(45, oldpos.y + 5);
 		oldpos.z = MathHelper::min<Ogre::Real>(45, oldpos.z + 5);
 		camera->setPosition(oldpos);
-	}
+	} // else if
 	for (GameObject *o : objects) {
 		o->mouseMoved(evt);
 	} // for
