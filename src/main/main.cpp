@@ -8,6 +8,7 @@
  */
 #include "main.h"
 #include "src/entities/player/Player.h"
+#include "src/input/KeyHandler.h"
 #include "src/gameobjects/ObjectManager.h"
 #include "src/gameobjects/RoomObject.h"
 #include "src/gameobjects/PlayerObject.h"
@@ -27,6 +28,8 @@ MainApplication::~MainApplication() {
 void MainApplication::createScene() {
     ObjectManager::getInstance().init(mSceneMgr, mCamera);
     SoundManager::getInstance().init();
+	KeyHandler::getInstance().init();
+
     SoundManager::getInstance().AMBIANCE_RUMBLE_SOUND->loop(-1);
     
     mSceneMgr->setAmbientLight(Ogre::ColourValue(0, 0, 0));

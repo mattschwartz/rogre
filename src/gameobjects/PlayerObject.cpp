@@ -80,7 +80,17 @@ void PlayerObject::move(const Ogre::FrameEvent &evt) {
             } // else
         } // if
         else {
+			Ogre::Vector3 oldPos = playerNode->getPosition();
             playerNode->translate(mDirection * move);
+			if (!World::getInstance().getCurrentZone()->containsPoint(playerNode->getPosition())) {
+				mDirection = Ogre::Vector3::ZERO;
+                mAnimationState = playerEntity->getAnimationState("Idle2");
+                mAnimationState->setLoop(true);
+                mAnimationState->setEnabled(true);
+				mDistance = 0;
+				walkList.clear();
+				playerNode->setPosition(oldPos);
+			} // if
             SoundManager::getInstance().PLAYER_FOOTSTEP_SOUND->play();
             Ogre::Vector3 campos = camera->getPosition();
             campos.x = playerNode->getPosition().x;

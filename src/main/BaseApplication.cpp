@@ -4,6 +4,7 @@
  */
 #include "BaseApplication.h"
 #include "src/gameobjects/ObjectManager.h"
+#include "src/input/KeyHandler.h"
 #include "src/sound/SoundManager.h"
 #include "src/sound/SoundEffect.h"
 
@@ -394,17 +395,11 @@ bool BaseApplication::keyPressed( const OIS::KeyEvent &arg )
     {
         mShutDown = true;
     }
-    else if (arg.key == OIS::KC_F12) 
-    {
-        SoundManager::getInstance().toggleSound();
-    }
+	else 
+	{
+		KeyHandler::getInstance().invoke(arg.key);
+	}
 
-    if (arg.key == OIS::KC_W || arg.key == OIS::KC_A || arg.key == OIS::KC_S || arg.key == OIS::KC_D) {
-        ObjectManager::getInstance().keyPressed(arg);
-        return true;
-    }
-
-    mCameraMan->injectKeyDown(arg);
     return true;
 }
 
