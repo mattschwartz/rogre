@@ -57,16 +57,22 @@ void PlayerObject::move(const Ogre::FrameEvent &evt) {
         Ogre::Real move = mWalkSpeed * evt.timeSinceLastFrame;
         mDistance -= move;
 
+        std::cout << mDistance << std::endl;
+
         if (mDistance <= 0.0f) {
+
             playerNode->setPosition(mDestination);
             mDirection = Ogre::Vector3::ZERO;
 
             if (!nextLocation()) {
+
                 mAnimationState = playerEntity->getAnimationState("Idle2");
                 mAnimationState->setLoop(true);
                 mAnimationState->setEnabled(true);
+
             } // if
             else {
+                
                 Ogre::Vector3 src = playerNode->getOrientation() * Ogre::Vector3::UNIT_X;
 
                 if ((1.0f + src.dotProduct(mDirection)) < 0.0001f) {
@@ -82,7 +88,7 @@ void PlayerObject::move(const Ogre::FrameEvent &evt) {
 			Ogre::Vector3 oldPos = playerNode->getPosition();
             playerNode->translate(mDirection * move);
 			if (!World::getInstance().getCurrentZone()->containsPoint(playerNode->getPosition())) {
-				mDirection = Ogre::Vector3::ZERO;
+                mDirection = Ogre::Vector3::ZERO;
                 mAnimationState = playerEntity->getAnimationState("Idle2");
                 mAnimationState->setLoop(true);
                 mAnimationState->setEnabled(true);
@@ -102,7 +108,8 @@ void PlayerObject::move(const Ogre::FrameEvent &evt) {
 } // move
 
 void PlayerObject::rotatePlayer() {
-    /*
+    
+
     Ogre::Vector3 src = playerNode->getOrientation() * Ogre::Vector3::UNIT_X;
     src.y = 0;
     mDirection.y = 0;
@@ -111,7 +118,8 @@ void PlayerObject::rotatePlayer() {
     Ogre::Quaternion quat = src.getRotationTo(mDirection);
 
     playerNode->rotate(quat);
-    */
+    playerNode->yaw(Ogre::Degree(-90));
+    
 } // rotate
 
 bool PlayerObject::nextLocation() {
@@ -135,6 +143,7 @@ void PlayerObject::keyPressed(const OIS::KeyEvent &arg) {
 } // keyPressed
 
 void PlayerObject::mouseMoved(const OIS::MouseEvent &evt) {
+    
 	if (false && evt.state.buttonDown(OIS::MB_Left)) {
 		//find the current mouse position
 		int x = evt.state.X.abs;
@@ -155,6 +164,7 @@ void PlayerObject::mouseMoved(const OIS::MouseEvent &evt) {
 } // mouseMoved
 
 void PlayerObject::mousePressed(const OIS::MouseEvent &evt, OIS::MouseButtonID id) {
+
 	//find the current mouse position
 	int x = evt.state.X.abs;
 	int y = evt.state.Y.abs;
