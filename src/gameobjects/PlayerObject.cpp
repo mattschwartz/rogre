@@ -99,7 +99,7 @@ void PlayerObject::move(const Ogre::FrameEvent &evt) {
             SoundManager::getInstance().PLAYER_FOOTSTEP_SOUND->play();
             Ogre::Vector3 campos = camera->getPosition();
             campos.x = playerNode->getPosition().x;
-            campos.z += playerNode->getPosition().z - initialPosition.z;
+            campos.z = playerNode->getPosition().z + campos.y;
             camera->setPosition(campos);
         } // else
     } // else

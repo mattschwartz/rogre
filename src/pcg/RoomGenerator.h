@@ -54,7 +54,7 @@ public:
 			eX = (rand() % (int)width) + x;
 			eZ = (rand() % (int)depth) + z;
 
-			ObjectManager::getInstance().spawnObject(new EntityObject(e, eX, eZ));
+			//ObjectManager::getInstance().spawnObject(new EntityObject(e, eX, eZ));
 
             done = true;
         } // while
