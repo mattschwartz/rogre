@@ -10,16 +10,21 @@ WORLD = ../src/world
 
 noinst_HEADERS = ../src/doodad/Doodad.h \
 				 ../src/entities/Entity.h \
-				 ../src/entities/monsters/SkeletonEntity.h \
 				 ../src/entities/player/Inventory.h \
 				 ../src/entities/player/Player.h \
+				 ../src/entities/monsters/SkeletonEntity.h \
 				 ../src/gameobjects/DoodadObject.h \
 				 ../src/gameobjects/EntityObject.h \
 				 ../src/gameobjects/GameObject.h \
-				 ../src/gameobjects/LootObject.h \ 
+				 ../src/gameobjects/LootObject.h \
 				 ../src/gameobjects/ObjectManager.h \
-				 ../src/gameobjects/PlayerObject.h \
 				 ../src/gameobjects/RoomObject.h \
+				 ../src/gameobjects/PlayerObject.h \
+				 ../src/items/Affix.h \
+				 ../src/items/Equippable.h \
+				 ../src/items/Item.h \
+				 ../src/main/BaseApplication.h \
+				 ../src/main/main.h \
 				 ../src/gui/AttributesPanel.h \
 				 ../src/gui/EquipmentPanel.h \
 				 ../src/gui/InventoryPanel.h \
@@ -27,50 +32,45 @@ noinst_HEADERS = ../src/doodad/Doodad.h \
 				 ../src/gui/MessageLogPanel.h \
 				 ../src/gui/Panel.h \
 				 ../src/gui/PlayerGUI.h \
-				 ../src/input/KeyHandler.h \
-				 ../src/items/Affix.h \
-				 ../src/items/Equippable.h \
-				 ../src/items/Item.h \
-				 ../src/main/BaseApplication.h \
-				 ../src/main/main.h \
-				 ../src/pcg/RoomGenerator.h \
-				 ../src/pcg/ZoneGenerator.h \
-				 ../src/sound/SoundEffect.h \
-				 ../src/sound/SoundManager.h \
 				 ../src/utility/Common.h \
 				 ../src/utility/ConsoleWriter.h \
-				 ../src/utility/KeyMap.h \
 				 ../src/utility/MathHelper.h \
+				 ../src/utility/KeyMap.h \
 				 ../src/utility/StringHelper.h \
 				 ../src/world/Room.h \
 				 ../src/world/World.h \
-				 ../src/world/Zone.h
+				 ../src/world/Zone.h \
+				 ../src/input/KeyHandler.h \
+				 ../src/pcg/RoomGenerator.h \
+				 ../src/pcg/ZoneGenerator.h \
+				 ../src/sound/SoundEffect.h \
+				 ../src/sound/SoundManager.h
 
 
 bin_PROGRAMS = rogue
 rogue_CPPFLAGS = -std=c++0x -I$(top_srcdir)/../
 rogue_SOURCES = ../src/doodad/Doodad.cpp \
 				../src/entities/Entity.cpp \
-				../src/entities/monsters/SkeletonEntity.cpp \
 				../src/entities/player/Inventory.cpp \
 				../src/entities/player/Player.cpp \
+				../src/entities/monsters/SkeletonEntity.cpp \
 				../src/gameobjects/DoodadObject.cpp \
 				../src/gameobjects/EntityObject.cpp \
-				../src/gameobjects/LootObject.cpp \
+				../src/gameobjects/LootObject.cpp \ 
 				../src/gameobjects/ObjectManager.cpp \
-				../src/gameobjects/PlayerObject.cpp \
 				../src/gameobjects/RoomObject.cpp \
-				../src/gui/MainMenu.cpp \
-				../src/input/KeyMap.cpp \
+				../src/gameobjects/PlayerObject.cpp \
 				../src/items/Equippable.cpp \
 				../src/items/Item.cpp \
 				../src/main/BaseApplication.cpp \
 				../src/main/main.cpp \
-				../src/sound/SoundEffect.cpp \
-				../src/sound/SoundManager.cpp \
+				../src/gui/MainMenu.cpp \
 				../src/world/Room.cpp \
 				../src/world/World.cpp \
-				../src/world/Zone.cpp
+				../src/world/Zone.cpp \
+				../src/input/KeyMap.cpp \
+				../src/sound/SoundEffect.cpp \
+				../src/sound/SoundManager.cpp
 
 
 rogue_CXXFLAGS = $(OGRE_CFLAGS) $(OIS_CFLAGS) $(SDL_CFLAGS) $(bullet_CFLAGS) $(SDLMIXER_CFLAGS) $(SDLNET_CFLAGS)
