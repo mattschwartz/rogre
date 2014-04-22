@@ -15,10 +15,24 @@ static int entityCount = 0;
 class EntityObject : public GameObject {
 private:
 	int id;
+    float range;
+    int bounceUp;
+    Ogre::Real snarlRate;
+    Ogre::Real lastSnarl;
     Entity *entity;
+    Ogre::Vector3 mDirection;
+    Ogre::Real mWalkSpeed;
+    Ogre::Vector3 mDestination;
+    Ogre::Real mDistance;
+    std::deque<Ogre::Vector3> walkList;
 	Ogre::Entity *entityEntity;
 	Ogre::SceneNode *entityNode;
     Ogre::AnimationState *mAnimationState;
+    void move(const Ogre::FrameEvent &evt);
+    bool nextLocation();
+    bool rangeCheck();
+    void rotateEntity();
+    void floater();
 
 public:
     EntityObject(Entity *entity, float x, float z);

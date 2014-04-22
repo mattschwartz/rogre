@@ -30,7 +30,7 @@ void PlayerObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *came
     playerNode->setPosition(position);
 
     mDirection = Ogre::Vector3::ZERO;
-    mWalkSpeed = 8.0f;
+    mWalkSpeed = 6.0f;
     mAnimationState = playerEntity->getAnimationState("Idle2");
     mAnimationState->setLoop(true);
     mAnimationState->setEnabled(true);
@@ -57,22 +57,16 @@ void PlayerObject::move(const Ogre::FrameEvent &evt) {
         Ogre::Real move = mWalkSpeed * evt.timeSinceLastFrame;
         mDistance -= move;
 
-        std::cout << mDistance << std::endl;
-
         if (mDistance <= 0.0f) {
-
             playerNode->setPosition(mDestination);
             mDirection = Ogre::Vector3::ZERO;
 
             if (!nextLocation()) {
-
                 mAnimationState = playerEntity->getAnimationState("Idle2");
                 mAnimationState->setLoop(true);
                 mAnimationState->setEnabled(true);
-
             } // if
             else {
-                
                 Ogre::Vector3 src = playerNode->getOrientation() * Ogre::Vector3::UNIT_X;
 
                 if ((1.0f + src.dotProduct(mDirection)) < 0.0001f) {
@@ -97,19 +91,17 @@ void PlayerObject::move(const Ogre::FrameEvent &evt) {
 				playerNode->setPosition(oldPos);
 			} // if
             SoundManager::getInstance().PLAYER_FOOTSTEP_SOUND->play();
-            Ogre::Vector3 campos = camera->getPosition();
-            campos.x = playerNode->getPosition().x;
-            campos.z = playerNode->getPosition().z + campos.y;
-            camera->setPosition(campos);
         } // else
     } // else
         
     mAnimationState->addTime(evt.timeSinceLastFrame);
+    Ogre::Vector3 campos = camera->getPosition();
+    campos.x = playerNode->getPosition().x;
+    campos.z = playerNode->getPosition().z + campos.y;
+    camera->setPosition(campos);
 } // move
 
 void PlayerObject::rotatePlayer() {
-    
-
     Ogre::Vector3 src = playerNode->getOrientation() * Ogre::Vector3::UNIT_X;
     src.y = 0;
     mDirection.y = 0;
@@ -119,8 +111,7 @@ void PlayerObject::rotatePlayer() {
 
     playerNode->rotate(quat);
     playerNode->yaw(Ogre::Degree(-90));
-    
-} // rotate
+} // rotatePlayer
 
 bool PlayerObject::nextLocation() {
     if (walkList.empty()) {
@@ -135,6 +126,10 @@ bool PlayerObject::nextLocation() {
     return true;
 } // nextLocation
 
+Ogre::Vector3 PlayerObject::getPosition() {
+    return playerNode->getPosition();
+} // getPosition
+
 bool PlayerObject::contains(const OIS::MouseEvent &evt) {
     return false;
 } // contains
@@ -143,7 +138,6 @@ void PlayerObject::keyPressed(const OIS::KeyEvent &arg) {
 } // keyPressed
 
 void PlayerObject::mouseMoved(const OIS::MouseEvent &evt) {
-    
 	if (false && evt.state.buttonDown(OIS::MB_Left)) {
 		//find the current mouse position
 		int x = evt.state.X.abs;
@@ -164,7 +158,6 @@ void PlayerObject::mouseMoved(const OIS::MouseEvent &evt) {
 } // mouseMoved
 
 void PlayerObject::mousePressed(const OIS::MouseEvent &evt, OIS::MouseButtonID id) {
-
 	//find the current mouse position
 	int x = evt.state.X.abs;
 	int y = evt.state.Y.abs;

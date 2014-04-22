@@ -29,6 +29,7 @@
 class BaseApplication : public Ogre::FrameListener, public Ogre::WindowEventListener, public OIS::KeyListener, public OIS::MouseListener, OgreBites::SdkTrayListener
 {
 public:
+    bool captureMouse;
     BaseApplication(void);
     virtual ~BaseApplication(void);
 

@@ -122,15 +122,17 @@ void RoomObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera
  * Sets up the lights for the room.
  */
 void RoomObject::createLights(Ogre::SceneManager &sceneMgr) {
-    Ogre::Light *pointLight;
-	using namespace StringHelper;
+    if (rand() % 100 < 10) {
+        Ogre::Light *pointLight;
+	    using namespace StringHelper;
 
-    pointLight = sceneMgr.createLight(concat<int>("pointLight", id));
+        pointLight = sceneMgr.createLight(concat<int>("pointLight", id));
 
-    pointLight->setType(Ogre::Light::LT_POINT);
-    pointLight->setPosition(position.x + 0, position.y + getHeight() / 2 - 1, position.z + 0);
-    pointLight->setDiffuseColour(0.3f, 0.3f, 0.3f);
-    pointLight->setSpecularColour(1.0f, 1.0f, 1.0f);
+        pointLight->setType(Ogre::Light::LT_POINT);
+        pointLight->setPosition(position.x + 0, position.y + getHeight() / 2 - 1, position.z + 0);
+        pointLight->setDiffuseColour(0.3f, 0.3f, 0.3f);
+        pointLight->setSpecularColour(1.0f, 1.0f, 1.0f);
+    } // if
 } // createLights
 
 /**

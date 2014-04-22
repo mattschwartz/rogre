@@ -16,6 +16,10 @@ Player *World::getCurrentPlayer() {
     return currentPlayer;
 } // getCurrentPlayer
 
+Ogre::Vector3 World::getPlayerPosition() {
+    return playerObject->getPosition();
+} // getPlayerPosition
+
 /**
  * Sets the current player to the provided argument. Only one player can be 
  * playing at once.
@@ -32,7 +36,7 @@ void World::setCurrentPlayer(Player *player) {
 } // setCurrentPlayer
 
 void World::spawnCurrentPlayer(float x, float y, float z) {
-    PlayerObject *playerObject = new PlayerObject(this->currentPlayer, x, y, z);
+    playerObject = new PlayerObject(this->currentPlayer, x, y, z);
     ObjectManager::getInstance().spawnObject(playerObject);
 } // spawnCurrentPlayer
 

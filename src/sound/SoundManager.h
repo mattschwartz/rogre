@@ -12,6 +12,10 @@ private:
 
 public:
     SoundEffect *PLAYER_FOOTSTEP_SOUND;
+    SoundEffect *MONSTER_BREATHING_1_SOUND;
+    SoundEffect *MONSTER_BREATHING_2_SOUND;
+    SoundEffect *MONSTER_BREATHING_3_SOUND;
+    SoundEffect *MONSTER_BREATHING_4_SOUND;
     SoundEffect *ATTACK_HIT_1_SOUND;
     SoundEffect *ATTACK_MISS_1_SOUND;
     SoundEffect *MENU_SELECT_SOUND;

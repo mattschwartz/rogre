@@ -11,6 +11,11 @@ namespace MathHelper {
 	static Type min(Type a, Type b) {
 		return a < b ? a : b;
 	}
+
+    template <typename Type>
+    static Type abs(Type a) {
+        return a > 0 ? a : -a;
+    }
 };
 
 #endif

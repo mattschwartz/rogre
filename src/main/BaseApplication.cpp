@@ -24,7 +24,8 @@ BaseApplication::BaseApplication(void)
     mShutDown(false),
     mInputManager(0),
     mMouse(0),
-    mKeyboard(0)
+    mKeyboard(0),
+    captureMouse(true)
 #if !USE_OGRE_LEGACY
 	,mOverlaySystem(0)
 #endif
@@ -277,11 +278,15 @@ bool BaseApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 #if USE_OGRE_LEGACY
     //Need to capture/update each device
     mKeyboard->capture();
-    mMouse->capture();
+    if (captureMouse) {
+        mMouse->capture();
+    } // if
 
 #else
     //Fix for 1.9
-    mInputContext.capture();
+    if (captureMouse) {
+        mInputContext.capture();
+    } // if
 #endif
 
     mTrayMgr->frameRenderingQueued(evt);
@@ -395,6 +400,10 @@ bool BaseApplication::keyPressed( const OIS::KeyEvent &arg )
     {
         mShutDown = true;
     }
+    else if (arg.key == OIS::KC_SPACE) 
+    {
+        captureMouse = !captureMouse;
+    }
 	else 
 	{
 		KeyHandler::getInstance().invoke(arg.key);
@@ -411,6 +420,10 @@ bool BaseApplication::keyReleased( const OIS::KeyEvent &arg )
 
 bool BaseApplication::mouseMoved( const OIS::MouseEvent &arg )
 {
+    if (!captureMouse) {
+        return true;
+    }
+
     if (mTrayMgr->injectMouseMove(arg)) return true;
 	ObjectManager::getInstance().mouseMoved(arg);
     return true;
@@ -418,6 +431,7 @@ bool BaseApplication::mouseMoved( const OIS::MouseEvent &arg )
 
 bool BaseApplication::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
+    captureMouse = true;
     if (mTrayMgr->injectMouseDown(arg, id)) return true;
 	ObjectManager::getInstance().mousePressed(arg, id);
     return true;
@@ -426,7 +440,6 @@ bool BaseApplication::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButton
 bool BaseApplication::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
     if (mTrayMgr->injectMouseUp(arg, id)) return true;
-    //mCameraMan->injectMouseUp(arg, id);
     return true;
 }
 

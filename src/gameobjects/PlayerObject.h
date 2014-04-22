@@ -25,12 +25,13 @@ private:
     Ogre::Camera *camera;
     void init();
     void move(const Ogre::FrameEvent &evt);
+    bool nextLocation();
     void rotatePlayer();
 
 public:
     PlayerObject(Player *player, float x, float y, float z);
     PlayerObject(Player *player, Ogre::Vector3 pos);
-    bool nextLocation();
+    Ogre::Vector3 getPosition();
 
     void createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera);
     void update(const Ogre::FrameEvent &evt);

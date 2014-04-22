@@ -4,10 +4,12 @@
 /**
  * Included files
  */
+#include <Ogre.h>
 #include <stdexcept>
 #include <stdlib.h>
 
 class Player;
+class PlayerObject;
 class Zone;
 
 /**
@@ -17,6 +19,7 @@ class World {
 private:
     int currentZoneLevel;
     Player *currentPlayer;
+    PlayerObject *playerObject;
     Zone *currentZone;
     World() {}
     World(World const&);
@@ -38,6 +41,7 @@ public:
     int getZoneLevel();
     void setZoneLevel(int zoneLevel);
     Player *getCurrentPlayer();
+    Ogre::Vector3 getPlayerPosition();
     void setCurrentPlayer(Player *player);
     Zone *getCurrentZone();
     void setCurrentZone(Zone *zone);
