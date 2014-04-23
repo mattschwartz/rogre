@@ -81,8 +81,8 @@ void ObjectManager::mouseMoved(const OIS::MouseEvent &evt) {
 	} // if
 	else if (evt.state.Z.rel < 0) {
 		Ogre::Vector3 oldpos = camera->getPosition();
-		oldpos.y = MathHelper::min<Ogre::Real>(999, oldpos.y + 5);
-		oldpos.z = MathHelper::min<Ogre::Real>(999, oldpos.z + 5);
+		oldpos.y = MathHelper::min<Ogre::Real>(45, oldpos.y + 5);
+		oldpos.z = MathHelper::min<Ogre::Real>(45, oldpos.z + 5);
 		camera->setPosition(oldpos);
 	} // else if
 	for (GameObject *o : objects) {
