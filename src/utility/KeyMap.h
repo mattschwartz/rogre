@@ -16,6 +16,7 @@ namespace KeyMap {
 	void openInventory(void);
 	void openAttributes(void);
 	void toggleSound(void);
+    void toggleOptionsMenu(void);
 };
 
 #endif

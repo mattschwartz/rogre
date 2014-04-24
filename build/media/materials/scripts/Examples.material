@@ -1804,3 +1804,18 @@ material Examples/Wall
 }
 
 
+material Examples/MainMenuBackground
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture main_menu_bg.jpg
+			}
+		}
+	}
+}
+
+

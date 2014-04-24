@@ -7,6 +7,8 @@
 #include "src/pcg/ZoneGenerator.h"
 #include "src/gameobjects/ObjectManager.h"
 #include "src/gameobjects/PlayerObject.h"
+#include "src/sound/SoundManager.h"
+#include "src/sound/SoundEffect.h"
 
 /**
  * 
@@ -59,6 +61,7 @@ void World::loadZone() {
 	} // if
 
     currentZone = ZoneGenerator::getInstance().generate(time(NULL), currentZoneLevel, 15);
+    SoundManager::getInstance().AMBIANCE_RUMBLE_SOUND->loop(-1);
 } // loadZone
 
 int World::getZoneLevel() {

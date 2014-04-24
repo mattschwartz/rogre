@@ -9,6 +9,7 @@
 
 class InputManager {
 private:
+    bool mShutDown;
     InputManager() {}
     InputManager(InputManager const&);
     void operator=(InputManager const&);
@@ -19,11 +20,14 @@ public:
         return instance;
     } // getInstance
     
+    void init();
     void keyPressed(const OIS::KeyEvent &arg);
     void keyReleased(const OIS::KeyEvent &arg);
     void mouseMoved(const OIS::MouseEvent &arg);
     void mousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id);
     void mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id);
+    void shutDown();
+    bool shouldShutDown();
 };
 
 #endif

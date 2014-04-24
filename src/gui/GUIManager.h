@@ -7,6 +7,12 @@
 #include "CEGUI/CEGUI.h"
 #include "CEGUI/RendererModules/Ogre/Renderer.h"
 
+class MainMenu;
+class NewPlayerMenu;
+class LoadPlayerMenu;
+class HiScoresMenu;
+class OptionsMenu;
+
 /**
  * Data
  */
@@ -16,16 +22,23 @@ private:
     GUIManager() {}
     GUIManager(GUIManager const&);
     void operator=(GUIManager const&);
+    void initCEGUI();
     void setResourceGroups();
     void setLookNFeel();
 
 public:
+    MainMenu *mainMenu;
+    NewPlayerMenu *newPlayerMenu;
+    LoadPlayerMenu *loadPlayerMenu;
+    HiScoresMenu *hiScoresMenu;
+    OptionsMenu *optionsMenu;
+
     static GUIManager &getInstance() {
         static GUIManager instance;
         return instance;
     } // getInstance
 
-    void initCEGUI();
+    void init();
 };
 
 #endif

@@ -21,7 +21,6 @@ BaseApplication::BaseApplication(void)
     mCameraMan(0),
     mDetailsPanel(0),
     mCursorWasVisible(false),
-    mShutDown(false),
     mInputManager(0),
     mMouse(0),
     mKeyboard(0),
@@ -235,6 +234,8 @@ bool BaseApplication::setup(void)
 
     createFrameListener();
 
+    InputManager::getInstance().init();
+
     return true;
 };
 //-------------------------------------------------------------------------------------
@@ -243,7 +244,7 @@ bool BaseApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
     if(mWindow->isClosed())
         return false;
 
-    if(mShutDown)
+    if(InputManager::getInstance().shouldShutDown())
         return false;
 
 #if USE_OGRE_LEGACY
@@ -271,10 +272,6 @@ bool BaseApplication::keyPressed( const OIS::KeyEvent &arg )
     if (arg.key == OIS::KC_SYSRQ)   // take a screenshot
     {
         mWindow->writeContentsToTimestampedFile("screenshot", ".jpg");
-    }
-    else if (arg.key == OIS::KC_ESCAPE)
-    {
-        mShutDown = true;
     }
 	else 
 	{

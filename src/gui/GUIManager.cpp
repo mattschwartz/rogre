@@ -4,9 +4,20 @@
 #include <Ogre.h>
 #include "GUIManager.h"
 #include "src/main/BaseApplication.h"
+#include "menu/MainMenu.h"
+#include "menu/NewPlayerMenu.h"
+#include "menu/OptionsMenu.h"
+
+void GUIManager::init() {
+    initCEGUI();
+    mainMenu = new MainMenu();
+    newPlayerMenu = new NewPlayerMenu();
+    optionsMenu = new OptionsMenu();
+} // init
 
 void GUIManager::initCEGUI() {
     using namespace CEGUI;
+
     mRenderer = &OgreRenderer::bootstrapSystem();
     WindowManager &windowManager = WindowManager::getSingleton();
 
