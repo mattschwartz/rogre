@@ -15,6 +15,8 @@
 #include "src/sound/SoundManager.h"
 #include "src/sound/SoundEffect.h"
 #include "src/world/World.h"
+#include "src/gui/GUIManager.h"
+#include "src/gui/menu/MainMenu.h"
 
 /**
  * Data
@@ -26,6 +28,8 @@ MainApplication::~MainApplication() {
 } // destructor
 
 void MainApplication::createScene() {
+    GUIManager::getInstance().initCEGUI();
+    MainMenu *mm = new MainMenu();
     ObjectManager::getInstance().init(mSceneMgr, mCamera);
     SoundManager::getInstance().init();
 	KeyHandler::getInstance().init();
@@ -36,9 +40,6 @@ void MainApplication::createScene() {
     mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
     mSceneMgr->setFog(Ogre::FOG_EXP, Ogre::ColourValue(0.25, 0.25, 0.25), Ogre::Real(0.025));
 
-    mCamera->setPosition(0, 15, 15);
-    mCamera->lookAt(0, 0, 0);
-    
     // debug stuff
     World::getInstance().setCurrentPlayer(new Player(1, "test player"));
 	World::getInstance().spawnCurrentPlayer(0, 0, 0);

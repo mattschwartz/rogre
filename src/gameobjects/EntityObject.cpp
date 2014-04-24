@@ -36,7 +36,7 @@ void EntityObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *came
     mDirection = Ogre::Vector3::ZERO;
     mWalkSpeed = 3.0f;
     lastSnarl = 0;
-    snarlRate = (rand() % 16) + 4;
+    snarlRate = Ogre::Real((rand() % 16) + 4);
     bounceUp = true;
 
     //mAnimationState = entityEntity->getAnimationState("Idle2");
@@ -145,9 +145,9 @@ void EntityObject::floater() {
     Ogre::Vector3 pos = entityNode->getPosition();
 
     if (bounceUp) {
-        pos.y += 0.02;
+        pos.y += Ogre::Real(0.02);
     } else {
-        pos.y -= 0.02;
+        pos.y -= Ogre::Real(0.02);
     }
 
     if (pos.y <= 0) {
