@@ -26,29 +26,41 @@ bool SoundManager::isSoundEnabled() {
     return soundEnabled;
 } // isSoundEnabled
 
+void SoundManager::pauseSounds() {
+    soundEnabled = false;
+
+    PLAYER_FOOTSTEP_SOUND->resume();
+    MONSTER_BREATHING_1_SOUND->resume();
+    MONSTER_BREATHING_2_SOUND->resume();
+    MONSTER_BREATHING_3_SOUND->resume();
+    MONSTER_BREATHING_4_SOUND->resume();
+    ATTACK_HIT_1_SOUND->resume();
+    ATTACK_MISS_1_SOUND->resume();
+    MENU_SELECT_SOUND->resume();
+    AMBIANCE_RUMBLE_SOUND->resume();
+} // pauseSounds
+
+void SoundManager::resumeSounds() {
+    soundEnabled = true;
+
+    PLAYER_FOOTSTEP_SOUND->pause();
+    MONSTER_BREATHING_1_SOUND->pause();
+    MONSTER_BREATHING_2_SOUND->pause();
+    MONSTER_BREATHING_3_SOUND->pause();
+    MONSTER_BREATHING_4_SOUND->pause();
+    ATTACK_HIT_1_SOUND->pause();
+    ATTACK_MISS_1_SOUND->pause();
+    MENU_SELECT_SOUND->pause();
+    AMBIANCE_RUMBLE_SOUND->pause();
+} // resumeSounds
+
 void SoundManager::toggleSound() {
     soundEnabled = !soundEnabled;
 
     if (soundEnabled) {
-        PLAYER_FOOTSTEP_SOUND->resume();
-        MONSTER_BREATHING_1_SOUND->resume();
-        MONSTER_BREATHING_2_SOUND->resume();
-        MONSTER_BREATHING_3_SOUND->resume();
-        MONSTER_BREATHING_4_SOUND->resume();
-        ATTACK_HIT_1_SOUND->resume();
-        ATTACK_MISS_1_SOUND->resume();
-        MENU_SELECT_SOUND->resume();
-        AMBIANCE_RUMBLE_SOUND->resume();
+        resumeSounds();
     } // if
     else {
-        PLAYER_FOOTSTEP_SOUND->pause();
-        MONSTER_BREATHING_1_SOUND->pause();
-        MONSTER_BREATHING_2_SOUND->pause();
-        MONSTER_BREATHING_3_SOUND->pause();
-        MONSTER_BREATHING_4_SOUND->pause();
-        ATTACK_HIT_1_SOUND->pause();
-        ATTACK_MISS_1_SOUND->pause();
-        MENU_SELECT_SOUND->pause();
-        AMBIANCE_RUMBLE_SOUND->pause();
+        pauseSounds();
     } // else
 } // toggleSound

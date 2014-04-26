@@ -5,6 +5,7 @@
 #include "src/input/InputManager.h"
 #include "src/gui/GUIManager.h"
 #include "MainMenu.h"
+#include "src/world/World.h"
 
 OptionsMenu::OptionsMenu()
     : windowManager(CEGUI::WindowManager::getSingleton()) {
@@ -17,16 +18,16 @@ OptionsMenu::OptionsMenu()
 void OptionsMenu::createButtons() {
     using namespace CEGUI;
     
-    saveButton = static_cast<PushButton*>(
+    saveAndResumeButton = static_cast<PushButton*>(
         windowManager.createWindow("OgreTray/Button", "OptionsMenu/saveGameButton"));
     quitToMenuButton = static_cast<PushButton*>(
         windowManager.createWindow("OgreTray/Button", "OptionsMenu/quitToMenuButton"));
     quitGameButton = static_cast<PushButton*>(
         windowManager.createWindow("OgreTray/Button", "OptionsMenu/quitGameButton"));
     
-    saveButton->setSize(USize(UDim(0.0f, 250.0f), UDim(0.0f, 40.0f)));
-    saveButton->setPosition(UVector2(UDim(0.5f, -(250.0f / 2.0f)), UDim(0.5f, -40.0f)));
-    saveButton->setText("Save Game");
+    saveAndResumeButton->setSize(USize(UDim(0.0f, 250.0f), UDim(0.0f, 40.0f)));
+    saveAndResumeButton->setPosition(UVector2(UDim(0.5f, -(250.0f / 2.0f)), UDim(0.5f, -40.0f)));
+    saveAndResumeButton->setText("Save Game & Continue");
     
     quitToMenuButton->setSize(USize(UDim(0.0f, 250.0f), UDim(0.0f, 40.0f)));
     quitToMenuButton->setPosition(UVector2(UDim(0.5f, -(250.0f / 2.0f)), UDim(0.5f, 0.0f)));
@@ -42,7 +43,7 @@ void OptionsMenu::createRootWindow() {
 
     mRoot = windowManager.createWindow("DefaultWindow", "MainMenu/root");
 
-    mRoot->addChild(saveButton);
+    mRoot->addChild(saveAndResumeButton);
     mRoot->addChild(quitToMenuButton);
     mRoot->addChild(quitGameButton);
 } // createRootWindow
@@ -50,8 +51,8 @@ void OptionsMenu::createRootWindow() {
 void OptionsMenu::registerEvents() {
     using namespace CEGUI;
     
-    saveButton->subscribeEvent(PushButton::EventClicked, 
-        Event::Subscriber(&OptionsMenu::saveGameEvent, this));
+    saveAndResumeButton->subscribeEvent(PushButton::EventClicked, 
+        Event::Subscriber(&OptionsMenu::saveAndResumeEvent, this));
     quitToMenuButton->subscribeEvent(PushButton::EventClicked, 
         Event::Subscriber(&OptionsMenu::quitToMenuEvent, this));
     quitGameButton->subscribeEvent(PushButton::EventClicked, 
@@ -61,11 +62,13 @@ void OptionsMenu::registerEvents() {
 void OptionsMenu::show() {
     visible = true;
     CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(mRoot);
+    World::getInstance().pauseGame();
 } // show
 
 void OptionsMenu::hide() {
     visible = false;
     CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(NULL);
+    World::getInstance().resumeGame();
 } // hide
 
 void OptionsMenu::toggle() {
@@ -79,13 +82,15 @@ void OptionsMenu::toggle() {
     } // else
 } // toggle
 
-bool OptionsMenu::saveGameEvent(const CEGUI::EventArgs &e) {
+bool OptionsMenu::saveAndResumeEvent(const CEGUI::EventArgs &e) {
+    hide();
     return false;
-} // saveGameEvent
+} // saveAndResumeEvent
 
 bool OptionsMenu::quitToMenuEvent(const CEGUI::EventArgs &e) {
     hide();
     GUIManager::getInstance().mainMenu->show();
+    World::getInstance().playerQuit();
     return false;
 } // quitToMenuEvent
 

@@ -31,6 +31,7 @@ private:
 public:
     PlayerObject(Player *player, float x, float y, float z);
     PlayerObject(Player *player, Ogre::Vector3 pos);
+    ~PlayerObject();
     Ogre::Vector3 getPosition();
 
     void createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera);

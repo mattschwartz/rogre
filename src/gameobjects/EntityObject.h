@@ -37,6 +37,7 @@ private:
 public:
     EntityObject(Entity *entity, float x, float z);
     EntityObject(Entity *entity, Ogre::Vector3 pos);
+    ~EntityObject();
     void createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera);
     void update(const Ogre::FrameEvent &evt);
     bool contains(const OIS::MouseEvent &evt);

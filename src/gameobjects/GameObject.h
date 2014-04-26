@@ -41,6 +41,8 @@ public:
     GameObject(Ogre::Vector3 position) {
         this->position = position;
     } // constructor
+
+    ~GameObject() {}
     
     virtual void createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera) = 0;
     virtual void update(const Ogre::FrameEvent &evt) = 0;

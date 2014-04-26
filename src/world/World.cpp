@@ -30,7 +30,6 @@ Ogre::Vector3 World::getPlayerPosition() {
  */
 void World::setCurrentPlayer(Player *player) {
     if (player == NULL || this->currentPlayer != NULL) {
-        throw std::invalid_argument("There is already a player playing!");
     } // if
     else {
         this->currentPlayer = player;
@@ -48,19 +47,36 @@ void World::spawnCurrentPlayer(float x, float y, float z) {
 void World::playerQuit() {
     delete this->currentPlayer;
     this->currentPlayer = NULL;
+    ObjectManager::getInstance().destroyScene();
 } // playerQuit
+
+void World::pauseGame() {
+    SoundManager::getInstance().pauseSounds();
+    paused = true;
+} // pauseGame
+
+void World::resumeGame() {
+    SoundManager::getInstance().resumeSounds();
+    paused = false;
+} // resumeGame
+
+bool World::isGamePaused() {
+    return paused;
+} // isGamePaused
 
 /**
  * Generates a new Zone that is abstractly one level below the current Zone
  * and thus one level more difficult.
  */
 void World::loadZone() {
+    paused = false;
+
     if (currentZone != NULL) {
 		delete currentZone;
 		currentZoneLevel++;
 	} // if
 
-    currentZone = ZoneGenerator::getInstance().generate(time(NULL), currentZoneLevel, 15);
+    currentZone = ZoneGenerator::getInstance().generate((int)time(NULL), currentZoneLevel, 15);
     SoundManager::getInstance().AMBIANCE_RUMBLE_SOUND->loop(-1);
 } // loadZone
 

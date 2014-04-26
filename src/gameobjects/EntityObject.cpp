@@ -8,6 +8,7 @@
 #include "src/utility/MathHelper.h"
 #include "src/sound/SoundManager.h"
 #include "src/sound/SoundEffect.h"
+#include "src/gameobjects/ObjectManager.h"
 
 EntityObject::EntityObject(Entity *entity, float x, float z) : GameObject(Ogre::Vector3(x, 0, z)) {
 	this->id = entityCount++;
@@ -20,6 +21,14 @@ EntityObject::EntityObject(Entity *entity, Ogre::Vector3 pos) : GameObject(pos) 
     this->entity = entity;
     this->range = 1.0f;
 } // constructor
+
+EntityObject::~EntityObject() {
+    // Remove entities
+	ObjectManager::getInstance().destroyEntity("EntityEntity", id);
+
+    // Remove scenenodes
+    ObjectManager::getInstance().destroySceneNode("Entity", id);
+} // destructor
 
 void EntityObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera) {
 	using namespace StringHelper;

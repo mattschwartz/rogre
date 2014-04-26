@@ -11,13 +11,13 @@ private:
     bool visible;
     CEGUI::WindowManager &windowManager;
     CEGUI::Window *mRoot;
-    CEGUI::PushButton *saveButton;
+    CEGUI::PushButton *saveAndResumeButton;
     CEGUI::PushButton *quitToMenuButton;
     CEGUI::PushButton *quitGameButton;
     void createButtons();
     void createRootWindow();
     void registerEvents();
-    bool saveGameEvent(const CEGUI::EventArgs &e);
+    bool saveAndResumeEvent(const CEGUI::EventArgs &e);
     bool quitToMenuEvent(const CEGUI::EventArgs &e);
     bool quitGameEvent(const CEGUI::EventArgs &e);
 

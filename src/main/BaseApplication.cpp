@@ -7,7 +7,8 @@
 #include "src/input/InputManager.h"
 #include "src/sound/SoundManager.h"
 #include "src/sound/SoundEffect.h"
-#include "CEGUI/CEGUI.h"
+#include <CEGUI/CEGUI.h>
+#include "src/world/World.h"
 
 //-------------------------------------------------------------------------------------
 BaseApplication::BaseApplication(void)
@@ -261,6 +262,9 @@ bool BaseApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
     } // if
 #endif
 
+
+    if (World::getInstance().isGamePaused())
+        return true;
     mCameraMan->frameRenderingQueued(evt);
     ObjectManager::getInstance().update(evt);
 

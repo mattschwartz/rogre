@@ -28,6 +28,8 @@ public:
 
     void init();
     bool isSoundEnabled();
+    void pauseSounds();
+    void resumeSounds();
     void toggleSound();
 };
 

@@ -33,21 +33,19 @@ RoomObject::RoomObject(int id, Room *room, struct Dimension d, Ogre::Vector3 pos
 } // constructor
 
 RoomObject::~RoomObject() {
-	int index = 0;
-
-	for (int id : idList) {
-		if (this->id == id) {
-			idList.erase(idList.begin() + index);
-			break;
-		}
-		index++;
-	} // for
-
 	// Remove entities
-	ObjectManager::getInstance().destroyEntity("");
+	ObjectManager::getInstance().destroyEntity("FloorEntity", id);
+	ObjectManager::getInstance().destroyEntity("Wall1Entity", id);
+	ObjectManager::getInstance().destroyEntity("Wall2Entity", id);
+	ObjectManager::getInstance().destroyEntity("Wall3Entity", id);
+	ObjectManager::getInstance().destroyEntity("Wall4Entity", id);
 
 	// Remove scene nodes
-	ObjectManager::getInstance().destroySceneNode("");
+	ObjectManager::getInstance().destroySceneNode("FloorEntity", id);
+	ObjectManager::getInstance().destroySceneNode("Wall1Node", id);
+	ObjectManager::getInstance().destroySceneNode("Wall2Node", id);
+	ObjectManager::getInstance().destroySceneNode("Wall3Node", id);
+	ObjectManager::getInstance().destroySceneNode("Wall4Node", id);
 } // destructor
 
 void RoomObject::checkId(int id) {

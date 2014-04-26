@@ -1,9 +1,12 @@
 /** 
  * Included files
  */
+#include "src/gameobjects/RoomObject.h"
 #include "src/utility/MathHelper.h"
+#include "src/utility/StringHelper.h"
 #include "ObjectManager.h"
 #include "GameObject.h"
+#include "src/world/World.h"
 
 /**
  * Data
@@ -22,12 +25,32 @@ void ObjectManager::init(Ogre::SceneManager *sceneMgr, Ogre::Camera *camera) {
     this->camera = camera;
 } // init
 
+void ObjectManager::destroyScene() {
+    sceneManager->clearScene();
+    idList.clear();
+
+    for (GameObject *o : objects) {
+        o->~GameObject();
+    } // for
+
+    objects.clear();
+} // destroyScene
+
 void ObjectManager::destroyEntity(std::string name) {
 	sceneManager->destroyEntity(name);
 } // destroyEntity
 
 void ObjectManager::destroySceneNode(std::string name) {
+    sceneManager->getSceneNode(name)->removeAndDestroyAllChildren();
 	sceneManager->destroySceneNode(name);
+} // destroySceneNode
+
+void ObjectManager::destroyEntity(std::string name, int id) {
+	sceneManager->destroyEntity(StringHelper::concat<int>(name, id));
+} // destroyEntity
+
+void ObjectManager::destroySceneNode(std::string name, int id) {
+	sceneManager->destroySceneNode(StringHelper::concat<int>(name, id));
 } // destroySceneNode
 
 /**
@@ -50,6 +73,10 @@ void ObjectManager::spawnObject(GameObject *object) {
  * @param evt
  */
 void ObjectManager::update(const Ogre::FrameEvent &evt) {
+    if (World::getInstance().isGamePaused()) {
+        return;
+    } // if
+
     for (GameObject *o : objects) {
         o->update(evt);
     } // for
@@ -63,16 +90,28 @@ void ObjectManager::update(const Ogre::FrameEvent &evt) {
  * @return
  */
 bool ObjectManager::contains(const OIS::MouseEvent &evt) {
+    if (World::getInstance().isGamePaused()) {
+        return false;
+    } // if
+
     return false;
 } // contains
 
 void ObjectManager::keyPressed(const OIS::KeyEvent &arg) {
+    if (World::getInstance().isGamePaused()) {
+        return;
+    } // if
+
     for (GameObject *o : objects) {
         o->keyPressed(arg);
     } // for
 } // keyPressed
 
 void ObjectManager::mouseMoved(const OIS::MouseEvent &evt) {
+    if (World::getInstance().isGamePaused()) {
+        return;
+    } // if
+
 	if (evt.state.Z.rel > 0) {
 		Ogre::Vector3 oldpos = camera->getPosition();
 		oldpos.y = MathHelper::max<Ogre::Real>(15, oldpos.y - 5);
@@ -91,10 +130,18 @@ void ObjectManager::mouseMoved(const OIS::MouseEvent &evt) {
 } // mouseMoved
 
 void ObjectManager::mousePressed(const OIS::MouseEvent &evt, OIS::MouseButtonID id) {
+    if (World::getInstance().isGamePaused()) {
+        return;
+    } // if
+
 	for (GameObject *o : objects) {
 		o->mousePressed(evt, id);
 	} // for
 } // mousePressed
 
 void ObjectManager::mouseReleased(const OIS::MouseEvent &evt, OIS::MouseButtonID id) {
+    if (World::getInstance().isGamePaused()) {
+        return;
+    } // if
+
 }

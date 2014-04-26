@@ -17,6 +17,7 @@ class Zone;
  */
 class World {
 private:
+    bool paused;
     int currentZoneLevel;
     Player *currentPlayer;
     PlayerObject *playerObject;
@@ -32,6 +33,9 @@ public:
     } // getInstance
 
     void playerQuit();
+    void pauseGame();
+    void resumeGame();
+    bool isGamePaused();
     void loadZone();
     void spawnCurrentPlayer(float x, float y, float z);
 

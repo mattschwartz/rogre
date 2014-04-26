@@ -8,6 +8,7 @@
 #include "src/sound/SoundManager.h"
 #include "src/sound/SoundEffect.h"
 #include "src/utility/StringHelper.h"
+#include "src/gameobjects/ObjectManager.h"
 
 PlayerObject::PlayerObject(Player *player, float x, float y, float z) : GameObject(Ogre::Vector3(x, y, z)) {
     this->player = player;
@@ -16,6 +17,14 @@ PlayerObject::PlayerObject(Player *player, float x, float y, float z) : GameObje
 PlayerObject::PlayerObject(Player *player, Ogre::Vector3 pos) : GameObject(pos) {
     this->player = player;
 } // constructor
+
+PlayerObject::~PlayerObject() {
+    // Remove entities
+	ObjectManager::getInstance().destroyEntity("Player");
+
+    // Remove scenenodes
+    ObjectManager::getInstance().destroySceneNode("PlayerNode");
+} // destructor
 
 void PlayerObject::init() {
 } // init
