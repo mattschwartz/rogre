@@ -1,15 +1,12 @@
 /**
  * Included files
  */
-#include <Ogre.h>
 #include "SoundManager.h"
 #include "SoundEffect.h"
 
 void SoundManager::init() {
     SDL_Init(SDL_INIT_AUDIO);
-    if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 1024) < 0) {
-        //MessageBox(NULL, Mix_GetError(), "An exception has occured!", MB_OK | MB_ICONERROR | MB_TASKMODAL);
-    } // if
+    Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 1024);
     Mix_Volume(-1, MIX_MAX_VOLUME);
 
     PLAYER_FOOTSTEP_SOUND = new SoundEffect("media/sound/footstep.wav");

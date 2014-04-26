@@ -1,7 +1,6 @@
 /**
  * Included files
  */
-#include "CEGUI/CEGUI.h"
 #include "MainMenu.h"
 #include "NewPlayerMenu.h"
 #include "src/entities/player/Player.h"
@@ -26,24 +25,28 @@ void MainMenu::createButtons() {
         windowManager.createWindow("OgreTray/Button", "MainMenu/hiScoresButton"));
     quitButton = static_cast<PushButton*>(
         windowManager.createWindow("OgreTray/Button", "MainMenu/quitButton"));
-    
-    //newPlayerButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
+
+#if USE_OGRE_LEGACY
     newPlayerButton->setSize(UVector2(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
+    loadPlayerButton->setSize(UVector2(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
+    hiScoresButton->setSize(UVector2(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
+    quitButton->setSize(UVector2(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
+#else
+    newPlayerButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
+    loadPlayerButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
+    hiScoresButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
+    quitButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
+#endif
+    
     newPlayerButton->setPosition(UVector2(UDim(1.0f, -150.0f), UDim(1.0f, -160.0f)));
     newPlayerButton->setText("New Player");
     
-    //loadPlayerButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
-    loadPlayerButton->setSize(UVector2(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
     loadPlayerButton->setPosition(UVector2(UDim(1.0f, -150.0f), UDim(1.0f, -120.0f)));
     loadPlayerButton->setText("Load Player");
     
-    //hiScoresButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
-    hiScoresButton->setSize(UVector2(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
     hiScoresButton->setPosition(UVector2(UDim(1.0f, -150.0f), UDim(1.0f, -80.0f)));
     hiScoresButton->setText("Hi Scores");
 
-    //quitButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
-    quitButton->setSize(UVector2(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
     quitButton->setPosition(UVector2(UDim(1.0f, -150.0f), UDim(1.0f, -40.0f)));
     quitButton->setText("Quit");
 } // createButtons
@@ -53,10 +56,17 @@ void MainMenu::createRootWindow() {
 
     mRoot = windowManager.createWindow("DefaultWindow", "MainMenu/root");
 
+#if USE_OGRE_LEGACY
     mRoot->addChildWindow(newPlayerButton);
     mRoot->addChildWindow(loadPlayerButton);
     mRoot->addChildWindow(hiScoresButton);
     mRoot->addChildWindow(quitButton);
+#else
+    mRoot->addChild(newPlayerButton);
+    mRoot->addChild(loadPlayerButton);
+    mRoot->addChild(hiScoresButton);
+    mRoot->addChild(quitButton);
+#endif
 } // createRootWindow
 
 void MainMenu::registerEvents() {
@@ -73,13 +83,19 @@ void MainMenu::registerEvents() {
 } // registerEvents
 
 void MainMenu::show() {
-    //CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(mRoot);
+#if USE_OGRE_LEGACY
     CEGUI::System::getSingleton().setGUISheet(mRoot);
+#else
+    CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(mRoot);
+#endif
 } // show
 
 void MainMenu::hide() {
-    //CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(NULL);
+#if USE_OGRE_LEGACY
     CEGUI::System::getSingleton().setGUISheet(NULL);
+#else
+    CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(NULL);
+#endif
 } // hide
 
 bool MainMenu::newPlayerEvent(const CEGUI::EventArgs &e) {

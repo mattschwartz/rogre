@@ -4,9 +4,13 @@
 /**
  * Included files
  */
+#include "src/main/BaseApplication.h"
 #include "CEGUI/CEGUI.h"
-//#include "CEGUI/RendererModules/Ogre/Renderer.h"
-#include "CEGUI/RendererModules/Ogre/CEGUIOgreRenderer.h"
+#if USE_OGRE_LEGACY
+    #include "CEGUI/RendererModules/Ogre/CEGUIOgreRenderer.h"
+#else
+    #include "CEGUI/RendererModules/Ogre/Renderer.h"
+#endif
 
 class MainMenu;
 class NewPlayerMenu;
