@@ -1,6 +1,7 @@
 #include "KeyHandler.h"
 #include "src/gui/GUIManager.h"
 #include "src/gui/menu/OptionsMenu.h"
+#include "src/world/World.h"
 
 void KeyMap::openInventory(void) { 
 }
@@ -13,5 +14,7 @@ void KeyMap::toggleSound(void) {
 } // toggleSound
 
 void KeyMap::toggleOptionsMenu(void) {
-    GUIManager::getInstance().optionsMenu->toggle();
+    if (World::getInstance().getCurrentPlayer() != NULL) {
+        GUIManager::getInstance().optionsMenu->toggle();
+    } // if
 } // toggleOptionsMenu

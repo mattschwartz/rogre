@@ -73,9 +73,6 @@ void RoomObject::init() {
 } // init
 
 void RoomObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera) {
-    // Let there be lights
-    createLights(sceneMgr);
-
     // manage meshes for planes
     createMeshes();
 
