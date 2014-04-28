@@ -36,6 +36,8 @@ public:
 	void destroySceneNode(std::string name, int);
     void spawnObject(GameObject *object);
     void destroyScene();
+    Ogre::Camera *getCamera();
+    Ogre::SceneManager *getSceneManager();
 
     void update(const Ogre::FrameEvent &evt);
     bool contains(const OIS::MouseEvent &evt);

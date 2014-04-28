@@ -88,7 +88,7 @@ bool OptionsMenu::saveAndResumeEvent(const CEGUI::EventArgs &e) {
 } // saveAndResumeEvent
 
 bool OptionsMenu::quitToMenuEvent(const CEGUI::EventArgs &e) {
-    hide();
+    CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(NULL);
     GUIManager::getInstance().mainMenu->show();
     World::getInstance().playerQuit();
     return false;

@@ -34,6 +34,14 @@ void ObjectManager::destroyScene() {
     objects.clear();
 } // destroyScene
 
+Ogre::Camera *ObjectManager::getCamera() {
+    return camera;
+} // getCamera
+
+Ogre::SceneManager *ObjectManager::getSceneManager() {
+    return sceneManager;
+} // getSceneManager
+
 void ObjectManager::destroyEntity(std::string name) {
 	//sceneManager->destroyEntity(name);
 } // destroyEntity

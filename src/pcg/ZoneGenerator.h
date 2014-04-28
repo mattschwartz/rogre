@@ -7,6 +7,9 @@
 #include "RoomGenerator.h"
 #include "src/world/Zone.h"
 #include "src/world/Room.h"
+#include "src/utility/StringHelper.h"
+
+static int lightCount = 0;
 
 class ZoneGenerator {
 private:
@@ -77,6 +80,29 @@ private:
 		return false;
 	} // overlaps
 
+    void spawnLights(Zone *zone) {
+        Ogre::SceneManager &sceneMgr = *ObjectManager::getInstance().getSceneManager();
+        Ogre::Camera *camera = ObjectManager::getInstance().getCamera();
+        Ogre::Vector3 position;
+        RoomObject *room;
+        Ogre::Light *pointLight;
+
+	    using namespace StringHelper;
+
+        int i = rand() % zone->rooms.size();
+        room = zone->rooms.at(i);
+        position.x = rand() % (int)(room->getWidth());
+        position.y = 0;
+        position.z = rand() % (int)(room->getDepth());
+
+        pointLight = sceneMgr.createLight(concat<int>("pointLight", lightCount++));
+
+        pointLight->setType(Ogre::Light::LT_POINT);
+        pointLight->setPosition(position.x + 0, position.y + room->getHeight() / 2 - 1, position.z + 0);
+        pointLight->setDiffuseColour(0.3f, 0.3f, 0.3f);
+        pointLight->setSpecularColour(1.0f, 1.0f, 1.0f);
+    } // spawnLights
+
 public:
     static ZoneGenerator &getInstance() {
         static ZoneGenerator instance;
@@ -132,7 +158,9 @@ public:
 			spawnRoom(zone, r, x, z, width, depth);
 		} // for
 
+        spawnLights(zone);
         freeWalls.clear();
+
         return zone;
     } // generate
 };
