@@ -23,10 +23,10 @@ private:
     ZoneGenerator(ZoneGenerator const&);
     void operator=(ZoneGenerator const&);
 
-	void spawnRoom(int roomId, Zone *zone, Room *room, float x, float z, float width, 
+	void spawnRoom(Zone *zone, Room *room, float x, float z, float width, 
 		float depth) {
 		struct Wall wall;
-		RoomObject *ro = new RoomObject(roomId, room, width, depth, 
+		RoomObject *ro = new RoomObject(room, width, depth, 
 			DEFAULT_ROOM_HEIGHT, Ogre::Vector3(x, 0, z));
 		
 		// North wall
@@ -101,7 +101,7 @@ public:
         r = RoomGenerator::getInstance().generate(zone->zoneLevel, x, z,
             width, depth);
 
-		spawnRoom(0, zone, r, x, z, width, depth);
+		spawnRoom(zone, r, x, z, width, depth);
 
         for (int i = 1; i < numRooms; i++) {
 			if (!freeWalls.empty()) {
@@ -129,9 +129,10 @@ public:
             r = RoomGenerator::getInstance().generate(zone->zoneLevel, x, z,
                 width, depth);
 
-			spawnRoom(i, zone, r, x, z, width, depth);
+			spawnRoom(zone, r, x, z, width, depth);
 		} // for
 
+        freeWalls.clear();
         return zone;
     } // generate
 };

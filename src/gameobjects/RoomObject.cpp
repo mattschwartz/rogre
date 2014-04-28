@@ -10,11 +10,9 @@
 /**
  * Data
  */
-RoomObject::RoomObject(int id, Room *room, float width, float depth, float height, 
+RoomObject::RoomObject(Room *room, float width, float depth, float height, 
                        Ogre::Vector3 pos) : GameObject(pos) {
-    checkId(id);
-
-    this->id = id;
+    this->id = roomCount++;
 	this->room = room;
     this->dimensions.width = width;
     this->dimensions.depth = depth;
@@ -22,11 +20,9 @@ RoomObject::RoomObject(int id, Room *room, float width, float depth, float heigh
     init();
 } // constructor
 
-RoomObject::RoomObject(int id, Room *room, struct Dimension d, Ogre::Vector3 pos) : 
+RoomObject::RoomObject(Room *room, struct Dimension d, Ogre::Vector3 pos) : 
     GameObject(pos) {
-    checkId(id);
-
-    this->id = id;
+    this->id = roomCount++;
 	this->room = room;
     this->dimensions = d;
     init();
@@ -47,15 +43,6 @@ RoomObject::~RoomObject() {
 	ObjectManager::getInstance().destroySceneNode("Wall3Node", id);
 	ObjectManager::getInstance().destroySceneNode("Wall4Node", id);
 } // destructor
-
-void RoomObject::checkId(int id) {
-    if (!idList.empty() &&
-        std::find(idList.begin(), idList.end(), id) != idList.end()) {
-            throw std::invalid_argument("All IDs must be unique!");
-    } // if
-
-    idList.push_back(id);
-} // checkId
 
 /** 
  * Performs the tasks that all constructors have in common

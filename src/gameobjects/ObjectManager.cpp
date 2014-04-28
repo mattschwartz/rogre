@@ -1,7 +1,6 @@
 /** 
  * Included files
  */
-#include "src/gameobjects/RoomObject.h"
 #include "src/utility/MathHelper.h"
 #include "src/utility/StringHelper.h"
 #include "ObjectManager.h"
@@ -27,7 +26,6 @@ void ObjectManager::init(Ogre::SceneManager *sceneMgr, Ogre::Camera *camera) {
 
 void ObjectManager::destroyScene() {
     sceneManager->clearScene();
-    idList.clear();
 
     for (GameObject *o : objects) {
         o->~GameObject();
@@ -37,20 +35,20 @@ void ObjectManager::destroyScene() {
 } // destroyScene
 
 void ObjectManager::destroyEntity(std::string name) {
-	sceneManager->destroyEntity(name);
+	//sceneManager->destroyEntity(name);
 } // destroyEntity
 
 void ObjectManager::destroySceneNode(std::string name) {
     sceneManager->getSceneNode(name)->removeAndDestroyAllChildren();
-	sceneManager->destroySceneNode(name);
 } // destroySceneNode
 
 void ObjectManager::destroyEntity(std::string name, int id) {
-	sceneManager->destroyEntity(StringHelper::concat<int>(name, id));
+	//sceneManager->destroyEntity(StringHelper::concat<int>(name, id));
 } // destroyEntity
 
 void ObjectManager::destroySceneNode(std::string name, int id) {
-	sceneManager->destroySceneNode(StringHelper::concat<int>(name, id));
+    sceneManager->getSceneNode(StringHelper::concat<int>(name, id))->removeAndDestroyAllChildren();
+	//sceneManager->destroySceneNode(StringHelper::concat<int>(name, id));
 } // destroySceneNode
 
 /**
@@ -124,6 +122,7 @@ void ObjectManager::mouseMoved(const OIS::MouseEvent &evt) {
 		oldpos.z = MathHelper::min<Ogre::Real>(45, oldpos.z + 5);
 		camera->setPosition(oldpos);
 	} // else if
+
 	for (GameObject *o : objects) {
 		o->mouseMoved(evt);
 	} // for

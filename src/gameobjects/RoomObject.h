@@ -8,7 +8,7 @@
 #include <vector>
 #include <algorithm>
 
-static std::vector<int> idList;
+static int roomCount = 0;
 
 class Room;
 
@@ -20,7 +20,6 @@ private:
     int id;
     struct Dimension dimensions;
 	Room *room;
-    void checkId(int id);
     void init();
 	void createLights(Ogre::SceneManager &sceneMgr);
     void createMeshes();
@@ -31,8 +30,8 @@ public:
 	Ogre::SceneNode *floorNode;
 	Ogre::SceneNode *wallNodes[4];
 
-    RoomObject(int id, Room *room, float width, float depth, float height, Ogre::Vector3 pos);
-    RoomObject(int id, Room *room, struct Dimension d, Ogre::Vector3 pos);
+    RoomObject(Room *room, float width, float depth, float height, Ogre::Vector3 pos);
+    RoomObject(Room *room, struct Dimension d, Ogre::Vector3 pos);
 	~RoomObject();
 	bool containsPoint(Ogre::Vector3 point);
 	bool overlaps(struct Bounds rectB);
