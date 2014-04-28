@@ -8,6 +8,10 @@
 #include "src/world/Zone.h"
 #include "src/world/Room.h"
 #include "src/utility/StringHelper.h"
+#include "src/gui/GUIManager.h"
+#include "src/gui/menu/LoadingMenu.h"
+#include <thread>
+#include <chrono>
 
 static int lightCount = 0;
 
@@ -118,6 +122,8 @@ public:
         Zone *zone = new Zone(monsterLevel);
 		struct Wall wall;
         srand(seed);
+        
+        GUIManager::getInstance().loadingMenu->setProgress(0.0f);
 
         x = 0.0f;
         z = 0.0f;
@@ -156,8 +162,11 @@ public:
                 width, depth);
 
 			spawnRoom(zone, r, x, z, width, depth);
+            GUIManager::getInstance().loadingMenu->setProgress((float)(i/(numRooms*1.0f)));
+            std::this_thread::sleep_for (std::chrono::milliseconds(150));
 		} // for
 
+        GUIManager::getInstance().loadingMenu->setProgress(100.0f);
         spawnLights(zone);
         freeWalls.clear();
 

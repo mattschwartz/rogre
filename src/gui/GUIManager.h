@@ -17,6 +17,7 @@ class NewPlayerMenu;
 class LoadPlayerMenu;
 class HiScoresMenu;
 class OptionsMenu;
+class LoadingMenu;
 
 /**
  * Data
@@ -37,6 +38,7 @@ public:
     LoadPlayerMenu *loadPlayerMenu;
     HiScoresMenu *hiScoresMenu;
     OptionsMenu *optionsMenu;
+    LoadingMenu *loadingMenu;
 
     static GUIManager &getInstance() {
         static GUIManager instance;
@@ -44,6 +46,7 @@ public:
     } // getInstance
 
     void init();
+    void hideCurrentMenu();
 };
 
 #endif

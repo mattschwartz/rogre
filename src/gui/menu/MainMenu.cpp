@@ -3,6 +3,7 @@
  */
 #include "MainMenu.h"
 #include "NewPlayerMenu.h"
+#include "LoadingMenu.h"
 #include "src/entities/player/Player.h"
 #include "src/input/InputManager.h"
 #include "src/gui/GUIManager.h"
@@ -104,6 +105,8 @@ bool MainMenu::newPlayerEvent(const CEGUI::EventArgs &e) {
 } // newPlayerEvent
 
 bool MainMenu::loadPlayerEvent(const CEGUI::EventArgs &e) {
+    GUIManager::getInstance().loadingMenu->show();
+    GUIManager::getInstance().loadingMenu->setProgress(0.5f);
 	return false;
 } // loadPlayerEvent
 

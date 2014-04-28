@@ -78,6 +78,7 @@ void World::loadZone() {
 
     currentZone = ZoneGenerator::getInstance().generate((int)time(NULL), currentZoneLevel, 15);
     SoundManager::getInstance().AMBIANCE_RUMBLE_SOUND->loop(-1);
+    GUIManager::getInstance().loadingMenu->hide();
 } // loadZone
 
 int World::getZoneLevel() {

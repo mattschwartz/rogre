@@ -3,6 +3,7 @@
  */
 #include "NewPlayerMenu.h"
 #include "MainMenu.h"
+#include "LoadingMenu.h"
 #include "src/gui/GUIManager.h"
 #include "src/world/World.h"
 #include "src/entities/player/Player.h"
@@ -76,7 +77,7 @@ bool NewPlayerMenu::backEvent(const CEGUI::EventArgs &e) {
 } // backEvent
 
 bool NewPlayerMenu::startGameEvent(const CEGUI::EventArgs &e) {
-    hide();
+    GUIManager::getInstance().loadingMenu->show();
     World::getInstance().setCurrentPlayer(new Player(1, playerNameTextField->getText().c_str()));
 	World::getInstance().spawnCurrentPlayer(0, 0, 0);
 

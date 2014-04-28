@@ -7,12 +7,14 @@
 #include "menu/MainMenu.h"
 #include "menu/NewPlayerMenu.h"
 #include "menu/OptionsMenu.h"
+#include "menu/LoadingMenu.h"
 
 void GUIManager::init() {
     initCEGUI();
     mainMenu = new MainMenu();
     newPlayerMenu = new NewPlayerMenu();
     optionsMenu = new OptionsMenu();
+    loadingMenu = new LoadingMenu();
 } // init
 
 void GUIManager::initCEGUI() {
@@ -24,6 +26,10 @@ void GUIManager::initCEGUI() {
     setResourceGroups();
     setLookNFeel();
 } // initCEGUI
+
+void GUIManager::hideCurrentMenu() {
+    CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(NULL);
+} // hideCurrentMenu
 
 void GUIManager::setResourceGroups() {
     using namespace CEGUI;
