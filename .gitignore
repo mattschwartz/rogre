@@ -40,3 +40,4 @@ build/.libs
 build/rogue
 build/Ogre.log
 build/ogre.cfg
+build/CEGUI.log
