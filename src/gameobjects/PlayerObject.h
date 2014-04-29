@@ -13,20 +13,22 @@ class Player;
  */
 class PlayerObject : public GameObject {
 private:
+    bool attacking;
     Player *player;
+    Ogre::Vector3 walkTo;
     Ogre::Vector3 mDirection;
     Ogre::Real mWalkSpeed;
-    Ogre::Vector3 mDestination;
-    Ogre::Real mDistance;
-    std::deque<Ogre::Vector3> walkList;
     Ogre::SceneNode *playerNode;
     Ogre::Entity *playerEntity;
     Ogre::AnimationState *mAnimationState;
     Ogre::Camera *camera;
     void init();
     void move(const Ogre::FrameEvent &evt);
-    bool nextLocation();
+    void attack(const Ogre::FrameEvent &evt);
     void rotatePlayer();
+    void setIdleAnimation();
+    void setWalkAnimation();
+    bool withinWorld();
 
 public:
     PlayerObject(Player *player, float x, float y, float z);
