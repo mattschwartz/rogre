@@ -4,9 +4,12 @@
 #include "MainMenu.h"
 #include "NewPlayerMenu.h"
 #include "LoadingMenu.h"
+#include "DeathMenu.h"
 #include "src/entities/player/Player.h"
 #include "src/input/InputManager.h"
 #include "src/gui/GUIManager.h"
+#include "src/sound/SoundManager.h"
+#include "src/sound/SoundEffect.h"
 
 MainMenu::MainMenu() 
     : windowManager(CEGUI::WindowManager::getSingleton()) {
@@ -38,20 +41,20 @@ void MainMenu::createButtons() {
     hiScoresButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
     quitButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
 
-    loadPlayerButton->setEnabled(false);
+    //loadPlayerButton->setEnabled(false);
     hiScoresButton->setEnabled(false);
 #endif
     
-    newPlayerButton->setPosition(UVector2(UDim(1.0f, -150.0f), UDim(1.0f, -160.0f)));
+    newPlayerButton->setPosition(UVector2(UDim(0.5f, -(150.0f / 2)), UDim(0.5f, -60.0f)));
     newPlayerButton->setText("New Player");
     
-    loadPlayerButton->setPosition(UVector2(UDim(1.0f, -150.0f), UDim(1.0f, -120.0f)));
+    loadPlayerButton->setPosition(UVector2(UDim(0.5f, -(150.0f / 2)), UDim(0.5f, -20.0f)));
     loadPlayerButton->setText("Load Player");
     
-    hiScoresButton->setPosition(UVector2(UDim(1.0f, -150.0f), UDim(1.0f, -80.0f)));
+    hiScoresButton->setPosition(UVector2(UDim(0.5f, -(150.0f / 2)), UDim(0.5f, 20.0f)));
     hiScoresButton->setText("Hi Scores");
 
-    quitButton->setPosition(UVector2(UDim(1.0f, -150.0f), UDim(1.0f, -40.0f)));
+    quitButton->setPosition(UVector2(UDim(0.5f, -(150.0f / 2)), UDim(0.5f, 60.0f)));
     quitButton->setText("Quit");
 } // createButtons
 
@@ -103,19 +106,24 @@ void MainMenu::hide() {
 } // hide
 
 bool MainMenu::newPlayerEvent(const CEGUI::EventArgs &e) {
+    SoundManager::getInstance().MENU_SELECT_SOUND->play();
     GUIManager::getInstance().newPlayerMenu->show();
 	return false;
 } // newPlayerEvent
 
 bool MainMenu::loadPlayerEvent(const CEGUI::EventArgs &e) {
+    SoundManager::getInstance().MENU_SELECT_SOUND->play();
+    GUIManager::getInstance().deathMenu->show();
 	return false;
 } // loadPlayerEvent
 
 bool MainMenu::hiScoresEvent(const CEGUI::EventArgs &e) {
+    SoundManager::getInstance().MENU_SELECT_SOUND->play();
 	return false;
 } // hiScoresEvent
 
 bool MainMenu::quitEvent(const CEGUI::EventArgs &e) {
+    SoundManager::getInstance().MENU_SELECT_SOUND->play();
     InputManager::getInstance().shutDown();
 	return false;
 } // quitEvent

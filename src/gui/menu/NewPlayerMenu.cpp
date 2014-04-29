@@ -7,6 +7,8 @@
 #include "src/gui/GUIManager.h"
 #include "src/world/World.h"
 #include "src/entities/player/Player.h"
+#include "src/sound/SoundManager.h"
+#include "src/sound/SoundEffect.h"
 
 NewPlayerMenu::NewPlayerMenu() :
     windowManager(CEGUI::WindowManager::getSingleton()) {
@@ -18,7 +20,8 @@ NewPlayerMenu::NewPlayerMenu() :
 
 void NewPlayerMenu::createWidgets() { 
     using namespace CEGUI;
-
+    
+    titleLabel = windowManager.createWindow("OgreTray/Label", "NewPlayerMenu/titleLabel");
     textLabel = windowManager.createWindow("OgreTray/Label", "NewPlayerMenu/textLabel");
     playerNameTextField = windowManager.createWindow("OgreTray/Editbox", "NewPlayerMenu/playerNameTextField");
     backButton = static_cast<PushButton*>(
@@ -26,20 +29,24 @@ void NewPlayerMenu::createWidgets() {
     startGameButton = static_cast<PushButton*>(
         windowManager.createWindow("OgreTray/Button", "NewPlayerMenu/startGameButton"));
 
+    titleLabel->setSize(USize(UDim(0.0f, 300.0f), UDim(0.0f, 40.0f)));
+    titleLabel->setPosition(UVector2(UDim(0.5f, -150.0f), UDim(0.5f, -65.0f)));
+    titleLabel->setText("Create a New Player");
+
     textLabel->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
-    textLabel->setPosition(UVector2(UDim(0.0f, 0.0f), UDim(0.05f, 0.0f)));
+    textLabel->setPosition(UVector2(UDim(0.5f, -150.0f), UDim(0.5f, -20.0f)));
     textLabel->setText("Player Name");
 
-    playerNameTextField->setSize(USize(UDim(0.0f, 200.0f), UDim(0.0f, 40.0f)));
-    playerNameTextField->setPosition(UVector2(UDim(0.0f, 150.0f), UDim(0.05f, 0.0f)));
+    playerNameTextField->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
+    playerNameTextField->setPosition(UVector2(UDim(0.5f, 0.0f), UDim(0.5f, -20.0f)));
     playerNameTextField->setText("player1");
 
     backButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
-    backButton->setPosition(UVector2(UDim(0.0f, 0.0f), UDim(1.0f, -40.0f)));
+    backButton->setPosition(UVector2(UDim(0.5f, -150.0f), UDim(0.5f, 25.0f)));
     backButton->setText("Back");
 
     startGameButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
-    startGameButton->setPosition(UVector2(UDim(1.0f, -150.0f), UDim(1.0f, -40.0f)));
+    startGameButton->setPosition(UVector2(UDim(0.5f, 0.0f), UDim(0.5f, 25.0f)));
     startGameButton->setText("Start Game");
 } // createWidgets
 
@@ -48,6 +55,7 @@ void NewPlayerMenu::createRootWindow() {
 
     mRoot = windowManager.createWindow("DefaultWindow", "NewPlayerMenu/root");
     
+    mRoot->addChild(titleLabel);
     mRoot->addChild(textLabel);
     mRoot->addChild(playerNameTextField);
     mRoot->addChild(backButton);
@@ -72,11 +80,13 @@ void NewPlayerMenu::hide() {
 } // hide
 
 bool NewPlayerMenu::backEvent(const CEGUI::EventArgs &e) {
+    SoundManager::getInstance().MENU_SELECT_SOUND->play();
     GUIManager::getInstance().mainMenu->show();
     return false;
 } // backEvent
 
 bool NewPlayerMenu::startGameEvent(const CEGUI::EventArgs &e) {
+    SoundManager::getInstance().MENU_SELECT_SOUND->play();
     GUIManager::getInstance().loadingMenu->show();
 
 	World::getInstance().loadZone();

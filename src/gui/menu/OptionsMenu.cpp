@@ -6,6 +6,8 @@
 #include "src/gui/GUIManager.h"
 #include "MainMenu.h"
 #include "src/world/World.h"
+#include "src/sound/SoundManager.h"
+#include "src/sound/SoundEffect.h"
 
 OptionsMenu::OptionsMenu()
     : windowManager(CEGUI::WindowManager::getSingleton()) {
@@ -83,11 +85,13 @@ void OptionsMenu::toggle() {
 } // toggle
 
 bool OptionsMenu::saveAndResumeEvent(const CEGUI::EventArgs &e) {
+    SoundManager::getInstance().MENU_SELECT_SOUND->play();
     hide();
     return false;
 } // saveAndResumeEvent
 
 bool OptionsMenu::quitToMenuEvent(const CEGUI::EventArgs &e) {
+    SoundManager::getInstance().MENU_SELECT_SOUND->play();
     CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(NULL);
     GUIManager::getInstance().mainMenu->show();
     World::getInstance().playerQuit();
@@ -95,6 +99,7 @@ bool OptionsMenu::quitToMenuEvent(const CEGUI::EventArgs &e) {
 } // quitToMenuEvent
 
 bool OptionsMenu::quitGameEvent(const CEGUI::EventArgs &e) {
+    SoundManager::getInstance().MENU_SELECT_SOUND->play();
     InputManager::getInstance().shutDown();
     return false;
 } // quitEvent

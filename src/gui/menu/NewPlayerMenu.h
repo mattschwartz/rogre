@@ -12,6 +12,7 @@ private:
     std::string playerName;
     CEGUI::WindowManager &windowManager;
     CEGUI::Window *mRoot;
+    CEGUI::Window *titleLabel;
     CEGUI::Window *textLabel;
     CEGUI::Window *playerNameTextField;
     CEGUI::PushButton *backButton;

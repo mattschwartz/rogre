@@ -25,8 +25,6 @@ PlayerObject::~PlayerObject() {
 } // destructor
 
 void PlayerObject::init() {
-    attacking = false;
-    walkTo = position;
 } // init
 
 void PlayerObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera) {
@@ -44,17 +42,30 @@ void PlayerObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *came
     mAnimationState->setLoop(true);
     mAnimationState->setEnabled(true);
     this->camera = camera;
+
+    attacking = false;
+    walkTo = position;
+    dead = false;
 } // createObject
 
 void PlayerObject::update(const Ogre::FrameEvent &evt) {
-    move(evt);
-    attack(evt);
+    if (player->isDead()) {
+        setDeathAnimation();
+
+        if (mAnimationState->hasEnded()) {
+            player->onDeath();
+        } // if
+    } // if
+    else {
+        move(evt);
+        attack(evt);
+        Ogre::Vector3 campos = camera->getPosition();
+        campos.x = playerNode->getPosition().x;
+        campos.z = playerNode->getPosition().z + campos.y;
+        camera->setPosition(campos);
+    } // else
         
     mAnimationState->addTime(evt.timeSinceLastFrame);
-    Ogre::Vector3 campos = camera->getPosition();
-    campos.x = playerNode->getPosition().x;
-    campos.z = playerNode->getPosition().z + campos.y;
-    camera->setPosition(campos);
 } // update
 
 void PlayerObject::move(const Ogre::FrameEvent &evt) {
@@ -89,7 +100,21 @@ void PlayerObject::move(const Ogre::FrameEvent &evt) {
 } // move
 
 void PlayerObject::setIdleAnimation() {
-    mAnimationState = playerEntity->getAnimationState("Idle2");
+    int ran = rand() % 3;
+    
+    switch (ran) {
+        case 0:
+            mAnimationState = playerEntity->getAnimationState("Idle1");
+            break;
+
+        case 1:
+            mAnimationState = playerEntity->getAnimationState("Idle2");
+            break;
+
+        case 2:
+            mAnimationState = playerEntity->getAnimationState("Idle3");
+    } // switch-case
+
     mAnimationState->setLoop(true);
     mAnimationState->setEnabled(true);
 } // setIdleAnimation
@@ -100,13 +125,29 @@ void PlayerObject::setWalkAnimation() {
     mAnimationState->setEnabled(true);
 } // setWalkAnimation
 
+void PlayerObject::setDeathAnimation() {
+    int ran = rand() % 2;
+    
+    switch (ran) {
+        case 0:
+            mAnimationState = playerEntity->getAnimationState("Death1");
+            break;
+
+        case 1:
+            mAnimationState = playerEntity->getAnimationState("Death2");
+    } // switch-case
+
+    mAnimationState->setLoop(true);
+    mAnimationState->setEnabled(true);
+} // setDeathAnimation
+
 bool PlayerObject::withinWorld() {
     return World::getInstance().getCurrentZone()->containsPoint(playerNode->getPosition());
 } // withinWorld
 
 void PlayerObject::attack(const Ogre::FrameEvent &evt) {
     if (attacking && mAnimationState->hasEnded()) {
-        //setIdleAnimation();
+        setIdleAnimation();
         attacking = false;
     } // if
 } // attack
@@ -127,13 +168,6 @@ Ogre::Vector3 PlayerObject::getPosition() {
     return playerNode->getPosition();
 } // getPosition
 
-bool PlayerObject::contains(const OIS::MouseEvent &evt) {
-    return false;
-} // contains
-
-void PlayerObject::keyPressed(const OIS::KeyEvent &arg) {
-} // keyPressed
-
 void PlayerObject::mouseMoved(const OIS::MouseEvent &evt) {
 	if (false && evt.state.buttonDown(OIS::MB_Left)) {
 		//find the current mouse position
@@ -150,12 +184,14 @@ void PlayerObject::mouseMoved(const OIS::MouseEvent &evt) {
 } // mouseMoved
 
 void PlayerObject::mousePressed(const OIS::MouseEvent &evt, OIS::MouseButtonID id) {
+    if (dead) {
+        return;
+    } // if
+
     if (!attacking && id == OIS::MB_Left) {
-	    //find the current mouse position
 	    int x = evt.state.X.abs;
 	    int y = evt.state.Y.abs;
  
-	    //then send a raycast straight out from the camera at the mouse's position
 	    Ogre::Ray mouseRay = camera->getCameraToViewportRay(x/float(evt.state.width), y/float(evt.state.height));
 	    Ogre::Vector3 point = World::getInstance().getCurrentZone()->getIntersectingPlane(mouseRay);
 
@@ -185,6 +221,3 @@ void PlayerObject::mousePressed(const OIS::MouseEvent &evt, OIS::MouseButtonID i
         mAnimationState->setEnabled(true);
     } // else if
 } // mousePresesd
-
-void PlayerObject::mouseReleased(const OIS::MouseEvent &evt, OIS::MouseButtonID id) {
-} // mouseReleased

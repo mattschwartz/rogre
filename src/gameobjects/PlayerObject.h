@@ -14,6 +14,7 @@ class Player;
 class PlayerObject : public GameObject {
 private:
     bool attacking;
+    bool dead;
     Player *player;
     Ogre::Vector3 walkTo;
     Ogre::Vector3 mDirection;
@@ -28,6 +29,7 @@ private:
     void rotatePlayer();
     void setIdleAnimation();
     void setWalkAnimation();
+    void setDeathAnimation();
     bool withinWorld();
 
 public:
@@ -38,11 +40,11 @@ public:
 
     void createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera);
     void update(const Ogre::FrameEvent &evt);
-    bool contains(const OIS::MouseEvent &evt);
-    void keyPressed(const OIS::KeyEvent &arg);
+    bool contains(const OIS::MouseEvent &evt) { return false; }
+    void keyPressed(const OIS::KeyEvent &arg) {}
     void mouseMoved(const OIS::MouseEvent &evt);
     void mousePressed(const OIS::MouseEvent &evt, OIS::MouseButtonID id);
-    void mouseReleased(const OIS::MouseEvent &evt, OIS::MouseButtonID id);
+    void mouseReleased(const OIS::MouseEvent &evt, OIS::MouseButtonID id) {}
 };
 
 #endif

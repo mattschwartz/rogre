@@ -29,6 +29,9 @@ private:
 
 public:
     Player(int level, std::string name);
+    double getCurrentHitpoints();
+    bool isDead();
+    std::string getScore();
     void equipItem(Equippable *equippable);
     Equippable *getEquippedItemAt(int slotId);
     Inventory *getInventory();

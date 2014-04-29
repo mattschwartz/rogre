@@ -5,6 +5,8 @@
 #include "src/items/Item.h"
 #include "src/items/Equippable.h"
 #include "src/entities/player/Inventory.h"
+#include "src/gui/GUIManager.h"
+#include "src/gui/menu/DeathMenu.h"
 
 /**
  * Data
@@ -14,6 +16,19 @@ Player::Player(int level, std::string name) : Entity(level, name) {
     this->timePlayed = time(NULL);
     this->inventory = new Inventory();
 } // constructor
+
+double Player::getCurrentHitpoints() {
+    return currentHitpoints;
+} // getCurrentHitpoints
+
+bool Player::isDead() {
+    return currentHitpoints <= 0.0;
+} // isDead
+
+std::string Player::getScore() {
+    std::string score = "";
+    return score;
+} // getScore
 
 void Player::equipItem(Equippable *equippable) {
     Equippable *equippedItem = getEquippedItemAt(equippable->getSlotId());
@@ -50,6 +65,8 @@ void Player::onSpawn() {
 } // onSpawn
 
 void Player::onDeath() {
+    GUIManager::getInstance().deathMenu->show();
+    // write score to file
 } // onDeath
 
 void Player::onDamageDealt() {
