@@ -37,6 +37,9 @@ void MainMenu::createButtons() {
     loadPlayerButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
     hiScoresButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
     quitButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
+
+    loadPlayerButton->setEnabled(false);
+    hiScoresButton->setEnabled(false);
 #endif
     
     newPlayerButton->setPosition(UVector2(UDim(1.0f, -150.0f), UDim(1.0f, -160.0f)));
@@ -105,8 +108,6 @@ bool MainMenu::newPlayerEvent(const CEGUI::EventArgs &e) {
 } // newPlayerEvent
 
 bool MainMenu::loadPlayerEvent(const CEGUI::EventArgs &e) {
-    GUIManager::getInstance().loadingMenu->show();
-    GUIManager::getInstance().loadingMenu->setProgress(0.5f);
 	return false;
 } // loadPlayerEvent
 

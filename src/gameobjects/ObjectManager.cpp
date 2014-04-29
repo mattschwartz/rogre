@@ -42,21 +42,12 @@ Ogre::SceneManager *ObjectManager::getSceneManager() {
     return sceneManager;
 } // getSceneManager
 
-void ObjectManager::destroyEntity(std::string name) {
-	//sceneManager->destroyEntity(name);
-} // destroyEntity
-
 void ObjectManager::destroySceneNode(std::string name) {
     sceneManager->getSceneNode(name)->removeAndDestroyAllChildren();
 } // destroySceneNode
 
-void ObjectManager::destroyEntity(std::string name, int id) {
-	//sceneManager->destroyEntity(StringHelper::concat<int>(name, id));
-} // destroyEntity
-
 void ObjectManager::destroySceneNode(std::string name, int id) {
     sceneManager->getSceneNode(StringHelper::concat<int>(name, id))->removeAndDestroyAllChildren();
-	//sceneManager->destroySceneNode(StringHelper::concat<int>(name, id));
 } // destroySceneNode
 
 /**

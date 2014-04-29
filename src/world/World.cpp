@@ -19,6 +19,10 @@ Player *World::getCurrentPlayer() {
 } // getCurrentPlayer
 
 Ogre::Vector3 World::getPlayerPosition() {
+    if (playerObject == NULL) {
+        return Ogre::Vector3::NEGATIVE_UNIT_Y;
+    } // if
+
     return playerObject->getPosition();
 } // getPlayerPosition
 
@@ -36,9 +40,25 @@ void World::setCurrentPlayer(Player *player) {
     } // else
 } // setCurrentPlayer
 
-void World::spawnCurrentPlayer(float x, float y, float z) {
-    playerObject = new PlayerObject(this->currentPlayer, x, y, z);
+void World::spawnCurrentPlayer() {
+    Ogre::Vector3 position;
+    RoomObject *ro;
+    
+    if (currentZone == NULL) {
+        return;
+    } // if
+
+    ro = currentZone->rooms[0];
+    ro->show();
+
+    position.x = rand() % (int)(ro->getWidth());
+    position.y = 0;
+    position.z = rand() % (int)(ro->getDepth());
+
+    playerObject = new PlayerObject(this->currentPlayer, position);
     ObjectManager::getInstance().spawnObject(playerObject);
+
+    paused = false;
 } // spawnCurrentPlayer
 
 /**
@@ -69,13 +89,14 @@ bool World::isGamePaused() {
  * and thus one level more difficult.
  */
 void World::loadZone() {
-    paused = false;
+    paused = true;
 
     if (currentZone != NULL) {
 		delete currentZone;
 		currentZoneLevel++;
 	} // if
 
+    GUIManager::getInstance().loadingMenu->show();
     currentZone = ZoneGenerator::getInstance().generate((int)time(NULL), currentZoneLevel, 15);
     SoundManager::getInstance().AMBIANCE_RUMBLE_SOUND->loop(-1);
     GUIManager::getInstance().loadingMenu->hide();

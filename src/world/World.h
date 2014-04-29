@@ -37,7 +37,7 @@ public:
     void resumeGame();
     bool isGamePaused();
     void loadZone();
-    void spawnCurrentPlayer(float x, float y, float z);
+    void spawnCurrentPlayer();
 
     /**
      * Getters & Setters

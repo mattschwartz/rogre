@@ -19,10 +19,6 @@ PlayerObject::PlayerObject(Player *player, Ogre::Vector3 pos) : GameObject(pos) 
 } // constructor
 
 PlayerObject::~PlayerObject() {
-    // Remove entities
-	ObjectManager::getInstance().destroyEntity("Player");
-
-    // Remove scenenodes
     ObjectManager::getInstance().destroySceneNode("PlayerNode");
 } // destructor
 

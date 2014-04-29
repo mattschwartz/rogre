@@ -78,9 +78,9 @@ bool NewPlayerMenu::backEvent(const CEGUI::EventArgs &e) {
 
 bool NewPlayerMenu::startGameEvent(const CEGUI::EventArgs &e) {
     GUIManager::getInstance().loadingMenu->show();
-    World::getInstance().setCurrentPlayer(new Player(1, playerNameTextField->getText().c_str()));
-	World::getInstance().spawnCurrentPlayer(0, 0, 0);
 
 	World::getInstance().loadZone();
+    World::getInstance().setCurrentPlayer(new Player(1, playerNameTextField->getText().c_str()));
+	World::getInstance().spawnCurrentPlayer();
     return false;
 } // startGameEvent

@@ -23,10 +23,6 @@ EntityObject::EntityObject(Entity *entity, Ogre::Vector3 pos) : GameObject(pos) 
 } // constructor
 
 EntityObject::~EntityObject() {
-    // Remove entities
-	ObjectManager::getInstance().destroyEntity("EntityEntity", id);
-
-    // Remove scenenodes
     ObjectManager::getInstance().destroySceneNode("Entity", id);
 } // destructor
 
@@ -64,37 +60,34 @@ void EntityObject::update(const Ogre::FrameEvent &evt) {
         ran = rand() % 4;
 
         switch (ran) {
-        case 0:
-            SoundManager::getInstance().MONSTER_BREATHING_1_SOUND->play();
-            break;
+            case 0:
+                SoundManager::getInstance().MONSTER_BREATHING_1_SOUND->play();
+                break;
 
-        case 1:
-            SoundManager::getInstance().MONSTER_BREATHING_2_SOUND->play();
-            break;
+            case 1:
+                SoundManager::getInstance().MONSTER_BREATHING_2_SOUND->play();
+                break;
 
-        case 2:
-            SoundManager::getInstance().MONSTER_BREATHING_3_SOUND->play();
-            break;
+            case 2:
+                SoundManager::getInstance().MONSTER_BREATHING_3_SOUND->play();
+                break;
 
-        default:
-            SoundManager::getInstance().MONSTER_BREATHING_4_SOUND->play();
-
+            default:
+                SoundManager::getInstance().MONSTER_BREATHING_4_SOUND->play();
         } // switch-case
     } // if
-
-    //SoundManager::getInstance().PLAYER_FOOTSTEP_SOUND->play();
 } // update
 
 void EntityObject::move(const Ogre::FrameEvent &evt) {
     floater();
+
+    // Can we even see the player?
 
     // is the entity already in range of the player to attack?
     if (rangeCheck()) {
         return;
     } // if
 
-    // can the entity see the player?
-    // yes?
     mDestination = World::getInstance().getPlayerPosition();
 
     // no?

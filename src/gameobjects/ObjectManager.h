@@ -30,9 +30,7 @@ public:
     } // getInstance
 
     void init(Ogre::SceneManager *sceneMgr, Ogre::Camera *camera);
-	void destroyEntity(std::string name);
 	void destroySceneNode(std::string name);
-	void destroyEntity(std::string name, int);
 	void destroySceneNode(std::string name, int);
     void spawnObject(GameObject *object);
     void destroyScene();
