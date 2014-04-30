@@ -59,6 +59,7 @@ void World::spawnCurrentPlayer() {
     ObjectManager::getInstance().spawnObject(playerObject);
 
     paused = false;
+    SoundManager::getInstance().AMBIANCE_RUMBLE_SOUND->loop(-1);
 } // spawnCurrentPlayer
 
 /**
@@ -67,16 +68,15 @@ void World::spawnCurrentPlayer() {
 void World::playerQuit() {
     delete this->currentPlayer;
     this->currentPlayer = NULL;
+    SoundManager::getInstance().resetSound();
     ObjectManager::getInstance().destroyScene();
 } // playerQuit
 
 void World::pauseGame() {
-    SoundManager::getInstance().pauseSounds();
     paused = true;
 } // pauseGame
 
 void World::resumeGame() {
-    SoundManager::getInstance().resumeSounds();
     paused = false;
 } // resumeGame
 
@@ -96,9 +96,7 @@ void World::loadZone() {
 		currentZoneLevel++;
 	} // if
 
-    GUIManager::getInstance().loadingMenu->show();
     currentZone = ZoneGenerator::getInstance().generate((int)time(NULL), currentZoneLevel, 15);
-    SoundManager::getInstance().AMBIANCE_RUMBLE_SOUND->loop(-1);
     GUIManager::getInstance().loadingMenu->hide();
 } // loadZone
 

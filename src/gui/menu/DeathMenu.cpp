@@ -20,8 +20,8 @@ DeathMenu::DeathMenu()
 void DeathMenu::createWidgets() {
     using namespace CEGUI;
     
-    titleLabel = windowManager.createWindow("OgreTray/Label", "DeathMenu/titleLabel");
-    textLabel = windowManager.createWindow("OgreTray/Label", "DeathMenu/textLabel");
+    titleLabel = windowManager.createWindow("OgreTray/Title", "DeathMenu/titleLabel");
+    textLabel = windowManager.createWindow("OgreTray/Title", "DeathMenu/textLabel");
     scoreTextField = windowManager.createWindow("OgreTray/Editbox", "DeathMenu/scoreTextField");
     quitToMenuButton = static_cast<PushButton*>(
         windowManager.createWindow("OgreTray/Button", "DeathMenu/quitToMenuButton"));
@@ -29,7 +29,7 @@ void DeathMenu::createWidgets() {
         windowManager.createWindow("OgreTray/Button", "DeathMenu/quitGameButton"));
     
     titleLabel->setSize(USize(UDim(0.0f, 300.0f), UDim(0.0f, 40.0f)));
-    titleLabel->setPosition(UVector2(UDim(0.5f, -150.0f), UDim(0.5f, -65.0f)));
+    titleLabel->setPosition(UVector2(UDim(0.5f, -150.0f), UDim(0.5f, -70.0f)));
     titleLabel->setText("You Have Died.");
     
     textLabel->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
@@ -43,11 +43,11 @@ void DeathMenu::createWidgets() {
     scoreTextField->setEnabled(false);
     
     quitToMenuButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
-    quitToMenuButton->setPosition(UVector2(UDim(0.5f, -150.0f), UDim(0.5f, 25.0f)));
+    quitToMenuButton->setPosition(UVector2(UDim(0.5f, -150.0f), UDim(0.5f, 20.0f)));
     quitToMenuButton->setText("Main Menu");
 
     quitGameButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
-    quitGameButton->setPosition(UVector2(UDim(0.5f, 0.0f), UDim(0.5f, 25.0f)));
+    quitGameButton->setPosition(UVector2(UDim(0.5f, 0.0f), UDim(0.5f, 20.0f)));
     quitGameButton->setText("Quit");
 } // createWidgets
 

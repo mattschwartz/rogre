@@ -21,6 +21,8 @@ MainMenu::MainMenu()
 void MainMenu::createButtons() {
     using namespace CEGUI;
 
+    titleLabel = windowManager.createWindow("OgreTray/Title", "MainMenu/titleLabel");
+
     newPlayerButton = static_cast<PushButton*>(
         windowManager.createWindow("OgreTray/Button", "MainMenu/newPlayerButton"));
     loadPlayerButton = static_cast<PushButton*>(
@@ -31,11 +33,13 @@ void MainMenu::createButtons() {
         windowManager.createWindow("OgreTray/Button", "MainMenu/quitButton"));
 
 #if USE_OGRE_LEGACY
+    titleLabel->setSize(UVector2(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
     newPlayerButton->setSize(UVector2(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
     loadPlayerButton->setSize(UVector2(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
     hiScoresButton->setSize(UVector2(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
     quitButton->setSize(UVector2(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
 #else
+    titleLabel->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
     newPlayerButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
     loadPlayerButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
     hiScoresButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
@@ -45,6 +49,9 @@ void MainMenu::createButtons() {
     hiScoresButton->setEnabled(false);
 #endif
     
+    titleLabel->setPosition(UVector2(UDim(0.5f, -(150.0f / 2)), UDim(0.5f, -110.0f)));
+    titleLabel->setText("Main Menu");
+
     newPlayerButton->setPosition(UVector2(UDim(0.5f, -(150.0f / 2)), UDim(0.5f, -60.0f)));
     newPlayerButton->setText("New Player");
     
@@ -64,11 +71,13 @@ void MainMenu::createRootWindow() {
     mRoot = windowManager.createWindow("DefaultWindow", "MainMenu/root");
 
 #if USE_OGRE_LEGACY
+    mRoot->addChildWindow(titleLabel);
     mRoot->addChildWindow(newPlayerButton);
     mRoot->addChildWindow(loadPlayerButton);
     mRoot->addChildWindow(hiScoresButton);
     mRoot->addChildWindow(quitButton);
 #else
+    mRoot->addChild(titleLabel);
     mRoot->addChild(newPlayerButton);
     mRoot->addChild(loadPlayerButton);
     mRoot->addChild(hiScoresButton);

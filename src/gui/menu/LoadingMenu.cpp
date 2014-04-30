@@ -29,7 +29,8 @@ void LoadingMenu::setProgress(float progress) {
     loadingBar->setProgress(progress);
 } // setProgress
 
-void LoadingMenu::show() {
+void LoadingMenu::show(std::string title) {
+    loadingBar->setText(title);
     CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(mRoot);
 } // show
 

@@ -5,6 +5,7 @@
  * Included files
  */
 #include <CEGUI/CEGUI.h>
+#include <string.h>
 
 class LoadingMenu {
 private:
@@ -17,7 +18,7 @@ private:
 public:
     LoadingMenu();
     ~LoadingMenu();
-    void show();
+    void show(std::string title);
     void hide();
     void setProgress(float progress);
 };

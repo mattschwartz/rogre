@@ -15,34 +15,60 @@ void SoundManager::init() {
     MONSTER_BREATHING_3_SOUND = new SoundEffect("media/sound/monsterBreath3.wav");
     MONSTER_BREATHING_4_SOUND = new SoundEffect("media/sound/monsterBreath4.wav");
     ATTACK_HIT_1_SOUND = new SoundEffect("media/sound/attackHit1.wav");
-    ATTACK_MISS_1_SOUND = new SoundEffect("media/sound/attackMiss.wav");
+    ATTACK_MISS_1_SOUND = new SoundEffect("media/sound/attackMiss1.wav");
     MENU_SELECT_SOUND = new SoundEffect("media/sound/menuSelect.wav");
     AMBIANCE_RUMBLE_SOUND = new SoundEffect("media/sound/ambianceRumble.wav");
     
-    soundEnabled = true;
+    menuSoundsEnabled = true;
+    gameSoundsEnabled = true;
 } // init
 
-bool SoundManager::isSoundEnabled() {
-    return soundEnabled;
-} // isSoundEnabled
+bool SoundManager::isMenuSoundEnabled() {
+    return menuSoundsEnabled;
+} // isMenuSoundEnabled
+
+bool SoundManager::isGameSoundEnabled() {
+    return gameSoundsEnabled;
+} // isGameSoundEnabled
 
 void SoundManager::pauseSounds() {
-    soundEnabled = false;
+    gameSoundsEnabled = false;
     Mix_Pause(-1);
 } // pauseSounds
 
 void SoundManager::resumeSounds() {
-    soundEnabled = true;
+    gameSoundsEnabled = true;
     Mix_Resume(-1);
 } // resumeSounds
 
-void SoundManager::toggleSound() {
-    soundEnabled = !soundEnabled;
+void SoundManager::resetSound() {
+    Mix_HaltChannel(-1);
+    gameSoundsEnabled = true;
+    menuSoundsEnabled = true;
+} // resetSound
 
-    if (soundEnabled) {
+void SoundManager::setGameSoundEnabled(bool enabled) {
+    gameSoundsEnabled = enabled;
+
+    if (gameSoundsEnabled) {
         Mix_Resume(-1);
     } // if
     else {
         Mix_Pause(-1);
     } // else
-} // toggleSound
+} // setGameSoundEnabled
+
+void SoundManager::setMenuSoundEnabled(bool enabled) {
+    menuSoundsEnabled = enabled;
+} // setMenuSoundEnabled
+
+void SoundManager::toggleGameSound() {
+    gameSoundsEnabled = !gameSoundsEnabled;
+
+    if (gameSoundsEnabled) {
+        Mix_Resume(-1);
+    } // if
+    else {
+        Mix_Pause(-1);
+    } // else
+} // toggleGameSound

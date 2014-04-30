@@ -3,6 +3,7 @@
  */
 #include "SoundEffect.h"
 #include "SoundManager.h"
+#include "src/world/World.h"
 
 SoundEffect::SoundEffect(const std::string filepath) {
     this->channel = -1;
@@ -14,7 +15,7 @@ SoundEffect::~SoundEffect() {
 } // destructor
 
 void SoundEffect::play() {
-    if (SoundManager::getInstance().isSoundEnabled()) {
+    if (!World::getInstance().isGamePaused() && SoundManager::getInstance().isGameSoundEnabled()) {
         this->channel = Mix_PlayChannel(-1, this->sound, 0);
     } // if
 } // play
@@ -26,7 +27,7 @@ void SoundEffect::pause() {
 } // pause
 
 void SoundEffect::resume() {
-    if (SoundManager::getInstance().isSoundEnabled()) {
+    if (!World::getInstance().isGamePaused() && SoundManager::getInstance().isGameSoundEnabled()) {
         if (this->channel >= 0) {
             Mix_Resume(this->channel);
         } // if
@@ -40,7 +41,7 @@ void SoundEffect::stop() {
 } // stop
 
 void SoundEffect::loop(int loops) {
-    if (SoundManager::getInstance().isSoundEnabled()) {
+    if (!World::getInstance().isGamePaused() && SoundManager::getInstance().isGameSoundEnabled()) {
         this->channel = Mix_PlayChannel(-1, this->sound, loops);
     } // if
 } // loop

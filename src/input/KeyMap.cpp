@@ -10,7 +10,7 @@ void KeyMap::openAttributes(void) {
 }
 
 void KeyMap::toggleSound(void) {
-    SoundManager::getInstance().toggleSound();
+    SoundManager::getInstance().toggleGameSound();
 } // toggleSound
 
 void KeyMap::toggleOptionsMenu(void) {

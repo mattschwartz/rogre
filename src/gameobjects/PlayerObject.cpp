@@ -90,6 +90,7 @@ void PlayerObject::move(const Ogre::FrameEvent &evt) {
             if (!withinWorld()) {
                 playerNode->setPosition(initialPosition);
                 walkTo = initialPosition;
+                setIdleAnimation();
             } // if
             else {
                 setWalkAnimation();
@@ -184,11 +185,11 @@ void PlayerObject::mouseMoved(const OIS::MouseEvent &evt) {
 } // mouseMoved
 
 void PlayerObject::mousePressed(const OIS::MouseEvent &evt, OIS::MouseButtonID id) {
-    if (dead) {
+    if (dead || attacking) {
         return;
     } // if
 
-    if (!attacking && id == OIS::MB_Left) {
+    if (id == OIS::MB_Left) {
 	    int x = evt.state.X.abs;
 	    int y = evt.state.Y.abs;
  
@@ -219,5 +220,6 @@ void PlayerObject::mousePressed(const OIS::MouseEvent &evt, OIS::MouseButtonID i
         mAnimationState->setTimePosition(0);
         mAnimationState->setLoop(false);
         mAnimationState->setEnabled(true);
+        SoundManager::getInstance().ATTACK_MISS_1_SOUND->play();
     } // else if
 } // mousePresesd

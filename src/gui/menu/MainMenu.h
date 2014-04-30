@@ -15,6 +15,7 @@ class MainMenu {
 private:
     CEGUI::WindowManager &windowManager;
     CEGUI::Window *mRoot;
+    CEGUI::Window *titleLabel;
     CEGUI::PushButton *newPlayerButton;
     CEGUI::PushButton *loadPlayerButton;
     CEGUI::PushButton *hiScoresButton;

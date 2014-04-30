@@ -5,7 +5,8 @@ class SoundEffect;
 
 class SoundManager {
 private:
-    bool soundEnabled;
+    bool gameSoundsEnabled;
+    bool menuSoundsEnabled;
     SoundManager() {}
     SoundManager(SoundManager const&);
     void operator=(SoundManager const&);
@@ -27,10 +28,15 @@ public:
     } // getInstance
 
     void init();
-    bool isSoundEnabled();
+    bool isMenuSoundEnabled();
+    bool isGameSoundEnabled();
     void pauseSounds();
     void resumeSounds();
-    void toggleSound();
+    void resetSound();
+    void volumeControl(int newVolume);
+    void setGameSoundEnabled(bool enabled);
+    void setMenuSoundEnabled(bool enabled);
+    void toggleGameSound();
 };
 
 #endif
