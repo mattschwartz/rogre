@@ -4,6 +4,7 @@
 #include "InGameMenu.h"
 #include "PlayerAttributesPanel.h"
 #include "PlayerInventoryPanel.h"
+#include "InfoLogPanel.h"
 #include "src/entities/player/Player.h"
 
 InGameMenu::InGameMenu() : 
@@ -17,6 +18,7 @@ void InGameMenu::createWidgets() {
 
     playerAttributes = new PlayerAttributesPanel();
     playerInventory = new PlayerInventoryPanel();
+    infoLog = new InfoLogPanel();
 
     healthBar = static_cast<ProgressBar*>(
         windowManager.createWindow("OgreTray/ProgressBar", "InGameMenu/healthBar"));
@@ -38,9 +40,18 @@ void InGameMenu::createRootWindow() {
     mRoot = windowManager.createWindow("DefaultWindow", "InGameMenu/root");
     mRoot->addChild(healthBar);
     mRoot->addChild(scoreLabel);
-    playerInventory->addPanelTo(mRoot);
     playerAttributes->addPanelTo(mRoot);
+    playerInventory->addPanelTo(mRoot);
+    infoLog->addPanelTo(mRoot);
 } // createRootWindow
+
+void InGameMenu::appendText(std::string text) {
+    infoLog->append(text);
+} // appendText
+
+void InGameMenu::appendLine(std::string text) {
+    infoLog->appendLine(text);
+} // appendLine
 
 void InGameMenu::updateAttributes(Player *player) {
     playerAttributes->updateAttributes(player);

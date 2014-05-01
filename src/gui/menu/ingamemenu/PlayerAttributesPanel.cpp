@@ -2,74 +2,71 @@
  * Included files
  */
 #include "PlayerAttributesPanel.h"
+#include "AdvancedAttributesPanel.h"
+#include "BasicAttributesPanel.h"
 #include "src/entities/player/Player.h"
 #include "src/utility/StringHelper.h"
 
 PlayerAttributesPanel::PlayerAttributesPanel() :
     windowManager(CEGUI::WindowManager::getSingleton()) {
     createWidgets();
+    registerEvents();
+    pageNumber = 0;
 } // constructor
 
 void PlayerAttributesPanel::createWidgets() {
     using namespace CEGUI;
 
-    palyerAttributesTitle = windowManager.createWindow("OgreTray/Title", "PlayerAttributesPanel/palyerAttributesTitle");
-    playerHealthLabel = windowManager.createWindow("OgreTray/Title", "PlayerAttributesPanel/playerHealthLabel");
-    playerHealthValue = windowManager.createWindow("OgreTray/Title", "PlayerAttributesPanel/playerHealthValue");
-    playerDmgReductionLabel = windowManager.createWindow("OgreTray/Title", "PlayerAttributesPanel/playerDmgReductionLabel");
-    playerDmgReductionValue = windowManager.createWindow("OgreTray/Title", "PlayerAttributesPanel/playerDmgReductionValue");
-    playerDmgOutputLabel = windowManager.createWindow("OgreTray/Title", "PlayerAttributesPanel/playerDmgOutputLabel");
-    playerDmgOutputValue = windowManager.createWindow("OgreTray/Title", "PlayerAttributesPanel/playerDmgOutputValue");
-    
-    palyerAttributesTitle->setSize(USize(UDim(0.0f, 300.0f), UDim(0.0f, 40.0f)));
-    palyerAttributesTitle->setPosition(UVector2(UDim(1.0f, -300.0f), UDim(0.0f, 0.0f)));
-    palyerAttributesTitle->setText("Attributes");
+    basicAttributesPanel = new BasicAttributesPanel();
+    advancedAttributesPanel = new AdvancedAttributesPanel();
 
-    playerHealthLabel->setSize(USize(UDim(0.0f, 200.0f), UDim(0.0f, 40.0f)));
-    playerHealthLabel->setPosition(UVector2(UDim(1.0f, -300.0f), UDim(0.0f, 40.0f)));
-    playerHealthLabel->setText("Maximum health:");
+    playerAttributesTitle = windowManager.createWindow("OgreTray/Title", "PlayerAttributesPanel/playerAttributesTitle");
+    togglePageButton = static_cast<PushButton*>(
+        windowManager.createWindow("OgreTray/Button", "PlayerAttributesPanel/togglePageButton"));
     
-    playerHealthValue->setSize(USize(UDim(0.0f, 100.0f), UDim(0.0f, 40.0f)));
-    playerHealthValue->setPosition(UVector2(UDim(1.0f, -100.0f), UDim(0.0f, 40.0f)));
+    playerAttributesTitle->setSize(USize(UDim(0.0f, 300.0f), UDim(0.0f, 40.0f)));
+    playerAttributesTitle->setPosition(UVector2(UDim(1.0f, -310.0f), UDim(0.0f, 5.0f)));
+    playerAttributesTitle->setText("Attributes");
     
-    playerDmgReductionLabel->setSize(USize(UDim(0.0f, 200.0f), UDim(0.0f, 40.0f)));
-    playerDmgReductionLabel->setPosition(UVector2(UDim(1.0f, -300.0f), UDim(0.0f, 80.0f)));
-    playerDmgReductionLabel->setText("Damage reduced by:");
-    
-    playerDmgReductionValue->setSize(USize(UDim(0.0f, 100.0f), UDim(0.0f, 40.0f)));
-    playerDmgReductionValue->setPosition(UVector2(UDim(1.0f, -100.0f), UDim(0.0f, 80.0f)));
-    
-    playerDmgOutputLabel->setSize(USize(UDim(0.0f, 200.0f), UDim(0.0f, 40.0f)));
-    playerDmgOutputLabel->setPosition(UVector2(UDim(1.0f, -300.0f), UDim(0.0f, 120.0f)));
-    playerDmgOutputLabel->setText("Damage multiplier:");
-    
-    playerDmgOutputValue->setSize(USize(UDim(0.0f, 100.0f), UDim(0.0f, 40.0f)));
-    playerDmgOutputValue->setPosition(UVector2(UDim(1.0f, -100.0f), UDim(0.0f, 120.0f)));
+    togglePageButton->setSize(USize(UDim(0.0f, 300.0f), UDim(0.0f, 40.0f)));
+    togglePageButton->setPosition(UVector2(UDim(1.0f, -310.0f), UDim(0.0f, 45.0f)));
+    togglePageButton->setText("Show Advanced Attributes");
 } // createWidgets
 
+void PlayerAttributesPanel::registerEvents() {
+    using namespace CEGUI;
+    
+    togglePageButton->subscribeEvent(PushButton::EventClicked, 
+        Event::Subscriber(&PlayerAttributesPanel::togglePageEvent, this));
+} // registerEvents
+
 void PlayerAttributesPanel::updateAttributes(Player *player) {
-    using namespace StringHelper;
-    std::string damageReduction;
-    std::string damageOutput;
-
-    damageReduction = concat<double>("-", (double)(1 + (player->getAttribute(armor) / 10.0)));
-    damageReduction = concat<std::string>(damageReduction, "%");
-    damageOutput = concat<double>("+", (double)(1 + (player->getAttribute(strength) / 100.0)));
-    damageOutput = concat<std::string>(damageOutput, "%");
-
-    playerHealthValue->setText(StringHelper::concat<double>("", player->getAttribute(hitpoints)));
-    playerDmgReductionValue->setText(damageReduction);
-    playerDmgOutputValue->setText(damageOutput);
+    advancedAttributesPanel->updateAttributes(player);
+    basicAttributesPanel->updateAttributes(player);
 } // updateAttributes
 
 void PlayerAttributesPanel::addPanelTo(CEGUI::Window *mRoot) {
-    using namespace CEGUI;
-
-    mRoot->addChild(palyerAttributesTitle);
-    mRoot->addChild(playerHealthLabel);
-    mRoot->addChild(playerHealthValue);
-    mRoot->addChild(playerDmgReductionLabel);
-    mRoot->addChild(playerDmgReductionValue);
-    mRoot->addChild(playerDmgOutputLabel);
-    mRoot->addChild(playerDmgOutputValue);
+    this->mRoot = mRoot;
+    mRoot->addChild(playerAttributesTitle);
+    basicAttributesPanel->addPanelTo(mRoot);
+    mRoot->addChild(togglePageButton);
 } // addPanelTo
+
+bool PlayerAttributesPanel::togglePageEvent(const CEGUI::EventArgs &e) {
+    pageNumber = (pageNumber + 1) % 2;
+
+    switch (pageNumber) {
+        case 0:
+            advancedAttributesPanel->removePanelFrom(mRoot);
+            basicAttributesPanel->addPanelTo(mRoot);
+            togglePageButton->setText("Show Advanced Attributes");
+            break;
+        case 1:
+            basicAttributesPanel->removePanelFrom(mRoot);
+            advancedAttributesPanel->addPanelTo(mRoot);
+            togglePageButton->setText("Show Basic Attributes");
+            break;
+    } // switch-case
+
+    return true;
+} // togglePageEvent

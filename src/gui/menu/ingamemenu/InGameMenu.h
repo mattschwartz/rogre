@@ -9,6 +9,7 @@
 class Item;
 class PlayerAttributesPanel;
 class PlayerInventoryPanel;
+class InfoLogPanel;
 class Player;
 
 class InGameMenu {
@@ -19,6 +20,7 @@ private:
     CEGUI::Window *scoreLabel;
     PlayerAttributesPanel *playerAttributes;
     PlayerInventoryPanel *playerInventory;
+    InfoLogPanel *infoLog;
 
     void createWidgets();
     void createRootWindow();
@@ -26,6 +28,8 @@ private:
 public:
     InGameMenu();
     ~InGameMenu();
+    void appendText(std::string text);
+    void appendLine(std::string  text);
     void updateAttributes(Player *player);
     void show();
     void hide();

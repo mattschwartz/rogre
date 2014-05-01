@@ -6,19 +6,24 @@
  */
 #include <CEGUI/CEGUI.h>
 
+class AdvancedAttributesPanel;
+class BasicAttributesPanel;
 class Player;
 
 class PlayerAttributesPanel {
 private:
+    int pageNumber;
+    CEGUI::Window *mRoot;
     CEGUI::WindowManager &windowManager;
-    CEGUI::Window *palyerAttributesTitle;
-    CEGUI::Window *playerHealthLabel;
-    CEGUI::Window *playerHealthValue;
-    CEGUI::Window *playerDmgReductionLabel;
-    CEGUI::Window *playerDmgReductionValue;
-    CEGUI::Window *playerDmgOutputLabel;
-    CEGUI::Window *playerDmgOutputValue;
+    CEGUI::Window *playerAttributesTitle;
+    CEGUI::PushButton *togglePageButton;
+    AdvancedAttributesPanel *advancedAttributesPanel;
+    BasicAttributesPanel *basicAttributesPanel;
     void createWidgets();
+    void createRootWindow();
+    void registerEvents();
+
+    bool togglePageEvent(const CEGUI::EventArgs &e);
 
 public:
     PlayerAttributesPanel();

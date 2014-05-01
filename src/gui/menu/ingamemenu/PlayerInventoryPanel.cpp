@@ -25,22 +25,22 @@ void PlayerInventoryPanel::createWidgets() {
         windowManager.createWindow("OgreTray/Button", "InGameMenu/equipItemButton"));
 
     inventoryLabel->setSize(USize(UDim(0.0f, 300.0f), UDim(0.0f, 40.0f)));
-    inventoryLabel->setPosition(UVector2(UDim(1.0f, -300.0f), UDim(1.0f, -330.0f)));
+    inventoryLabel->setPosition(UVector2(UDim(1.0f, -310.0f), UDim(1.0f, -335.0f)));
     inventoryLabel->setText("Inventory");
 
     inventory->setSize(USize(UDim(0.0f, 300.0f), UDim(0.0f, 250.0f)));
-    inventory->setPosition(UVector2(UDim(1.0f, -300.0f), UDim(1.0f, -290.0f)));
+    inventory->setPosition(UVector2(UDim(1.0f, -310.0f), UDim(1.0f, -295.0f)));
     
     equipItemButton->setSize(USize(UDim(0.0f, 100.0f), UDim(0.0f, 40.0f)));
-    equipItemButton->setPosition(UVector2(UDim(1.0f, -300.0f), UDim(1.0f, -40.0f)));
+    equipItemButton->setPosition(UVector2(UDim(1.0f, -310.0f), UDim(1.0f, -45.0f)));
     equipItemButton->setText("Equip");
     
     dropItemButton->setSize(USize(UDim(0.0f, 100.0f), UDim(0.0f, 40.0f)));
-    dropItemButton->setPosition(UVector2(UDim(1.0f, -200.0f), UDim(1.0f, -40.0f)));
+    dropItemButton->setPosition(UVector2(UDim(1.0f, -210.0f), UDim(1.0f, -45.0f)));
     dropItemButton->setText("Drop");
     
     examineItemButton->setSize(USize(UDim(0.0f, 100.0f), UDim(0.0f, 40.0f)));
-    examineItemButton->setPosition(UVector2(UDim(1.0f, -100.0f), UDim(1.0f, -40.0f)));
+    examineItemButton->setPosition(UVector2(UDim(1.0f, -110.0f), UDim(1.0f, -45.0f)));
     examineItemButton->setText("Examine");
 } // createWidgets
 

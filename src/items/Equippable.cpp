@@ -7,10 +7,6 @@
 #include "src/entities/player/Player.h"
 
 /**
- * Defines
- */
-
-/**
  * Data
  */
 Equippable::Equippable(int id, int level, int goldWorth, int stackSize, std::string name, int numAffixes, affix_t *affixes) : Item(id, level, goldWorth, stackSize, name) {
