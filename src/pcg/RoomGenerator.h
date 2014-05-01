@@ -7,9 +7,10 @@
 #include "src/world/Room.h"
 #include "src/doodad/Doodad.h"
 #include "src/entities/Entity.h"
-#include "src/entities/monsters/SkeletonEntity.h"
+#include "src/entities/monsters/GoblinEntity.h"
 #include "src/items/Item.h"
 #include "src/gameobjects/EntityObject.h"
+#include "src/gameobjects/GoblinEntityObject.h"
 #include "src/gameobjects/RoomObject.h"
 #include "src/gameobjects/ObjectManager.h"
 
@@ -40,21 +41,21 @@ public:
 		float eZ;
         bool done = false;
         Room *r;
-        Entity *e;
+        GoblinEntity *e;
         Item *i;
         Doodad *d;
 
         r = new Room(zoneLevel, width, depth);
 
         while (!done) {
-            e = new SkeletonEntity(zoneLevel, "monster1");
+            e = new GoblinEntity(zoneLevel, "monster1");
             i = new Item(1, zoneLevel, 0, 1, "item1");
             d = new Doodad();
 
 			eX = (rand() % (int)width) + x;
 			eZ = (rand() % (int)depth) + z;
 
-			ObjectManager::getInstance().spawnObject(new EntityObject(e, eX, eZ));
+			ObjectManager::getInstance().spawnObject(new GoblinEntityObject(e, eX, eZ));
 
             done = true;
         } // while

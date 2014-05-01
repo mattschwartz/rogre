@@ -7,7 +7,6 @@
 #include "src/entities/Entity.h"
 
 class SkeletonEntity : public Entity {
-private:
 public:
     SkeletonEntity(int level, std::string name) : Entity(level, name) {}
     ~SkeletonEntity() {}
