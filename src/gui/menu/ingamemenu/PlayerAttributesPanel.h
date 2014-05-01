@@ -6,6 +6,8 @@
  */
 #include <CEGUI/CEGUI.h>
 
+class Player;
+
 class PlayerAttributesPanel {
 private:
     CEGUI::WindowManager &windowManager;
@@ -21,6 +23,7 @@ private:
 public:
     PlayerAttributesPanel();
     ~PlayerAttributesPanel();
+    void updateAttributes(Player *player);
     void addPanelTo(CEGUI::Window *mRoot);
 };
 

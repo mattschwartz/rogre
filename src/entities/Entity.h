@@ -32,6 +32,7 @@ public:
     Entity(int level, std::string name);
     void spawn();
     void die(Entity *slayer);
+    double getAttribute(attribute_t attribute);
     double calculateHit();
     void takeDamage(double amount, Entity *aggressor);
 

@@ -9,6 +9,8 @@
 #include "src/gameobjects/PlayerObject.h"
 #include "src/sound/SoundManager.h"
 #include "src/sound/SoundEffect.h"
+#include "src/gui/GUIManager.h"
+#include "src/gui/menu/ingamemenu/InGameMenu.h"
 
 /**
  * 
@@ -60,6 +62,7 @@ void World::spawnCurrentPlayer() {
 
     paused = false;
     SoundManager::getInstance().AMBIANCE_RUMBLE_SOUND->loop(-1);
+    GUIManager::getInstance().inGameMenu->updateAttributes(currentPlayer);
 } // spawnCurrentPlayer
 
 /**

@@ -2,6 +2,8 @@
  * Included files
  */
 #include "PlayerAttributesPanel.h"
+#include "src/entities/player/Player.h"
+#include "src/utility/StringHelper.h"
 
 PlayerAttributesPanel::PlayerAttributesPanel() :
     windowManager(CEGUI::WindowManager::getSingleton()) {
@@ -29,7 +31,6 @@ void PlayerAttributesPanel::createWidgets() {
     
     playerHealthValue->setSize(USize(UDim(0.0f, 100.0f), UDim(0.0f, 40.0f)));
     playerHealthValue->setPosition(UVector2(UDim(1.0f, -100.0f), UDim(0.0f, 40.0f)));
-    playerHealthValue->setText("189");
     
     playerDmgReductionLabel->setSize(USize(UDim(0.0f, 200.0f), UDim(0.0f, 40.0f)));
     playerDmgReductionLabel->setPosition(UVector2(UDim(1.0f, -300.0f), UDim(0.0f, 80.0f)));
@@ -37,16 +38,29 @@ void PlayerAttributesPanel::createWidgets() {
     
     playerDmgReductionValue->setSize(USize(UDim(0.0f, 100.0f), UDim(0.0f, 40.0f)));
     playerDmgReductionValue->setPosition(UVector2(UDim(1.0f, -100.0f), UDim(0.0f, 80.0f)));
-    playerDmgReductionValue->setText("17.8%");
     
     playerDmgOutputLabel->setSize(USize(UDim(0.0f, 200.0f), UDim(0.0f, 40.0f)));
     playerDmgOutputLabel->setPosition(UVector2(UDim(1.0f, -300.0f), UDim(0.0f, 120.0f)));
-    playerDmgOutputLabel->setText("Damage dealt:");
+    playerDmgOutputLabel->setText("Damage multiplier:");
     
     playerDmgOutputValue->setSize(USize(UDim(0.0f, 100.0f), UDim(0.0f, 40.0f)));
     playerDmgOutputValue->setPosition(UVector2(UDim(1.0f, -100.0f), UDim(0.0f, 120.0f)));
-    playerDmgOutputValue->setText("17 - 22");
 } // createWidgets
+
+void PlayerAttributesPanel::updateAttributes(Player *player) {
+    using namespace StringHelper;
+    std::string damageReduction;
+    std::string damageOutput;
+
+    damageReduction = concat<double>("-", (double)(1 + (player->getAttribute(armor) / 10.0)));
+    damageReduction = concat<std::string>(damageReduction, "%");
+    damageOutput = concat<double>("+", (double)(1 + (player->getAttribute(strength) / 100.0)));
+    damageOutput = concat<std::string>(damageOutput, "%");
+
+    playerHealthValue->setText(StringHelper::concat<double>("", player->getAttribute(hitpoints)));
+    playerDmgReductionValue->setText(damageReduction);
+    playerDmgOutputValue->setText(damageOutput);
+} // updateAttributes
 
 void PlayerAttributesPanel::addPanelTo(CEGUI::Window *mRoot) {
     using namespace CEGUI;

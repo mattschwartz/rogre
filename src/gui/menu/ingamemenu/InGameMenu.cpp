@@ -4,6 +4,7 @@
 #include "InGameMenu.h"
 #include "PlayerAttributesPanel.h"
 #include "PlayerInventoryPanel.h"
+#include "src/entities/player/Player.h"
 
 InGameMenu::InGameMenu() : 
     windowManager(CEGUI::WindowManager::getSingleton()) {
@@ -40,6 +41,10 @@ void InGameMenu::createRootWindow() {
     playerInventory->addPanelTo(mRoot);
     playerAttributes->addPanelTo(mRoot);
 } // createRootWindow
+
+void InGameMenu::updateAttributes(Player *player) {
+    playerAttributes->updateAttributes(player);
+} // update
 
 void InGameMenu::show() {
     CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(mRoot);

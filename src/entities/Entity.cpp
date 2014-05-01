@@ -36,6 +36,10 @@ void Entity::die(Entity *slayer) {
     onDeath();
 } // die
 
+double Entity::getAttribute(attribute_t attribute) {
+    return attributes[attribute];
+} // getAttribute
+
 /**
  * Determines the amount of damage to deal on the next hit,
  * invoked whenever this Entity is to deal damage to another.

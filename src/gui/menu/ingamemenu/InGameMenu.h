@@ -9,6 +9,7 @@
 class Item;
 class PlayerAttributesPanel;
 class PlayerInventoryPanel;
+class Player;
 
 class InGameMenu {
 private:
@@ -25,6 +26,7 @@ private:
 public:
     InGameMenu();
     ~InGameMenu();
+    void updateAttributes(Player *player);
     void show();
     void hide();
 
