@@ -5,12 +5,13 @@
  * Included files
  */
 #include "src/world/Room.h"
-#include "src/doodad/Doodad.h"
+#include "src/doodad/ChestDoodad.h"
 #include "src/entities/Entity.h"
 #include "src/entities/monsters/GoblinEntity.h"
 #include "src/items/Item.h"
 #include "src/gameobjects/EntityObject.h"
 #include "src/gameobjects/GoblinEntityObject.h"
+#include "src/gameobjects/ChestDoodadObject.h"
 #include "src/gameobjects/RoomObject.h"
 #include "src/gameobjects/ObjectManager.h"
 
@@ -42,20 +43,22 @@ public:
         bool done = false;
         Room *r;
         GoblinEntity *e;
-        Item *i;
-        Doodad *d;
+        ChestDoodad *d;
 
         r = new Room(zoneLevel, width, depth);
 
         while (!done) {
             e = new GoblinEntity(zoneLevel, "monster1");
-            i = new Item(1, zoneLevel, 0, 1, "item1");
-            d = new Doodad();
+			eX = (rand() % (int)width) + x;
+			eZ = (rand() % (int)depth) + z;
+            
+			ObjectManager::getInstance().spawnObject(new GoblinEntityObject(e, eX, eZ));
 
+            d = new ChestDoodad();
 			eX = (rand() % (int)width) + x;
 			eZ = (rand() % (int)depth) + z;
 
-			ObjectManager::getInstance().spawnObject(new GoblinEntityObject(e, eX, eZ));
+			ObjectManager::getInstance().spawnObject(new ChestDoodadObject(d, eX, eZ));
 
             done = true;
         } // while

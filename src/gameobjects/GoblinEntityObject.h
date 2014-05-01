@@ -18,6 +18,8 @@ public:
     GoblinEntityObject(GoblinEntity *entity, float x, float z);
     GoblinEntityObject(GoblinEntity *entity, Ogre::Vector3 pos);
     ~GoblinEntityObject();
+    void show();
+    void hide();
     void createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera);
     void update(const Ogre::FrameEvent &evt);
     void move(const Ogre::FrameEvent &evt);

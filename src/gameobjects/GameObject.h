@@ -31,6 +31,7 @@ struct Bounds {
  */
 class GameObject {
 protected:
+    int id;
     Ogre::Vector3 position;
 
 public:

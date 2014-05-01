@@ -7,23 +7,29 @@
 #include "src/gameobjects/GameObject.h"
 
 class Doodad;
+static int doodadCount = 0;
 
 /**
  * Data
  */
 class DoodadObject : public GameObject {
-private:
-    Doodad *doodad;
+protected:
+	Ogre::Entity *doodadEntity;
+	Ogre::SceneNode *doodadNode;
 
 public:
-    DoodadObject(Doodad *doodad, Ogre::Vector3 pos);
-    void createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera);
-    void update(const Ogre::FrameEvent &evt);
-    bool contains(const OIS::MouseEvent &evt);
-    void keyPressed(const OIS::KeyEvent &arg);
-    void mouseMoved(const OIS::MouseEvent &evt);
-    void mousePressed(const OIS::MouseEvent &evt, OIS::MouseButtonID id);
-    void mouseReleased(const OIS::MouseEvent &evt, OIS::MouseButtonID id);
+    DoodadObject(float x, float z) : GameObject(Ogre::Vector3(x, 0, z)) {}
+    DoodadObject(Ogre::Vector3 pos) : GameObject(pos) {}
+    virtual void show() = 0;
+    virtual void hide() = 0;
+    virtual void createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera) = 0;
+    virtual void update(const Ogre::FrameEvent &evt) = 0;
+
+    bool contains(const OIS::MouseEvent &evt) { return false; }
+    void keyPressed(const OIS::KeyEvent &arg) {}
+    void mouseMoved(const OIS::MouseEvent &evt) {}
+    void mousePressed(const OIS::MouseEvent &evt, OIS::MouseButtonID id) {}
+    void mouseReleased(const OIS::MouseEvent &evt, OIS::MouseButtonID id) {}
 };
 
 #endif
