@@ -2,6 +2,8 @@
  * Included files
  */
 #include "LoadingMenu.h"
+#include "src/gui/GUIManager.h"
+#include "src/gui/menu/ingamemenu/InGameMenu.h"
 
 LoadingMenu::LoadingMenu()
     : windowManager(CEGUI::WindowManager::getSingleton()) {
@@ -35,5 +37,5 @@ void LoadingMenu::show(std::string title) {
 } // show
 
 void LoadingMenu::hide() {
-    CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(NULL);
+    GUIManager::getInstance().inGameMenu->show();
 } // hide

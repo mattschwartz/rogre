@@ -9,6 +9,7 @@
 #include "menu/OptionsMenu.h"
 #include "menu/LoadingMenu.h"
 #include "menu/DeathMenu.h"
+#include "menu/ingamemenu/InGameMenu.h"
 
 void GUIManager::init() {
     initCEGUI();
@@ -17,6 +18,7 @@ void GUIManager::init() {
     optionsMenu = new OptionsMenu();
     loadingMenu = new LoadingMenu();
     deathMenu = new DeathMenu();
+    inGameMenu = new InGameMenu();
 } // init
 
 void GUIManager::initCEGUI() {

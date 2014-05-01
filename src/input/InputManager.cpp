@@ -29,12 +29,12 @@ void InputManager::mouseMoved(const OIS::MouseEvent &arg) {
 } // mouseMoved
 
 void InputManager::mousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id) {
-    CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonDown(CEGUI::LeftButton);
+    if (id == OIS::MB_Left && CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonDown(CEGUI::LeftButton)) return;
 	ObjectManager::getInstance().mousePressed(arg, id);
 } // mousePressed
 
 void InputManager::mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id) {
-    CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonUp(CEGUI::LeftButton);
+    if (id == OIS::MB_Left && CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonUp(CEGUI::LeftButton)) return;
     ObjectManager::getInstance().mouseReleased(arg, id);
 } // mouseReleased
 

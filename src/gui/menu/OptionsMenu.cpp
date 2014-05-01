@@ -8,6 +8,7 @@
 #include "src/world/World.h"
 #include "src/sound/SoundManager.h"
 #include "src/sound/SoundEffect.h"
+#include "ingamemenu/InGameMenu.h"
 
 OptionsMenu::OptionsMenu()
     : windowManager(CEGUI::WindowManager::getSingleton()) {
@@ -107,7 +108,7 @@ void OptionsMenu::show() {
 
 void OptionsMenu::hide() {
     visible = false;
-    CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(NULL);
+    GUIManager::getInstance().inGameMenu->show();
     World::getInstance().resumeGame();
 } // hide
 

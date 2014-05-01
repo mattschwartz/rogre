@@ -19,6 +19,7 @@ class HiScoresMenu;
 class OptionsMenu;
 class LoadingMenu;
 class DeathMenu;
+class InGameMenu;
 
 /**
  * Data
@@ -41,6 +42,7 @@ public:
     OptionsMenu *optionsMenu;
     LoadingMenu *loadingMenu;
     DeathMenu *deathMenu;
+    InGameMenu *inGameMenu;
 
     static GUIManager &getInstance() {
         static GUIManager instance;
