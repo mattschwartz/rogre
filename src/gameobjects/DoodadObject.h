@@ -18,6 +18,7 @@ protected:
 	Ogre::SceneNode *doodadNode;
 
 public:
+    DoodadObject(float x, float y, float z) : GameObject(Ogre::Vector3(x, y, z)) {}
     DoodadObject(float x, float z) : GameObject(Ogre::Vector3(x, 0, z)) {}
     DoodadObject(Ogre::Vector3 pos) : GameObject(pos) {}
     virtual void show() = 0;

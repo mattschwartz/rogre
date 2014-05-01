@@ -48,7 +48,7 @@ material body
 
             texture_unit 
             {
-                texture texture.png
+                texture Goblin_texture.png
                 tex_address_mode wrap
                 scale 1.0 1.0
                 colour_op modulate
@@ -97,7 +97,7 @@ material cloths
 
             texture_unit 
             {
-                texture texture.png
+                texture Goblin_texture.png
                 tex_address_mode wrap
                 scale 1.0 1.0
                 colour_op modulate
@@ -146,7 +146,7 @@ material boots
 
             texture_unit 
             {
-                texture texture.png
+                texture Goblin_texture.png
                 tex_address_mode wrap
                 scale 1.0 1.0
                 colour_op modulate
@@ -195,7 +195,7 @@ material teeth
 
             texture_unit 
             {
-                texture texture.png
+                texture Goblin_texture.png
                 tex_address_mode wrap
                 scale 1.0 1.0
                 colour_op modulate
@@ -244,7 +244,7 @@ material eyes
 
             texture_unit 
             {
-                texture texture.png
+                texture Goblin_texture.png
                 tex_address_mode wrap
                 scale 1.0 1.0
                 colour_op modulate
@@ -293,7 +293,7 @@ material pupil
 
             texture_unit 
             {
-                texture texture.png
+                texture Goblin_texture.png
                 tex_address_mode wrap
                 scale 1.0 1.0
                 colour_op modulate
@@ -342,7 +342,7 @@ material bone
 
             texture_unit 
             {
-                texture Scythe_texture.png
+                texture Goblin_Scythe_texture.png
                 tex_address_mode wrap
                 scale 1.0 1.0
                 colour_op modulate
@@ -391,7 +391,7 @@ material others
 
             texture_unit 
             {
-                texture Scythe_texture.png
+                texture Goblin_Scythe_texture.png
                 tex_address_mode wrap
                 scale 1.0 1.0
                 colour_op modulate
@@ -440,7 +440,7 @@ material wood
 
             texture_unit 
             {
-                texture Scythe_texture.png
+                texture Goblin_Scythe_texture.png
                 tex_address_mode wrap
                 scale 1.0 1.0
                 colour_op modulate

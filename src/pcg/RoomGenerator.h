@@ -14,6 +14,7 @@
 #include "src/gameobjects/ChestDoodadObject.h"
 #include "src/gameobjects/RoomObject.h"
 #include "src/gameobjects/ObjectManager.h"
+#include "src/gameobjects/LootObject.h"
 
 #define DEFAULT_ROOM_HEIGHT 15
 #define MIN_ROOM_WIDTH 10
@@ -44,6 +45,7 @@ public:
         Room *r;
         GoblinEntity *e;
         ChestDoodad *d;
+        Item *i;
 
         r = new Room(zoneLevel, width, depth);
 
@@ -59,6 +61,12 @@ public:
 			eZ = (rand() % (int)depth) + z;
 
 			ObjectManager::getInstance().spawnObject(new ChestDoodadObject(d, eX, eZ));
+
+            i = new Item(0, zoneLevel, 99, 1, "gold");
+			eX = (rand() % (int)width) + x;
+			eZ = (rand() % (int)depth) + z;
+
+            ObjectManager::getInstance().spawnObject(new LootObject(i, eX, eZ));
 
             done = true;
         } // while

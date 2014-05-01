@@ -22,12 +22,10 @@ GoblinEntityObject::GoblinEntityObject(GoblinEntity *entity, Ogre::Vector3 pos) 
 void GoblinEntityObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera) {
 	using namespace StringHelper;
 	entityNode = sceneMgr.getRootSceneNode()->createChildSceneNode(concat<int>("GoblinEntity", id));
-	entityEntity = sceneMgr.createEntity(concat<int>("GoblinEntityEntity", id), "ogrehead.mesh");
+	entityEntity = sceneMgr.createEntity(concat<int>("GoblinEntityEntity", id), "Goblin.mesh");
 	entityEntity->setCastShadows(true);
-
-    position.y = (float)((rand() % 40) / 10.0f);
-
-	entityNode->scale(0.09f, 0.09f, 0.09f);
+    
+	entityNode->scale(0.75f, 0.75f, 0.75f);
 	entityNode->attachObject(entityEntity);
 	entityNode->setPosition(position);
 
@@ -36,7 +34,7 @@ void GoblinEntityObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera
     lastSnarl = 0;
     snarlRate = Ogre::Real((rand() % 16) + 4);
 
-    //mAnimationState = entityEntity->getAnimationState("Idle2");
+    //mAnimationState = entityEntity->getAnimationState("Idle");
     //mAnimationState->setLoop(true);
     //mAnimationState->setEnabled(true);
 } // createObject
