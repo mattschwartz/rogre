@@ -4,6 +4,9 @@
 /**
  * Included files
  */
+#include <boost/thread/thread.hpp>
+#include <boost/thread/mutex.hpp>
+#include <boost/shared_ptr.hpp>
 #include <CEGUI/CEGUI.h>
 #include <string>
 
@@ -22,6 +25,9 @@ private:
     void registerEvents();
     bool backEvent(const CEGUI::EventArgs &e);
     bool startGameEvent(const CEGUI::EventArgs &e);
+
+    boost::shared_ptr<boost::thread> mThread;
+    void runThread();
 
 public:
     NewPlayerMenu();

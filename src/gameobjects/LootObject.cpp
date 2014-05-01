@@ -8,6 +8,8 @@
 #include "src/world/World.h"
 #include "src/utility/MathHelper.h"
 #include "src/entities/player/Player.h"
+#include "src/gui/GUIManager.h"
+#include "src/gui/menu/ingamemenu/InGameMenu.h"
 
 LootObject::LootObject(Item *item, float x, float z) : 
     GameObject(Ogre::Vector3(x, 0.5f, z)) {
@@ -45,9 +47,11 @@ void LootObject::show() {
 
 void LootObject::hide() {
     visible = false;
-    position.y = -100;
+
+    position.y = 100;
     lootNode->setPosition(position);
     ObjectManager::getInstance().destroySceneNode("LootNode", id);
+    GUIManager::getInstance().inGameMenu->appendText(item->pickupText());
     // add to player inventory
     //World::getInstance().getCurrentPlayer()->
 } // hide

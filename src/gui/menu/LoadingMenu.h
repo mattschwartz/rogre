@@ -11,6 +11,7 @@ class LoadingMenu {
 private:
     CEGUI::WindowManager &windowManager;
     CEGUI::Window *mRoot;
+    CEGUI::Window *textLabel;
     CEGUI::ProgressBar *loadingBar;
     void createWidgets();
     void createRootWindow();
@@ -18,8 +19,9 @@ private:
 public:
     LoadingMenu();
     ~LoadingMenu();
-    void show(std::string title);
+    void show();
     void hide();
+    void setText(std::string text);
     void setProgress(float progress);
 };
 

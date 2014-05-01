@@ -85,3 +85,15 @@ int Item::getStackSize() {
 void Item::setStackSize(int stackSize) {
     this->stackSize = stackSize;
 } // setStackSize
+
+void Item::setName(std::string name) {
+    this->name = name;
+} // setName
+
+std::string Item::getName() {
+    return name;
+} // getName
+
+std::string Item::pickupText() {
+    return "You found " + name + ".";
+} // pickupText

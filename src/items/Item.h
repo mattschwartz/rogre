@@ -43,6 +43,9 @@ public:
     void setGoldWorth(int goldWorth);
     int getStackSize();
     void setStackSize(int stackSize);
+    void setName(std::string name);
+    std::string getName();
+    std::string pickupText();
 };
 
 #endif

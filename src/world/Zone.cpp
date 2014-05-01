@@ -4,8 +4,10 @@
 #include "Zone.h"
 #include "Room.h"
 #include "src/gameobjects/RoomObject.h"
+#include "src/gameobjects/EntityObject.h"
+#include "src/gameobjects/LootObject.h"
+#include "src/gameobjects/DoodadObject.h"
 #include "src/pcg/RoomGenerator.h"
-#include <stdlib.h>
 
 /**
  * Data
@@ -13,6 +15,18 @@
 Zone::Zone(int zoneLevel) {
     this->zoneLevel = zoneLevel;
 } // constructor
+
+void Zone::addEntity(EntityObject *o) {
+    entities.push_back(o);
+} // addEntity
+
+void Zone::addLoot(LootObject *o) {
+    loot.push_back(o);
+} // addLoot
+
+void Zone::addDoodad(DoodadObject *o) {
+    doodads.push_back(o);
+} // addDoodad
 
 bool Zone::containsPoint(Ogre::Vector3 point) {
 	for (RoomObject *ro : rooms) {

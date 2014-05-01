@@ -4,15 +4,12 @@
 /**
  * Included files
  */
+#include <Ogre.h>
+#include <vector>
 #include "RoomGenerator.h"
-#include "src/world/Zone.h"
-#include "src/world/Room.h"
-#include "src/utility/StringHelper.h"
-#include "src/gui/GUIManager.h"
-#include "src/gui/menu/LoadingMenu.h"
-#include <thread>
-#include <chrono>
 
+class Zone;
+class Room;
 static int lightCount = 0;
 
 class ZoneGenerator {

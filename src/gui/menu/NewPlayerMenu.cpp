@@ -88,9 +88,16 @@ bool NewPlayerMenu::backEvent(const CEGUI::EventArgs &e) {
 
 bool NewPlayerMenu::startGameEvent(const CEGUI::EventArgs &e) {
     SoundManager::getInstance().MENU_SELECT_SOUND->play();
-    GUIManager::getInstance().loadingMenu->show("Loading game ...");
+    GUIManager::getInstance().loadingMenu->show();
+    GUIManager::getInstance().loadingMenu->setText("Loading game ...");
+
+    mThread = boost::shared_ptr<boost::thread>(new boost::thread(boost::bind(&NewPlayerMenu::runThread, this)));
+
+    return false;
+} // startGameEvent
+
+void NewPlayerMenu::runThread() {
 	World::getInstance().loadZone();
     World::getInstance().setCurrentPlayer(new Player(1, playerNameTextField->getText().c_str()));
 	World::getInstance().spawnCurrentPlayer();
-    return false;
-} // startGameEvent
+} // runThread

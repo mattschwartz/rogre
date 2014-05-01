@@ -2,6 +2,15 @@
  * Included files
  */
 #include "ZoneGenerator.h"
+#include "src/gameobjects/RoomObject.h"
+#include "src/gameobjects/DoodadObject.h"
+#include "src/gameobjects/LootObject.h"
+#include "src/gameobjects/EntityObject.h"
+#include "src/world/Zone.h"
+#include "src/world/Room.h"
+#include "src/utility/StringHelper.h"
+#include "src/gui/GUIManager.h"
+#include "src/gui/menu/LoadingMenu.h"
 
 Zone *ZoneGenerator::generate(int seed, int monsterLevel, int numRooms) {
     float x;
@@ -14,13 +23,14 @@ Zone *ZoneGenerator::generate(int seed, int monsterLevel, int numRooms) {
     srand(seed);
         
     GUIManager::getInstance().loadingMenu->setProgress(0.0f);
+    GUIManager::getInstance().loadingMenu->setText("Generating rooms ...");
 
     x = 0.0f;
     z = 0.0f;
 	width = (float)(rand() % MAX_ROOM_WIDTH + MIN_ROOM_WIDTH);
 	depth = (float)(rand() % MAX_ROOM_DEPTH + MIN_ROOM_DEPTH);
 
-    r = RoomGenerator::getInstance().generate(zone->zoneLevel, x, z,
+    r = RoomGenerator::getInstance().generate(zone, x, z,
         width, depth);
 
 	spawnRoom(zone, r, x, z, width, depth);
@@ -48,15 +58,33 @@ Zone *ZoneGenerator::generate(int seed, int monsterLevel, int numRooms) {
 			continue;
 		} // if
 
-        r = RoomGenerator::getInstance().generate(zone->zoneLevel, x, z,
+        r = RoomGenerator::getInstance().generate(zone, x, z,
             width, depth);
 
 		spawnRoom(zone, r, x, z, width, depth);
-        GUIManager::getInstance().loadingMenu->setProgress((float)(i/(numRooms*1.0f)));
-        std::this_thread::sleep_for (std::chrono::milliseconds(150));
+
+        GUIManager::getInstance().loadingMenu->setProgress((float)(i / (numRooms*1.0f)));
 	} // for
 
+    
+    GUIManager::getInstance().loadingMenu->setText("Building doodads ...");
+    for (DoodadObject *o : zone->doodads) {
+        ObjectManager::getInstance().spawnObject(o);
+    } // for
+    
+    GUIManager::getInstance().loadingMenu->setText("Unearthing trinkets ...");
+    for (LootObject *o : zone->loot) {
+        ObjectManager::getInstance().spawnObject(o);
+    } // for
+    
+    GUIManager::getInstance().loadingMenu->setText("Populating zone ...");
+    for (EntityObject *o : zone->entities) {
+        ObjectManager::getInstance().spawnObject(o);
+    } // for
+
     GUIManager::getInstance().loadingMenu->setProgress(100.0f);
+    GUIManager::getInstance().loadingMenu->hide();
+
     spawnLights(zone);
     freeWalls.clear();
 
