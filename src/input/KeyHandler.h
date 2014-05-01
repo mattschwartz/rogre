@@ -41,9 +41,6 @@ public:
 		case OIS::KC_C:
 			openAttributes();
 			break;
-		case OIS::KC_F12:
-			toggleSound();
-			break;
         case OIS::KC_ESCAPE:
             toggleOptionsMenu();
             break;

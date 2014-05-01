@@ -170,17 +170,20 @@ Ogre::Vector3 PlayerObject::getPosition() {
 } // getPosition
 
 void PlayerObject::mouseMoved(const OIS::MouseEvent &evt) {
-	if (false && evt.state.buttonDown(OIS::MB_Left)) {
+    if (dead || attacking) {
+        return;
+    } // if
+
+	if (evt.state.buttonDown(OIS::MB_Left)) {
 		//find the current mouse position
-		int x = evt.state.X.abs;
-		int y = evt.state.Y.abs;
+	    int x = evt.state.X.abs;
+	    int y = evt.state.Y.abs;
  
-		//then send a raycast straight out from the camera at the mouse's position
-		Ogre::Ray mouseRay = camera->getCameraToViewportRay(x/float(evt.state.width), y/float(evt.state.height));
+	    Ogre::Ray mouseRay = camera->getCameraToViewportRay(x/float(evt.state.width), y/float(evt.state.height));
+	    Ogre::Vector3 point = World::getInstance().getCurrentZone()->getIntersectingPlane(mouseRay);
 
-		Ogre::Vector3 point = World::getInstance().getCurrentZone()->getIntersectingPlane(mouseRay);
-
-		point.y = playerNode->getPosition().y;
+	    point.y = playerNode->getPosition().y;
+        walkTo = point;
 	} // if
 } // mouseMoved
 

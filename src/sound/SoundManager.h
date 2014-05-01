@@ -1,12 +1,15 @@
 #ifndef _SOUND_MANAGER_H_
 #define _SOUND_MANAGER_H_
 
+/**
+ * Included files
+ */
+#include <vector>
+
 class SoundEffect;
 
 class SoundManager {
 private:
-    bool gameSoundsEnabled;
-    bool menuSoundsEnabled;
     SoundManager() {}
     SoundManager(SoundManager const&);
     void operator=(SoundManager const&);
@@ -21,6 +24,8 @@ public:
     SoundEffect *ATTACK_MISS_1_SOUND;
     SoundEffect *MENU_SELECT_SOUND;
     SoundEffect *AMBIANCE_RUMBLE_SOUND;
+    std::vector<SoundEffect*> gameSoundEffects;
+    std::vector<SoundEffect*> menuSoundEffects;
 
     static SoundManager &getInstance() {
         static SoundManager instance;
@@ -30,13 +35,10 @@ public:
     void init();
     bool isMenuSoundEnabled();
     bool isGameSoundEnabled();
-    void pauseSounds();
-    void resumeSounds();
     void resetSound();
     void volumeControl(int newVolume);
     void setGameSoundEnabled(bool enabled);
     void setMenuSoundEnabled(bool enabled);
-    void toggleGameSound();
 };
 
 #endif
