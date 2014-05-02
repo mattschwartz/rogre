@@ -8,13 +8,11 @@
 ChestDoodadObject::ChestDoodadObject(ChestDoodad *chest, float x, float z) :
     DoodadObject(x, 2, z) {
     this->chest = chest;
-    this->id = doodadCount++;
 } // constructor
 
 ChestDoodadObject::ChestDoodadObject(ChestDoodad *chest, Ogre::Vector3 pos) :
     DoodadObject(pos) {
     this->chest = chest;
-    this->id = doodadCount++;
 } // constructor
 
 void ChestDoodadObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera) {

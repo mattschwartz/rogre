@@ -12,6 +12,7 @@ private:
     CEGUI::WindowManager &windowManager;
     CEGUI::Window *mRoot;
     CEGUI::Window *textLabel;
+    CEGUI::Window *tipLabel;
     CEGUI::ProgressBar *loadingBar;
     void createWidgets();
     void createRootWindow();

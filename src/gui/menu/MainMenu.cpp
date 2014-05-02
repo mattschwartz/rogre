@@ -22,6 +22,7 @@ void MainMenu::createButtons() {
     using namespace CEGUI;
 
     titleLabel = windowManager.createWindow("OgreTray/Title", "MainMenu/titleLabel");
+    backgroundWindow = windowManager.createWindow("OgreTray/StaticImage", "MainMenu/backgroundWindow");
 
     newPlayerButton = static_cast<PushButton*>(
         windowManager.createWindow("OgreTray/Button", "MainMenu/newPlayerButton"));
@@ -39,6 +40,7 @@ void MainMenu::createButtons() {
     hiScoresButton->setSize(UVector2(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
     quitButton->setSize(UVector2(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
 #else
+    backgroundWindow->setProperty("Image", "set:Background image:full_image");
     titleLabel->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
     newPlayerButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
     loadPlayerButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
@@ -77,6 +79,7 @@ void MainMenu::createRootWindow() {
     mRoot->addChildWindow(hiScoresButton);
     mRoot->addChildWindow(quitButton);
 #else
+    mRoot->addChild(backgroundWindow);
     mRoot->addChild(titleLabel);
     mRoot->addChild(newPlayerButton);
     mRoot->addChild(loadPlayerButton);

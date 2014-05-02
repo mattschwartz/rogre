@@ -191,21 +191,31 @@ void PlayerObject::mousePressed(const OIS::MouseEvent &evt, OIS::MouseButtonID i
     if (dead || attacking) {
         return;
     } // if
+	int x = evt.state.X.abs;
+	int y = evt.state.Y.abs;
+	Ogre::Ray mouseRay = camera->getCameraToViewportRay(x/float(evt.state.width), y/float(evt.state.height));
+	Ogre::Vector3 point = World::getInstance().getCurrentZone()->getIntersectingPlane(mouseRay);
+    point.y = playerNode->getPosition().y;
 
     if (id == OIS::MB_Left) {
-	    int x = evt.state.X.abs;
-	    int y = evt.state.Y.abs;
- 
-	    Ogre::Ray mouseRay = camera->getCameraToViewportRay(x/float(evt.state.width), y/float(evt.state.height));
-	    Ogre::Vector3 point = World::getInstance().getCurrentZone()->getIntersectingPlane(mouseRay);
-
-	    point.y = playerNode->getPosition().y;
         walkTo = point;
     } // if
     else if (id == OIS::MB_Right) {
         int ran = rand() % 3;
         attacking = true;
         walkTo = playerNode->getPosition();
+ 
+        // Rotate player
+        Ogre::Vector3 dir = point - walkTo;
+        Ogre::Vector3 src = playerNode->getOrientation() * Ogre::Vector3::UNIT_X;
+        src.y = 0;
+        dir.y = 0;
+        src.normalise();
+        Ogre::Real mDistance = dir.normalise();
+        Ogre::Quaternion quat = src.getRotationTo(dir);
+
+        playerNode->rotate(quat);
+        playerNode->yaw(Ogre::Degree(-90));
         
         switch (ran) {
             case 0:

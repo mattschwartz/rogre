@@ -6,7 +6,6 @@
  */
 #include <CEGUI/CEGUI.h>
 
-class Item;
 class PlayerAttributesPanel;
 class PlayerInventoryPanel;
 class InfoLogPanel;

@@ -4,11 +4,13 @@
 #include "ZoneGenerator.h"
 #include "src/gameobjects/RoomObject.h"
 #include "src/gameobjects/DoodadObject.h"
+#include "src/gameobjects/DoorDoodadObject.h"
 #include "src/gameobjects/LootObject.h"
 #include "src/gameobjects/EntityObject.h"
 #include "src/world/Zone.h"
 #include "src/world/Room.h"
 #include "src/utility/StringHelper.h"
+#include "src/utility/MathHelper.h"
 #include "src/gui/GUIManager.h"
 #include "src/gui/menu/LoadingMenu.h"
 
@@ -47,6 +49,31 @@ Zone *ZoneGenerator::generate(int seed, int monsterLevel, int numRooms) {
 		z = wall.z1;
 		width = (float)(rand() % MAX_ROOM_WIDTH + MIN_ROOM_WIDTH);
 		depth = (float)(rand() % MAX_ROOM_DEPTH + MIN_ROOM_DEPTH);
+
+        // drop a door here
+        float doorX = x;
+        float doorZ = z;
+        float wallWidth;
+
+        // North wall
+        if (wall.direction == Ogre::Vector3::UNIT_Z) { 
+            wallWidth = MathHelper::min<float>(width, wall.x2 - wall.x1);
+        } // if
+        // South wall
+        else if (wall.direction == Ogre::Vector3::NEGATIVE_UNIT_Z) {
+            wallWidth = MathHelper::min<float>(width, wall.x2 - wall.x1);
+        } // else if
+        // West wall
+        else if (wall.direction == Ogre::Vector3::UNIT_X) {
+            wallWidth = MathHelper::min<float>(width, wall.z2 - wall.z1);
+        } // else if
+        // East wall
+        else if (wall.direction == Ogre::Vector3::NEGATIVE_UNIT_X) {
+            wallWidth = MathHelper::min<float>(width, wall.z2 - wall.z1);
+        } // else if
+
+        ObjectManager::getInstance().spawnObject(new DoorDoodadObject(doorX, doorZ));
+
 
 		if (wall.direction == Ogre::Vector3::UNIT_Z) {
 			z -= depth;
@@ -120,12 +147,14 @@ void ZoneGenerator::spawnRoom(Zone *zone, Room *room, float x, float z, float wi
 	wall.x2 = ro->getBounds().xEnd;
 	wall.z2 = wall.z1;
 	wall.direction = Ogre::Vector3::UNIT_Z;
+    wall.wallPointer = ro->walls[0];
 	freeWalls.push_back(wall);
 
 	// South wall
 	wall.z1 = ro->getBounds().zEnd;
 	wall.z2 = wall.z1;
 	wall.direction = Ogre::Vector3::NEGATIVE_UNIT_Z;
+    wall.wallPointer = ro->walls[1];
 	freeWalls.push_back(wall);
 
 	// West wall
@@ -133,12 +162,14 @@ void ZoneGenerator::spawnRoom(Zone *zone, Room *room, float x, float z, float wi
 	wall.z1 = ro->getPosition().z;
 	wall.z2 = ro->getBounds().zEnd;
 	wall.direction = Ogre::Vector3::UNIT_X;
+    wall.wallPointer = ro->walls[2];
 	freeWalls.push_back(wall);
 
 	// East wall
 	wall.x1 = ro->getBounds().xEnd;
 	wall.x2 = wall.x1;
 	wall.direction = Ogre::Vector3::NEGATIVE_UNIT_X;
+    wall.wallPointer = ro->walls[3];
 	freeWalls.push_back(wall);
 
 	ObjectManager::getInstance().spawnObject(ro);

@@ -20,6 +20,7 @@ private:
 		float z1;
 		float z2;
 		Ogre::Vector3 direction;
+        Ogre::Plane *wallPointer;
 	};
 
 	std::vector<struct Wall> freeWalls;

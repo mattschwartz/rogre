@@ -16,6 +16,7 @@ private:
     CEGUI::WindowManager &windowManager;
     CEGUI::Window *mRoot;
     CEGUI::Window *titleLabel;
+    CEGUI::Window *backgroundWindow;
     CEGUI::PushButton *newPlayerButton;
     CEGUI::PushButton *loadPlayerButton;
     CEGUI::PushButton *hiScoresButton;
