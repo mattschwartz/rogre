@@ -5,8 +5,8 @@
  * Included files
  */
 #include <CEGUI/CEGUI.h>
-#include "src/main/BaseApplication.h"
 
+#define USE_OGRE_LEGACY 1
 
 class Player;
 

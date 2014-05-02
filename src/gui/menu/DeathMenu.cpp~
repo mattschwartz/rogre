@@ -9,7 +9,7 @@
 #include "src/entities/player/Player.h"
 #include "src/sound/SoundManager.h"
 #include "src/sound/SoundEffect.h"
-
+#include <CEGUI/CEGUI.h>
 
 DeathMenu::DeathMenu() 
     : windowManager(CEGUI::WindowManager::getSingleton()) {

@@ -10,7 +10,7 @@
 #include "src/gui/GUIManager.h"
 #include "src/sound/SoundManager.h"
 #include "src/sound/SoundEffect.h"
-
+using namespace CEGUI;
 
 
 MainMenu::MainMenu() 
@@ -21,7 +21,7 @@ MainMenu::MainMenu()
 } // constructor
 
 void MainMenu::createButtons() {
-    using namespace CEGUI;
+
 
     titleLabel = windowManager.createWindow("OgreTray/Title", "MainMenu/titleLabel");
     backgroundWindow = windowManager.createWindow("OgreTray/StaticImage", "MainMenu/backgroundWindow");
