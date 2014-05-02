@@ -26,7 +26,7 @@ private:
     bool backEvent(const CEGUI::EventArgs &e);
     bool startGameEvent(const CEGUI::EventArgs &e);
 
-    //boost::shared_ptr<boost::thread> mThread;
+    boost::shared_ptr<boost::thread> mThread;
     void runThread();
 
 public:

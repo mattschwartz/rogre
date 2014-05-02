@@ -125,7 +125,7 @@ bool NewPlayerMenu::startGameEvent(const CEGUI::EventArgs &e) {
     GUIManager::getInstance().loadingMenu->show();
     GUIManager::getInstance().loadingMenu->setText("Loading game ...");
 
-    //mThread = boost::shared_ptr<boost::thread>(new boost::thread(boost::bind(&NewPlayerMenu::runThread, this)));
+    mThread = boost::shared_ptr<boost::thread>(new boost::thread(boost::bind(&NewPlayerMenu::runThread, this)));
 
     return false;
 } // startGameEvent
