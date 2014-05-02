@@ -59,8 +59,8 @@ void GUIManager::setLookNFeel() {
 
 #if USE_OGRE_LEGACY
    SchemeManager::getSingleton().create("OgreTray.scheme");
-   System::getSingleton().setDefaultMouseCursor("OgreTray.imageset", "MouseArrow");
-   System::getSingleton().setDefaultFont("DejaVuSans-10.font");
+   System::getSingleton().setDefaultMouseCursor("OgreTrayImages", "MouseArrow");
+   System::getSingleton().setDefaultFont("DejaVuSans-10");
 #else
     SchemeManager::getSingleton().createFromFile("OgreTray.scheme");
     System::getSingleton().getDefaultGUIContext().setDefaultFont("DejaVuSans-12");
