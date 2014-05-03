@@ -24,6 +24,7 @@ void MainMenu::createButtons() {
     using namespace CEGUI;
 
     titleLabel = windowManager.createWindow("OgreTray/Title", "MainMenu/titleLabel");
+    Imageset& MenuImage =ImagesetManager::getSingleton().createFromImageFile("Background", "loot_texture.jpg");
     backgroundWindow = windowManager.createWindow("OgreTray/StaticImage", "MainMenu/backgroundWindow");
 
     newPlayerButton = static_cast<PushButton*>(
@@ -34,6 +35,8 @@ void MainMenu::createButtons() {
         windowManager.createWindow("OgreTray/Button", "MainMenu/hiScoresButton"));
     quitButton = static_cast<PushButton*>(
         windowManager.createWindow("OgreTray/Button", "MainMenu/quitButton"));
+        
+    backgroundWindow->setProperty("Image", "set:Background image:full_image");
 
 #if USE_OGRE_LEGACY
     titleLabel->setSize(UVector2(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
@@ -42,7 +45,6 @@ void MainMenu::createButtons() {
     hiScoresButton->setSize(UVector2(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
     quitButton->setSize(UVector2(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
 #else
-    backgroundWindow->setProperty("Image", "set:Background image:full_image");
     titleLabel->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
     newPlayerButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
     loadPlayerButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
@@ -75,6 +77,7 @@ void MainMenu::createRootWindow() {
     mRoot = windowManager.createWindow("DefaultWindow", "MainMenu/root");
 
 #if USE_OGRE_LEGACY
+    mRoot->addChildWindow(backgroundWindow);
     mRoot->addChildWindow(titleLabel);
     mRoot->addChildWindow(newPlayerButton);
     mRoot->addChildWindow(loadPlayerButton);
