@@ -23,13 +23,21 @@ void InGameMenu::createWidgets() {
     healthBar = static_cast<ProgressBar*>(
         windowManager.createWindow("OgreTray/ProgressBar", "InGameMenu/healthBar"));
     scoreLabel = windowManager.createWindow("OgreTray/Title", "InGameMenu/scoreLabel");
+#if USE_OGRE_LEGACY
+    healthBar->setSize(UVector2(UDim(0.0f, 300.0f), UDim(0.0f, 40.0f)));
+    scoreLabel->setSize(UVector2(UDim(0.0f, 300.0f), UDim(0.0f, 40.0f)));
 
+#else
     healthBar->setSize(USize(UDim(0.0f, 300.0f), UDim(0.0f, 40.0f)));
+    scoreLabel->setSize(USize(UDim(0.0f, 300.0f), UDim(0.0f, 40.0f)));
+
+#endif
+
     healthBar->setPosition(UVector2(UDim(0.0f, 10.0f), UDim(0.0f, 5.0f)));
     healthBar->setProgress(100.0f);
     healthBar->setText("Health");
 
-    scoreLabel->setSize(USize(UDim(0.0f, 300.0f), UDim(0.0f, 40.0f)));
+
     scoreLabel->setPosition(UVector2(UDim(0.0f, 10.0f), UDim(0.0f, 45.0f)));
     scoreLabel->setText("Score: 25,918");
 } // createWidgets
@@ -38,8 +46,16 @@ void InGameMenu::createRootWindow() {
     using namespace CEGUI;
 
     mRoot = windowManager.createWindow("DefaultWindow", "InGameMenu/root");
+
+#if USE_OGRE_LEGACY
+    mRoot->addChildWindow(healthBar);
+    mRoot->addChildWindow(scoreLabel);
+
+#else
     mRoot->addChild(healthBar);
     mRoot->addChild(scoreLabel);
+
+#endif
     playerAttributes->addPanelTo(mRoot);
     playerInventory->addPanelTo(mRoot);
     infoLog->addPanelTo(mRoot);
@@ -58,9 +74,18 @@ void InGameMenu::updateAttributes(Player *player) {
 } // update
 
 void InGameMenu::show() {
+#if USE_OGRE_LEGACY
+    CEGUI::System::getSingleton().setGUISheet(mRoot);
+#else
     CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(mRoot);
+#endif
 } // show
 
 void InGameMenu::hide() {
+#if USE_OGRE_LEGACY
+    CEGUI::System::getSingleton().setGUISheet(NULL);
+#else
     CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(NULL);
+
+#endif
 } // hide

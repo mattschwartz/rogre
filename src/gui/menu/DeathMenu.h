@@ -4,7 +4,9 @@
 /**
  * Included files
  */
+
 #include <CEGUI/CEGUI.h>
+
 
 class DeathMenu {
 private:

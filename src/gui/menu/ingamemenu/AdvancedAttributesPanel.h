@@ -5,6 +5,8 @@
  * Included files
  */
 #include <CEGUI/CEGUI.h>
+#include "src/main/BaseApplication.h"
+
 
 class Player;
 

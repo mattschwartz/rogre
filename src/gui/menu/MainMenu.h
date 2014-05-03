@@ -4,9 +4,12 @@
 /**
  * Included files
  */
+
 #include <Ogre.h>
 #include "MainMenu.h"
-#include <CEGUI/CEGUI.h>
+#include "CEGUI/CEGUI.h"
+
+
 
 /**
  * Data

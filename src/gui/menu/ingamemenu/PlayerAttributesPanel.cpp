@@ -23,12 +23,18 @@ void PlayerAttributesPanel::createWidgets() {
     playerAttributesTitle = windowManager.createWindow("OgreTray/Title", "PlayerAttributesPanel/playerAttributesTitle");
     togglePageButton = static_cast<PushButton*>(
         windowManager.createWindow("OgreTray/Button", "PlayerAttributesPanel/togglePageButton"));
-    
+#if USE_OGRE_LEGACY
+    playerAttributesTitle->setSize(UVector2(UDim(0.0f, 300.0f), UDim(0.0f, 40.0f)));
+    togglePageButton->setSize(UVector2(UDim(0.0f, 300.0f), UDim(0.0f, 40.0f)));
+#else
     playerAttributesTitle->setSize(USize(UDim(0.0f, 300.0f), UDim(0.0f, 40.0f)));
+    togglePageButton->setSize(USize(UDim(0.0f, 300.0f), UDim(0.0f, 40.0f)));
+#endif
+
     playerAttributesTitle->setPosition(UVector2(UDim(1.0f, -310.0f), UDim(0.0f, 5.0f)));
     playerAttributesTitle->setText("Attributes");
     
-    togglePageButton->setSize(USize(UDim(0.0f, 300.0f), UDim(0.0f, 40.0f)));
+
     togglePageButton->setPosition(UVector2(UDim(1.0f, -310.0f), UDim(0.0f, 45.0f)));
     togglePageButton->setText("Show Advanced Attributes");
 } // createWidgets
@@ -46,10 +52,18 @@ void PlayerAttributesPanel::updateAttributes(Player *player) {
 } // updateAttributes
 
 void PlayerAttributesPanel::addPanelTo(CEGUI::Window *mRoot) {
+#if USE_OGRE_LEGACY
+    this->mRoot = mRoot;
+    mRoot->addChildWindow(playerAttributesTitle);
+    basicAttributesPanel->addPanelTo(mRoot);
+    mRoot->addChildWindow(togglePageButton);
+#else
     this->mRoot = mRoot;
     mRoot->addChild(playerAttributesTitle);
     basicAttributesPanel->addPanelTo(mRoot);
     mRoot->addChild(togglePageButton);
+#endif
+
 } // addPanelTo
 
 bool PlayerAttributesPanel::togglePageEvent(const CEGUI::EventArgs &e) {

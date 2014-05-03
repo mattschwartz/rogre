@@ -6,6 +6,7 @@
  */
 #include <CEGUI/CEGUI.h>
 #include <vector>
+#include "src/main/BaseApplication.h"
 
 class Item;
 
