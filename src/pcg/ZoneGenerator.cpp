@@ -97,7 +97,7 @@ Zone *ZoneGenerator::generate(int seed, int monsterLevel, int numRooms) {
             door->setFacing(Ogre::Vector3::UNIT_X);
         } // else if
 
-        zone->addDoodad(door);
+        zone->addDoorDoodad(door);
 
         r = RoomGenerator::getInstance().generate(zone, x, z,
             width, depth);
@@ -110,6 +110,11 @@ Zone *ZoneGenerator::generate(int seed, int monsterLevel, int numRooms) {
     
     GUIManager::getInstance().loadingMenu->setText("Building doodads ...");
     for (DoodadObject *o : zone->doodads) {
+        ObjectManager::getInstance().spawnObject(o);
+    } // for
+    
+    GUIManager::getInstance().loadingMenu->setText("Opening doors ...");
+    for (DoorDoodadObject *o : zone->doorDoodads) {
         ObjectManager::getInstance().spawnObject(o);
     } // for
     

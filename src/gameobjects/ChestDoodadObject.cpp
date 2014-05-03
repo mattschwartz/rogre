@@ -6,7 +6,7 @@
 #include "src/utility/StringHelper.h"
 
 ChestDoodadObject::ChestDoodadObject(ChestDoodad *chest, float x, float z) :
-    DoodadObject(x, 2, z) {
+    DoodadObject(x, 1.2f, z) {
     this->chest = chest;
 } // constructor
 

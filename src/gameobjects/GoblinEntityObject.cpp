@@ -31,12 +31,6 @@ void GoblinEntityObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera
 
     mDirection = Ogre::Vector3::ZERO;
     mWalkSpeed = 3.0f;
-    lastSnarl = 0;
-    snarlRate = Ogre::Real((rand() % 16) + 4);
-
-    //mAnimationState = entityEntity->getAnimationState("Idle");
-    //mAnimationState->setLoop(true);
-    //mAnimationState->setEnabled(true);
 } // createObject
 
 void GoblinEntityObject::show() {
@@ -46,32 +40,7 @@ void GoblinEntityObject::hide() {
 } // hide
 
 void GoblinEntityObject::update(const Ogre::FrameEvent &evt) {
-    int ran;
     move(evt);
-
-    lastSnarl += evt.timeSinceLastFrame;
-    
-    if (lastSnarl >= snarlRate) {
-        lastSnarl = 0;
-        ran = rand() % 4;
-
-        switch (ran) {
-            case 0:
-                SoundManager::getInstance().MONSTER_BREATHING_1_SOUND->play();
-                break;
-
-            case 1:
-                SoundManager::getInstance().MONSTER_BREATHING_2_SOUND->play();
-                break;
-
-            case 2:
-                SoundManager::getInstance().MONSTER_BREATHING_3_SOUND->play();
-                break;
-
-            default:
-                SoundManager::getInstance().MONSTER_BREATHING_4_SOUND->play();
-        } // switch-case
-    } // if
 } // update
 
 void GoblinEntityObject::move(const Ogre::FrameEvent &evt) {
@@ -111,11 +80,8 @@ void GoblinEntityObject::move(const Ogre::FrameEvent &evt) {
         else {
 		    Ogre::Vector3 oldPos = entityNode->getPosition();
             entityNode->translate(mDirection * move);
-		    if (!World::getInstance().getCurrentZone()->containsPoint(entityNode->getPosition())) {
+		    if (!World::getInstance().getCurrentZone()->canMove(entityNode->getPosition())) {
                 mDirection = Ogre::Vector3::ZERO;
-                //mAnimationState = playerEntity->getAnimationState("Idle2");
-                //mAnimationState->setLoop(true);
-                //mAnimationState->setEnabled(true);
 			    mDistance = 0;
 			    entityNode->setPosition(oldPos);
 		    } // if

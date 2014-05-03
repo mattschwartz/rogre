@@ -53,7 +53,7 @@ void LootObject::hide() {
     ObjectManager::getInstance().destroySceneNode("LootNode", id);
     GUIManager::getInstance().inGameMenu->appendText(item->pickupText());
     // add to player inventory
-    //World::getInstance().getCurrentPlayer()->
+    GUIManager::getInstance().inGameMenu->addItemToInventory(item);
 } // hide
 
 void LootObject::update(const Ogre::FrameEvent &evt) {

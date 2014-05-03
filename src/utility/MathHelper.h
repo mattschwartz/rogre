@@ -16,6 +16,21 @@ namespace MathHelper {
     static Type abs(Type a) {
         return a > 0 ? a : -a;
     }
+
+    template <typename Type>
+    static Type greaterIsh(Type a, Type b, Type c) {
+        return (a - b) > c;
+    }
+
+    template <typename Type>
+    static Type lesserIsh(Type a, Type b, Type c) {
+        return (b - a) > c;
+    }
+
+    template <typename Type>
+    static Type equalIsh(Type a, Type b, Type c) {
+        return abs<Type>(a - b) <= c;
+    }
 };
 
 #endif

@@ -10,8 +10,6 @@ class GoblinEntity;
 
 class GoblinEntityObject : public EntityObject {
 private:
-    Ogre::Real snarlRate;
-    Ogre::Real lastSnarl;
     GoblinEntity *entity;
 
 public:

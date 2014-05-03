@@ -4,8 +4,8 @@
 /**
  * Included files
  */
-#include <CEGUI/CEGUI.h>
 #include <vector>
+#include "CEGUI/CEGUI.h"
 #include "src/main/BaseApplication.h"
 
 class Item;
@@ -21,9 +21,10 @@ private:
     CEGUI::PushButton *dropItemButton;
     CEGUI::PushButton *examineItemButton;
     std::vector<Item*> inventoryItems;
+    
     void createWidgets();
     void registerEvents();
-    
+    bool inventorySelectionChanged(const CEGUI::EventArgs &e);
     bool toggleInventory(const CEGUI::EventArgs &e);
     bool equipItemEvent(const CEGUI::EventArgs &e);
     bool dropItemEvent(const CEGUI::EventArgs &e);
@@ -33,6 +34,7 @@ public:
     PlayerInventoryPanel();
     ~PlayerInventoryPanel();
     void addPanelTo(CEGUI::Window *mRoot);
+    void addItem(Item *item);
 };
 
 #endif

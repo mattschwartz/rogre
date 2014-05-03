@@ -41,17 +41,13 @@ void PlayerInventoryPanel::createWidgets() {
     inventoryLabel->setPosition(UVector2(UDim(1.0f, -310.0f), UDim(1.0f, -335.0f)));
     inventoryLabel->setText("Collapse Inventory");
 
-
     inventory->setPosition(UVector2(UDim(1.0f, -310.0f), UDim(1.0f, -295.0f)));
-    
 
     equipItemButton->setPosition(UVector2(UDim(1.0f, -310.0f), UDim(1.0f, -45.0f)));
     equipItemButton->setText("Equip");
-    
 
     dropItemButton->setPosition(UVector2(UDim(1.0f, -210.0f), UDim(1.0f, -45.0f)));
     dropItemButton->setText("Destroy");
-    
 
     examineItemButton->setPosition(UVector2(UDim(1.0f, -110.0f), UDim(1.0f, -45.0f)));
     examineItemButton->setText("Examine");
@@ -60,6 +56,8 @@ void PlayerInventoryPanel::createWidgets() {
 void PlayerInventoryPanel::registerEvents() {
     using namespace CEGUI;
     
+    inventory->subscribeEvent(Listbox::EventMouseClick,
+        Event::Subscriber(&PlayerInventoryPanel::inventorySelectionChanged, this));
     inventoryLabel->subscribeEvent(PushButton::EventClicked, 
         Event::Subscriber(&PlayerInventoryPanel::toggleInventory, this));
     equipItemButton->subscribeEvent(PushButton::EventClicked, 
@@ -72,6 +70,7 @@ void PlayerInventoryPanel::registerEvents() {
 
 void PlayerInventoryPanel::addPanelTo(CEGUI::Window *mRoot) {
     parent = mRoot;
+
 #if USE_OGRE_LEGACY
     mRoot->addChildWindow(inventoryLabel);
     mRoot->addChildWindow(inventory);
@@ -86,9 +85,28 @@ void PlayerInventoryPanel::addPanelTo(CEGUI::Window *mRoot) {
     mRoot->addChild(examineItemButton);
 #endif
 
-
     visible = true;
 } // addPanelTo
+
+void PlayerInventoryPanel::addItem(Item *item) {
+    inventoryItems.push_back(item);
+
+    inventory->resetList();
+
+    int it = 0;
+    for (Item *i : inventoryItems) {
+        CEGUI::ListboxTextItem *lbi = new CEGUI::ListboxTextItem(i->getName(), it++);
+        //lbi->setSelectionBrushImage("TaharezLook/MultiListSelectionBrush");
+        inventory->addItem(lbi);
+        inventory->setItemSelectState(lbi, true);
+        inventory->ensureItemIsVisible(lbi);
+    } // for
+
+} // addItem
+
+bool PlayerInventoryPanel::inventorySelectionChanged(const CEGUI::EventArgs &e) {
+    return false;
+} // inventorySelectionChanged
 
 bool PlayerInventoryPanel::toggleInventory(const CEGUI::EventArgs &e) {
     using namespace CEGUI;

@@ -143,7 +143,7 @@ void PlayerObject::setDeathAnimation() {
 } // setDeathAnimation
 
 bool PlayerObject::withinWorld() {
-    return World::getInstance().getCurrentZone()->containsPoint(playerNode->getPosition());
+    return World::getInstance().getCurrentZone()->canMove(playerNode->getPosition());
 } // withinWorld
 
 void PlayerObject::attack(const Ogre::FrameEvent &evt) {

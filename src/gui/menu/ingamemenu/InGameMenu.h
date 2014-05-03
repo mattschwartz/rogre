@@ -11,6 +11,7 @@ class PlayerAttributesPanel;
 class PlayerInventoryPanel;
 class InfoLogPanel;
 class Player;
+class Item;
 
 class InGameMenu {
 private:
@@ -31,6 +32,7 @@ public:
     void appendText(std::string text);
     void appendLine(std::string  text);
     void updateAttributes(Player *player);
+    void addItemToInventory(Item *item);
     void show();
     void hide();
 

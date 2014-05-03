@@ -32,6 +32,10 @@ void DoorDoodadObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *
     doodadNode->setPosition(position);
     doodadNode->yaw(Ogre::Degree(rollBy));
 } // createObject
+    
+bool DoorDoodadObject::containsPoint(Ogre::Vector3 point) {
+    return doodadEntity->getWorldBoundingBox().contains(point);
+} // containsPoint
 
 void DoorDoodadObject::show() {
 } // show

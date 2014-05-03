@@ -6,6 +6,7 @@
 #include "PlayerInventoryPanel.h"
 #include "InfoLogPanel.h"
 #include "src/entities/player/Player.h"
+#include "src/items/Item.h"
 
 InGameMenu::InGameMenu() : 
     windowManager(CEGUI::WindowManager::getSingleton()) {
@@ -26,17 +27,14 @@ void InGameMenu::createWidgets() {
 #if USE_OGRE_LEGACY
     healthBar->setSize(UVector2(UDim(0.0f, 300.0f), UDim(0.0f, 40.0f)));
     scoreLabel->setSize(UVector2(UDim(0.0f, 300.0f), UDim(0.0f, 40.0f)));
-
 #else
     healthBar->setSize(USize(UDim(0.0f, 300.0f), UDim(0.0f, 40.0f)));
     scoreLabel->setSize(USize(UDim(0.0f, 300.0f), UDim(0.0f, 40.0f)));
-
 #endif
 
     healthBar->setPosition(UVector2(UDim(0.0f, 10.0f), UDim(0.0f, 5.0f)));
     healthBar->setProgress(100.0f);
     healthBar->setText("Health");
-
 
     scoreLabel->setPosition(UVector2(UDim(0.0f, 10.0f), UDim(0.0f, 45.0f)));
     scoreLabel->setText("Score: 25,918");
@@ -50,12 +48,11 @@ void InGameMenu::createRootWindow() {
 #if USE_OGRE_LEGACY
     mRoot->addChildWindow(healthBar);
     mRoot->addChildWindow(scoreLabel);
-
 #else
     mRoot->addChild(healthBar);
     mRoot->addChild(scoreLabel);
-
 #endif
+
     playerAttributes->addPanelTo(mRoot);
     playerInventory->addPanelTo(mRoot);
     infoLog->addPanelTo(mRoot);
@@ -73,6 +70,10 @@ void InGameMenu::updateAttributes(Player *player) {
     playerAttributes->updateAttributes(player);
 } // update
 
+void InGameMenu::addItemToInventory(Item *item) {
+    playerInventory->addItem(item);
+} // addItemToInventory
+
 void InGameMenu::show() {
 #if USE_OGRE_LEGACY
     CEGUI::System::getSingleton().setGUISheet(mRoot);
@@ -86,6 +87,5 @@ void InGameMenu::hide() {
     CEGUI::System::getSingleton().setGUISheet(NULL);
 #else
     CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(NULL);
-
 #endif
 } // hide

@@ -14,10 +14,11 @@ public:
     DoorDoodadObject(float x, float z);
     DoorDoodadObject(Ogre::Vector3 pos);
     void setFacing(Ogre::Vector3 facing);
-    void show();
-    void hide();
     void createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera);
     void update(const Ogre::FrameEvent &evt);
+    bool containsPoint(Ogre::Vector3 point);
+    void show();
+    void hide();
 };
 
 #endif

@@ -19,6 +19,7 @@ class RoomObject;
 class EntityObject;
 class LootObject;
 class DoodadObject;
+class DoorDoodadObject;
 
 class Zone {
 public:
@@ -27,12 +28,14 @@ public:
     std::vector<EntityObject*> entities;
     std::vector<LootObject*> loot;
     std::vector<DoodadObject*> doodads;
+    std::vector<DoorDoodadObject*> doorDoodads;
 
     Zone(int zoneLevel);
     void addEntity(EntityObject *o);
     void addLoot(LootObject *o);
     void addDoodad(DoodadObject *o);
-	bool containsPoint(Ogre::Vector3 point);
+    void addDoorDoodad(DoorDoodadObject *o);
+	bool canMove(Ogre::Vector3 point);
 	Ogre::Vector3 getIntersectingPlane(Ogre::Ray ray);
 };
 
