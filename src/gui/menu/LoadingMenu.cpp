@@ -20,7 +20,6 @@ void LoadingMenu::createWidgets() {
     loadingBar = static_cast<ProgressBar*>(
         windowManager.createWindow("OgreTray/ProgressBar", "LoadingMenu/progressBar"));
 
-
 #if USE_OGRE_LEGACY
     textLabel->setSize(UVector2(UDim(0.5f, 0.0f), UDim(0.0f, 40.0f)));
     tipLabel->setSize(UVector2(UDim(1.0f, -10.0f), UDim(0.0f, 40.0f)));
@@ -34,11 +33,8 @@ void LoadingMenu::createWidgets() {
     textLabel->setPosition(UVector2(UDim(0.25f, 0.0f), UDim(1.0f, -80.0f)));
     textLabel->setText("Loading...");
 
-
     tipLabel->setPosition(UVector2(UDim(0.0f, 5.0f), UDim(0.0f, 5.0f)));
     tipLabel->setText("Tips");
-
-
 
     loadingBar->setPosition(UVector2(UDim(0.25f, 0.0f), UDim(1.0f, -40.0f)));
 } // createWidgets
@@ -47,6 +43,7 @@ void LoadingMenu::createRootWindow() {
     using namespace CEGUI;
 
     mRoot = windowManager.createWindow("DefaultWindow", "LoadingMenu/root");
+
 #if USE_OGRE_LEGACY 
     mRoot->addChildWindow(textLabel);
     mRoot->addChildWindow(tipLabel);
@@ -70,7 +67,6 @@ void LoadingMenu::show() {
 #else
     CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(mRoot);
 #endif
-
 } // show
 
 void LoadingMenu::hide() {

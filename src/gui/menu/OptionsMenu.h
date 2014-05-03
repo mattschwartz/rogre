@@ -4,7 +4,7 @@
 /**
  * Included files
  */
-#include <CEGUI/CEGUI.h>
+#include "CEGUI/CEGUI.h"
 
 class OptionsMenu {
 private:
@@ -17,15 +17,18 @@ private:
     CEGUI::PushButton *quitGameButton;
     CEGUI::Window *gameSoundsLabel;
     CEGUI::Window *menuSoundsLabel;
-    //CEGUI::ToggleButton *gameSoundsEnabledCheckbox;
-    //CEGUI::ToggleButton *menuSoundsEnabledCheckbox;
+
+#if USE_OGRE_LEGACY
     CEGUI::Checkbox *gameSoundsEnabledCheckbox;
     CEGUI::Checkbox *menuSoundsEnabledCheckbox;
+#else
+    CEGUI::ToggleButton *gameSoundsEnabledCheckbox;
+    CEGUI::ToggleButton *menuSoundsEnabledCheckbox;
+#endif
+
     void createButtons();
     void createRootWindow();
     void registerEvents();
-    //bool OptionsMenu::toggleGameSounds(const CEGUI::EventArgs &e);
-    //bool OptionsMenu::toggleMenuSounds(const CEGUI::EventArgs &e);
     bool toggleGameSounds(const CEGUI::EventArgs &e);
     bool toggleMenuSounds(const CEGUI::EventArgs &e);
     bool saveAndResumeEvent(const CEGUI::EventArgs &e);

@@ -11,8 +11,6 @@
 #include "src/sound/SoundManager.h"
 #include "src/sound/SoundEffect.h"
 
-
-
 MainMenu::MainMenu() 
     : windowManager(CEGUI::WindowManager::getSingleton()) {
     createButtons();
@@ -49,7 +47,7 @@ void MainMenu::createButtons() {
     hiScoresButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
     quitButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
 
-    //loadPlayerButton->setEnabled(false);
+    loadPlayerButton->setEnabled(false);
     hiScoresButton->setEnabled(false);
 #endif
     

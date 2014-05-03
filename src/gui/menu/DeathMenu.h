@@ -7,7 +7,6 @@
 
 #include <CEGUI/CEGUI.h>
 
-
 class DeathMenu {
 private:
     CEGUI::WindowManager &windowManager;

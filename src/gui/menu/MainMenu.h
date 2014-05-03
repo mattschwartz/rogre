@@ -9,8 +9,6 @@
 #include "MainMenu.h"
 #include "CEGUI/CEGUI.h"
 
-
-
 /**
  * Data
  */

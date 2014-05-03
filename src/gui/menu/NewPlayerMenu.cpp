@@ -46,22 +46,15 @@ void NewPlayerMenu::createWidgets() {
 
     titleLabel->setPosition(UVector2(UDim(0.5f, -150.0f), UDim(0.5f, -70.0f)));
     titleLabel->setText("Create a New Player");
-
     
     textLabel->setPosition(UVector2(UDim(0.5f, -150.0f), UDim(0.5f, -20.0f)));
     textLabel->setText("Player Name");
 
-   
-
     playerNameTextField->setPosition(UVector2(UDim(0.5f, 0.0f), UDim(0.5f, -20.0f)));
     playerNameTextField->setText("player1");
 
-    
-
     backButton->setPosition(UVector2(UDim(0.5f, -150.0f), UDim(0.5f, 20.0f)));
     backButton->setText("Back");
-
-    
 
     startGameButton->setPosition(UVector2(UDim(0.5f, 0.0f), UDim(0.5f, 20.0f)));
     startGameButton->setText("Start Game");
@@ -125,7 +118,13 @@ bool NewPlayerMenu::startGameEvent(const CEGUI::EventArgs &e) {
     GUIManager::getInstance().loadingMenu->show();
     GUIManager::getInstance().loadingMenu->setText("Loading game ...");
 
-    //mThread = boost::shared_ptr<boost::thread>(new boost::thread(boost::bind(&NewPlayerMenu::runThread, this)));
+#if USE_OGRE_LEGACY
+	World::getInstance().loadZone();
+    World::getInstance().setCurrentPlayer(new Player(1, playerNameTextField->getText().c_str()));
+	World::getInstance().spawnCurrentPlayer();
+#else
+    mThread = boost::shared_ptr<boost::thread>(new boost::thread(boost::bind(&NewPlayerMenu::runThread, this)));
+#endif
 
     return false;
 } // startGameEvent

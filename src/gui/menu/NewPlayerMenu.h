@@ -4,11 +4,14 @@
 /**
  * Included files
  */
-#include <boost/thread/thread.hpp>
-#include <boost/thread/mutex.hpp>
-#include <boost/shared_ptr.hpp>
-#include <CEGUI/CEGUI.h>
+#include "CEGUI/CEGUI.h"
 #include <string>
+
+#if !USE_OGRE_LEGACY
+    #include <boost/thread/thread.hpp>
+    #include <boost/thread/mutex.hpp>
+    #include <boost/shared_ptr.hpp>
+#endif
 
 class NewPlayerMenu {
 private:
@@ -26,8 +29,10 @@ private:
     bool backEvent(const CEGUI::EventArgs &e);
     bool startGameEvent(const CEGUI::EventArgs &e);
 
+#if !USE_OGRE_LEGACY
     boost::shared_ptr<boost::thread> mThread;
     void runThread();
+#endif
 
 public:
     NewPlayerMenu();

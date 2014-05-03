@@ -43,27 +43,19 @@ void DeathMenu::createWidgets() {
     quitGameButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
 #endif
 
-
     titleLabel->setPosition(UVector2(UDim(0.5f, -150.0f), UDim(0.5f, -70.0f)));
     titleLabel->setText("You Have Died.");
-    
 
     textLabel->setPosition(UVector2(UDim(0.5f, -150.0f), UDim(0.5f, -20.0f)));
     textLabel->setText("Final Score: ");
-    
-
 
     scoreTextField->setPosition(UVector2(UDim(0.5f, 0.0f), UDim(0.5f, -20.0f)));
     //scoreTextField->setText(World::getInstance().getCurrentPlayer()->getScore());
     scoreTextField->setText("45,844");
     scoreTextField->setEnabled(false);
-    
-
 
     quitToMenuButton->setPosition(UVector2(UDim(0.5f, -150.0f), UDim(0.5f, 20.0f)));
     quitToMenuButton->setText("Main Menu");
-
-
 
     quitGameButton->setPosition(UVector2(UDim(0.5f, 0.0f), UDim(0.5f, 20.0f)));
     quitGameButton->setText("Quit");
@@ -73,6 +65,7 @@ void DeathMenu::createRootWindow() {
     using namespace CEGUI;
 
     mRoot = windowManager.createWindow("DefaultWindow", "DeathMenu/root");
+
 #if USE_OGRE_LEGACY  
     mRoot->addChildWindow(titleLabel);
     mRoot->addChildWindow(textLabel);
@@ -86,8 +79,6 @@ void DeathMenu::createRootWindow() {
     mRoot->addChild(quitToMenuButton);
     mRoot->addChild(quitGameButton);
 #endif
-
-
 } // createRootWindow
 
 void DeathMenu::registerEvents() {
@@ -118,11 +109,13 @@ void DeathMenu::hide() {
 
 bool DeathMenu::quitToMenuEvent(const CEGUI::EventArgs &e) {
     SoundManager::getInstance().MENU_SELECT_SOUND->play();
+
 #if USE_OGRE_LEGACY
     CEGUI::System::getSingleton().setGUISheet(NULL);
 #else
     CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(NULL);
 #endif
+
     GUIManager::getInstance().mainMenu->show();
     World::getInstance().playerQuit();
     return false;
