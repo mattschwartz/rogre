@@ -50,31 +50,6 @@ Zone *ZoneGenerator::generate(int seed, int monsterLevel, int numRooms) {
 		width = (float)(rand() % MAX_ROOM_WIDTH + MIN_ROOM_WIDTH);
 		depth = (float)(rand() % MAX_ROOM_DEPTH + MIN_ROOM_DEPTH);
 
-        // drop a door here
-        float doorX = x;
-        float doorZ = z;
-        float wallWidth;
-
-        // North wall
-        if (wall.direction == Ogre::Vector3::UNIT_Z) { 
-            wallWidth = MathHelper::min<float>(width, wall.x2 - wall.x1);
-        } // if
-        // South wall
-        else if (wall.direction == Ogre::Vector3::NEGATIVE_UNIT_Z) {
-            wallWidth = MathHelper::min<float>(width, wall.x2 - wall.x1);
-        } // else if
-        // West wall
-        else if (wall.direction == Ogre::Vector3::UNIT_X) {
-            wallWidth = MathHelper::min<float>(width, wall.z2 - wall.z1);
-        } // else if
-        // East wall
-        else if (wall.direction == Ogre::Vector3::NEGATIVE_UNIT_X) {
-            wallWidth = MathHelper::min<float>(width, wall.z2 - wall.z1);
-        } // else if
-
-        ObjectManager::getInstance().spawnObject(new DoorDoodadObject(doorX, doorZ));
-
-
 		if (wall.direction == Ogre::Vector3::UNIT_Z) {
 			z -= depth;
 		} else if (wall.direction == Ogre::Vector3::UNIT_X) {
@@ -84,6 +59,45 @@ Zone *ZoneGenerator::generate(int seed, int monsterLevel, int numRooms) {
 		if (overlaps(zone, x, z, width, depth)) {
 			continue;
 		} // if
+
+        // drop a door here
+        float doorX = x;
+        float doorZ = z;
+        float wallLength;
+        DoorDoodadObject *door;
+
+        // North wall
+        if (wall.direction == Ogre::Vector3::UNIT_Z) { 
+            wallLength = MathHelper::min<float>(width, wall.x2 - wall.x1);
+            doorX += rand() % (int)wallLength;
+            doorZ += depth;
+            door = new DoorDoodadObject(doorX, doorZ);
+            door->setFacing(Ogre::Vector3::UNIT_Z);
+        } // if
+        // South wall
+        else if (wall.direction == Ogre::Vector3::NEGATIVE_UNIT_Z) {
+            wallLength = MathHelper::min<float>(width, wall.x2 - wall.x1);
+            doorX += rand() % (int)wallLength;
+            door = new DoorDoodadObject(doorX, doorZ);
+            door->setFacing(Ogre::Vector3::UNIT_Z);
+        } // else if
+        // West wall
+        else if (wall.direction == Ogre::Vector3::UNIT_X) {
+            wallLength = MathHelper::min<float>(depth, wall.z2 - wall.z1);
+            doorZ += rand() % (int)wallLength;
+            door = new DoorDoodadObject(doorX, doorZ);
+            doorX += width;
+            door->setFacing(Ogre::Vector3::UNIT_X);
+        } // else if
+        // East wall
+        else if (wall.direction == Ogre::Vector3::NEGATIVE_UNIT_X) {
+            wallLength = MathHelper::min<float>(depth, wall.z2 - wall.z1);
+            doorZ += rand() % (int)wallLength;
+            door = new DoorDoodadObject(doorX, doorZ);
+            door->setFacing(Ogre::Vector3::UNIT_X);
+        } // else if
+
+        zone->addDoodad(door);
 
         r = RoomGenerator::getInstance().generate(zone, x, z,
             width, depth);

@@ -7,9 +7,13 @@
 #include "DoodadObject.h"
 
 class DoorDoodadObject : public DoodadObject {
+private:
+    Ogre::Degree rollBy;
+
 public:
     DoorDoodadObject(float x, float z);
     DoorDoodadObject(Ogre::Vector3 pos);
+    void setFacing(Ogre::Vector3 facing);
     void show();
     void hide();
     void createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera);
