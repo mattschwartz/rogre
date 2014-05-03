@@ -4,6 +4,7 @@
 /**
  * Included files
  */
+#include "StringHelper.h"
 #include <string>
 #include <map>
 
@@ -11,12 +12,16 @@ namespace TipsUtility {
     std::map<int, std::string> tips;
 
     static void init() {
-        tips[0] = "Did you know this application was written almost entirely by Matt?";
-        tips[1] = "Did you know this game was designed, written and envisioned entirely by Matt?";
-        tips[2] = "Did you know Matt spent 100+ hours working almost enitrely solo on this application?";
-        tips[3] = "If you enjoyed this game, thank Matt. He wrote it all.";
-        tips[4] = "You though you had to work in teams on this project? Matt is living proof that this isn't true!";
-        tips[5] = "Did you know this game was written in C++?";
+        using namespace StringHelper;
+        std::string dyk = "Did you know ";
+
+        tips[0] = concat<std::string>(dyk, "wombats poop cubes.");
+        tips[1] = concat<std::string>(dyk, "coconuts kill more people than sharks per year.");
+        tips[2] = concat<std::string>(dyk, "a duck's quack doesn't echo.");
+        tips[3] = concat<std::string>(dyk, "on average, 12 newborns are given to the wrong parents per day.");
+        tips[4] = concat<std::string>(dyk, "the Oscars given out during WWII were made out of wood.");
+        tips[5] = concat<std::string>(dyk, "there are no clocks in Las Vegas");
+        tips[6] = concat<std::string>(dyk, "death is caused by an allergic reaction to dying.");
         srand(time(NULL));
     }
 
