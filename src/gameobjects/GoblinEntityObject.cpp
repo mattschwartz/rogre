@@ -3,6 +3,8 @@
  */
 #include "PlayerObject.h"
 #include "GoblinEntityObject.h"
+#include "src/entities/player/Player.h"
+#include "src/gameobjects/ObjectManager.h"
 #include "src/utility/StringHelper.h"
 #include "src/utility/MathHelper.h"
 #include "src/sound/SoundManager.h"
@@ -21,6 +23,7 @@ GoblinEntityObject::GoblinEntityObject(GoblinEntity *entity, Ogre::Vector3 pos) 
 
 void GoblinEntityObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera) {
 	using namespace StringHelper;
+    this->sceneManager = &sceneMgr;
 	entityNode = sceneMgr.getRootSceneNode()->createChildSceneNode(concat<int>("GoblinEntity", id));
 	entityEntity = sceneMgr.createEntity(concat<int>("GoblinEntityEntity", id), "Goblin.mesh");
 	entityEntity->setCastShadows(true);
@@ -44,20 +47,23 @@ void GoblinEntityObject::update(const Ogre::FrameEvent &evt) {
 } // update
 
 void GoblinEntityObject::move(const Ogre::FrameEvent &evt) {
+    Ogre::SceneNode *playerNode = World::getInstance().getCurrentPlayer()->playerNode;
+
     // Can we even see the player?
+    if (ObjectManager::getInstance().canSee(entityNode, playerNode)) {
+        mDestination = World::getInstance().getPlayerPosition();
+    } // if
+    else {
+        mDestination.x = (position.x + rand() % 10) - 5;
+        mDestination.z = (position.z + rand() % 10) - 5;
+    } // else
 
     // is the entity already in range of the player to attack?
     if (rangeCheck()) {
         return;
     } // if
 
-    mDestination = World::getInstance().getPlayerPosition();
-
-    // no?
-    // mDestination = this->randomPosition();
-
     // move the entity toward the player
-
     mDirection = mDestination - entityNode->getPosition();
     mDistance = mDirection.normalise();
     Ogre::Real move = mWalkSpeed * evt.timeSinceLastFrame;

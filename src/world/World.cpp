@@ -18,8 +18,8 @@
  * 
  * @return Returns the current player
  */
-Player *World::getCurrentPlayer() {
-    return currentPlayer;
+PlayerObject *World::getCurrentPlayer() {
+    return playerObject;
 } // getCurrentPlayer
 
 Ogre::Vector3 World::getPlayerPosition() {
@@ -63,7 +63,6 @@ void World::spawnCurrentPlayer() {
     ObjectManager::getInstance().spawnObject(playerObject);
 
     paused = false;
-    SoundManager::getInstance().AMBIANCE_RUMBLE_SOUND->loop(-1);
     GUIManager::getInstance().inGameMenu->updateAttributes(currentPlayer);
 } // spawnCurrentPlayer
 

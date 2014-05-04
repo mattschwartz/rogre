@@ -79,6 +79,26 @@ void ObjectManager::update(const Ogre::FrameEvent &evt) {
     } // for
 } // update
 
+bool ObjectManager::canSee(Ogre::SceneNode *a, Ogre::SceneNode *b) {
+    Ogre::Vector3 positionA = a->getPosition();
+    Ogre::Vector3 positionB = b->getPosition();
+    Ogre::RaySceneQuery *mRayScnQuery;
+    Ogre::Ray robotRay(positionA, positionB);
+
+    mRayScnQuery = sceneManager->createRayQuery(robotRay);
+
+    Ogre::RaySceneQueryResult& result = mRayScnQuery->execute();
+    Ogre::RaySceneQueryResult::iterator iter = result.begin();
+
+    if (iter != result.end()) {
+        mRayScnQuery->clearResults();
+
+        return iter->movable->getName() == Ogre::String(b->getName());
+    }
+
+    return false;
+} // canSee
+
 /**
  * May not be necessary - used for determining if the mouse is hovering
  * over an object

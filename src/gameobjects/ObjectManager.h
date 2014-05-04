@@ -37,6 +37,7 @@ public:
     Ogre::Camera *getCamera();
     Ogre::SceneManager *getSceneManager();
 
+    bool canSee(Ogre::SceneNode *a, Ogre::SceneNode *b);
     void update(const Ogre::FrameEvent &evt);
     bool contains(const OIS::MouseEvent &evt);
     void keyPressed(const OIS::KeyEvent &arg);

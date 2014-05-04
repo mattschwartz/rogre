@@ -11,6 +11,8 @@ class GoblinEntity;
 class GoblinEntityObject : public EntityObject {
 private:
     GoblinEntity *entity;
+    Ogre::RaySceneQuery *raySceneQuery;
+    Ogre::SceneManager *sceneManager;
 
 public:
     GoblinEntityObject(GoblinEntity *entity, float x, float z);

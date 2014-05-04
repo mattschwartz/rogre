@@ -19,8 +19,6 @@ private:
     Ogre::Vector3 walkTo;
     Ogre::Vector3 mDirection;
     Ogre::Real mWalkSpeed;
-    Ogre::SceneNode *playerNode;
-    Ogre::Entity *playerEntity;
     Ogre::AnimationState *mAnimationState;
     Ogre::Camera *camera;
     void init();
@@ -33,6 +31,9 @@ private:
     bool withinWorld();
 
 public:
+    Ogre::SceneNode *playerNode;
+    Ogre::Entity *playerEntity;
+
     PlayerObject(Player *player, float x, float y, float z);
     PlayerObject(Player *player, Ogre::Vector3 pos);
     ~PlayerObject();
