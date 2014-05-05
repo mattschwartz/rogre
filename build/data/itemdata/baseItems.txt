@@ -1,17 +1,22 @@
 # Format - <item name>;<item description>
-rock;a rock.
-rock;a beautiful rock.
-rock;not just a boulder. it's a rock.
-wooden plank;building a house, there, are we?
-tooth;not yours, i hope..
-meaty tail;bet it'd make a nice stew..
-slimy substance;ew.. why is it so slimy?
-peculiar object;how peculiar..
-metal chunk;a chunk of metal.
-yellow seed;perhaps you could plant this in the ground, Farmer Brown.
-chalk;you could lecture with this.
-stone chunk;a chunk of stone.
-rat feces;why would you pick these up?
-key;a useless piece of crafted metal..
-leather scraps;some scraps of leather
-testdummy;
+# the description is optional
+# if no description, default is used
+
+rock;A rock.
+rock;A beautiful rock.
+rock;Not just a boulder. It's a rock.
+wooden plank;Building a house, there, are we?
+tooth;Not yours, i hope..
+meaty tail;Bet it'd make a nice stew..
+slimy substance;Ew.. Why is it so slimy?
+peculiar object;How peculiar..
+metal chunk;A chunk of metal.
+yellow seed;Perhaps you could plant this in the ground, Farmer Brown.
+chalk;You could lecture with this.
+stone chunk;A chunk of stone.
+rat feces;Why would you pick these up?
+key;A useless piece of crafted metal..
+leather scraps;Some scraps of leather
+tongue;Did it just wiggle?
+gold coin;Worth something to someone..
+crowbar;A place where crows can go to get drunk.

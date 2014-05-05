@@ -10,7 +10,7 @@
 /**
  * Defines
  */
-#define RESOURCE_FILE_PATH "media/res/"
+#define RESOURCE_FILE_PATH "data/itemdata/"
 const std::string PREFIX_ADJECTIVES_FILE_PATH = RESOURCE_FILE_PATH + std::string("prefixAdjectives.txt");
 const std::string SUFFIX_ADJECTIVES_FILE_PATH = RESOURCE_FILE_PATH + std::string("suffixAdjectives.txt");
 const std::string BASE_ITEM_FILE_PATH = RESOURCE_FILE_PATH + std::string("baseItems.txt");
@@ -77,6 +77,11 @@ void ItemData::initAdjectives() {
 
     while (!file->eof()) {
         line = fileManager.readLine(file);
+        
+        if (line[0] == '#') {
+            continue;
+        } // if
+
         prefixAdjectives.push_back(line);
     } // while
 
@@ -91,6 +96,11 @@ void ItemData::initAdjectives() {
 
     while (!file->eof()) {
         line = fileManager.readLine(file);
+        
+        if (line[0] == '#') {
+            continue;
+        } // if
+
         suffixAdjectives.push_back(line);
     } // while
 
