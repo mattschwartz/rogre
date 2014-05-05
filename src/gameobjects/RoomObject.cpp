@@ -78,6 +78,8 @@ void RoomObject::createEntities() {
     wall2Entity->setCastShadows(true);
     wall3Entity->setCastShadows(true);
     wall4Entity->setCastShadows(true);
+    
+    floorEntity->setQueryFlags(2);
 } // createEntities
 
 void RoomObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera) {
