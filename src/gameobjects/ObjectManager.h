@@ -14,6 +14,11 @@
  */
 class GameObject;
 
+enum QueryFlags{
+    MONSTER_ENTITIES,
+    FLOOR_ENTITY
+};
+
 class ObjectManager {
 private:
     std::vector<GameObject*> objects;
@@ -44,11 +49,6 @@ public:
     void mouseMoved(const OIS::MouseEvent &evt);
     void mousePressed(const OIS::MouseEvent &evt, OIS::MouseButtonID id);
     void mouseReleased(const OIS::MouseEvent &evt, OIS::MouseButtonID id);
-    	enum QueryFlags{
-            GOBLIN_CHARACTERS = 1<<0,
-	        FLOOR_ENTITY = 1<<1
-
-        };
     
 };
 

@@ -53,7 +53,7 @@ public:
     virtual void mousePressed(const OIS::MouseEvent &evt, OIS::MouseButtonID id) = 0;
     virtual void mouseReleased(const OIS::MouseEvent &evt, OIS::MouseButtonID id) = 0;
     enum QueryFlags{
-          GOBLIN_CHARACTERS = 1<<0,
+          MONSTER_ENTITIES = 1<<0,
 	      FLOOR_ENTITY = 1<<1
 
     };

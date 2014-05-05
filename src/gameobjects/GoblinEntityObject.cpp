@@ -26,7 +26,7 @@ void GoblinEntityObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera
     this->sceneManager = &sceneMgr;
 	entityNode = sceneMgr.getRootSceneNode()->createChildSceneNode(concat<int>("GoblinEntity", id));
 	entityEntity = sceneMgr.createEntity(concat<int>("GoblinEntityEntity", id), "Goblin.mesh");
-    entityEntity->setQueryFlags(1);
+    entityEntity->setQueryFlags(MONSTER_ENTITIES);
 	entityEntity->setCastShadows(true);
     
 	entityNode->scale(0.75f, 0.75f, 0.75f);

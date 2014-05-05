@@ -86,7 +86,7 @@ bool ObjectManager::canSee(Ogre::SceneNode *a, Ogre::SceneNode *b) {
     Ogre::Ray robotRay(positionA, positionB);
 
     mRayScnQuery = sceneManager->createRayQuery(robotRay);
-    mRayScnQuery->setQueryMask(~(GOBLIN_CHARACTERS | FLOOR_ENTITY));
+    mRayScnQuery->setQueryMask(~(MONSTER_ENTITIES | FLOOR_ENTITY));
 
     Ogre::RaySceneQueryResult& result = mRayScnQuery->execute();
     Ogre::RaySceneQueryResult::iterator iter = result.begin();
@@ -163,5 +163,4 @@ void ObjectManager::mouseReleased(const OIS::MouseEvent &evt, OIS::MouseButtonID
     if (World::getInstance().isGamePaused()) {
         return;
     } // if
-
-}
+} // mouseReleased
