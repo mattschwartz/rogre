@@ -8,6 +8,8 @@
 
 Equippable::Equippable(int level) :
     Item(level) {
+    equippable = true;
+    equipped = false;
 } // constructor
 
 Equippable::Equippable(int level, int goldWorth, int stackSize, std::string name, int numAffixes, affix_t *affixes) : 
@@ -15,11 +17,21 @@ Equippable::Equippable(int level, int goldWorth, int stackSize, std::string name
     for (int i = 0; i < numAffixes; i++) {
         this->affixes.push_back(affixes[i]);
     } // for
+    equippable = true;
+    equipped = false;
 } // constructor
 
 void Equippable::setSlotid(equipmentSlot_t slotid) {
     this->equipmentSlot = slotid;
 } // setSlotid
+
+bool Equippable::isEquipped() {
+    return equipped;
+} // isEquipped
+
+void Equippable::setEquipped(bool value) {
+    equipped = value;
+} // setEquipped
 
 /**
  * @return Returns the slot id into which this Equippable item fits

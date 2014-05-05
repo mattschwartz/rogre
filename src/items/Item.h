@@ -13,6 +13,7 @@
  */
 class Item {
 protected:
+    bool equippable;
     int level;
     int goldWorth;
     int stackSize;
@@ -33,6 +34,7 @@ public:
     /**
      * Getters & Setters
      */
+    bool isEquippable();
     int getGoldWorth();
     void setGoldWorth(int goldWorth);
     int getStackSize();

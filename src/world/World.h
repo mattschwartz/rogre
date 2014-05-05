@@ -44,7 +44,8 @@ public:
      */
     int getZoneLevel();
     void setZoneLevel(int zoneLevel);
-    PlayerObject *getCurrentPlayer();
+    Player *getCurrentPlayer();
+    PlayerObject *getPlayerObject();
     Ogre::Vector3 getPlayerPosition();
     void setCurrentPlayer(Player *player);
     Zone *getCurrentZone();

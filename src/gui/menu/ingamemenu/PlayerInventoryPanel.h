@@ -19,7 +19,6 @@ private:
     CEGUI::PushButton *inventoryLabel;
     CEGUI::Listbox *inventory;
     CEGUI::PushButton *equipItemButton;
-    CEGUI::PushButton *dropItemButton;
     CEGUI::PushButton *examineItemButton;
     std::vector<Item*> inventoryItems;
     
@@ -28,7 +27,6 @@ private:
     bool inventorySelectionChanged(const CEGUI::EventArgs &e);
     bool toggleInventory(const CEGUI::EventArgs &e);
     bool equipItemEvent(const CEGUI::EventArgs &e);
-    bool dropItemEvent(const CEGUI::EventArgs &e);
     bool examineItemEvent(const CEGUI::EventArgs &e);
 
 public:

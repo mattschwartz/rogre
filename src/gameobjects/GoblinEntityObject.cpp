@@ -47,7 +47,7 @@ void GoblinEntityObject::update(const Ogre::FrameEvent &evt) {
 } // update
 
 void GoblinEntityObject::move(const Ogre::FrameEvent &evt) {
-    Ogre::SceneNode *playerNode = World::getInstance().getCurrentPlayer()->playerNode;
+    Ogre::SceneNode *playerNode = World::getInstance().getPlayerObject()->playerNode;
 
     // Can we even see the player?
     if (true || ObjectManager::getInstance().canSee(entityNode, playerNode)) {

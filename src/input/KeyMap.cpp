@@ -10,7 +10,7 @@ void KeyMap::openAttributes(void) {
 }
 
 void KeyMap::toggleOptionsMenu(void) {
-    if (World::getInstance().getCurrentPlayer() != NULL) {
+    if (World::getInstance().getPlayerObject() != NULL) {
         GUIManager::getInstance().optionsMenu->toggle();
     } // if
 } // toggleOptionsMenu

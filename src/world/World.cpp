@@ -15,13 +15,17 @@
 #include "src/gui/menu/LoadingMenu.h"
 #include "src/gameobjects/RoomObject.h"
 
+Player *World::getCurrentPlayer() {
+    return currentPlayer;
+} // getCurrentPlayer
+
 /**
  * 
  * @return Returns the current player
  */
-PlayerObject *World::getCurrentPlayer() {
+PlayerObject *World::getPlayerObject() {
     return playerObject;
-} // getCurrentPlayer
+} // getPlayerObject
 
 Ogre::Vector3 World::getPlayerPosition() {
     if (playerObject == NULL) {

@@ -8,6 +8,8 @@
 #include "src/utility/StringHelper.h"
 #include "src/entities/player/Player.h"
 #include "src/entities/player/Inventory.h"
+#include "src/items/Equippable.h"
+#include "src/world/World.h"
 
 PlayerInventoryPanel::PlayerInventoryPanel() :
     windowManager(CEGUI::WindowManager::getSingleton()) {
@@ -24,35 +26,29 @@ void PlayerInventoryPanel::createWidgets() {
         windowManager.createWindow("OgreTray/Listbox", "InGameMenu/inventory"));
     equipItemButton = static_cast<PushButton*>(
         windowManager.createWindow("OgreTray/Button", "InGameMenu/equipItemButton"));
-    dropItemButton = static_cast<PushButton*>(
-        windowManager.createWindow("OgreTray/Button", "InGameMenu/equipItemButton1"));
     examineItemButton = static_cast<PushButton*>(
         windowManager.createWindow("OgreTray/Button", "InGameMenu/equipItemButton2"));
 
 #if USE_OGRE_LEGACY
-    inventoryLabel->setSize(UVector2(UDim(0.0f, 300.0f), UDim(0.0f, 40.0f)));
-    inventory->setSize(UVector2(UDim(0.0f, 300.0f), UDim(0.0f, 250.0f)));
+    inventoryLabel->setSize(UVector2(UDim(0.0f, 200.0f), UDim(0.0f, 40.0f)));
+    inventory->setSize(UVector2(UDim(0.0f, 200.0f), UDim(0.0f, 250.0f)));
     equipItemButton->setSize(UVector2(UDim(0.0f, 100.0f), UDim(0.0f, 40.0f)));
-    dropItemButton->setSize(UVector2(UDim(0.0f, 100.0f), UDim(0.0f, 40.0f)));
     examineItemButton->setSize(UVector2(UDim(0.0f, 100.0f), UDim(0.0f, 40.0f)));
 #else
-    inventoryLabel->setSize(USize(UDim(0.0f, 300.0f), UDim(0.0f, 40.0f)));
-    inventory->setSize(USize(UDim(0.0f, 300.0f), UDim(0.0f, 250.0f)));
+    inventoryLabel->setSize(USize(UDim(0.0f, 200.0f), UDim(0.0f, 40.0f)));
+    inventory->setSize(USize(UDim(0.0f, 200.0f), UDim(0.0f, 250.0f)));
     equipItemButton->setSize(USize(UDim(0.0f, 100.0f), UDim(0.0f, 40.0f)));
-    dropItemButton->setSize(USize(UDim(0.0f, 100.0f), UDim(0.0f, 40.0f)));
     examineItemButton->setSize(USize(UDim(0.0f, 100.0f), UDim(0.0f, 40.0f)));
 #endif
     
-    inventoryLabel->setPosition(UVector2(UDim(1.0f, -310.0f), UDim(1.0f, -335.0f)));
+    inventoryLabel->setPosition(UVector2(UDim(1.0f, -210.0f), UDim(1.0f, -335.0f)));
     inventoryLabel->setText("Collapse Inventory");
 
-    inventory->setPosition(UVector2(UDim(1.0f, -310.0f), UDim(1.0f, -295.0f)));
+    inventory->setPosition(UVector2(UDim(1.0f, -210.0f), UDim(1.0f, -295.0f)));
 
-    equipItemButton->setPosition(UVector2(UDim(1.0f, -310.0f), UDim(1.0f, -45.0f)));
+    equipItemButton->setPosition(UVector2(UDim(1.0f, -210.0f), UDim(1.0f, -45.0f)));
     equipItemButton->setText("Equip");
-
-    dropItemButton->setPosition(UVector2(UDim(1.0f, -210.0f), UDim(1.0f, -45.0f)));
-    dropItemButton->setText("Destroy");
+    equipItemButton->setEnabled(false);
 
     examineItemButton->setPosition(UVector2(UDim(1.0f, -110.0f), UDim(1.0f, -45.0f)));
     examineItemButton->setText("Examine");
@@ -67,8 +63,6 @@ void PlayerInventoryPanel::registerEvents() {
         Event::Subscriber(&PlayerInventoryPanel::toggleInventory, this));
     equipItemButton->subscribeEvent(PushButton::EventClicked, 
         Event::Subscriber(&PlayerInventoryPanel::equipItemEvent, this));
-    dropItemButton->subscribeEvent(PushButton::EventClicked, 
-        Event::Subscriber(&PlayerInventoryPanel::dropItemEvent, this));
     examineItemButton->subscribeEvent(PushButton::EventClicked, 
         Event::Subscriber(&PlayerInventoryPanel::examineItemEvent, this));
 } // registerEvents
@@ -80,13 +74,11 @@ void PlayerInventoryPanel::addPanelTo(CEGUI::Window *mRoot) {
     mRoot->addChildWindow(inventoryLabel);
     mRoot->addChildWindow(inventory);
     mRoot->addChildWindow(equipItemButton);
-    mRoot->addChildWindow(dropItemButton);
     mRoot->addChildWindow(examineItemButton);
 #else
     mRoot->addChild(inventoryLabel);
     mRoot->addChild(inventory);
     mRoot->addChild(equipItemButton);
-    mRoot->addChild(dropItemButton);
     mRoot->addChild(examineItemButton);
 #endif
 
@@ -101,9 +93,8 @@ void PlayerInventoryPanel::addItem(Item *item) {
     int it = 0;
     for (Item *i : inventoryItems) {
         CEGUI::ListboxTextItem *lbi = new CEGUI::ListboxTextItem(i->getName(), it++, i);
-        //lbi->setSelectionBrushImage("TaharezLook/MultiListSelectionBrush");
+        //lbi->setSelectionBrushImage("OgreTray/ListboxItem");
         lbi->setTextColours(CEGUI::Colour(0.0f, 0.0f, 0.0f));
-        lbi->setSelectionColours(CEGUI::Colour(1.0f, 0.0f, 1.0f));
         inventory->addItem(lbi);
         inventory->setItemSelectState(lbi, false);
         inventory->ensureItemIsVisible(lbi);
@@ -125,7 +116,33 @@ void PlayerInventoryPanel::loadPlayer(Player *player) {
 } // loadPlayer
 
 bool PlayerInventoryPanel::inventorySelectionChanged(const CEGUI::EventArgs &e) {
-    return false;
+    using namespace CEGUI;
+
+    equipItemButton->setText("Equip");
+    equipItemButton->setEnabled(false);
+    for (int i = 0, len = inventory->getItemCount(); i < len; i++) {
+        ListboxTextItem *lbti = (ListboxTextItem*)inventory->getListboxItemFromIndex(i);
+
+        if (lbti != NULL) {
+            if (lbti->isSelected()) {
+                if (((Item*)inventory->getFirstSelectedItem()->getUserData())->isEquippable()) {
+                    equipItemButton->setEnabled(true);
+
+                    if (((Equippable*)inventory->getFirstSelectedItem()->getUserData())->isEquippable()) {
+                        equipItemButton->setText("Unequip");
+                    } // if
+                } // if
+                lbti->setTextColours(Colour(1.0f, 1.0f, 0.0f));
+            } // if
+            else {
+                lbti->setTextColours(Colour(0.0f, 0.0f, 0.0f));
+            } // else
+        } // if
+    } // for
+
+    inventory->invalidate(true);
+
+    return true;
 } // inventorySelectionChanged
 
 bool PlayerInventoryPanel::toggleInventory(const CEGUI::EventArgs &e) {
@@ -136,31 +153,27 @@ bool PlayerInventoryPanel::toggleInventory(const CEGUI::EventArgs &e) {
 #if USE_OGRE_LEGACY
         parent->addChildWindow(inventory);
         parent->addChildWindow(equipItemButton);
-        parent->addChildWindow(dropItemButton);
         parent->addChildWindow(examineItemButton);
 #else
         parent->addChild(inventory);
         parent->addChild(equipItemButton);
-        parent->addChild(dropItemButton);
         parent->addChild(examineItemButton);
 #endif
 
-        inventoryLabel->setPosition(UVector2(UDim(1.0f, -310.0f), UDim(1.0f, -335.0f)));
+        inventoryLabel->setPosition(UVector2(UDim(1.0f, -210.0f), UDim(1.0f, -335.0f)));
         inventoryLabel->setText("Collapse Inventory");
     } // if 
     else {
 #if USE_OGRE_LEGACY
         parent->removeChildWindow(inventory);
         parent->removeChildWindow(equipItemButton);
-        parent->removeChildWindow(dropItemButton);
         parent->removeChildWindow(examineItemButton);
 #else
         parent->removeChild(inventory);
         parent->removeChild(equipItemButton);
-        parent->removeChild(dropItemButton);
         parent->removeChild(examineItemButton);
 #endif
-        inventoryLabel->setPosition(UVector2(UDim(1.0f, -310.0f), UDim(1.0f, -45.0f)));
+        inventoryLabel->setPosition(UVector2(UDim(1.0f, -210.0f), UDim(1.0f, -45.0f)));
         inventoryLabel->setText("Expand Inventory");
     } // else
 
@@ -168,12 +181,15 @@ bool PlayerInventoryPanel::toggleInventory(const CEGUI::EventArgs &e) {
 } // equipItemEvent
 
 bool PlayerInventoryPanel::equipItemEvent(const CEGUI::EventArgs &e) {
+    Equippable *item;
+
+    if (((Item*)inventory->getFirstSelectedItem()->getUserData())->isEquippable()) {
+        item = (Equippable*)inventory->getFirstSelectedItem()->getUserData();
+        World::getInstance().getCurrentPlayer()->equipItem(item);
+    } // if
+
     return true;
 } // equipItemEvent
-
-bool PlayerInventoryPanel::dropItemEvent(const CEGUI::EventArgs &e) {
-    return true;
-} // dropItemButton
 
 bool PlayerInventoryPanel::examineItemEvent(const CEGUI::EventArgs &e) {
     using namespace StringHelper;

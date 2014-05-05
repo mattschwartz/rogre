@@ -11,6 +11,7 @@ Item::Item(int level) {
     this->name = "Random Item";
     this->stackSize = 1;
     this->goldWorth = 0;
+    this->equippable = false;
 } // constructor
 
 /**
@@ -29,6 +30,7 @@ Item::Item(int level, int goldWorth, int stackSize, std::string name) {
     this->goldWorth = goldWorth;
     this->stackSize = stackSize;
     this->name = name;
+    this->equippable = false;
 } // constructor
 
 /**
@@ -100,3 +102,7 @@ std::string Item::getDescription() {
 void Item::setDescription(std::string text) {
     this->description = text;
 } // setDescription
+
+bool Item::isEquippable() {
+    return equippable;
+} // isEquippable

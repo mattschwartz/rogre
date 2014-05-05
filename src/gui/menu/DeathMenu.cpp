@@ -50,7 +50,7 @@ void DeathMenu::createWidgets() {
     textLabel->setText("Final Score: ");
 
     scoreTextField->setPosition(UVector2(UDim(0.5f, 0.0f), UDim(0.5f, -20.0f)));
-    //scoreTextField->setText(World::getInstance().getCurrentPlayer()->getScore());
+    //scoreTextField->setText(World::getInstance().getPlayerObject()->getScore());
     scoreTextField->setText("45,844");
     scoreTextField->setEnabled(false);
 
