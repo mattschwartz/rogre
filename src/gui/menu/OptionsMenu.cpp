@@ -9,6 +9,7 @@
 #include "src/sound/SoundManager.h"
 #include "src/sound/SoundEffect.h"
 #include "ingamemenu/InGameMenu.h"
+#include "src/input/KeyHandler.h"
 
 OptionsMenu::OptionsMenu()
     : windowManager(CEGUI::WindowManager::getSingleton()) {
@@ -180,11 +181,7 @@ bool OptionsMenu::saveAndResumeEvent(const CEGUI::EventArgs &e) {
 
 bool OptionsMenu::quitToMenuEvent(const CEGUI::EventArgs &e) {
     SoundManager::getInstance().MENU_SELECT_SOUND->play();
-#if USE_OGRE_LEGACY
-    CEGUI::System::getSingleton().setGUISheet(NULL);
-#else
-    CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(NULL);
-#endif
+    visible = false;
     GUIManager::getInstance().mainMenu->show();
     World::getInstance().playerQuit();
     return true;

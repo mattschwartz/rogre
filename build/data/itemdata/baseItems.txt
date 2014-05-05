@@ -1,0 +1,17 @@
+# Format - <item name>;<item description>
+rock;a rock.
+rock;a beautiful rock.
+rock;not just a boulder. it's a rock.
+wooden plank;building a house, there, are we?
+tooth;not yours, i hope..
+meaty tail;bet it'd make a nice stew..
+slimy substance;ew.. why is it so slimy?
+peculiar object;how peculiar..
+metal chunk;a chunk of metal.
+yellow seed;perhaps you could plant this in the ground, Farmer Brown.
+chalk;you could lecture with this.
+stone chunk;a chunk of stone.
+rat feces;why would you pick these up?
+key;a useless piece of crafted metal..
+leather scraps;some scraps of leather
+testdummy;

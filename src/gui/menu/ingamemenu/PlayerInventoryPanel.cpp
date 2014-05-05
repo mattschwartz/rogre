@@ -6,6 +6,8 @@
 #include "src/gui/GUIManager.h"
 #include "src/items/Item.h"
 #include "src/utility/StringHelper.h"
+#include "src/entities/player/Player.h"
+#include "src/entities/player/Inventory.h"
 
 PlayerInventoryPanel::PlayerInventoryPanel() :
     windowManager(CEGUI::WindowManager::getSingleton()) {
@@ -111,6 +113,17 @@ void PlayerInventoryPanel::addItem(Item *item) {
 
 } // addItem
 
+void PlayerInventoryPanel::loadPlayer(Player *player) {
+    inventoryItems.clear();
+    inventory->resetList();
+
+    if (player != NULL) {
+        for (Item *item : player->getInventory()->getItems()) {
+            addItem(item);
+        } // for
+    } // else
+} // loadPlayer
+
 bool PlayerInventoryPanel::inventorySelectionChanged(const CEGUI::EventArgs &e) {
     return false;
 } // inventorySelectionChanged
@@ -167,7 +180,7 @@ bool PlayerInventoryPanel::examineItemEvent(const CEGUI::EventArgs &e) {
     std::string str = "";
 
     if (inventory->getFirstSelectedItem() != NULL) {
-        str = ((Item*)inventory->getFirstSelectedItem()->getUserData())->getExamineText();
+        str = ((Item*)inventory->getFirstSelectedItem()->getUserData())->getDescription();
         GUIManager::getInstance().inGameMenu->appendText(str);
     }
 

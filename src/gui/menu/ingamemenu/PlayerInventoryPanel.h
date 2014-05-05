@@ -9,6 +9,7 @@
 #include "src/main/BaseApplication.h"
 
 class Item;
+class Player;
 
 class PlayerInventoryPanel {
 private:
@@ -35,6 +36,7 @@ public:
     ~PlayerInventoryPanel();
     void addPanelTo(CEGUI::Window *mRoot);
     void addItem(Item *item);
+    void loadPlayer(Player *player);
 };
 
 #endif

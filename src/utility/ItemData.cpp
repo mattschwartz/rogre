@@ -3,6 +3,9 @@
  */
 #include "ItemData.h"
 #include "src/utility/filesys/FileManager.h"
+#include "src/utility/StringHelper.h"
+#include <iterator>
+#include <stdlib.h>
 
 /**
  * Defines
@@ -10,7 +13,7 @@
 #define RESOURCE_FILE_PATH "media/res/"
 const std::string PREFIX_ADJECTIVES_FILE_PATH = RESOURCE_FILE_PATH + std::string("prefixAdjectives.txt");
 const std::string SUFFIX_ADJECTIVES_FILE_PATH = RESOURCE_FILE_PATH + std::string("suffixAdjectives.txt");
-const std::string BASE_ITEM_NAMES_FILE_PATH = RESOURCE_FILE_PATH + std::string("baseItemNames.txt");
+const std::string BASE_ITEM_FILE_PATH = RESOURCE_FILE_PATH + std::string("baseItems.txt");
 const std::string BASE_ARMOR_NAMES_FILE_PATH = RESOURCE_FILE_PATH + std::string("baseArmorNames.txt");
 
 const double FLIMSY_MIN_ATTR = 1.0;
@@ -65,7 +68,12 @@ void ItemData::initAdjectives() {
     std::fstream *file;
     std::string line;
 
+    // prefix names
     file = fileManager.openFile(PREFIX_ADJECTIVES_FILE_PATH);
+
+    if (file == NULL) {
+        return;
+    } // if
 
     while (!file->eof()) {
         line = fileManager.readLine(file);
@@ -74,7 +82,12 @@ void ItemData::initAdjectives() {
 
     fileManager.closeFile(file);
 
+    // suffix names
     file = fileManager.openFile(SUFFIX_ADJECTIVES_FILE_PATH);
+
+    if (file == NULL) {
+        return;
+    } // if
 
     while (!file->eof()) {
         line = fileManager.readLine(file);
@@ -85,27 +98,49 @@ void ItemData::initAdjectives() {
 } // initAdjectives
 
 void ItemData::initItemNames() {
-    FileManager &fileManager = FileManager::getInstance();
-    std::fstream *file;
-    std::string line;
+    using namespace std;
 
-    file = fileManager.openFile(BASE_ITEM_NAMES_FILE_PATH);
+    FileManager &fileManager = FileManager::getInstance();
+    fstream *file;
+    string line;
+    vector<string> split;
+    string first, second;
+
+    file = fileManager.openFile(BASE_ITEM_FILE_PATH);
+
+    if (file == NULL) {
+        return;
+    } // if
 
     while (!file->eof()) {
         line = fileManager.readLine(file);
-        baseItemNames.push_back(line);
+        
+        if (line[0] == '#') {
+            continue;
+        } // if
+
+        split = StringHelper::split(line, ';');
+        second = split.back();
+        split.pop_back();
+        first = split.back();
+
+        baseItems[first] = second;
     } // while
 
     fileManager.closeFile(file);
 } // initItemNames
 
 void ItemData::initArmorNames() {
+    using namespace std;
+
     FileManager &fileManager = FileManager::getInstance();
-    std::fstream *file;
-    std::string line;
-    std::stringstream ss;
-    int first;
-    std::string second;
+    fstream *file;
+    string line;
+    stringstream ss;
+    int itemId;
+    string name;
+    string description;
+    vector<string> strs;
 
     file = fileManager.openFile(BASE_ARMOR_NAMES_FILE_PATH);
 
@@ -120,29 +155,29 @@ void ItemData::initArmorNames() {
             continue;
         } // if
 
-        ss = std::stringstream(line);
-        ss >> first;
+        strs = StringHelper::split(line, ';');
+        itemId = atoi(strs.back().c_str());
+        strs.pop_back();
+        description = strs.back();
+        strs.pop_back();
+        name = strs.back();
 
-        second = "";
-        line = "";
-        while (ss >> line) {
-            second += line + " ";
-        } // while
-
-        second.substr(0, second.length() - 1);
-
-        switch (first) {
+        switch (itemId) {
             case helmet:
-                baseArmorNames[helmet] = second;
+                baseArmorNames[helmet].first = name;
+                baseArmorNames[helmet].second = description;
                 break;
             case chest:
-                baseArmorNames[chest] = second;
+                baseArmorNames[chest].first = name;
+                baseArmorNames[chest].second = description;
                 break;
             case gloves:
-                baseArmorNames[gloves] = second;
+                baseArmorNames[gloves].first = name;
+                baseArmorNames[gloves].second = description;
                 break;
             case boots:
-                baseArmorNames[boots] = second;
+                baseArmorNames[boots].first = name;
+                baseArmorNames[boots].second = description;
                 break;
             default:
                 continue;
@@ -164,7 +199,18 @@ struct affixdata ItemData::getAffixData(int itemLevel) {
     if (solidItems.levelRange.inRange(itemLevel)) {
         return solidItems;
     } // if
-    if (unbreakableItems.levelRange.inRange(itemLevel)) {
-        return unbreakableItems;
-    } // if
+
+    return unbreakableItems;
 } // getAffixData
+
+std::pair<std::string, std::string> ItemData::getRandomItem() {
+    int ran = rand() % baseItems.size();
+    auto iter = baseItems.begin();
+    std::pair<std::string, std::string> result;
+
+    std::advance(iter, rand() % baseItems.size());
+    result.first = iter->first;
+    result.second = iter->second;
+
+    return result;
+} // getRandomItem

@@ -6,8 +6,12 @@
 #include "src/items/Equippable.h"
 
 Item *ItemGenerator::generateItem(int monsterLevel) {
-    struct affixdata itemData;
     Item *result = new Item(monsterLevel);
+    std::pair<std::string, std::string> itemData;
+
+    itemData = ItemData::getInstance().getRandomItem();
+    result->setName(itemData.first);
+    result->setDescription(itemData.second);
 
     return result;
 } // generateItem

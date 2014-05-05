@@ -4,11 +4,7 @@
 /**
  * Included files
  */
-
-/**
- * Defines
- */
-#define INVENTORY_SLOTS 24
+#include <vector>
 
 /**
  * Forward declarations
@@ -20,13 +16,14 @@ class Item;
  */
 class Inventory {
 private:
-    Item *inventory[INVENTORY_SLOTS];
+    std::vector<Item*> items;
 
 public:
     Inventory();
     ~Inventory();
-    bool addItem(Item *item);
+    void addItem(Item *item);
     Item *removeItem(int index);
+    std::vector<Item*> getItems();
 };
 
 #endif

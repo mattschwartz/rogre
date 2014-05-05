@@ -93,6 +93,10 @@ std::string Item::pickupText() {
     return "You found " + StringHelper::aOrAn(name) + ".";
 } // pickupText
 
-std::string Item::getExamineText() {
-    return "It appears to be " + StringHelper::aOrAn(name) + ".";
-} // pickupText
+std::string Item::getDescription() {
+    return description;
+} // getDesription
+
+void Item::setDescription(std::string text) {
+    this->description = text;
+} // setDescription

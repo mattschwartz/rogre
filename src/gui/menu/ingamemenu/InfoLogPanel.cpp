@@ -2,6 +2,7 @@
  * Included files
  */
 #include "InfoLogPanel.h"
+#include "src/entities/player/Player.h"
 
 InfoLogPanel::InfoLogPanel() :
     windowManager(CEGUI::WindowManager::getSingleton()) {
@@ -31,8 +32,9 @@ void InfoLogPanel::createWidgets() {
 #endif
 
     textLog->setPosition(UVector2(UDim(0.0f, 10.0f), UDim(0.80f, -5.0f)));
-    textLog->setText("Welcome to ROgre v0.1.0");
-    textLog->setEnabled(false);
+    textLog->setText("Welcome to ROgre v0.1.0!");
+    textLog->setWordWrapping(true);
+    textLog->setReadOnly(true);
 
     toggleLogButton->setPosition(UVector2(UDim(0.0f, 10.0f), UDim(0.80f, -45.0f)));
     toggleLogButton->setText("Hide log");
@@ -81,17 +83,18 @@ bool InfoLogPanel::toggleLogEvent(const CEGUI::EventArgs &e) {
 } // toggleLogEvent
 
 bool InfoLogPanel::clearEvent(const CEGUI::EventArgs &e) {
-    textLog->setText("");
+    textLog->setText("Log cleared.");
     return true;
 } // clearEvent
 
 void InfoLogPanel::append(std::string text) {
     textLog->appendText(text);
+    textLog->setCaretIndex(INT_MAX);
+    textLog->ensureCaretIsVisible();
 } // append
 
 void InfoLogPanel::appendLine(std::string text) {
     textLog->appendText(text);
-    textLog->appendText("\n");
 } // append
 
 void InfoLogPanel::addPanelTo(CEGUI::Window *mRoot) {
@@ -107,3 +110,7 @@ void InfoLogPanel::addPanelTo(CEGUI::Window *mRoot) {
     mRoot->addChild(clearButton);
 #endif
 } // addPanelTo
+
+void InfoLogPanel::loadPlayer(Player *player) {
+    textLog->setText("Welcome to ROgre v0.1.0, " + player->getName() + "!");
+} // loadPlayer

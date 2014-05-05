@@ -30,8 +30,12 @@ std::string Player::getScore() {
     return score;
 } // getScore
 
+std::string Player::getName() {
+    return name;
+} // getName
+
 void Player::equipItem(Equippable *equippable) {
-    Equippable *equippedItem = getEquippedItemAt(equippable->getSlotId());
+    Equippable *equippedItem = getEquippedItemAt(equippable->getSlotid());
     std::vector<affix_t> itemAffixes;
 
     if (equippedItem != NULL) {

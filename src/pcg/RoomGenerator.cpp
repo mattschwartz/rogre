@@ -14,6 +14,7 @@
 #include "src/gameobjects/RoomObject.h"
 #include "src/gameobjects/ObjectManager.h"
 #include "src/gameobjects/LootObject.h"
+#include "ItemGenerator.h"
 
 Room *RoomGenerator::generate(Zone *zone, float x, float z, 
 	float width, float depth) {
@@ -38,7 +39,7 @@ Room *RoomGenerator::generate(Zone *zone, float x, float z,
 		eZ = (rand() % (int)depth) + z;
         zone->addDoodad(new ChestDoodadObject(d, eX, eZ));
 
-        i = new Item(0, zone->zoneLevel, 99, 1, "jesus");
+        i = ItemGenerator::getInstance().generateItem(zone->zoneLevel);
 		eX = (rand() % (int)width) + x;
 		eZ = (rand() % (int)depth) + z;
         zone->addLoot(new LootObject(i, eX, eZ));

@@ -11,6 +11,9 @@
 #include <vector>
 #include <map>
 
+typedef std::map<std::string, std::string> itemMap;
+typedef std::pair<std::string, std::string> itemPair;
+
 struct affixdata {
     int maxAttributes;
     struct MathHelper::range<int> levelRange;
@@ -34,10 +37,10 @@ public:
     struct affixdata sturdyItems;
     struct affixdata solidItems;
     struct affixdata unbreakableItems;
-    static std::vector<std::string> prefixAdjectives;
-    static std::vector<std::string> suffixAdjectives;
-    static std::vector<std::string> baseItemNames;
-    static std::map<equipmentSlot_t, std::string> baseArmorNames;
+    std::vector<std::string> prefixAdjectives;
+    std::vector<std::string> suffixAdjectives;
+    itemMap baseItems;
+    std::map<equipmentSlot_t, itemPair> baseArmorNames;
 
     static ItemData &getInstance() {
         static ItemData instance;
@@ -46,6 +49,7 @@ public:
 
     void init();
     struct affixdata getAffixData(int itemType);
+    std::pair<std::string, std::string> getRandomItem();
 };
 
 #endif

@@ -6,6 +6,7 @@
  */
 #include <sstream>
 #include <string>
+#include <vector>
 
 namespace StringHelper {
 	template <typename T>
@@ -23,6 +24,26 @@ namespace StringHelper {
         } // if
         return concat<std::string>("a ", str);
     } // aOrAn
+
+    static std::vector<std::string> split(std::string str, char del) {
+        std::vector<std::string> result;
+        std::string split;
+
+        split = "";
+        for (int i = 0, len = str.length(); i < len; i++) {
+            if (str[i] == del) {
+                result.push_back(split);
+                split = "";
+            } // if
+            else {
+                split += str[i];
+            } // else
+        } // for
+
+        result.push_back(split);
+
+        return result;
+    } // split
 };
 
 #endif

@@ -1,0 +1,15 @@
+# Helmets
+0 fluted bascinet
+0 full helmet
+0 leather hat
+
+# Chest armors
+1 heavy metal motherfucker
+1 cloth shirt
+1 is that a tarp wtf
+
+# Gloves
+2 leather gloves
+
+# Boots
+2 leather boots

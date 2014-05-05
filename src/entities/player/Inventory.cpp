@@ -13,30 +13,25 @@
  * Data
  */
 Inventory::Inventory() {
-    for (int i = 0; i < INVENTORY_SLOTS; i++) {
-        inventory[i] = NULL;
-    } // for
 } // constructor
 
-bool Inventory::addItem(Item *item) {
-    for (int i = 0; i < INVENTORY_SLOTS; i++) {
-        if (inventory[i] == item) {
-            inventory[i]++;
-        } // if
-    } // for
-
-    return false;
+void Inventory::addItem(Item *item) {
+    items.push_back(item);
 } // addItem
 
 Item *Inventory::removeItem(int index) {
-    Item *item;
+    Item *result = items.at(index);
+    items.erase(items.begin() + index);
 
-    if (index < 0 || index >= INVENTORY_SLOTS) {
-        throw std::invalid_argument("Index is invalid" + index);
-    } // if
-
-    item = inventory[index];
-    inventory[index] = NULL;
-    
-    return inventory[index];
+    return result;
 } // removeItem
+
+std::vector<Item*> Inventory::getItems() {
+    std::vector<Item*> result;
+
+    for (Item *i : items) {
+        result.push_back(i);
+    } // for
+
+    return result;
+} // getItems

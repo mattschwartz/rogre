@@ -35,7 +35,7 @@ public:
     void addItemToInventory(Item *item);
     void show();
     void hide();
-
+    void loadPlayer(Player *player);
 };
 
 #endif

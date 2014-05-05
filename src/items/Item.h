@@ -18,6 +18,7 @@ protected:
     int stackSize;
     int numAffixes;
     std::string name;
+    std::string description;
 
 public:
     Item(int level);
@@ -39,7 +40,8 @@ public:
     void setName(std::string name);
     std::string getName();
     std::string pickupText();
-    virtual std::string getExamineText();
+    std::string getDescription();
+    void setDescription(std::string text);
 };
 
 #endif

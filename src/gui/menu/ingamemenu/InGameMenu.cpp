@@ -89,3 +89,9 @@ void InGameMenu::hide() {
     CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(NULL);
 #endif
 } // hide
+
+void InGameMenu::loadPlayer(Player *player) {
+    playerAttributes->updateAttributes(player);
+    playerInventory->loadPlayer(player);
+    infoLog->loadPlayer(player);
+} // loadPlayer

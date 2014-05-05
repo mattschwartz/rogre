@@ -7,6 +7,8 @@
 #include "CEGUI/CEGUI.h"
 #include "src/main/BaseApplication.h"
 
+class Player;
+
 class InfoLogPanel {
 private:
     bool visible;
@@ -26,6 +28,7 @@ public:
     void append(std::string text);
     void appendLine(std::string text);
     void addPanelTo(CEGUI::Window *mRoot);
+    void loadPlayer(Player *player);
 };
 
 #endif

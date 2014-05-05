@@ -5,6 +5,7 @@
 #include "NewPlayerMenu.h"
 #include "MainMenu.h"
 #include "LoadingMenu.h"
+#include "ingamemenu/InGameMenu.h"
 #include "src/gui/GUIManager.h"
 #include "src/world/World.h"
 #include "src/entities/player/Player.h"
@@ -119,9 +120,7 @@ bool NewPlayerMenu::startGameEvent(const CEGUI::EventArgs &e) {
     GUIManager::getInstance().loadingMenu->setText("Loading game ...");
 
 #if USE_OGRE_LEGACY
-	World::getInstance().loadZone();
-    World::getInstance().setCurrentPlayer(new Player(1, playerNameTextField->getText().c_str()));
-	World::getInstance().spawnCurrentPlayer();
+    runThread();
 #else
     mThread = boost::shared_ptr<boost::thread>(new boost::thread(boost::bind(&NewPlayerMenu::runThread, this)));
 #endif
@@ -130,7 +129,10 @@ bool NewPlayerMenu::startGameEvent(const CEGUI::EventArgs &e) {
 } // startGameEvent
 
 void NewPlayerMenu::runThread() {
+    Player *player = new Player(1, playerNameTextField->getText().c_str());
+
 	World::getInstance().loadZone();
-    World::getInstance().setCurrentPlayer(new Player(1, playerNameTextField->getText().c_str()));
+    World::getInstance().setCurrentPlayer(player);
 	World::getInstance().spawnCurrentPlayer();
+    GUIManager::getInstance().inGameMenu->loadPlayer(player);
 } // runThread

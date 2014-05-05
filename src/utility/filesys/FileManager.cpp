@@ -7,7 +7,7 @@ void FileManager::init() {
 } // init
 
 std::fstream *FileManager::openFile(std::string filepath) {
-    std::fstream *result;
+    std::fstream *result = new std::fstream();
 
     result->open(filepath);
 
