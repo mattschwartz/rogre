@@ -21,6 +21,7 @@ private:
     CEGUI::Window *titleLabel;
     CEGUI::Window *textLabel;
     CEGUI::Window *playerNameTextField;
+    CEGUI::Window *backgroundWindow;
     CEGUI::PushButton *backButton;
     CEGUI::PushButton *startGameButton;
     void createWidgets();

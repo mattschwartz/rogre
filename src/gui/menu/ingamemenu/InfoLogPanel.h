@@ -6,6 +6,7 @@
  */
 #include "CEGUI/CEGUI.h"
 #include "src/main/BaseApplication.h"
+#include <climits>
 
 class Player;
 

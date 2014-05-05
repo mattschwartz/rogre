@@ -23,8 +23,8 @@ void DoorDoodadObject::setFacing(Ogre::Vector3 facing) {
 
 void DoorDoodadObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera) {
 	using namespace StringHelper;
-	doodadNode = sceneMgr.getRootSceneNode()->createChildSceneNode(concat<int>("ChestDoodad", id));
-	doodadEntity = sceneMgr.createEntity(concat<int>("ChestDoodadEntity", id), "Door1.mesh");
+	doodadNode = sceneMgr.getRootSceneNode()->createChildSceneNode(concat<int>("DoorDoodad", id));
+	doodadEntity = sceneMgr.createEntity(concat<int>("DoorDoodadEntity", id), "Door1.mesh");
 	doodadEntity->setCastShadows(false);
 
 	doodadNode->scale(0.5, 0.5, 0.5);

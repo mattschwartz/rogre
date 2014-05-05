@@ -30,6 +30,13 @@ void NewPlayerMenu::createWidgets() {
         windowManager.createWindow("OgreTray/Button", "NewPlayerMenu/backButton"));
     startGameButton = static_cast<PushButton*>(
         windowManager.createWindow("OgreTray/Button", "NewPlayerMenu/startGameButton"));
+#if USE_OGRE_LEGACY
+    Imageset& MenuImage =ImagesetManager::getSingleton().createFromImageFile("Background", "main_menu_bg.jpg");
+#else
+    Imageset& MenuImage =ImagesetManager::getSingleton().createFromFile("Background", "main_menu_bg.jpg");
+#endif
+    backgroundWindow = windowManager.createWindow("OgreTray/StaticImage", "NewPlayerMenu/backgroundWindow");
+    backgroundWindow->setProperty("Image", "set:Background image:full_image");
 
 #if USE_OGRE_LEGACY
     titleLabel->setSize(UVector2(UDim(0.0f, 300.0f), UDim(0.0f, 40.0f)));
@@ -67,12 +74,14 @@ void NewPlayerMenu::createRootWindow() {
     mRoot = windowManager.createWindow("DefaultWindow", "NewPlayerMenu/root");
    
 #if USE_OGRE_LEGACY
+    mRoot->addChildWindow(backgroundWindow); 
     mRoot->addChildWindow(titleLabel);
     mRoot->addChildWindow(textLabel);
     mRoot->addChildWindow(playerNameTextField);
     mRoot->addChildWindow(backButton);
     mRoot->addChildWindow(startGameButton);
 #else
+    mRoot->addChild(backgroundWindow); 
     mRoot->addChild(titleLabel);
     mRoot->addChild(textLabel);
     mRoot->addChild(playerNameTextField);

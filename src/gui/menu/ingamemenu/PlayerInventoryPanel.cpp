@@ -94,7 +94,12 @@ void PlayerInventoryPanel::addItem(Item *item) {
     for (Item *i : inventoryItems) {
         CEGUI::ListboxTextItem *lbi = new CEGUI::ListboxTextItem(i->getName(), it++, i);
         //lbi->setSelectionBrushImage("OgreTray/ListboxItem");
+#if USE_OGRE_LEGACY
+        lbi->setTextColours(CEGUI::colour(0.0f, 0.0f, 0.0f));
+#else
         lbi->setTextColours(CEGUI::Colour(0.0f, 0.0f, 0.0f));
+#endif
+
         inventory->addItem(lbi);
         inventory->setItemSelectState(lbi, false);
         inventory->ensureItemIsVisible(lbi);
@@ -132,10 +137,18 @@ bool PlayerInventoryPanel::inventorySelectionChanged(const CEGUI::EventArgs &e) 
                         equipItemButton->setText("Unequip");
                     } // if
                 } // if
-                lbti->setTextColours(Colour(1.0f, 1.0f, 0.0f));
+#if USE_OGRE_LEGACY
+                        lbti->setTextColours(CEGUI::colour(1.0f, 1.0f, 0.0f));
+#else
+                        lbti->setTextColours(Colour(1.0f, 1.0f, 0.0f));
+#endif
             } // if
             else {
-                lbti->setTextColours(Colour(0.0f, 0.0f, 0.0f));
+#if USE_OGRE_LEGACY
+                        lbti->setTextColours(CEGUI::colour(0.0f, 0.0f, 0.0f));
+#else
+                        lbti->setTextColours(Colour(0.0f, 0.0f, 0.0f));
+#endif
             } // else
         } // if
     } // for

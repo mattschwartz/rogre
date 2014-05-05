@@ -1,5 +1,6 @@
 #ifndef _MATH_HELPER_H_
 #define _MATH_HELPER_H_
+#include <stdlib.h>
 
 namespace MathHelper {
     template <typename Type>

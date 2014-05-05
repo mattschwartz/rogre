@@ -28,6 +28,13 @@ void DeathMenu::createWidgets() {
         windowManager.createWindow("OgreTray/Button", "DeathMenu/quitToMenuButton"));
     quitGameButton = static_cast<PushButton*>(
         windowManager.createWindow("OgreTray/Button", "DeathMenu/quitGameButton"));
+#if USE_OGRE_LEGACY
+    Imageset& MenuImage =ImagesetManager::getSingleton().createFromImageFile("Background", "death_menu_bg.jpg");
+#else
+    Imageset& MenuImage =ImagesetManager::getSingleton().createFromFile("Background", "death_menu_bg.jpg");
+#endif
+    backgroundWindow = windowManager.createWindow("OgreTray/StaticImage", "DeathMenu/backgroundWindow");
+    backgroundWindow->setProperty("Image", "set:Background image:full_image");
     
 #if USE_OGRE_LEGACY    
     titleLabel->setSize(UVector2(UDim(0.0f, 300.0f), UDim(0.0f, 40.0f)));
@@ -67,12 +74,14 @@ void DeathMenu::createRootWindow() {
     mRoot = windowManager.createWindow("DefaultWindow", "DeathMenu/root");
 
 #if USE_OGRE_LEGACY  
+    mRoot->addChildWindow(backgroundWindow); 
     mRoot->addChildWindow(titleLabel);
     mRoot->addChildWindow(textLabel);
     mRoot->addChildWindow(scoreTextField);
     mRoot->addChildWindow(quitToMenuButton);
     mRoot->addChildWindow(quitGameButton);
 #else
+    mRoot->addChild(backgroundWindow); 
     mRoot->addChild(titleLabel);
     mRoot->addChild(textLabel);
     mRoot->addChild(scoreTextField);
