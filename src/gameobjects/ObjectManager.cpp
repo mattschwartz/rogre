@@ -80,18 +80,19 @@ void ObjectManager::update(const Ogre::FrameEvent &evt) {
 } // update
 
 bool ObjectManager::canSee(Ogre::SceneNode *a, Ogre::SceneNode *b) {
-    Ogre::Vector3 positionA = a->getPosition();
-    Ogre::Vector3 positionB = b->getPosition();
+    Ogre::Vector3 positionA = a->_getDerivedPosition();
+    Ogre::Vector3 positionB = b->_getDerivedPosition();
     Ogre::RaySceneQuery *mRayScnQuery;
     Ogre::Ray robotRay(positionA, positionB);
 
     mRayScnQuery = sceneManager->createRayQuery(robotRay);
+    mRayScnQuery->setQueryMask(~(GOBLIN_CHARACTERS | FLOOR_ENTITY));
 
     Ogre::RaySceneQueryResult& result = mRayScnQuery->execute();
     Ogre::RaySceneQueryResult::iterator iter = result.begin();
 
     if (iter != result.end()) {
-      	bool temp = iter->movable->getName() == Ogre::String(b->getName());
+      	bool temp = iter->movable->getName() == Ogre::String(b->getAttachedObject(0)->getName());
         mRayScnQuery->clearResults();
 
         return temp;
