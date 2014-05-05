@@ -11,6 +11,7 @@
 #include "src/sound/SoundEffect.h"
 #include "src/gui/GUIManager.h"
 #include "src/gui/menu/ingamemenu/InGameMenu.h"
+#include "src/gui/menu/NewPlayerMenu.h"
 #include "src/gui/menu/LoadingMenu.h"
 #include "src/gameobjects/RoomObject.h"
 

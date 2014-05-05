@@ -1,4 +1,17 @@
 #include "Item.h"
+#include "src/utility/StringHelper.h"
+
+/**
+ * Constructor for a new Item
+ *
+ * @param level The level of the Item
+ */
+Item::Item(int level) {
+    this->level = level;
+    this->name = "Random Item";
+    this->stackSize = 1;
+    this->goldWorth = 0;
+} // constructor
 
 /**
  * Constructor for a new Item
@@ -11,8 +24,7 @@
  * @param name The name of the Item, displayed to the user in the game
  * @param numAffixes The number of affixes present on this item
  */
-Item::Item(int id, int level, int goldWorth, int stackSize, std::string name) {
-    this->id = id;
+Item::Item(int level, int goldWorth, int stackSize, std::string name) {
     this->level = level;
     this->goldWorth = goldWorth;
     this->stackSize = stackSize;
@@ -36,23 +48,6 @@ Item &Item::operator++() {
 bool Item::operator==(const Item &item) {
     return false;
 } // operator==
-
-/**
- * 
- * @return Returns the id of this Item.
- */
-int Item::getId() {
-    return this->id;
-} // getId
-
-/**
- * Sets the ID of the Item to the provided argument.
- *
- * @param id The new id of the Item
- */
-void Item::setId(int id) {
-    this->id = id;
-} // setId
 
 /**
  * @return Returns the worth of the Item in gold
@@ -95,5 +90,9 @@ std::string Item::getName() {
 } // getName
 
 std::string Item::pickupText() {
-    return "You found " + name + ".";
+    return "You found " + StringHelper::aOrAn(name) + ".";
+} // pickupText
+
+std::string Item::getExamineText() {
+    return "It appears to be " + StringHelper::aOrAn(name) + ".";
 } // pickupText

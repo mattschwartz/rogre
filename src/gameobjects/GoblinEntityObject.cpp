@@ -50,7 +50,7 @@ void GoblinEntityObject::move(const Ogre::FrameEvent &evt) {
     Ogre::SceneNode *playerNode = World::getInstance().getCurrentPlayer()->playerNode;
 
     // Can we even see the player?
-    if (ObjectManager::getInstance().canSee(entityNode, playerNode)) {
+    if (true || ObjectManager::getInstance().canSee(entityNode, playerNode)) {
         mDestination = World::getInstance().getPlayerPosition();
     } // if
     else {

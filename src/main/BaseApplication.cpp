@@ -9,6 +9,8 @@
 #include "src/sound/SoundEffect.h"
 #include <CEGUI/CEGUI.h>
 #include "src/world/World.h"
+#include "src/gui/GUIManager.h"
+#include "src/gui/menu/LoadingMenu.h"
 
 //-------------------------------------------------------------------------------------
 BaseApplication::BaseApplication(void)

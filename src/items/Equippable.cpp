@@ -6,27 +6,27 @@
 #include "src/entities/Entity.h"
 #include "src/entities/player/Player.h"
 
-/**
- * Data
- */
-Equippable::Equippable(int id, int level, int goldWorth, int stackSize, std::string name, int numAffixes, affix_t *affixes) : Item(id, level, goldWorth, stackSize, name) {
-    numAffixes = numAffixes > MAX_AFFIXES ? MAX_AFFIXES : numAffixes;
+Equippable::Equippable(int level) :
+    Item(level) {
+} // constructor
 
-    if (sizeof(affixes) != numAffixes * sizeof(affix_t)) {
-        throw std::invalid_argument("numAffixes must equal the number of affixes provided");
-    } // if
-
+Equippable::Equippable(int level, int goldWorth, int stackSize, std::string name, int numAffixes, affix_t *affixes) : 
+    Item(level, goldWorth, stackSize, name) {
     for (int i = 0; i < numAffixes; i++) {
         this->affixes.push_back(affixes[i]);
     } // for
 } // constructor
 
+void Equippable::setSlotid(equipmentSlot_t slotid) {
+    this->equipmentSlot = slotid;
+} // setSlotid
+
 /**
  * @return Returns the slot id into which this Equippable item fits
  */
-equipmentSlot_t Equippable::getSlotId() {
+equipmentSlot_t Equippable::getSlotid() {
     return equipmentSlot;
-} // getSlotId
+} // getSlotid
 
 /**
  * @return Returns the number of affixes on the Item
@@ -47,3 +47,7 @@ std::vector<affix_t> Equippable::getAffixes() {
 
     return affixCopy;
 } // getAffixes
+
+void Equippable::addAffix(affix_t affix) {
+    affixes.push_back(affix);
+} // addAffix

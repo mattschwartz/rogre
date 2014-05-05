@@ -31,6 +31,35 @@ namespace MathHelper {
     static Type equalIsh(Type a, Type b, Type c) {
         return abs<Type>(a - b) <= c;
     }
+
+    template <typename Type>
+    static Type tRand(Type min, Type max) {
+        Type r = (Type)rand() / RAND_MAX;
+        return min + r * (max - min);
+    }
+
+    template <typename Type>
+    struct range {
+        Type min;
+        Type max;
+
+        range() {
+            min = 0;
+            max = 0;
+        } // constructor
+
+        range<Type>(Type a, Type b) {
+            min = a;
+            max = b;
+        } // constructor
+
+        bool inRange(Type c) {
+            if (c >= min && c <= max) {
+                return true;
+            }
+            return false;
+        } // inRange
+    };
 };
 
 #endif

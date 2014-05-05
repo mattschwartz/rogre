@@ -2,7 +2,10 @@
  * Included files
  */
 #include "PlayerInventoryPanel.h"
+#include "InGameMenu.h"
+#include "src/gui/GUIManager.h"
 #include "src/items/Item.h"
+#include "src/utility/StringHelper.h"
 
 PlayerInventoryPanel::PlayerInventoryPanel() :
     windowManager(CEGUI::WindowManager::getSingleton()) {
@@ -95,12 +98,16 @@ void PlayerInventoryPanel::addItem(Item *item) {
 
     int it = 0;
     for (Item *i : inventoryItems) {
-        CEGUI::ListboxTextItem *lbi = new CEGUI::ListboxTextItem(i->getName(), it++);
+        CEGUI::ListboxTextItem *lbi = new CEGUI::ListboxTextItem(i->getName(), it++, i);
         //lbi->setSelectionBrushImage("TaharezLook/MultiListSelectionBrush");
+        lbi->setTextColours(CEGUI::Colour(0.0f, 0.0f, 0.0f));
+        lbi->setSelectionColours(CEGUI::Colour(1.0f, 0.0f, 1.0f));
         inventory->addItem(lbi);
-        inventory->setItemSelectState(lbi, true);
+        inventory->setItemSelectState(lbi, false);
         inventory->ensureItemIsVisible(lbi);
     } // for
+
+    inventory->setMultiselectEnabled(false);
 
 } // addItem
 
@@ -156,5 +163,13 @@ bool PlayerInventoryPanel::dropItemEvent(const CEGUI::EventArgs &e) {
 } // dropItemButton
 
 bool PlayerInventoryPanel::examineItemEvent(const CEGUI::EventArgs &e) {
+    using namespace StringHelper;
+    std::string str = "";
+
+    if (inventory->getFirstSelectedItem() != NULL) {
+        str = ((Item*)inventory->getFirstSelectedItem()->getUserData())->getExamineText();
+        GUIManager::getInstance().inGameMenu->appendText(str);
+    }
+
     return true;
 } // examineItemButton

@@ -30,11 +30,14 @@ private:
     bool startGameEvent(const CEGUI::EventArgs &e);
 
 #if !USE_OGRE_LEGACY
-    boost::shared_ptr<boost::thread> mThread;
     void runThread();
 #endif
 
 public:
+#if !USE_OGRE_LEGACY
+    boost::shared_ptr<boost::thread> mThread;
+#endif
+
     NewPlayerMenu();
     ~NewPlayerMenu();
     void show();

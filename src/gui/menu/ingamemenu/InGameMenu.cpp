@@ -63,7 +63,7 @@ void InGameMenu::appendText(std::string text) {
 } // appendText
 
 void InGameMenu::appendLine(std::string text) {
-    infoLog->appendLine(text);
+    infoLog->append(text);
 } // appendLine
 
 void InGameMenu::updateAttributes(Player *player) {
