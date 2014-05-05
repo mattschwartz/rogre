@@ -91,11 +91,12 @@ bool ObjectManager::canSee(Ogre::SceneNode *a, Ogre::SceneNode *b) {
     Ogre::RaySceneQueryResult::iterator iter = result.begin();
 
     if (iter != result.end()) {
+      	bool temp = iter->movable->getName() == Ogre::String(b->getName());
         mRayScnQuery->clearResults();
 
-        return iter->movable->getName() == Ogre::String(b->getName());
+        return temp;
     }
-
+    mRayScnQuery->clearResults();
     return false;
 } // canSee
 
