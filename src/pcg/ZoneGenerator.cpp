@@ -14,13 +14,13 @@
 #include "src/gui/GUIManager.h"
 #include "src/gui/menu/LoadingMenu.h"
 
-Zone *ZoneGenerator::generate(int seed, int monsterLevel, int numRooms) {
+Zone *ZoneGenerator::generate(int seed, int monsterDifficulty, int zoneLevel, int numRooms) {
     float x;
     float z;
     float width;
     float depth;
     Room *r;
-    Zone *zone = new Zone(monsterLevel);
+    Zone *zone = new Zone(monsterDifficulty, zoneLevel);
 	struct Wall wall;
     srand(seed);
         

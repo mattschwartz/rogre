@@ -10,7 +10,7 @@
 #include "src/sound/SoundManager.h"
 #include "src/sound/SoundEffect.h"
 #include "src/utility/StringHelper.h"
-
+#include "src/utility/GUIHelper.h"
 
 DeathMenu::DeathMenu() 
     : windowManager(CEGUI::WindowManager::getSingleton()) {
@@ -21,48 +21,50 @@ DeathMenu::DeathMenu()
 
 void DeathMenu::createWidgets() {
     using namespace CEGUI;
-    
-    titleLabel = windowManager.createWindow("OgreTray/Title", "DeathMenu/titleLabel");
-    textLabel = windowManager.createWindow("OgreTray/Title", "DeathMenu/textLabel");
-    scoreTextField = windowManager.createWindow("OgreTray/Editbox", "DeathMenu/scoreTextField");
-    quitToMenuButton = static_cast<PushButton*>(
-        windowManager.createWindow("OgreTray/Button", "DeathMenu/quitToMenuButton"));
-    quitGameButton = static_cast<PushButton*>(
-        windowManager.createWindow("OgreTray/Button", "DeathMenu/quitGameButton"));
 #if USE_OGRE_LEGACY
     Imageset& MenuImage =ImagesetManager::getSingleton().createFromImageFile("Background", "death_menu_bg.jpg");
     backgroundWindow = windowManager.createWindow("OgreTray/StaticImage", "DeathMenu/backgroundWindow");
     backgroundWindow->setProperty("Image", "set:Background image:full_image");
 #endif
     
-#if USE_OGRE_LEGACY    
-    titleLabel->setSize(UVector2(UDim(0.0f, 300.0f), UDim(0.0f, 40.0f)));
-    textLabel->setSize(UVector2(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
-    scoreTextField->setSize(UVector2(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
-    quitToMenuButton->setSize(UVector2(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
-    quitGameButton->setSize(UVector2(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
-#else
-    titleLabel->setSize(USize(UDim(0.0f, 300.0f), UDim(0.0f, 40.0f)));
-    textLabel->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
-    scoreTextField->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
-    quitToMenuButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
-    quitGameButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
-#endif
+    titleLabel = windowManager.createWindow("OgreTray/Title", "DeathMenu/titleLabel");
+    textLabel = windowManager.createWindow("OgreTray/Title", "DeathMenu/textLabel");
+    scoreTextField = windowManager.createWindow("OgreTray/Editbox", "DeathMenu/scoreTextField");
+    slayerLabel = windowManager.createWindow("OgreTray/Title", "DeathMenu/slayerLabel");
+    slayerTextField = windowManager.createWindow("OgreTray/Editbox", "DeathMenu/slayerTextField");
+    quitToMenuButton = static_cast<PushButton*>(
+        windowManager.createWindow("OgreTray/Button", "DeathMenu/quitToMenuButton"));
+    quitGameButton = static_cast<PushButton*>(
+        windowManager.createWindow("OgreTray/Button", "DeathMenu/quitGameButton"));
 
+    titleLabel->setSize(SIZE(0.0f, 300.0f, 0.0f, 40.0f));
     titleLabel->setPosition(UVector2(UDim(0.5f, -150.0f), UDim(0.5f, -70.0f)));
     titleLabel->setText("You Have Died.");
 
+    textLabel->setSize(SIZE(0.0f, 150.0f, 0.0f, 40.0f));
     textLabel->setPosition(UVector2(UDim(0.5f, -150.0f), UDim(0.5f, -20.0f)));
     textLabel->setText("Final Score: ");
 
+    scoreTextField->setSize(SIZE(0.0f, 150.0f, 0.0f, 40.0f));
     scoreTextField->setPosition(UVector2(UDim(0.5f, 0.0f), UDim(0.5f, -20.0f)));
     scoreTextField->setText("0");
     scoreTextField->setEnabled(false);
 
-    quitToMenuButton->setPosition(UVector2(UDim(0.5f, -150.0f), UDim(0.5f, 20.0f)));
-    quitToMenuButton->setText("Main Menu");
+    slayerLabel->setSize(SIZE(0.0f, 150.0f, 0.0f, 40.0f));
+    slayerLabel->setPosition(UVector2(UDim(0.5f, -150.0f), UDim(0.5f, 20.0f)));
+    slayerLabel->setText("Slain by");
 
-    quitGameButton->setPosition(UVector2(UDim(0.5f, 0.0f), UDim(0.5f, 20.0f)));
+    slayerTextField->setSize(SIZE(0.0f, 150.0f, 0.0f, 40.0f));
+    slayerTextField->setPosition(UVector2(UDim(0.5f, 0.0f), UDim(0.5f, 20.0f)));
+    slayerTextField->setText("an act of god");
+    slayerTextField->setEnabled(false);
+
+    quitToMenuButton->setSize(SIZE(0.0f, 150.0f, 0.0f, 40.0f));
+    quitToMenuButton->setPosition(UVector2(UDim(0.5f, -150.0f), UDim(0.5f, 60.0f)));
+    quitToMenuButton->setText("Main Menu");
+    
+    quitGameButton->setSize(SIZE(0.0f, 150.0f, 0.0f, 40.0f));
+    quitGameButton->setPosition(UVector2(UDim(0.5f, 0.0f), UDim(0.5f, 60.0f)));
     quitGameButton->setText("Quit");
 } // createWidgets
 
@@ -76,12 +78,16 @@ void DeathMenu::createRootWindow() {
     mRoot->addChildWindow(titleLabel);
     mRoot->addChildWindow(textLabel);
     mRoot->addChildWindow(scoreTextField);
+    mRoot->addChildWindow(slayerLabel);
+    mRoot->addChildWindow(slayerTextField);
     mRoot->addChildWindow(quitToMenuButton);
     mRoot->addChildWindow(quitGameButton);
 #else
     mRoot->addChild(titleLabel);
     mRoot->addChild(textLabel);
     mRoot->addChild(scoreTextField);
+    mRoot->addChild(slayerLabel);
+    mRoot->addChild(slayerTextField);
     mRoot->addChild(quitToMenuButton);
     mRoot->addChild(quitGameButton);
 #endif
@@ -95,6 +101,10 @@ void DeathMenu::registerEvents() {
     quitGameButton->subscribeEvent(PushButton::EventClicked, 
         Event::Subscriber(&DeathMenu::quitGameEvent, this));
 } // registerEvents
+
+void DeathMenu::setSlainBy(std::string name) {
+    slayerTextField->setText(name);
+} // setSlainBy
 
 void DeathMenu::show() {
     Player *player = World::getInstance().getCurrentPlayer();

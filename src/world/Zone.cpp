@@ -14,7 +14,8 @@
 /**
  * Data
  */
-Zone::Zone(int zoneLevel) {
+Zone::Zone(int monsterDifficulty, int zoneLevel) {
+    this->monsterDifficulty = monsterDifficulty;
     this->zoneLevel = zoneLevel;
 } // constructor
 

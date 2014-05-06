@@ -19,7 +19,6 @@ class Doodad;
 
 class Room {
 private:
-    int monsterLevel;
     float width; // length of the room along the x axis
     float depth; // length of the room along the z axis
     std::vector<EntityObject*> monsters;
@@ -27,7 +26,7 @@ private:
     std::vector<DoodadObject*> doodads;
 
 public:
-    Room(int monsterLevel, float width, float depth);
+    Room(float width, float depth);
     void addMonster(Entity *monster, float x, float z);
     void addLoot(Item *item, float x, float z);
     void addDoodad(Doodad *doodad, float x, float z);

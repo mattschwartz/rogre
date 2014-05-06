@@ -8,7 +8,7 @@
 
 class GoblinEntity : public Entity {
 public:
-    GoblinEntity(int level, std::string name);
+    GoblinEntity(int level, int monsterDifficulty, std::string name);
     ~GoblinEntity() {}
     void onSpawn();
     void onDeath();

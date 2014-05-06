@@ -15,6 +15,8 @@ private:
     CEGUI::Window *textLabel;
     CEGUI::Window *scoreTextField;
     CEGUI::Window *backgroundWindow;
+    CEGUI::Window *slayerLabel;
+    CEGUI::Window *slayerTextField;
     CEGUI::PushButton *quitToMenuButton;
     CEGUI::PushButton *quitGameButton;
     void createWidgets();
@@ -26,6 +28,7 @@ private:
 public:
     DeathMenu();
     ~DeathMenu();
+    void setSlainBy(std::string name);
     void show();
     void hide();
 

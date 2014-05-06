@@ -39,7 +39,7 @@ public:
         return instance;
     } // getInstance
 
-    Zone *generate(int seed, int monsterLevel, int numRooms);
+    Zone *generate(int seed, int monsterDifficulty, int zoneLevel, int numRooms);
 };
 
 #endif

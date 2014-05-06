@@ -23,6 +23,7 @@ class DoorDoodadObject;
 
 class Zone {
 public:
+    int monsterDifficulty;
     int zoneLevel;
     std::vector<RoomObject*> rooms;
     std::vector<EntityObject*> entities;
@@ -30,7 +31,7 @@ public:
     std::vector<DoodadObject*> doodads;
     std::vector<DoorDoodadObject*> doorDoodads;
 
-    Zone(int zoneLevel);
+    Zone(int monsterDifficulty, int zoneLevel);
     void addEntity(EntityObject *o);
     void addLoot(LootObject *o);
     void addDoodad(DoodadObject *o);

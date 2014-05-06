@@ -3,8 +3,8 @@
  */
 #include "GoblinEntity.h"
 
-GoblinEntity::GoblinEntity(int level, std::string name) :
-    Entity(level, name) {
+GoblinEntity::GoblinEntity(int level, int monsterDifficulty, std::string name) :
+    Entity(level, monsterDifficulty, name) {
 } // constructor
 
 void GoblinEntity::onSpawn() {

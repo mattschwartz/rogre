@@ -36,7 +36,8 @@ public:
     void pauseGame();
     void resumeGame();
     bool isGamePaused();
-    void loadZone();
+    void descend();
+    void loadZone(int zoneLevel, int monsterDifficulty, int seed);
     void spawnCurrentPlayer();
 
     /**

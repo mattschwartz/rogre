@@ -98,15 +98,12 @@ bool World::isGamePaused() {
  * Generates a new Zone that is abstractly one level below the current Zone
  * and thus one level more difficult.
  */
-void World::loadZone() {
+void World::loadZone(int zoneLevel, int monsterDifficulty, int seed) {
+    int roomSize = 15;
     paused = true;
 
-    if (currentZone != NULL) {
-		delete currentZone;
-		currentZoneLevel++;
-	} // if
-
-    currentZone = ZoneGenerator::getInstance().generate((int)time(NULL), currentZoneLevel, 15);
+    currentZoneLevel = zoneLevel;
+    currentZone = ZoneGenerator::getInstance().generate(seed, monsterDifficulty, currentZoneLevel, roomSize);
 } // loadZone
 
 int World::getZoneLevel() {

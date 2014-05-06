@@ -15,6 +15,7 @@
 #include "src/gameobjects/ObjectManager.h"
 #include "src/gameobjects/LootObject.h"
 #include "ItemGenerator.h"
+#include "MonsterGenerator.h"
 #include "src/utility/StringHelper.h"
 
 Room *RoomGenerator::generate(Zone *zone, float x, float z, 
@@ -27,10 +28,10 @@ Room *RoomGenerator::generate(Zone *zone, float x, float z,
     ChestDoodad *d;
     Item *i;
 
-    r = new Room(zone->zoneLevel, width, depth);
+    r = new Room(width, depth);
 
     while (!done) {
-        e = new GoblinEntity(zone->zoneLevel, StringHelper::concat<int>("monster", rand() % INT_MAX));
+        e = (GoblinEntity*)MonsterGenerator::getInstance().generateMonster(zone->zoneLevel, zone->monsterDifficulty);
 		eX = (rand() % (int)width) + x;
 		eZ = (rand() % (int)depth) + z;
         zone->addEntity(new GoblinEntityObject(e, eX, eZ));

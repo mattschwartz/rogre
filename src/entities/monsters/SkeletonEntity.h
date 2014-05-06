@@ -8,7 +8,7 @@
 
 class SkeletonEntity : public Entity {
 public:
-    SkeletonEntity(int level, std::string name) : Entity(level, name) {}
+    SkeletonEntity(int level, int monsterDifficulty, std::string name) : Entity(level, monsterDifficulty, name) {}
     ~SkeletonEntity() {}
     void onSpawn();
     void onDeath();

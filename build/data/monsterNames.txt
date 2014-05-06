@@ -1,0 +1,68 @@
+# Names for monster generation
+# Concats random first name with a random last name
+# Formaat is:
+# <first or last name ID>;<name>
+# 0 is first name, 1 is last name, 2 is prefix title and 3 is suffix title
+# comments begin with pound symbol (#)
+# malformed lines may crash the game
+
+# First names
+0;sheldon
+0;gregor
+0;lucien
+0;lucifer
+0;dirk
+0;seth
+0;camus
+0;karver
+0;lexx
+0;karn
+0;semias
+0;mathian
+0;theodoric
+0;cedric
+0;walther
+0;orfeo
+0;zada
+0;luna
+0;agnes
+0;nifsara
+0;jimmy
+0;nicole
+0;gnash
+0;gnarl
+0;crackle
+
+# Last names
+1;drabek
+1;crowe
+1;murik
+1;cane
+1;wraith
+1;mortem
+1;hallewell
+1;stone
+1;snarltooth
+1;chesterton
+1;the goblin
+1;evilson
+1;argent
+1;monroe
+1;redwood
+1;hook
+1;maximus
+1;von der vogelweide
+
+# Note titles only used for rare spawns
+
+# Prefix titles
+2;master
+2;treasure-seeker
+2;evil chef
+2;dumbfounded
+2;peon
+
+# Suffix titles
+3;the lord of darkness
+3;the bone muncher
+3;the brain eater

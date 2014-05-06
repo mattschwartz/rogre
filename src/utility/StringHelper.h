@@ -17,6 +17,14 @@ namespace StringHelper {
 		return result.str();
 	} // concat
 
+    template <typename T>
+    static std::string percent(T a) {
+        std::stringstream result;
+        result << a << "%";
+
+        return result.str();
+    } // percent
+
     static std::string aOrAn(std::string str) {
         if (str[0] == 'a' || str[0] == 'e' || str[0] == 'i' ||
             str[0] == 'o' || str[0] == 'u') {

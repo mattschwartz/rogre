@@ -10,13 +10,15 @@
 /**
  * Data
  */
-Entity::Entity(int level, std::string name) {
+Entity::Entity(int level, int monsterPower, std::string name) {
     this->level = level;
+    this->monsterPower = monsterPower;
     this->name = name;
+    drop = NULL;
 
-    attributes[strength] = 50.0 * (1 + (int)((double)level/100.0));
-    attributes[hitpoints] = 100.0 * (1 + (int)((double)level/100.0));
-    attributes[armor] = 25.0 * (1 + (int)((double)level/100.0));
+    attributes[strength] = 50.0 * (1 + (int)((double)level/100.0)) * ((double)monsterPower/100.0);
+    attributes[hitpoints] = 100.0 * (1 + (int)((double)level/100.0)) * ((double)monsterPower/100.0);
+    attributes[armor] = 25.0 * (1 + (int)((double)level/100.0)) * ((double)monsterPower/100.0);
 
     currentHitpoints = attributes[hitpoints];
 } // constructor
@@ -24,6 +26,14 @@ Entity::Entity(int level, std::string name) {
 std::string Entity::getName() {
     return name;
 } // getName
+
+void Entity::setDrop(Item *drop) {
+    this->drop = drop;
+} // setDrop
+
+Item *Entity::getDrop() {
+    return drop;
+} // getDrop
 
 /**
  * This function is invoked whenever the Entity is spawned into 
@@ -45,7 +55,7 @@ bool Entity::isDead() {
 void Entity::die(Entity *slayer) {
     onDeath();
     
-    GUIManager::getInstance().inGameMenu->appendText(name + " has been slain by " + slayer->getName() + ".");
+    GUIManager::getInstance().inGameMenu->appendText(name + " has been slain.");
 } // die
 
 double Entity::getAttribute(attribute_t attribute) {
@@ -78,7 +88,7 @@ void Entity::takeDamage(double amount, Entity *aggressor) {
     currentHitpoints -= amount;
     onDamageTaken();
 
-    GUIManager::getInstance().inGameMenu->appendText(StringHelper::concat<double>(aggressor->getName() + " attacks " + name + " for ", amount) + ".");
+    GUIManager::getInstance().inGameMenu->appendText(StringHelper::concat<double>(name + " is damaged for ", amount) + ".");
     
     if (currentHitpoints <= 0) {
         die(aggressor);

@@ -19,20 +19,26 @@ private:
     CEGUI::WindowManager &windowManager;
     CEGUI::Window *mRoot;
     CEGUI::Window *titleLabel;
-    CEGUI::Window *textLabel;
+    CEGUI::Window *gameSettingsLabel;
+    CEGUI::Window *playerNameLabel;
     CEGUI::Window *playerNameTextField;
     CEGUI::Window *backgroundWindow;
+    CEGUI::Window *difficultyLabel;
+    CEGUI::Window *difficultyTextField;
+    CEGUI::Slider *difficultySlider;
+    CEGUI::Window *startingZoneLevelLabel;
+    CEGUI::Spinner *startingZoneLevelTextField;
+    CEGUI::Window *seedLabel;
+    CEGUI::Window *seedTextField;
     CEGUI::PushButton *backButton;
     CEGUI::PushButton *startGameButton;
     void createWidgets();
     void createRootWindow();
     void registerEvents();
+    void startNewPlayer();
+    bool difficultyChanged(const CEGUI::EventArgs &e);
     bool backEvent(const CEGUI::EventArgs &e);
     bool startGameEvent(const CEGUI::EventArgs &e);
-
-#if !USE_OGRE_LEGACY
-    void runThread();
-#endif
 
 public:
 #if !USE_OGRE_LEGACY
