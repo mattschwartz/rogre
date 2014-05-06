@@ -22,7 +22,7 @@ void LoadingMenu::createWidgets() {
 #if USE_OGRE_LEGACY
     Imageset& MenuImage =ImagesetManager::getSingleton().createFromImageFile("Background", "main_menu_bg.jpg");
 #else
-    Imageset& MenuImage =ImagesetManager::getSingleton().createFromFile("Background", "main_menu_bg.jpg");
+    Image& MenuImage =ImageManager::getSingleton().create("Background", "main_menu_bg.jpg");
 #endif
     backgroundWindow = windowManager.createWindow("OgreTray/StaticImage", "LoadingMenu/backgroundWindow");
     backgroundWindow->setProperty("Image", "set:Background image:full_image");
