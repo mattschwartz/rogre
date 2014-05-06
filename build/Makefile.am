@@ -32,7 +32,6 @@ noinst_HEADERS = ../src/doodad/Doodad.h \
 ../src/main/main.h \
 ../src/gui/GUIManager.h \
 ../src/gui/menu/MainMenu.h \
-../src/gui/menu/Menu.h \
 ../src/gui/menu/NewPlayerMenu.h \
 ../src/gui/menu/OptionsMenu.h \
 ../src/gui/menu/DeathMenu.h \
@@ -49,6 +48,8 @@ noinst_HEADERS = ../src/doodad/Doodad.h \
 ../src/utility/KeyMap.h \
 ../src/utility/StringHelper.h \
 ../src/utility/TipsUtility.h \
+../src/utility/ItemData.h \ 
+../src/utility/filesys/FileManager.h \
 ../src/world/Room.h \
 ../src/world/World.h \
 ../src/world/Zone.h \
@@ -56,6 +57,7 @@ noinst_HEADERS = ../src/doodad/Doodad.h \
 ../src/input/KeyHandler.h \
 ../src/pcg/RoomGenerator.h \
 ../src/pcg/ZoneGenerator.h \
+../src/pcg/ItemGenerator.h \
 ../src/sound/SoundEffect.h \
 ../src/sound/SoundManager.h \
 ../src/sound/GameSoundEffect.h \
@@ -85,7 +87,6 @@ rogue_SOURCES = ../src/doodad/Doodad.cpp \
 ../src/main/main.cpp \
 ../src/gui/GUIManager.cpp \
 ../src/gui/menu/MainMenu.cpp \
-../src/gui/menu/Menu.cpp \
 ../src/gui/menu/NewPlayerMenu.cpp \
 ../src/gui/menu/OptionsMenu.cpp \
 ../src/gui/menu/DeathMenu.cpp \
@@ -103,10 +104,13 @@ rogue_SOURCES = ../src/doodad/Doodad.cpp \
 ../src/input/KeyMap.cpp \
 ../src/pcg/RoomGenerator.cpp \
 ../src/pcg/ZoneGenerator.cpp \
+../src/pcg/ItemGenerator.cpp \
 ../src/sound/SoundEffect.cpp \
 ../src/sound/SoundManager.cpp \
 ../src/sound/GameSoundEffect.cpp \
-../src/sound/MenuSoundEffect.cpp
+../src/sound/MenuSoundEffect.cpp \
+../src/utility/ItemData.cpp \
+../src/utility/filesys/FileManager.cpp
 
 
 

@@ -89,8 +89,14 @@ bool InfoLogPanel::clearEvent(const CEGUI::EventArgs &e) {
 
 void InfoLogPanel::append(std::string text) {
     textLog->appendText(text);
+#if USE_OGRE_LEGACY
+    textLog->setCaratIndex(INT_MAX);
+    textLog->ensureCaratIsVisible();
+#else
     textLog->setCaretIndex(INT_MAX);
     textLog->ensureCaretIsVisible();
+#endif
+
 } // append
 
 void InfoLogPanel::appendLine(std::string text) {

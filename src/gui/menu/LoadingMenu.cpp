@@ -19,6 +19,13 @@ void LoadingMenu::createWidgets() {
     tipLabel = windowManager.createWindow("OgreTray/Title", "LoadingMenu/tipLabel");
     loadingBar = static_cast<ProgressBar*>(
         windowManager.createWindow("OgreTray/ProgressBar", "LoadingMenu/progressBar"));
+#if USE_OGRE_LEGACY
+    Imageset& MenuImage =ImagesetManager::getSingleton().createFromImageFile("Background", "main_menu_bg.jpg");
+#else
+    Imageset& MenuImage =ImagesetManager::getSingleton().createFromFile("Background", "main_menu_bg.jpg");
+#endif
+    backgroundWindow = windowManager.createWindow("OgreTray/StaticImage", "LoadingMenu/backgroundWindow");
+    backgroundWindow->setProperty("Image", "set:Background image:full_image");
 
 #if USE_OGRE_LEGACY
     textLabel->setSize(UVector2(UDim(0.5f, 0.0f), UDim(0.0f, 40.0f)));
@@ -45,10 +52,12 @@ void LoadingMenu::createRootWindow() {
     mRoot = windowManager.createWindow("DefaultWindow", "LoadingMenu/root");
 
 #if USE_OGRE_LEGACY 
+    mRoot->addChildWindow(backgroundWindow);
     mRoot->addChildWindow(textLabel);
     mRoot->addChildWindow(tipLabel);
     mRoot->addChildWindow(loadingBar);
 #else
+    mRoot->addChild(backgroundWindow);
     mRoot->addChild(textLabel);
     mRoot->addChild(tipLabel);
     mRoot->addChild(loadingBar);

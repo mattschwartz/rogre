@@ -6,6 +6,7 @@
  */
 #include <OISKeyboard.h>
 #include <OISMouse.h>
+#include "src/main/BaseApplication.h"
 
 class InputManager {
 private:
