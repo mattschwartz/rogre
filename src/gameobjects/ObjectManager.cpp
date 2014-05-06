@@ -81,12 +81,15 @@ void ObjectManager::update(const Ogre::FrameEvent &evt) {
 
 bool ObjectManager::canSee(Ogre::SceneNode *a, Ogre::SceneNode *b) {
     Ogre::Vector3 positionA = a->_getDerivedPosition();
+    positionA.normalise();
     Ogre::Vector3 positionB = b->_getDerivedPosition();
+    positionB.normalise();
     Ogre::RaySceneQuery *mRayScnQuery;
     Ogre::Ray robotRay(positionA, positionB);
 
     mRayScnQuery = sceneManager->createRayQuery(robotRay);
     mRayScnQuery->setQueryMask(~(MONSTER_ENTITIES | FLOOR_ENTITY));
+    mRayScnQuery->setSortByDistance(true);
 
     Ogre::RaySceneQueryResult& result = mRayScnQuery->execute();
     Ogre::RaySceneQueryResult::iterator iter = result.begin();
