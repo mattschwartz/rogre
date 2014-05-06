@@ -22,6 +22,7 @@ public:
     void createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera);
     void update(const Ogre::FrameEvent &evt);
     void move(const Ogre::FrameEvent &evt);
+    void attack(const Ogre::FrameEvent &evt);
     bool rangeCheck();
     void rotateEntity();
 };

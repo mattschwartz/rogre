@@ -37,6 +37,9 @@ void GoblinEntityObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera
 
     mDirection = Ogre::Vector3::ZERO;
     mWalkSpeed = 3.0f;
+
+    lastHit = 0.0f;
+    mAttackSpeed = 1.5f;
 } // createObject
 
 void GoblinEntityObject::show() {
@@ -46,6 +49,14 @@ void GoblinEntityObject::hide() {
 } // hide
 
 void GoblinEntityObject::update(const Ogre::FrameEvent &evt) {
+    if (monster->isDead()) {
+        position.y += 100.0f;
+        objectNode->setPosition(position);
+        objectNode->setVisible(false);
+        remove = true;
+        return;
+    } // if
+
     move(evt);
 } // update
 
@@ -63,6 +74,7 @@ void GoblinEntityObject::move(const Ogre::FrameEvent &evt) {
 
     // is the entity already in range of the player to attack?
     if (rangeCheck()) {
+        attack(evt);
         return;
     } // if
 
@@ -73,18 +85,12 @@ void GoblinEntityObject::move(const Ogre::FrameEvent &evt) {
     mDistance -= move;
     rotateEntity();
 
-    if (mDirection == Ogre::Vector3::ZERO) {
-    }
-    else {
+    if (mDirection != Ogre::Vector3::ZERO) {
         if (mDistance <= 0.0f) {
             objectNode->setPosition(mDestination);
 
             if (rangeCheck()) {
-                // set idle animation
             } // if
-            else {
-
-            } // else
         } // if
         else {
 		    Ogre::Vector3 oldPos = objectNode->getPosition();
@@ -95,7 +101,7 @@ void GoblinEntityObject::move(const Ogre::FrameEvent &evt) {
 			    objectNode->setPosition(oldPos);
 		    } // if
         } // else
-    } // else
+    } // if
     
     //mAnimationState->addTime(evt.timeSinceLastFrame);
 } // move
@@ -127,3 +133,17 @@ bool GoblinEntityObject::rangeCheck() {
 
     return false;
 } // rangeCheck
+
+void GoblinEntityObject::attack(const Ogre::FrameEvent &evt) {
+    double damage;
+    Player *player;
+    lastHit += evt.timeSinceLastEvent;
+
+    if (lastHit >= mAttackSpeed) {
+        lastHit = 0.0f;
+        // attack
+        player = World::getInstance().getCurrentPlayer();
+        damage = monster->calculateHit();
+        player->takeDamage(damage, monster);
+    } // if
+} // attack

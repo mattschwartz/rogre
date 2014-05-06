@@ -9,6 +9,7 @@
 #include "src/entities/player/Player.h"
 #include "src/sound/SoundManager.h"
 #include "src/sound/SoundEffect.h"
+#include "src/utility/StringHelper.h"
 
 
 DeathMenu::DeathMenu() 
@@ -55,8 +56,7 @@ void DeathMenu::createWidgets() {
     textLabel->setText("Final Score: ");
 
     scoreTextField->setPosition(UVector2(UDim(0.5f, 0.0f), UDim(0.5f, -20.0f)));
-    //scoreTextField->setText(World::getInstance().getPlayerObject()->getScore());
-    scoreTextField->setText("45,844");
+    scoreTextField->setText("0");
     scoreTextField->setEnabled(false);
 
     quitToMenuButton->setPosition(UVector2(UDim(0.5f, -150.0f), UDim(0.5f, 20.0f)));
@@ -97,6 +97,12 @@ void DeathMenu::registerEvents() {
 } // registerEvents
 
 void DeathMenu::show() {
+    Player *player = World::getInstance().getCurrentPlayer();
+    if (player != NULL) {
+        scoreTextField->setText(StringHelper::concat<int>("", 
+            player->getScore()));
+    } // if
+
 #if USE_OGRE_LEGACY
     CEGUI::System::getSingleton().setGUISheet(mRoot);
 #else

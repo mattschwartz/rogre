@@ -8,10 +8,6 @@
 #include <Ogre.h>
 
 /**
- * Defines
- */
-
-/**
  * Forward declarations
  */
 class Equippable;
@@ -22,7 +18,6 @@ class Inventory;
  */
 class Player : public Entity {
 private:
-    int gold;
     Ogre::Real timePlayed;
     Equippable *equippedItems[EQUIPMENT_SLOTS];
     Inventory *inventory;
@@ -35,7 +30,7 @@ public:
     void equipItem(Equippable *equippable);
     Equippable *getEquippedItemAt(int slotId);
     Inventory *getInventory();
-    int getTimePlayed();
+    Ogre::Real getTimePlayed();
     void updateTimePlayed(Ogre::Real secondsPassed);
 
     void onSpawn();

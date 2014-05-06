@@ -98,8 +98,10 @@ void BasicAttributesPanel::removePanelFrom(CEGUI::Window *mRoot) {
 void BasicAttributesPanel::updateAttributes(Player *player) {
     using namespace StringHelper;
     std::string armorText = concat<double>("", player->getAttribute(armor));
+    std::string hitpointsText = concat<double>("", player->getAttribute(hitpoints));
     std::string strengthText = concat<double>("", player->getAttribute(strength));
 
     strengthValue->setText(strengthText);
     armorValue->setText(armorText);
+    hitpointsValue->setText(hitpointsText);
 } // updateAttributes

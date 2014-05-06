@@ -20,3 +20,5 @@ leather scraps;Some scraps of leather
 tongue;Did it just wiggle?
 gold coin;Worth something to someone..
 crowbar;A place where crows can go to get drunk.
+empty potion bottle;Littering is a crime..
+cracked mirror;So is this only 2 years bad luck or..

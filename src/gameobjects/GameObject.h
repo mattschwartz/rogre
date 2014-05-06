@@ -31,6 +31,7 @@ struct Bounds {
  */
 class GameObject {
 protected:
+    bool remove;
     int id;
     Ogre::Vector3 position;
 
@@ -40,14 +41,20 @@ public:
 
     GameObject() {
         this->position = Ogre::Vector3(0, 0, 0);
+        remove = false;
     } // constructor
     GameObject(Ogre::Vector3 position) {
         this->position = position;
+        remove = false;
     } // constructor
 
     bool contains(Ogre::Vector3 vec) {
         return objectEntity->getWorldBoundingBox().contains(vec);
     } // contains
+
+    bool shouldRemove() {
+        return remove;
+    } // shouldRemove
     
     virtual void createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera) = 0;
     virtual void update(const Ogre::FrameEvent &evt) = 0;

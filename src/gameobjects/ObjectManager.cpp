@@ -78,13 +78,23 @@ void ObjectManager::update(const Ogre::FrameEvent &evt) {
     } // if
 
     int i = 0;
+    std::vector<int> removeIndices;
     GameObject *o;
 
     while (i != objects.size()) {
         o = objects[i];
         o->update(evt);
+
+        if (o->shouldRemove()) {
+            removeIndices.push_back(i);
+        }
+
         i++;
     } // while
+
+    for (int j : removeIndices) {
+        objects.erase(objects.begin() + j);
+    }
 } // update
 
 bool ObjectManager::canSee(Ogre::SceneNode *a, Ogre::SceneNode *b) {

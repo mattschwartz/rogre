@@ -12,7 +12,6 @@
  * Data
  */
 Player::Player(int level, std::string name) : Entity(level, name) {
-    this->gold = 0;
     this->timePlayed = 0;
     this->inventory = new Inventory();
 } // constructor
@@ -66,7 +65,7 @@ Inventory *Player::getInventory() {
     return inventory;
 } // getInventory
 
-int Player::getTimePlayed() {
+Ogre::Real Player::getTimePlayed() {
     return timePlayed;
 } // getTimePlayed
 

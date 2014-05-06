@@ -15,18 +15,22 @@ static int entityCount = 0;
 class EntityObject : public GameObject {
 protected:
     float range;
+    Ogre::Real lastHit;
+    Ogre::Real mAttackSpeed; // in attacks per second
     Ogre::Real mDistance;
-    Ogre::Vector3 mDirection;
     Ogre::Real mWalkSpeed;
+    Ogre::Vector3 mDirection;
     Ogre::Vector3 mDestination;
     Ogre::AnimationState *mAnimationState;
     virtual void move(const Ogre::FrameEvent &evt) = 0;
+    virtual void attack(const Ogre::FrameEvent &evt) = 0;
 
 public:
     Entity *monster;
     EntityObject(float x, float z);
     EntityObject(Ogre::Vector3 pos);
     ~EntityObject();
+    void die();
     virtual void show() = 0;
     virtual void hide() = 0;
     virtual void createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera) = 0;

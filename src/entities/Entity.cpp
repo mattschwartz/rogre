@@ -45,7 +45,7 @@ bool Entity::isDead() {
 void Entity::die(Entity *slayer) {
     onDeath();
     
-    GUIManager::getInstance().inGameMenu->appendText(slayer->getName() + " has killed " + name + ".");
+    GUIManager::getInstance().inGameMenu->appendText(name + " has been slain by " + slayer->getName() + ".");
 } // die
 
 double Entity::getAttribute(attribute_t attribute) {
@@ -63,6 +63,7 @@ double Entity::getAttribute(attribute_t attribute) {
  */
 double Entity::calculateHit() {
     onDamageDealt();
+
     return 100.0;
 } // calculateHit
 
