@@ -10,13 +10,12 @@ class GoblinEntity;
 
 class GoblinEntityObject : public EntityObject {
 private:
-    GoblinEntity *entity;
     Ogre::RaySceneQuery *raySceneQuery;
     Ogre::SceneManager *sceneManager;
 
 public:
-    GoblinEntityObject(GoblinEntity *entity, float x, float z);
-    GoblinEntityObject(GoblinEntity *entity, Ogre::Vector3 pos);
+    GoblinEntityObject(GoblinEntity *goblin, float x, float z);
+    GoblinEntityObject(GoblinEntity *goblin, Ogre::Vector3 pos);
     ~GoblinEntityObject();
     void show();
     void hide();

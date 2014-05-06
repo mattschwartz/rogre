@@ -7,6 +7,8 @@
 #include "InfoLogPanel.h"
 #include "src/entities/player/Player.h"
 #include "src/items/Item.h"
+#include "src/utility/StringHelper.h"
+#include "src/entities/player/Inventory.h"
 
 InGameMenu::InGameMenu() : 
     windowManager(CEGUI::WindowManager::getSingleton()) {
@@ -37,7 +39,7 @@ void InGameMenu::createWidgets() {
     healthBar->setText("Health");
 
     scoreLabel->setPosition(UVector2(UDim(0.0f, 10.0f), UDim(0.0f, 45.0f)));
-    scoreLabel->setText("Score: 25,918");
+    scoreLabel->setText("Score: 0");
 } // createWidgets
 
 void InGameMenu::createRootWindow() {
@@ -70,9 +72,16 @@ void InGameMenu::updateAttributes(Player *player) {
     playerAttributes->updateAttributes(player);
 } // update
 
-void InGameMenu::addItemToInventory(Item *item) {
+void InGameMenu::addItemToInventory(Player *player, Item *item) {
+    player->getInventory()->addItem(item);
     playerInventory->addItem(item);
 } // addItemToInventory
+
+void InGameMenu::updatePlayerScore(Player *player) {
+    using namespace StringHelper;
+
+    scoreLabel->setText(concat<int>("Score: ", player->getScore()));
+} // updatePlayerScore
 
 void InGameMenu::show() {
 #if USE_OGRE_LEGACY

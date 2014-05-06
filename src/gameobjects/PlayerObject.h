@@ -31,9 +31,6 @@ private:
     bool withinWorld();
 
 public:
-    Ogre::SceneNode *playerNode;
-    Ogre::Entity *playerEntity;
-
     PlayerObject(Player *player, float x, float y, float z);
     PlayerObject(Player *player, Ogre::Vector3 pos);
     ~PlayerObject();
@@ -41,7 +38,6 @@ public:
 
     void createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera);
     void update(const Ogre::FrameEvent &evt);
-    bool contains(const OIS::MouseEvent &evt) { return false; }
     void keyPressed(const OIS::KeyEvent &arg) {}
     void mouseMoved(const OIS::MouseEvent &evt);
     void mousePressed(const OIS::MouseEvent &evt, OIS::MouseButtonID id);

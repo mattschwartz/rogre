@@ -17,16 +17,16 @@ ChestDoodadObject::ChestDoodadObject(ChestDoodad *chest, Ogre::Vector3 pos) :
 
 void ChestDoodadObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera) {
 	using namespace StringHelper;
-	doodadNode = sceneMgr.getRootSceneNode()->createChildSceneNode(concat<int>("ChestDoodad", id));
-	doodadEntity = sceneMgr.createEntity(concat<int>("ChestDoodadEntity", id), "chest.mesh");
-    doodadEntity->setMaterialName("Chest Wood");
-	doodadEntity->setCastShadows(false);
+	objectNode = sceneMgr.getRootSceneNode()->createChildSceneNode(concat<int>("ChestDoodad", id));
+	objectEntity = sceneMgr.createEntity(concat<int>("ChestDoodadEntity", id), "chest.mesh");
+    objectEntity->setMaterialName("Chest Wood");
+	objectEntity->setCastShadows(false);
 
-	doodadNode->scale(2, 2, 2);
-	doodadNode->attachObject(doodadEntity);
-	doodadNode->setPosition(position);
+	objectNode->scale(2, 2, 2);
+	objectNode->attachObject(objectEntity);
+	objectNode->setPosition(position);
 
-    doodadNode->pitch(Ogre::Degree(90));
+    objectNode->pitch(Ogre::Degree(90));
 } // createObject
 
 void ChestDoodadObject::show() {

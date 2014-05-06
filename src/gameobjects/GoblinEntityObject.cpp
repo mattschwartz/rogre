@@ -13,25 +13,27 @@
 #include "src/world/World.h"
 #include "src/world/Zone.h"
 
-GoblinEntityObject::GoblinEntityObject(GoblinEntity *entity, float x, float z) :
+GoblinEntityObject::GoblinEntityObject(GoblinEntity *goblin, float x, float z) :
     EntityObject(x, z) {
+    monster = goblin;
 } // constructor
 
-GoblinEntityObject::GoblinEntityObject(GoblinEntity *entity, Ogre::Vector3 pos) :
+GoblinEntityObject::GoblinEntityObject(GoblinEntity *goblin, Ogre::Vector3 pos) :
     EntityObject(pos) {
+    monster = goblin;
 } // constructor
 
 void GoblinEntityObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera) {
 	using namespace StringHelper;
     this->sceneManager = &sceneMgr;
-	entityNode = sceneMgr.getRootSceneNode()->createChildSceneNode(concat<int>("GoblinEntity", id));
-	entityEntity = sceneMgr.createEntity(concat<int>("GoblinEntityEntity", id), "Goblin.mesh");
-    entityEntity->setQueryFlags(MONSTER_ENTITIES);
-	entityEntity->setCastShadows(true);
+	objectNode = sceneMgr.getRootSceneNode()->createChildSceneNode(concat<int>("GoblinEntity", id));
+	objectEntity = sceneMgr.createEntity(concat<int>("GoblinEntityEntity", id), "Goblin.mesh");
+    objectEntity->setQueryFlags(MONSTER_ENTITIES);
+	objectEntity->setCastShadows(true);
     
-	entityNode->scale(0.75f, 0.75f, 0.75f);
-	entityNode->attachObject(entityEntity);
-	entityNode->setPosition(position);
+	objectNode->scale(0.75f, 0.75f, 0.75f);
+	objectNode->attachObject(objectEntity);
+	objectNode->setPosition(position);
 
     mDirection = Ogre::Vector3::ZERO;
     mWalkSpeed = 3.0f;
@@ -48,10 +50,10 @@ void GoblinEntityObject::update(const Ogre::FrameEvent &evt) {
 } // update
 
 void GoblinEntityObject::move(const Ogre::FrameEvent &evt) {
-    Ogre::SceneNode *playerNode = World::getInstance().getPlayerObject()->playerNode;
+    Ogre::SceneNode *playerNode = World::getInstance().getPlayerObject()->objectNode;
 
     // Can we even see the player?
-    if (true || ObjectManager::getInstance().canSee(entityNode, playerNode)) {
+    if (true || ObjectManager::getInstance().canSee(objectNode, playerNode)) {
         mDestination = World::getInstance().getPlayerPosition();
     } // if
     else {
@@ -65,7 +67,7 @@ void GoblinEntityObject::move(const Ogre::FrameEvent &evt) {
     } // if
 
     // move the entity toward the player
-    mDirection = mDestination - entityNode->getPosition();
+    mDirection = mDestination - objectNode->getPosition();
     mDistance = mDirection.normalise();
     Ogre::Real move = mWalkSpeed * evt.timeSinceLastFrame;
     mDistance -= move;
@@ -75,7 +77,7 @@ void GoblinEntityObject::move(const Ogre::FrameEvent &evt) {
     }
     else {
         if (mDistance <= 0.0f) {
-            entityNode->setPosition(mDestination);
+            objectNode->setPosition(mDestination);
 
             if (rangeCheck()) {
                 // set idle animation
@@ -85,12 +87,12 @@ void GoblinEntityObject::move(const Ogre::FrameEvent &evt) {
             } // else
         } // if
         else {
-		    Ogre::Vector3 oldPos = entityNode->getPosition();
-            entityNode->translate(mDirection * move);
-		    if (!World::getInstance().getCurrentZone()->canMove(entityNode->getPosition())) {
+		    Ogre::Vector3 oldPos = objectNode->getPosition();
+            objectNode->translate(mDirection * move);
+		    if (!World::getInstance().getCurrentZone()->canMove(objectNode->getPosition())) {
                 mDirection = Ogre::Vector3::ZERO;
 			    mDistance = 0;
-			    entityNode->setPosition(oldPos);
+			    objectNode->setPosition(oldPos);
 		    } // if
         } // else
     } // else
@@ -99,20 +101,20 @@ void GoblinEntityObject::move(const Ogre::FrameEvent &evt) {
 } // move
 
 void GoblinEntityObject::rotateEntity() {
-    Ogre::Vector3 src = entityNode->getOrientation() * Ogre::Vector3::NEGATIVE_UNIT_X;
+    Ogre::Vector3 src = objectNode->getOrientation() * Ogre::Vector3::NEGATIVE_UNIT_X;
     src.y = 0;
     mDirection.y = 0;
     src.normalise();
     Ogre::Real mDistance = mDirection.normalise();
     Ogre::Quaternion quat = src.getRotationTo(mDirection);
 
-    entityNode->rotate(quat);
-    entityNode->yaw(Ogre::Degree(-90));
+    objectNode->rotate(quat);
+    objectNode->yaw(Ogre::Degree(-90));
 } // rotateEntity
 
 bool GoblinEntityObject::rangeCheck() {
     Ogre::Vector3 playerPosition = World::getInstance().getPlayerPosition();
-    Ogre::Vector3 position = entityNode->getPosition();
+    Ogre::Vector3 position = objectNode->getPosition();
     Ogre::Vector3 distance = playerPosition - position;
 
     distance.x = MathHelper::abs<float>(distance.x);

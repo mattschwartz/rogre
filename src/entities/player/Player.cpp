@@ -13,7 +13,7 @@
  */
 Player::Player(int level, std::string name) : Entity(level, name) {
     this->gold = 0;
-    this->timePlayed = time(NULL);
+    this->timePlayed = 0;
     this->inventory = new Inventory();
 } // constructor
 
@@ -21,13 +21,14 @@ double Player::getCurrentHitpoints() {
     return currentHitpoints;
 } // getCurrentHitpoints
 
-bool Player::isDead() {
-    return currentHitpoints <= 0.0;
-} // isDead
+int Player::getScore() {
+    int score = 0;
 
-std::string Player::getScore() {
-    std::string score = "";
-    return score;
+    for (Item *item : inventory->getItems()) {
+        score += item->getGoldWorth();
+    } // for
+
+    return score + timePlayed;
 } // getScore
 
 std::string Player::getName() {
@@ -64,6 +65,14 @@ Equippable *Player::getEquippedItemAt(int slotId) {
 Inventory *Player::getInventory() {
     return inventory;
 } // getInventory
+
+int Player::getTimePlayed() {
+    return timePlayed;
+} // getTimePlayed
+
+void Player::updateTimePlayed(Ogre::Real secondsPassed) {
+    timePlayed += secondsPassed;
+} // updateTimePlayed
 
 void Player::onSpawn() {
 } // onSpawn

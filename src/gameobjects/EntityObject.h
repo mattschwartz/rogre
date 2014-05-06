@@ -19,12 +19,11 @@ protected:
     Ogre::Vector3 mDirection;
     Ogre::Real mWalkSpeed;
     Ogre::Vector3 mDestination;
-	Ogre::Entity *entityEntity;
-	Ogre::SceneNode *entityNode;
     Ogre::AnimationState *mAnimationState;
     virtual void move(const Ogre::FrameEvent &evt) = 0;
 
 public:
+    Entity *monster;
     EntityObject(float x, float z);
     EntityObject(Ogre::Vector3 pos);
     ~EntityObject();
@@ -33,7 +32,6 @@ public:
     virtual void createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera) = 0;
     virtual void update(const Ogre::FrameEvent &evt) = 0;
 
-    bool contains(const OIS::MouseEvent &evt) { return false; }
     void keyPressed(const OIS::KeyEvent &arg) {}
     void mouseMoved(const OIS::MouseEvent &evt) {}
     void mousePressed(const OIS::MouseEvent &evt, OIS::MouseButtonID id) {}

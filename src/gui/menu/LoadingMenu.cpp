@@ -21,11 +21,9 @@ void LoadingMenu::createWidgets() {
         windowManager.createWindow("OgreTray/ProgressBar", "LoadingMenu/progressBar"));
 #if USE_OGRE_LEGACY
     Imageset& MenuImage =ImagesetManager::getSingleton().createFromImageFile("Background", "main_menu_bg.jpg");
-#else
-    Image& MenuImage =ImageManager::getSingleton().create("Background", "main_menu_bg.jpg");
-#endif
     backgroundWindow = windowManager.createWindow("OgreTray/StaticImage", "LoadingMenu/backgroundWindow");
     backgroundWindow->setProperty("Image", "set:Background image:full_image");
+#endif
 
 #if USE_OGRE_LEGACY
     textLabel->setSize(UVector2(UDim(0.5f, 0.0f), UDim(0.0f, 40.0f)));
@@ -57,7 +55,6 @@ void LoadingMenu::createRootWindow() {
     mRoot->addChildWindow(tipLabel);
     mRoot->addChildWindow(loadingBar);
 #else
-    mRoot->addChild(backgroundWindow);
     mRoot->addChild(textLabel);
     mRoot->addChild(tipLabel);
     mRoot->addChild(loadingBar);

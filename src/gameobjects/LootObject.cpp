@@ -25,9 +25,9 @@ LootObject::LootObject(Item *item, Ogre::Vector3 pos) :
 
 void LootObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera) {
 	using namespace StringHelper;
-	lootEntity = sceneMgr.createEntity(concat<int>("LootEntity", id), "sphere.mesh");
-    lootEntity->setMaterialName("Examples/LootTexture");
-	lootEntity->setCastShadows(true);
+	objectEntity = sceneMgr.createEntity(concat<int>("LootEntity", id), "sphere.mesh");
+    objectEntity->setMaterialName("Examples/LootTexture");
+	objectEntity->setCastShadows(true);
     bounceUp = true;
     show();
 } // createObject
@@ -38,22 +38,23 @@ void LootObject::show() {
     visible = true;
 
     sceneMgr = ObjectManager::getInstance().getSceneManager();
-    lootNode = sceneMgr->getRootSceneNode()->createChildSceneNode(concat<int>("LootNode", id));
+    objectNode = sceneMgr->getRootSceneNode()->createChildSceneNode(concat<int>("LootNode", id));
 
-	lootNode->attachObject(lootEntity);
-	lootNode->scale(0.005f, 0.005f, 0.005f);
-	lootNode->setPosition(position);
+	objectNode->attachObject(objectEntity);
+	objectNode->scale(0.005f, 0.005f, 0.005f);
+	objectNode->setPosition(position);
 } // show
 
 void LootObject::hide() {
     visible = false;
 
-    position.y = 100;
-    lootNode->setPosition(position);
+    objectNode->setVisible(false);
+    objectNode->setPosition(position);
     ObjectManager::getInstance().destroySceneNode("LootNode", id);
     GUIManager::getInstance().inGameMenu->appendText(item->pickupText());
     // add to player inventory
-    GUIManager::getInstance().inGameMenu->addItemToInventory(item);
+    Player *player = World::getInstance().getCurrentPlayer();
+    GUIManager::getInstance().inGameMenu->addItemToInventory(player, item);
 } // hide
 
 void LootObject::update(const Ogre::FrameEvent &evt) {
@@ -90,5 +91,5 @@ void LootObject::bounce() {
         position.y -= 0.02f;
     } 
 
-    lootNode->setPosition(position);
+    objectNode->setPosition(position);
 } // bounce

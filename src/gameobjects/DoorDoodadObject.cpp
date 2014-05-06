@@ -23,19 +23,15 @@ void DoorDoodadObject::setFacing(Ogre::Vector3 facing) {
 
 void DoorDoodadObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera) {
 	using namespace StringHelper;
-	doodadNode = sceneMgr.getRootSceneNode()->createChildSceneNode(concat<int>("DoorDoodad", id));
-	doodadEntity = sceneMgr.createEntity(concat<int>("DoorDoodadEntity", id), "Door1.mesh");
-	doodadEntity->setCastShadows(false);
+	objectNode = sceneMgr.getRootSceneNode()->createChildSceneNode(concat<int>("DoorDoodad", id));
+	objectEntity = sceneMgr.createEntity(concat<int>("DoorDoodadEntity", id), "Door1.mesh");
+	objectEntity->setCastShadows(false);
 
-	doodadNode->scale(0.5, 0.5, 0.5);
-	doodadNode->attachObject(doodadEntity);
-    doodadNode->setPosition(position);
-    doodadNode->yaw(Ogre::Degree(rollBy));
+	objectNode->scale(0.5, 0.5, 0.5);
+	objectNode->attachObject(objectEntity);
+    objectNode->setPosition(position);
+    objectNode->yaw(Ogre::Degree(rollBy));
 } // createObject
-    
-bool DoorDoodadObject::containsPoint(Ogre::Vector3 point) {
-    return doodadEntity->getWorldBoundingBox().contains(point);
-} // containsPoint
 
 void DoorDoodadObject::show() {
 } // show

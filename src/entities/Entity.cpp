@@ -3,6 +3,9 @@
  */
 #include "Entity.h"
 #include "src/items/Item.h"
+#include "src/gui/menu/ingamemenu/InGameMenu.h"
+#include "src/gui/GUIManager.h"
+#include "src/utility/StringHelper.h"
 
 /**
  * Data
@@ -18,6 +21,10 @@ Entity::Entity(int level, std::string name) {
     currentHitpoints = attributes[hitpoints];
 } // constructor
 
+std::string Entity::getName() {
+    return name;
+} // getName
+
 /**
  * This function is invoked whenever the Entity is spawned into 
  * the Game World
@@ -26,14 +33,19 @@ void Entity::spawn() {
     onSpawn();
 } // spawn
 
+bool Entity::isDead() {
+    return currentHitpoints <= 0.0;
+} // isDead
+
 /**
  * This function is invoked whenever the Entity is killed
  * 
  * @param slayer The Entity who dealt the final, killing blow
  */
 void Entity::die(Entity *slayer) {
-    // Remove this Entity from the Game World
     onDeath();
+    
+    GUIManager::getInstance().inGameMenu->appendText(slayer->getName() + " has killed " + name + ".");
 } // die
 
 double Entity::getAttribute(attribute_t attribute) {
@@ -51,7 +63,7 @@ double Entity::getAttribute(attribute_t attribute) {
  */
 double Entity::calculateHit() {
     onDamageDealt();
-    return 1;
+    return 100.0;
 } // calculateHit
 
 /**
@@ -64,6 +76,8 @@ double Entity::calculateHit() {
 void Entity::takeDamage(double amount, Entity *aggressor) {
     currentHitpoints -= amount;
     onDamageTaken();
+
+    GUIManager::getInstance().inGameMenu->appendText(StringHelper::concat<double>(aggressor->getName() + " attacks " + name + " for ", amount) + ".");
     
     if (currentHitpoints <= 0) {
         die(aggressor);

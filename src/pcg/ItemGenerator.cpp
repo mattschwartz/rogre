@@ -6,12 +6,16 @@
 #include "src/items/Equippable.h"
 
 Item *ItemGenerator::generateItem(int monsterLevel) {
+    int goldWorth;
     Item *result = new Item(monsterLevel);
     std::pair<std::string, std::string> itemData;
 
     itemData = ItemData::getInstance().getRandomItem();
+    goldWorth = rand() % (100 * (monsterLevel + 1));
+
     result->setName(itemData.first);
     result->setDescription(itemData.second);
+    result->setGoldWorth(goldWorth);
 
     return result;
 } // generateItem

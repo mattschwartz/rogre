@@ -33,11 +33,9 @@ void MainMenu::createButtons() {
         windowManager.createWindow("OgreTray/Button", "MainMenu/quitButton"));
 #if USE_OGRE_LEGACY
     Imageset& MenuImage =ImagesetManager::getSingleton().createFromImageFile("Background", "main_menu_bg.jpg");
-#else
-    Image& MenuImage =ImageManager::getSingleton().create("Background", "main_menu_bg.jpg");
-#endif
     backgroundWindow = windowManager.createWindow("OgreTray/StaticImage", "MainMenu/backgroundWindow");
     backgroundWindow->setProperty("Image", "set:Background image:full_image");
+#endif
 
 #if USE_OGRE_LEGACY
     titleLabel->setSize(UVector2(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
@@ -85,7 +83,6 @@ void MainMenu::createRootWindow() {
     mRoot->addChildWindow(hiScoresButton);
     mRoot->addChildWindow(quitButton);
 #else
-    mRoot->addChild(backgroundWindow);
     mRoot->addChild(titleLabel);
     mRoot->addChild(newPlayerButton);
     mRoot->addChild(loadPlayerButton);

@@ -30,7 +30,9 @@ protected:
 
 public:
     Entity(int level, std::string name);
+    std::string getName();
     void spawn();
+    bool isDead();
     void die(Entity *slayer);
     double getAttribute(attribute_t attribute);
     double calculateHit();

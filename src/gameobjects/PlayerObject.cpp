@@ -9,6 +9,10 @@
 #include "src/sound/SoundEffect.h"
 #include "src/utility/StringHelper.h"
 #include "src/gameobjects/ObjectManager.h"
+#include "EntityObject.h"
+#include "GameObject.h"
+#include "src/gui/GUIManager.h"
+#include "src/gui/menu/ingamemenu/InGameMenu.h"
 
 PlayerObject::PlayerObject(Player *player, float x, float y, float z) : GameObject(Ogre::Vector3(x, y, z)) {
     this->player = player;
@@ -28,17 +32,17 @@ void PlayerObject::init() {
 } // init
 
 void PlayerObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera) {
-    playerNode = sceneMgr.getRootSceneNode()->createChildSceneNode("PlayerNode");
-    playerEntity = sceneMgr.createEntity("Player", "ninja.mesh");
-    playerEntity->setCastShadows(true);
+    objectNode = sceneMgr.getRootSceneNode()->createChildSceneNode("PlayerNode");
+    objectEntity = sceneMgr.createEntity("Player", "ninja.mesh");
+    objectEntity->setCastShadows(true);
 
-    playerNode->scale(0.025f, 0.025f, 0.025f);
-    playerNode->attachObject(playerEntity);
-    playerNode->setPosition(position);
+    objectNode->scale(0.025f, 0.025f, 0.025f);
+    objectNode->attachObject(objectEntity);
+    objectNode->setPosition(position);
 
     mDirection = Ogre::Vector3::ZERO;
     mWalkSpeed = 6.0f;
-    mAnimationState = playerEntity->getAnimationState("Idle2");
+    mAnimationState = objectEntity->getAnimationState("Idle2");
     mAnimationState->setLoop(true);
     mAnimationState->setEnabled(true);
     this->camera = camera;
@@ -60,16 +64,19 @@ void PlayerObject::update(const Ogre::FrameEvent &evt) {
         move(evt);
         attack(evt);
         Ogre::Vector3 campos = camera->getPosition();
-        campos.x = playerNode->getPosition().x;
-        campos.z = playerNode->getPosition().z + campos.y;
+        campos.x = objectNode->getPosition().x;
+        campos.z = objectNode->getPosition().z + campos.y;
         camera->setPosition(campos);
     } // else
-        
+    
+    player->updateTimePlayed(evt.timeSinceLastEvent);
     mAnimationState->addTime(evt.timeSinceLastFrame);
+    
+    GUIManager::getInstance().inGameMenu->updatePlayerScore(player);
 } // update
 
 void PlayerObject::move(const Ogre::FrameEvent &evt) {
-    Ogre::Vector3 initialPosition = playerNode->getPosition();
+    Ogre::Vector3 initialPosition = objectNode->getPosition();
     Ogre::Vector3 destination = walkTo;
     Ogre::Real distance;
     Ogre::Real move;
@@ -82,13 +89,13 @@ void PlayerObject::move(const Ogre::FrameEvent &evt) {
         rotatePlayer();
 
         if (distance <= 0.0f) {
-            playerNode->setPosition(destination);
+            objectNode->setPosition(destination);
             setIdleAnimation();
         } // if
         else {
-            playerNode->translate(mDirection * move);
+            objectNode->translate(mDirection * move);
             if (!withinWorld()) {
-                playerNode->setPosition(initialPosition);
+                objectNode->setPosition(initialPosition);
                 walkTo = initialPosition;
                 setIdleAnimation();
             } // if
@@ -105,15 +112,15 @@ void PlayerObject::setIdleAnimation() {
     
     switch (ran) {
         case 0:
-            mAnimationState = playerEntity->getAnimationState("Idle1");
+            mAnimationState = objectEntity->getAnimationState("Idle1");
             break;
 
         case 1:
-            mAnimationState = playerEntity->getAnimationState("Idle2");
+            mAnimationState = objectEntity->getAnimationState("Idle2");
             break;
 
         case 2:
-            mAnimationState = playerEntity->getAnimationState("Idle3");
+            mAnimationState = objectEntity->getAnimationState("Idle3");
     } // switch-case
 
     mAnimationState->setLoop(true);
@@ -121,7 +128,7 @@ void PlayerObject::setIdleAnimation() {
 } // setIdleAnimation
 
 void PlayerObject::setWalkAnimation() {
-    mAnimationState = playerEntity->getAnimationState("Walk");
+    mAnimationState = objectEntity->getAnimationState("Walk");
     mAnimationState->setLoop(true);
     mAnimationState->setEnabled(true);
 } // setWalkAnimation
@@ -131,11 +138,11 @@ void PlayerObject::setDeathAnimation() {
     
     switch (ran) {
         case 0:
-            mAnimationState = playerEntity->getAnimationState("Death1");
+            mAnimationState = objectEntity->getAnimationState("Death1");
             break;
 
         case 1:
-            mAnimationState = playerEntity->getAnimationState("Death2");
+            mAnimationState = objectEntity->getAnimationState("Death2");
     } // switch-case
 
     mAnimationState->setLoop(true);
@@ -143,30 +150,40 @@ void PlayerObject::setDeathAnimation() {
 } // setDeathAnimation
 
 bool PlayerObject::withinWorld() {
-    return World::getInstance().getCurrentZone()->canMove(playerNode->getPosition());
+    return World::getInstance().getCurrentZone()->canMove(objectNode->getPosition());
 } // withinWorld
 
 void PlayerObject::attack(const Ogre::FrameEvent &evt) {
     if (attacking && mAnimationState->hasEnded()) {
         setIdleAnimation();
         attacking = false;
+        
+        double dmg;
+        Zone *zone = World::getInstance().getCurrentZone();
+
+        for (EntityObject *o : zone->entities) {
+            if (ObjectManager::getInstance().canReach(this, o, 1.0f)) {
+                dmg = player->calculateHit();
+                o->monster->takeDamage(dmg, player);
+            } // if
+        } // for
     } // if
 } // attack
 
 void PlayerObject::rotatePlayer() {
-    Ogre::Vector3 src = playerNode->getOrientation() * Ogre::Vector3::UNIT_X;
+    Ogre::Vector3 src = objectNode->getOrientation() * Ogre::Vector3::UNIT_X;
     src.y = 0;
     mDirection.y = 0;
     src.normalise();
     Ogre::Real mDistance = mDirection.normalise();
     Ogre::Quaternion quat = src.getRotationTo(mDirection);
 
-    playerNode->rotate(quat);
-    playerNode->yaw(Ogre::Degree(-90));
+    objectNode->rotate(quat);
+    objectNode->yaw(Ogre::Degree(-90));
 } // rotatePlayer
 
 Ogre::Vector3 PlayerObject::getPosition() {
-    return playerNode->getPosition();
+    return objectNode->getPosition();
 } // getPosition
 
 void PlayerObject::mouseMoved(const OIS::MouseEvent &evt) {
@@ -182,7 +199,7 @@ void PlayerObject::mouseMoved(const OIS::MouseEvent &evt) {
 	    Ogre::Ray mouseRay = camera->getCameraToViewportRay(x/float(evt.state.width), y/float(evt.state.height));
 	    Ogre::Vector3 point = World::getInstance().getCurrentZone()->getIntersectingPlane(mouseRay);
 
-	    point.y = playerNode->getPosition().y;
+	    point.y = objectNode->getPosition().y;
         walkTo = point;
 	} // if
 } // mouseMoved
@@ -195,7 +212,7 @@ void PlayerObject::mousePressed(const OIS::MouseEvent &evt, OIS::MouseButtonID i
 	int y = evt.state.Y.abs;
 	Ogre::Ray mouseRay = camera->getCameraToViewportRay(x/float(evt.state.width), y/float(evt.state.height));
 	Ogre::Vector3 point = World::getInstance().getCurrentZone()->getIntersectingPlane(mouseRay);
-    point.y = playerNode->getPosition().y;
+    point.y = objectNode->getPosition().y;
 
     if (id == OIS::MB_Left) {
         walkTo = point;
@@ -203,31 +220,31 @@ void PlayerObject::mousePressed(const OIS::MouseEvent &evt, OIS::MouseButtonID i
     else if (id == OIS::MB_Right) {
         int ran = rand() % 3;
         attacking = true;
-        walkTo = playerNode->getPosition();
+        walkTo = objectNode->getPosition();
  
         // Rotate player
         Ogre::Vector3 dir = point - walkTo;
-        Ogre::Vector3 src = playerNode->getOrientation() * Ogre::Vector3::UNIT_X;
+        Ogre::Vector3 src = objectNode->getOrientation() * Ogre::Vector3::UNIT_X;
         src.y = 0;
         dir.y = 0;
         src.normalise();
         Ogre::Real mDistance = dir.normalise();
         Ogre::Quaternion quat = src.getRotationTo(dir);
 
-        playerNode->rotate(quat);
-        playerNode->yaw(Ogre::Degree(-90));
+        objectNode->rotate(quat);
+        objectNode->yaw(Ogre::Degree(-90));
         
         switch (ran) {
             case 0:
-                mAnimationState = playerEntity->getAnimationState("Attack1");
+                mAnimationState = objectEntity->getAnimationState("Attack1");
                 break;
 
             case 1:
-                mAnimationState = playerEntity->getAnimationState("Attack2");
+                mAnimationState = objectEntity->getAnimationState("Attack2");
                 break;
 
             default:
-                mAnimationState = playerEntity->getAnimationState("Attack3");
+                mAnimationState = objectEntity->getAnimationState("Attack3");
         } // switch-case
         
         mAnimationState->setTimePosition(0);

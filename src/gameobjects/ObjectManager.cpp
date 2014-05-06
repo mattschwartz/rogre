@@ -4,8 +4,11 @@
 #include "src/utility/MathHelper.h"
 #include "src/utility/StringHelper.h"
 #include "ObjectManager.h"
+#include "EntityObject.h"
 #include "GameObject.h"
+#include "PlayerObject.h"
 #include "src/world/World.h"
+#include "LootObject.h"
 
 /**
  * Data
@@ -74,9 +77,14 @@ void ObjectManager::update(const Ogre::FrameEvent &evt) {
         return;
     } // if
 
-    for (GameObject *o : objects) {
+    int i = 0;
+    GameObject *o;
+
+    while (i != objects.size()) {
+        o = objects[i];
         o->update(evt);
-    } // for
+        i++;
+    } // while
 } // update
 
 bool ObjectManager::canSee(Ogre::SceneNode *a, Ogre::SceneNode *b) {
@@ -103,6 +111,21 @@ bool ObjectManager::canSee(Ogre::SceneNode *a, Ogre::SceneNode *b) {
     mRayScnQuery->clearResults();
     return false;
 } // canSee
+
+bool ObjectManager::canReach(GameObject *object1, GameObject *object2, float reach) {
+    using namespace Ogre;
+    SceneNode *node1 = object1->objectNode;
+    Vector3 point = node1->getOrientation() * Vector3::NEGATIVE_UNIT_Z;
+
+    point.y = 0;
+    point.x += node1->getPosition().x;
+    point.z += node1->getPosition().z;
+
+    point.x += reach;
+    point.z += reach;
+
+    return object2->contains(point);
+} // hitMonster
 
 /**
  * May not be necessary - used for determining if the mouse is hovering

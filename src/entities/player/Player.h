@@ -4,8 +4,8 @@
 /**
  * Included files
  */
-#include <time.h>
 #include "src/entities/Entity.h"
+#include <Ogre.h>
 
 /**
  * Defines
@@ -23,19 +23,20 @@ class Inventory;
 class Player : public Entity {
 private:
     int gold;
-    time_t timePlayed;
+    Ogre::Real timePlayed;
     Equippable *equippedItems[EQUIPMENT_SLOTS];
     Inventory *inventory;
 
 public:
     Player(int level, std::string name);
     double getCurrentHitpoints();
-    bool isDead();
     std::string getName();
-    std::string getScore();
+    int getScore();
     void equipItem(Equippable *equippable);
     Equippable *getEquippedItemAt(int slotId);
     Inventory *getInventory();
+    int getTimePlayed();
+    void updateTimePlayed(Ogre::Real secondsPassed);
 
     void onSpawn();
     void onDeath();

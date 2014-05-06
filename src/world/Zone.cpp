@@ -38,7 +38,7 @@ bool Zone::canMove(Ogre::Vector3 point) {
     using namespace MathHelper;
 
     for (DoorDoodadObject *door : doorDoodads) {
-        if (door->containsPoint(point)) {
+        if (door->contains(point)) {
             return true;
         } // if
     } // for

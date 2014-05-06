@@ -13,10 +13,6 @@ static int doodadCount = 0;
  * Data
  */
 class DoodadObject : public GameObject {
-protected:
-	Ogre::Entity *doodadEntity;
-	Ogre::SceneNode *doodadNode;
-
 public:
     DoodadObject(float x, float y, float z) : GameObject(Ogre::Vector3(x, y, z)) {
         this->id = doodadCount++;
@@ -26,12 +22,12 @@ public:
         this->id = doodadCount++;
     }
     DoodadObject(Ogre::Vector3 pos) : GameObject(pos) {}
+
     virtual void show() = 0;
     virtual void hide() = 0;
     virtual void createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera) = 0;
     virtual void update(const Ogre::FrameEvent &evt) = 0;
 
-    bool contains(const OIS::MouseEvent &evt) { return false; }
     void keyPressed(const OIS::KeyEvent &arg) {}
     void mouseMoved(const OIS::MouseEvent &evt) {}
     void mousePressed(const OIS::MouseEvent &evt, OIS::MouseButtonID id) {}

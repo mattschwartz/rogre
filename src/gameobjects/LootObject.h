@@ -17,8 +17,6 @@ private:
     bool bounceUp;
     bool visible;
     Item *item;
-    Ogre::Entity *lootEntity;
-    Ogre::SceneNode *lootNode;
     void bounce();
 
 public:
@@ -29,7 +27,6 @@ public:
     void hide();
     void update(const Ogre::FrameEvent &evt);
 
-    bool contains(const OIS::MouseEvent &evt) { return false; }
     void keyPressed(const OIS::KeyEvent &arg) {}
     void mouseMoved(const OIS::MouseEvent &evt) {}
     void mousePressed(const OIS::MouseEvent &evt, OIS::MouseButtonID id) {}

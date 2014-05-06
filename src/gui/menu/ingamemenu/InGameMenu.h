@@ -32,7 +32,8 @@ public:
     void appendText(std::string text);
     void appendLine(std::string  text);
     void updateAttributes(Player *player);
-    void addItemToInventory(Item *item);
+    void addItemToInventory(Player *player, Item *item);
+    void updatePlayerScore(Player *player);
     void show();
     void hide();
     void loadPlayer(Player *player);
