@@ -69,6 +69,7 @@ void InGameMenu::appendLine(std::string text) {
 } // appendLine
 
 void InGameMenu::updateAttributes(Player *player) {
+    healthBar->setProgress(player->getCurrentHitpoints() / player->getAttribute(hitpoints));
     playerAttributes->updateAttributes(player);
 } // update
 

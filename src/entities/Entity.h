@@ -35,7 +35,7 @@ public:
     bool isDead();
     void die(Entity *slayer);
     double getAttribute(attribute_t attribute);
-    double calculateHit();
+    virtual double calculateHit();
     void takeDamage(double amount, Entity *aggressor);
 
     /**

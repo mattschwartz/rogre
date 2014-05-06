@@ -13,6 +13,7 @@ class Player;
  */
 class PlayerObject : public GameObject {
 private:
+    bool dying;
     bool attacking;
     bool dead;
     Player *player;

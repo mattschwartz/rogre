@@ -33,6 +33,7 @@ public:
     Ogre::Real getTimePlayed();
     void updateTimePlayed(Ogre::Real secondsPassed);
 
+    double calculateHit();
     void onSpawn();
     void onDeath();
     void onDamageDealt();

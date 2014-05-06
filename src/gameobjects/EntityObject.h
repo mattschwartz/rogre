@@ -30,7 +30,6 @@ public:
     EntityObject(float x, float z);
     EntityObject(Ogre::Vector3 pos);
     ~EntityObject();
-    void die();
     virtual void show() = 0;
     virtual void hide() = 0;
     virtual void createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera) = 0;

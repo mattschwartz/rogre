@@ -73,6 +73,12 @@ void Player::updateTimePlayed(Ogre::Real secondsPassed) {
     timePlayed += secondsPassed;
 } // updateTimePlayed
 
+double Player::calculateHit() {
+    double result = 99.0f;
+
+    return result;
+} // calculateHit
+
 void Player::onSpawn() {
 } // onSpawn
 

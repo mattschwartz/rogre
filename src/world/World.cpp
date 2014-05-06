@@ -60,14 +60,15 @@ void World::spawnCurrentPlayer() {
     ro = currentZone->rooms[0];
     ro->show();
 
-    position.x = rand() % (int)(ro->getWidth());
+    position.x = rand() % (int)(ro->getWidth()) + 1.0f;
     position.y = 0;
-    position.z = rand() % (int)(ro->getDepth());
+    position.z = rand() % (int)(ro->getDepth()) + 1.0f;
 
     playerObject = new PlayerObject(this->currentPlayer, position);
     ObjectManager::getInstance().spawnObject(playerObject);
 
     paused = false;
+    currentZoneLevel = 0;
     GUIManager::getInstance().inGameMenu->updateAttributes(currentPlayer);
 } // spawnCurrentPlayer
 

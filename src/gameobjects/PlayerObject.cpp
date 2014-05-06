@@ -47,6 +47,7 @@ void PlayerObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *came
     mAnimationState->setEnabled(true);
     this->camera = camera;
 
+    dying = false;
     attacking = false;
     walkTo = position;
     dead = false;
@@ -67,12 +68,12 @@ void PlayerObject::update(const Ogre::FrameEvent &evt) {
         campos.x = objectNode->getPosition().x;
         campos.z = objectNode->getPosition().z + campos.y;
         camera->setPosition(campos);
+        player->updateTimePlayed(evt.timeSinceLastEvent);
+        GUIManager::getInstance().inGameMenu->updateAttributes(player);
+        GUIManager::getInstance().inGameMenu->updatePlayerScore(player);
     } // else
     
-    player->updateTimePlayed(evt.timeSinceLastEvent);
     mAnimationState->addTime(evt.timeSinceLastFrame);
-    
-    GUIManager::getInstance().inGameMenu->updatePlayerScore(player);
 } // update
 
 void PlayerObject::move(const Ogre::FrameEvent &evt) {
@@ -135,7 +136,12 @@ void PlayerObject::setWalkAnimation() {
 
 void PlayerObject::setDeathAnimation() {
     int ran = rand() % 2;
-    
+
+    if (dying) {
+        return;
+    }
+
+    dying = true;
     switch (ran) {
         case 0:
             mAnimationState = objectEntity->getAnimationState("Death1");
@@ -144,8 +150,9 @@ void PlayerObject::setDeathAnimation() {
         case 1:
             mAnimationState = objectEntity->getAnimationState("Death2");
     } // switch-case
-
-    mAnimationState->setLoop(true);
+    
+    mAnimationState->setTimePosition(0);
+    mAnimationState->setLoop(false);
     mAnimationState->setEnabled(true);
 } // setDeathAnimation
 

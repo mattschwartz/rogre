@@ -64,7 +64,7 @@ double Entity::getAttribute(attribute_t attribute) {
 double Entity::calculateHit() {
     onDamageDealt();
 
-    return 100.0;
+    return 10.0;
 } // calculateHit
 
 /**

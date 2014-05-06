@@ -23,11 +23,3 @@ EntityObject::EntityObject(Ogre::Vector3 pos) : GameObject(pos) {
 EntityObject::~EntityObject() {
     ObjectManager::getInstance().destroySceneNode("Entity", id);
 } // destructor
-
-void EntityObject::die() {
-    position.y -= 0.2f;
-    if (position.y < -10.0f) {
-        objectNode->setVisible(false);
-    } // if
-    objectNode->setPosition(position);
-} // die
