@@ -19,6 +19,7 @@ class World {
 private:
     bool paused;
     bool blindModeEnabled;
+    int seed;
     int monsterDifficulty;
     int currentZoneLevel;
     Player *currentPlayer;
@@ -35,6 +36,7 @@ public:
     } // getInstance
 
     bool isGameModeBlind();
+    int getSeed();
     void playerQuit();
     void pauseGame();
     void resumeGame();

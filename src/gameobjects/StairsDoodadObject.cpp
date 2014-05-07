@@ -5,6 +5,8 @@
 #include "src/world/World.h"
 #include "src/world/Zone.h"
 #include "src/utility/StringHelper.h"
+#include "src/sound/SoundEffect.h"
+#include "src/sound/SoundManager.h"
 
 StairsDoodadObject::StairsDoodadObject(float x, float z) :
     DoodadObject(x, -1.8f, z) {
@@ -28,6 +30,7 @@ void StairsDoodadObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera
 
 void StairsDoodadObject::interact() {
     World::getInstance().descend();
+    SoundManager::getInstance().DESCEND_STAIRS_SOUND->play();
 } // interact
 
 void StairsDoodadObject::show() {

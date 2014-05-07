@@ -8,6 +8,7 @@
 #include "src/entities/player/Player.h"
 #include "src/input/InputManager.h"
 #include "src/gui/GUIManager.h"
+#include "src/gui/menu/HiScoresMenu.h"
 #include "src/sound/SoundManager.h"
 #include "src/sound/SoundEffect.h"
 
@@ -51,7 +52,6 @@ void MainMenu::createButtons() {
     quitButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
 
     loadPlayerButton->setEnabled(false);
-    hiScoresButton->setEnabled(false);
 #endif
     
     titleLabel->setPosition(UVector2(UDim(0.5f, -(150.0f / 2)), UDim(0.5f, -110.0f)));
@@ -64,7 +64,7 @@ void MainMenu::createButtons() {
     loadPlayerButton->setText("Load Player");
     
     hiScoresButton->setPosition(UVector2(UDim(0.5f, -(150.0f / 2)), UDim(0.5f, 20.0f)));
-    hiScoresButton->setText("Hi Scores");
+    hiScoresButton->setText("Graveyard");
 
     quitButton->setPosition(UVector2(UDim(0.5f, -(150.0f / 2)), UDim(0.5f, 60.0f)));
     quitButton->setText("Quit");
@@ -134,6 +134,7 @@ bool MainMenu::loadPlayerEvent(const CEGUI::EventArgs &e) {
 
 bool MainMenu::hiScoresEvent(const CEGUI::EventArgs &e) {
     SoundManager::getInstance().MENU_SELECT_SOUND->play();
+    GUIManager::getInstance().hiScoresMenu->show();
 	return false;
 } // hiScoresEvent
 

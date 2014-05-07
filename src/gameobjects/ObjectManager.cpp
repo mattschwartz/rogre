@@ -92,7 +92,7 @@ void ObjectManager::update(const Ogre::FrameEvent &evt) {
         i++;
     } // while
 
-    for (int j : removeIndices) {
+    for (size_t j : removeIndices) {
         if (j >= objects.size()) {
             continue;
         } // if

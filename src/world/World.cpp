@@ -14,6 +14,7 @@
 #include "src/gui/menu/NewPlayerMenu.h"
 #include "src/gui/menu/LoadingMenu.h"
 #include "src/gameobjects/RoomObject.h"
+#include "src/utility/StringHelper.h"
 
 Player *World::getCurrentPlayer() {
     return currentPlayer;
@@ -68,13 +69,16 @@ void World::spawnCurrentPlayer() {
     ObjectManager::getInstance().spawnObject(playerObject);
 
     paused = false;
-    currentZoneLevel = 0;
     GUIManager::getInstance().inGameMenu->updateAttributes(currentPlayer);
 } // spawnCurrentPlayer
 
 bool World::isGameModeBlind() {
     return blindModeEnabled;
 } // isGameModeBlind
+
+int World::getSeed() {
+    return seed;
+} // getSeed
 
 /**
  * Terminates the player's game, saving it and exiting to the main menu.
@@ -104,6 +108,9 @@ void World::descend() {
     ObjectManager::getInstance().destroyScene();
     currentZone = ZoneGenerator::getInstance().generate(-1, monsterDifficulty, currentZoneLevel, roomSize);
     spawnCurrentPlayer();
+    GUIManager::getInstance().inGameMenu->appendText(
+        StringHelper::concat<int>("Descending into level ", currentZoneLevel) + "...");
+    GUIManager::getInstance().inGameMenu->appendText("Your foes have become stronger.");
 } // descend
 
 /**
@@ -115,6 +122,7 @@ void World::loadZone(int zoneLevel, int monsterDifficulty, int seed, bool blindM
     paused = true;
     this->blindModeEnabled = blindModeEnabled;
     this->monsterDifficulty = monsterDifficulty;
+    this->seed = seed;
 
     currentZoneLevel = zoneLevel;
     currentZone = ZoneGenerator::getInstance().generate(seed, monsterDifficulty, currentZoneLevel, roomSize);

@@ -6,6 +6,8 @@
 #include "src/doodad/ChestDoodad.h"
 #include "src/gameobjects/ObjectManager.h"
 #include "src/utility/StringHelper.h"
+#include "src/sound/SoundEffect.h"
+#include "src/sound/SoundManager.h"
 
 ChestDoodadObject::ChestDoodadObject(ChestDoodad *chest, float x, float z) :
     DoodadObject(x, 1.2f, z) {
@@ -45,6 +47,8 @@ void ChestDoodadObject::interact() {
         loot = new LootObject(item, lootPosition);
         ObjectManager::getInstance().spawnObject(loot);
     } // for
+    SoundManager::getInstance().CHEST_OPEN_SOUND->stop();
+    SoundManager::getInstance().CHEST_OPEN_SOUND->play();
     hide();
 } // openChest
 

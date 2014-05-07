@@ -20,10 +20,14 @@ public:
     SoundEffect *MONSTER_BREATHING_2_SOUND;
     SoundEffect *MONSTER_BREATHING_3_SOUND;
     SoundEffect *MONSTER_BREATHING_4_SOUND;
-    SoundEffect *ATTACK_HIT_1_SOUND;
+    SoundEffect *PLAYER_DAMAGED_SOUND;
     SoundEffect *ATTACK_MISS_1_SOUND;
     SoundEffect *MENU_SELECT_SOUND;
     SoundEffect *AMBIANCE_RUMBLE_SOUND;
+    SoundEffect *CHEST_OPEN_SOUND;
+    SoundEffect *DESCEND_STAIRS_SOUND;
+    SoundEffect *LOOT_ITEM_SOUND;
+    SoundEffect *PLAYER_LOW_LIFE_SOUND;
     std::vector<SoundEffect*> gameSoundEffects;
     std::vector<SoundEffect*> menuSoundEffects;
 

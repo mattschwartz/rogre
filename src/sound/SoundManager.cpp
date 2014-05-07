@@ -19,17 +19,21 @@ void SoundManager::init() {
     MONSTER_BREATHING_2_SOUND = new GameSoundEffect("media/sound/monsterBreath2.wav");
     MONSTER_BREATHING_3_SOUND = new GameSoundEffect("media/sound/monsterBreath3.wav");
     MONSTER_BREATHING_4_SOUND = new GameSoundEffect("media/sound/monsterBreath4.wav");
-    ATTACK_HIT_1_SOUND = new GameSoundEffect("media/sound/attackHit1.wav");
+    PLAYER_DAMAGED_SOUND = new GameSoundEffect("media/sound/playerTakeDamage.wav");
+    PLAYER_LOW_LIFE_SOUND = new GameSoundEffect("media/sound/playerLowLife.wav");
     ATTACK_MISS_1_SOUND = new GameSoundEffect("media/sound/attackMiss1.wav");
     MENU_SELECT_SOUND = new MenuSoundEffect("media/sound/menuSelect.wav");
     AMBIANCE_RUMBLE_SOUND = new GameSoundEffect("media/sound/ambianceRumble.wav");
+    CHEST_OPEN_SOUND = new GameSoundEffect("media/sound/chestOpen.wav");
+    DESCEND_STAIRS_SOUND = new GameSoundEffect("media/sound/woodenStairs.wav");
+    LOOT_ITEM_SOUND = new GameSoundEffect("media/sound/lootItem.wav");
     
     gameSoundEffects.push_back(PLAYER_FOOTSTEP_SOUND);
     gameSoundEffects.push_back(MONSTER_BREATHING_1_SOUND);
     gameSoundEffects.push_back(MONSTER_BREATHING_2_SOUND);
     gameSoundEffects.push_back(MONSTER_BREATHING_3_SOUND);
     gameSoundEffects.push_back(MONSTER_BREATHING_4_SOUND);
-    gameSoundEffects.push_back(ATTACK_HIT_1_SOUND);
+    gameSoundEffects.push_back(PLAYER_DAMAGED_SOUND);
     gameSoundEffects.push_back(ATTACK_MISS_1_SOUND);
     gameSoundEffects.push_back(AMBIANCE_RUMBLE_SOUND);
     menuSoundEffects.push_back(MENU_SELECT_SOUND);

@@ -27,6 +27,10 @@ std::string Entity::getName() {
     return name;
 } // getName
 
+int Entity::getLevel() { 
+    return level;
+} // getLevel
+
 void Entity::setDrop(Item *drop) {
     this->drop = drop;
 } // setDrop

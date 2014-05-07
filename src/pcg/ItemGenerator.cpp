@@ -7,11 +7,15 @@
 
 Item *ItemGenerator::generateItem(int monsterLevel) {
     int goldWorth;
+    int minWorth;
+    int maxWorth;
     Item *result = new Item(monsterLevel);
     std::pair<std::string, std::string> itemData;
 
     itemData = ItemData::getInstance().getRandomItem();
-    goldWorth = rand() % (100 * (monsterLevel + 1));
+    minWorth = 100 * monsterLevel;
+    maxWorth = 100 * (monsterLevel + 1);
+    goldWorth = (rand() % maxWorth - minWorth) + minWorth;
 
     result->setName(itemData.first);
     result->setDescription(itemData.second);

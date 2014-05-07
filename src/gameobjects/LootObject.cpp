@@ -10,6 +10,8 @@
 #include "src/entities/player/Player.h"
 #include "src/gui/GUIManager.h"
 #include "src/gui/menu/ingamemenu/InGameMenu.h"
+#include "src/sound/SoundEffect.h"
+#include "src/sound/SoundManager.h"
 
 LootObject::LootObject(Item *item, float x, float z) : 
     GameObject(Ogre::Vector3(x, 0.5f, z)) {
@@ -57,6 +59,7 @@ void LootObject::hide() {
     // add to player inventory
     Player *player = World::getInstance().getCurrentPlayer();
     GUIManager::getInstance().inGameMenu->addItemToInventory(player, item);
+    SoundManager::getInstance().LOOT_ITEM_SOUND->play();
 } // hide
 
 void LootObject::update(const Ogre::FrameEvent &evt) {

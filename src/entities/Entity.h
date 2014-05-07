@@ -36,6 +36,7 @@ public:
     Entity(int level, int monsterPower, std::string name);
 
     std::string getName();
+    int getLevel();
     void setDrop(Item *drop);
     Item *getDrop();
     void spawn();

@@ -24,7 +24,10 @@ Zone *ZoneGenerator::generate(int seed, int monsterDifficulty, int zoneLevel, in
     Room *r;
     Zone *zone = new Zone(monsterDifficulty, zoneLevel);
 	struct Wall wall;
-    srand(seed);
+
+    if (seed != -1) {
+        srand(seed);
+    } // if
         
     GUIManager::getInstance().loadingMenu->setProgress(0.0f);
     GUIManager::getInstance().loadingMenu->setText("Generating rooms ...");

@@ -37,7 +37,8 @@ public:
     void updateTimePlayed(Ogre::Real secondsPassed);
 
     double calculateHit();
-    virtual void takeDamage(double amount, Entity *aggressor);
+    bool lowLife();
+    void takeDamage(double amount, Entity *aggressor);
     void die(Entity *slayer);
     void onSpawn() {}
     void onDeath() {}

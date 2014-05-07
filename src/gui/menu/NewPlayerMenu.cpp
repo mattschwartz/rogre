@@ -116,11 +116,11 @@ void NewPlayerMenu::createWidgets() {
     blindModeCheckbox->setSelected(false);
 
     backButton->setSize(SIZE(0.0f, 150.0f, 0.0f, 40.0f));
-    backButton->setPosition(POS(0.5f, -150.0f, 0.5f, 160.0f));
+    backButton->setPosition(POS(0.5f, -150.0f, 0.5f, 170.0f));
     backButton->setText("Back");
 
     startGameButton->setSize(SIZE(0.0f, 150.0f, 0.0f, 40.0f));
-    startGameButton->setPosition(POS(0.5f, 0.0f, 0.5f, 160.0f));
+    startGameButton->setPosition(POS(0.5f, 0.0f, 0.5f, 170.0f));
     startGameButton->setText("Start Game");
 } // createWidgets
 
@@ -163,7 +163,6 @@ void NewPlayerMenu::createRootWindow() {
     mRoot->addChild(backButton);
     mRoot->addChild(startGameButton);
 #endif
-
 } // createRootWindow
 
 void NewPlayerMenu::registerEvents() {
@@ -215,7 +214,8 @@ bool NewPlayerMenu::startGameEvent(const CEGUI::EventArgs &e) {
 #if USE_OGRE_LEGACY
     startNewPlayer();
 #else
-    mThread = boost::shared_ptr<boost::thread>(new boost::thread(boost::bind(&NewPlayerMenu::startNewPlayer, this)));
+    startNewPlayer();
+    //mThread = boost::shared_ptr<boost::thread>(new boost::thread(boost::bind(&NewPlayerMenu::startNewPlayer, this)));
 #endif
 
     return false;

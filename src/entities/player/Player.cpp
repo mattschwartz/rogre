@@ -10,6 +10,8 @@
 #include "src/gui/menu/ingamemenu/InGameMenu.h"
 #include "src/utility/StringHelper.h"
 #include "src/utility/MathHelper.h"
+#include "src/sound/SoundEffect.h"
+#include "src/sound/SoundManager.h"
 
 /**
  * Data
@@ -92,11 +94,24 @@ void Player::die(Entity *slayer) {
     GUIManager::getInstance().deathMenu->setSlainBy(slayer->getName());
 } // die
 
+bool Player::lowLife() {
+    return currentHitpoints <= (attributes[hitpoints] * 0.35);
+} // lowLife
+
 void Player::takeDamage(double amount, Entity *aggressor) {
     currentHitpoints -= amount;
 
     GUIManager::getInstance().inGameMenu->appendText(StringHelper::concat<double>("You are damaged for ", amount) + ".");
-    
+
+    if (lowLife()) {
+        SoundManager::getInstance().PLAYER_LOW_LIFE_SOUND->stop();
+        SoundManager::getInstance().PLAYER_LOW_LIFE_SOUND->play();
+    } // if
+    else {
+        SoundManager::getInstance().PLAYER_DAMAGED_SOUND->stop();
+        SoundManager::getInstance().PLAYER_DAMAGED_SOUND->play();
+    } // else
+
     if (currentHitpoints <= 0) {
         die(aggressor);
     } // if

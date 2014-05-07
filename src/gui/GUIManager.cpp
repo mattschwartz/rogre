@@ -10,6 +10,7 @@
 #include "menu/LoadingMenu.h"
 #include "menu/DeathMenu.h"
 #include "menu/ingamemenu/InGameMenu.h"
+#include "menu/HiScoresMenu.h"
 
 void GUIManager::init() {
     initCEGUI();
@@ -19,6 +20,7 @@ void GUIManager::init() {
     loadingMenu = new LoadingMenu();
     deathMenu = new DeathMenu();
     inGameMenu = new InGameMenu();
+    hiScoresMenu = new HiScoresMenu();
 } // init
 
 void GUIManager::initCEGUI() {
