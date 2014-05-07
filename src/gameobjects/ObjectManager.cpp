@@ -77,11 +77,11 @@ void ObjectManager::update(const Ogre::FrameEvent &evt) {
         return;
     } // if
 
-    int i = 0;
+    size_t i = 0;
     std::vector<int> removeIndices;
     GameObject *o;
 
-    while (i != objects.size()) {
+    while (i < objects.size()) {
         o = objects[i];
         o->update(evt);
 

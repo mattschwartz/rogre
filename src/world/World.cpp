@@ -103,6 +103,8 @@ bool World::isGamePaused() {
 } // isGamePaused
 
 void World::descend() {
+    paused = true;
+
     int roomSize = 15;
     currentZoneLevel++;
     ObjectManager::getInstance().destroyScene();
@@ -111,6 +113,8 @@ void World::descend() {
     GUIManager::getInstance().inGameMenu->appendText(
         StringHelper::concat<int>("Descending into level ", currentZoneLevel) + "...");
     GUIManager::getInstance().inGameMenu->appendText("Your foes have become stronger.");
+
+    paused = false;
 } // descend
 
 /**
