@@ -38,27 +38,27 @@ void LoadPlayerMenu::createWidgets() {
 #endif
 
     titleLabel->setSize(SIZE(0.0f, 300.0f, 0.0f, 40.0f));
-    titleLabel->setPosition(UVector2(UDim(0.5f, -150.0f), UDim(0.5f, -250.0f)));
+    titleLabel->setPosition(POS(0.5f, -150.0f, 0.5f, -250.0f));
     titleLabel->setText("Load Player");
     titleLabel->setAlwaysOnTop(true);
 
     playerSaveListbox->setSize(SIZE(0.0f, 300.0f, 0.0f, 400.0f));
-    playerSaveListbox->setPosition(UVector2(UDim(0.5f, -150.0f), UDim(0.5f, -200.0f)));
+    playerSaveListbox->setPosition(POS(0.5f, -150.0f, 0.5f, -200.0f));
     playerSaveListbox->setAlwaysOnTop(true);
 
     backButton->setSize(SIZE(0.0f, 100.0f, 0.0f, 40.0f));
-    backButton->setPosition(UVector2(UDim(0.5f, -150.0f), UDim(0.5f, 200.0f)));
+    backButton->setPosition(POS(0.5f, -150.0f, 0.5f, 200.0f));
     backButton->setText("Back");
     backButton->setAlwaysOnTop(true);
 
     deleteSaveButton->setSize(SIZE(0.0f, 100.0f, 0.0f, 40.0f));
-    deleteSaveButton->setPosition(UVector2(UDim(0.5f, -50.0f), UDim(0.5f, 200.0f)));
+    deleteSaveButton->setPosition(POS(0.5f, -50.0f, 0.5f, 200.0f));
     deleteSaveButton->setText("Delete");
     deleteSaveButton->setEnabled(false);
     deleteSaveButton->setAlwaysOnTop(true);
 
     loadSaveButton->setSize(SIZE(0.0f, 100.0f, 0.0f, 40.0f));
-    loadSaveButton->setPosition(UVector2(UDim(0.5f, 50.0f), UDim(0.5f, 200.0f)));
+    loadSaveButton->setPosition(POS(0.5f, 50.0f, 0.5f, 200.0f));
     loadSaveButton->setText("Load");
     loadSaveButton->setEnabled(false);
     loadSaveButton->setAlwaysOnTop(true);
