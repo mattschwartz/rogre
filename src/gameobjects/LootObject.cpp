@@ -49,6 +49,7 @@ void LootObject::hide() {
     visible = false;
     remove = true;
 
+    position.y = 100.0f;
     objectNode->setVisible(false);
     objectNode->setPosition(position);
     ObjectManager::getInstance().destroySceneNode("LootNode", id);

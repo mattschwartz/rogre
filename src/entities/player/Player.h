@@ -25,6 +25,7 @@ private:
 
 public:
     Player(int level, std::string name);
+    double getRegen();
     void regenerateLife();
     double getCurrentHitpoints();
     std::string getName();

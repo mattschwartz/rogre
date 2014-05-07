@@ -19,6 +19,7 @@ class World {
 private:
     bool paused;
     bool blindModeEnabled;
+    int monsterDifficulty;
     int currentZoneLevel;
     Player *currentPlayer;
     PlayerObject *playerObject;

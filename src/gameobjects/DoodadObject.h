@@ -21,7 +21,10 @@ public:
     DoodadObject(float x, float z) : GameObject(Ogre::Vector3(x, 0, z)) {
         this->id = doodadCount++;
     }
-    DoodadObject(Ogre::Vector3 pos) : GameObject(pos) {}
+
+    DoodadObject(Ogre::Vector3 pos) : GameObject(pos) {
+        this->id = doodadCount++;
+    }
 
     virtual void interact() = 0;
     virtual void show() = 0;

@@ -20,10 +20,14 @@ Player::Player(int level, std::string name) : Entity(level, 100, name) {
     lifePerSecond = 2.5; // as a percent
 } // constructor
 
+double Player::getRegen() {
+    return attributes[hitpoints] * (lifePerSecond / 100.0);
+} // getRegen
+
 void Player::regenerateLife() {
     double lifeRegenerated = attributes[hitpoints] * (lifePerSecond / 100.0);
     currentHitpoints += lifeRegenerated;
-    currentHitpoints = MathHelper::max<double>(currentHitpoints, attributes[hitpoints]);
+    currentHitpoints = MathHelper::min<double>(currentHitpoints, attributes[hitpoints]);
 } // regenerateLife
 
 double Player::getCurrentHitpoints() {

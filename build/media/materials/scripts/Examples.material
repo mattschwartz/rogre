@@ -89,3 +89,17 @@ material Examples/LootTexture
 		}
 	}
 }
+
+material Examples/StairsTexture
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture stairs_down.jpg
+			}
+		}
+	}
+}

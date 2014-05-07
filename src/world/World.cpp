@@ -98,6 +98,14 @@ bool World::isGamePaused() {
     return paused;
 } // isGamePaused
 
+void World::descend() {
+    int roomSize = 15;
+    currentZoneLevel++;
+    ObjectManager::getInstance().destroyScene();
+    currentZone = ZoneGenerator::getInstance().generate(-1, monsterDifficulty, currentZoneLevel, roomSize);
+    spawnCurrentPlayer();
+} // descend
+
 /**
  * Generates a new Zone that is abstractly one level below the current Zone
  * and thus one level more difficult.
@@ -106,6 +114,7 @@ void World::loadZone(int zoneLevel, int monsterDifficulty, int seed, bool blindM
     int roomSize = 15;
     paused = true;
     this->blindModeEnabled = blindModeEnabled;
+    this->monsterDifficulty = monsterDifficulty;
 
     currentZoneLevel = zoneLevel;
     currentZone = ZoneGenerator::getInstance().generate(seed, monsterDifficulty, currentZoneLevel, roomSize);

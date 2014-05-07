@@ -13,6 +13,8 @@
 #include "src/utility/MathHelper.h"
 #include "src/gui/GUIManager.h"
 #include "src/gui/menu/LoadingMenu.h"
+#include "src/gameobjects/StairsDoodadObject.h"
+#include <vector>
 
 Zone *ZoneGenerator::generate(int seed, int monsterDifficulty, int zoneLevel, int numRooms) {
     float x;
@@ -120,6 +122,22 @@ Zone *ZoneGenerator::generate(int seed, int monsterDifficulty, int zoneLevel, in
         GUIManager::getInstance().loadingMenu->setProgress((float)(i / (numRooms*1.0f)));
 	} // for
     
+
+    // get random room
+    float stairsX;
+    float stairsZ;
+    int randomRoom = rand() % zone->rooms.size();
+    RoomObject *rr = zone->rooms.at(randomRoom);
+
+    // pick random location within it
+    stairsX = rand() % (int)(rr->getWidth());
+    stairsZ = rand() % (int)(rr->getDepth());
+
+    // make sure the entire object fits
+
+    // add it to the world
+    zone->addDoodad(new StairsDoodadObject(stairsX, stairsZ));
+    
     GUIManager::getInstance().loadingMenu->setText("Building doodads ...");
     for (DoodadObject *o : zone->doodads) {
         ObjectManager::getInstance().spawnObject(o);
@@ -145,6 +163,7 @@ Zone *ZoneGenerator::generate(int seed, int monsterDifficulty, int zoneLevel, in
 
     spawnLights(zone);
     freeWalls.clear();
+
 
     return zone;
 } // generate
