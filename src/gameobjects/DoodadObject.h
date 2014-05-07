@@ -23,6 +23,7 @@ public:
     }
     DoodadObject(Ogre::Vector3 pos) : GameObject(pos) {}
 
+    virtual void interact() = 0;
     virtual void show() = 0;
     virtual void hide() = 0;
     virtual void createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera) = 0;

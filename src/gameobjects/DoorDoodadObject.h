@@ -16,6 +16,7 @@ public:
     void setFacing(Ogre::Vector3 facing);
     void createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera);
     void update(const Ogre::FrameEvent &evt);
+    void interact() {}
     void show();
     void hide();
 };

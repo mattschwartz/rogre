@@ -14,8 +14,9 @@
 #include "src/gameobjects/RoomObject.h"
 #include "src/gameobjects/ObjectManager.h"
 #include "src/gameobjects/LootObject.h"
-#include "ItemGenerator.h"
 #include "MonsterGenerator.h"
+#include "ChestGenerator.h"
+#include "ItemGenerator.h"
 #include "src/utility/StringHelper.h"
 
 Room *RoomGenerator::generate(Zone *zone, float x, float z, 
@@ -36,7 +37,7 @@ Room *RoomGenerator::generate(Zone *zone, float x, float z,
 		eZ = (rand() % (int)depth) + z;
         zone->addEntity(new GoblinEntityObject(e, eX, eZ));
 
-        d = new ChestDoodad();
+        d = ChestGenerator::getInstance().generateChest(zone->zoneLevel);
 		eX = (rand() % (int)width) + x;
 		eZ = (rand() % (int)depth) + z;
         zone->addDoodad(new ChestDoodadObject(d, eX, eZ));

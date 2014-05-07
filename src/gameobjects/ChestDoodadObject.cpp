@@ -32,19 +32,20 @@ void ChestDoodadObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera 
     remove = false;
 } // createObject
 
-void ChestDoodadObject::openChest() {
+void ChestDoodadObject::interact() {
     Ogre::Vector3 lootPosition;
     LootObject *loot;
 
     for (Item *item : chest->getContents()) {
         lootPosition = position;
         
-        lootPosition.x += (rand() % 4) - 2.5;
-        lootPosition.z += (rand() % 4) - 2.5;
+        lootPosition.x += Ogre::Real((rand() % 4) - 2.5);
+        lootPosition.z += Ogre::Real((rand() % 4) - 2.5);
 
         loot = new LootObject(item, lootPosition);
         ObjectManager::getInstance().spawnObject(loot);
     } // for
+    hide();
 } // openChest
 
 void ChestDoodadObject::show() {
@@ -54,6 +55,8 @@ void ChestDoodadObject::show() {
 
 void ChestDoodadObject::hide() {
     remove = true;
+    position.y = 100.0f;
+    objectNode->setPosition(position);
     objectNode->setVisible(false, false);
 } // hide
 

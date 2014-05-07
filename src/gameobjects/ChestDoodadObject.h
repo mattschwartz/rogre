@@ -18,7 +18,7 @@ public:
     ChestDoodadObject(ChestDoodad *chest, Ogre::Vector3 pos);
     void show();
     void hide();
-    void openChest();
+    void interact();
     void createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera);
     void update(const Ogre::FrameEvent &evt);
 };

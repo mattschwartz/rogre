@@ -9,6 +9,7 @@
 #include "src/sound/SoundEffect.h"
 #include "src/utility/StringHelper.h"
 #include "src/gameobjects/ObjectManager.h"
+#include "DoodadObject.h"
 #include "EntityObject.h"
 #include "GameObject.h"
 #include "src/gui/GUIManager.h"
@@ -173,6 +174,13 @@ void PlayerObject::attack(const Ogre::FrameEvent &evt) {
             if (ObjectManager::getInstance().canReach(this, o, 1.0f)) {
                 dmg = player->calculateHit();
                 o->monster->takeDamage(dmg, player);
+            } // if
+        } // for
+
+        for (DoodadObject *o : zone->doodads) {
+            if (ObjectManager::getInstance().canReach(this, o, 1.0f)) {
+                dmg = player->calculateHit();
+                o->interact();
             } // if
         } // for
     } // if
