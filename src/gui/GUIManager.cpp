@@ -6,6 +6,7 @@
 #include "src/main/BaseApplication.h"
 #include "menu/MainMenu.h"
 #include "menu/NewPlayerMenu.h"
+#include "menu/LoadPlayerMenu.h"
 #include "menu/OptionsMenu.h"
 #include "menu/LoadingMenu.h"
 #include "menu/DeathMenu.h"
@@ -16,6 +17,7 @@ void GUIManager::init() {
     initCEGUI();
     mainMenu = new MainMenu();
     newPlayerMenu = new NewPlayerMenu();
+    loadPlayerMenu = new LoadPlayerMenu();
     optionsMenu = new OptionsMenu();
     loadingMenu = new LoadingMenu();
     deathMenu = new DeathMenu();

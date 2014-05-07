@@ -5,12 +5,14 @@
 #include "NewPlayerMenu.h"
 #include "LoadingMenu.h"
 #include "DeathMenu.h"
+#include "LoadPlayerMenu.h"
 #include "src/entities/player/Player.h"
 #include "src/input/InputManager.h"
 #include "src/gui/GUIManager.h"
 #include "src/gui/menu/HiScoresMenu.h"
 #include "src/sound/SoundManager.h"
 #include "src/sound/SoundEffect.h"
+#include "src/utility/GUIHelper.h"
 
 MainMenu::MainMenu() 
     : windowManager(CEGUI::WindowManager::getSingleton()) {
@@ -37,37 +39,31 @@ void MainMenu::createButtons() {
     backgroundWindow = windowManager.createWindow("OgreTray/StaticImage", "MainMenu/backgroundWindow");
     backgroundWindow->setProperty("Image", "set:Background image:full_image");
 #endif
-
-#if USE_OGRE_LEGACY
-    titleLabel->setSize(UVector2(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
-    newPlayerButton->setSize(UVector2(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
-    loadPlayerButton->setSize(UVector2(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
-    hiScoresButton->setSize(UVector2(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
-    quitButton->setSize(UVector2(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
-#else
-    titleLabel->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
-    newPlayerButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
-    loadPlayerButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
-    hiScoresButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
-    quitButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
-
-    loadPlayerButton->setEnabled(false);
-#endif
     
+    titleLabel->setSize(SIZE(0.0f, 150.0f, 0.0f, 40.0f));
     titleLabel->setPosition(UVector2(UDim(0.5f, -(150.0f / 2)), UDim(0.5f, -110.0f)));
     titleLabel->setText("Main Menu");
-
+    titleLabel->setAlwaysOnTop(true);
+    
+    newPlayerButton->setSize(SIZE(0.0f, 150.0f, 0.0f, 40.0f));
     newPlayerButton->setPosition(UVector2(UDim(0.5f, -(150.0f / 2)), UDim(0.5f, -60.0f)));
     newPlayerButton->setText("New Player");
+    newPlayerButton->setAlwaysOnTop(true);
     
+    loadPlayerButton->setSize(SIZE(0.0f, 150.0f, 0.0f, 40.0f));
     loadPlayerButton->setPosition(UVector2(UDim(0.5f, -(150.0f / 2)), UDim(0.5f, -20.0f)));
     loadPlayerButton->setText("Load Player");
+    loadPlayerButton->setAlwaysOnTop(true);
     
+    hiScoresButton->setSize(SIZE(0.0f, 150.0f, 0.0f, 40.0f));
     hiScoresButton->setPosition(UVector2(UDim(0.5f, -(150.0f / 2)), UDim(0.5f, 20.0f)));
     hiScoresButton->setText("Graveyard");
-
+    hiScoresButton->setAlwaysOnTop(true);
+    
+    quitButton->setSize(SIZE(0.0f, 150.0f, 0.0f, 40.0f));
     quitButton->setPosition(UVector2(UDim(0.5f, -(150.0f / 2)), UDim(0.5f, 60.0f)));
     quitButton->setText("Quit");
+    quitButton->setAlwaysOnTop(true);
 } // createButtons
 
 void MainMenu::createRootWindow() {
@@ -128,7 +124,7 @@ bool MainMenu::newPlayerEvent(const CEGUI::EventArgs &e) {
 
 bool MainMenu::loadPlayerEvent(const CEGUI::EventArgs &e) {
     SoundManager::getInstance().MENU_SELECT_SOUND->play();
-    GUIManager::getInstance().deathMenu->show();
+    GUIManager::getInstance().loadPlayerMenu->show();
 	return false;
 } // loadPlayerEvent
 

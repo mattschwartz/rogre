@@ -24,23 +24,33 @@ void HiScoresMenu::createWidgets() {
     resetScoresButton = static_cast<PushButton*>(
         windowManager.createWindow("OgreTray/Button", "HiScoresMenu/resetScoresButton"));
     scores = windowManager.createWindow("OgreTray/MultiLineEditbox", "HiScoresMenu/scores");
+
+#if USE_OGRE_LEGACY
+    Imageset& MenuImage =ImagesetManager::getSingleton().createFromImageFile("Background", "main_menu_bg.jpg");
+    backgroundWindow = windowManager.createWindow("OgreTray/StaticImage", "HiScoreMenu/backgroundWindow");
+    backgroundWindow->setProperty("Image", "set:Background image:full_image");
+#endif
     
     titleLabel->setSize(SIZE(0.0f, 300.0f, 0.0f, 40.0f));
     titleLabel->setPosition(POS(0.5f, -150.0f, 0.5f, -175.0f));
     titleLabel->setText("Graveyard");
+    titleLabel->setAlwaysOnTop(true);
 
     scores->setSize(SIZE(0.0f, 600.0f, 0.0f, 250.0f));
     scores->setPosition(POS(0.5f, -300.0f, 0.5f, -125.0f));
     scores->setText("Player 1 died with a score of 19843 on 05.07.2014.");
     ((MultiLineEditbox*)scores)->setReadOnly(true);
+    scores->setAlwaysOnTop(true);
 
     backButton->setSize(SIZE(0.0f, 150.0f, 0.0f, 40.0f));
     backButton->setPosition(POS(0.5f, -150.0f, 0.5f, 125.0f));
     backButton->setText("Back");
+    backButton->setAlwaysOnTop(true);
 
     resetScoresButton->setSize(SIZE(0.0f, 150.0f, 0.0f, 40.0f));
     resetScoresButton->setPosition(POS(0.5f, 0.0f, 0.5f, 125.0f));
     resetScoresButton->setText("Reset All Scores");
+    resetScoresButton->setAlwaysOnTop(true);
 } // createWidgets
 
 void HiScoresMenu::createRootWindow() {
@@ -49,11 +59,13 @@ void HiScoresMenu::createRootWindow() {
     mRoot = windowManager.createWindow("DefaultWindow", "HiScoresMenu/root");
 
 #if USE_OGRE_LEGACY
+    mRoot->addChildWindow(backgroundWindow);
     mRoot->addChildWindow(titleLabel);
     mRoot->addChildWindow(scores);
     mRoot->addChildWindow(backButton);
     mRoot->addChildWindow(resetScoresButton);
 #else
+    mRoot->addChild(backgroundWindow);
     mRoot->addChild(titleLabel);
     mRoot->addChild(scores);
     mRoot->addChild(backButton);
@@ -70,16 +82,6 @@ void HiScoresMenu::registerEvents() {
         Event::Subscriber(&HiScoresMenu::resetScoresEvent, this));
 } // registerEvents
 
-bool HiScoresMenu::backEvent(const CEGUI::EventArgs &e) {
-    SoundManager::getInstance().MENU_SELECT_SOUND->play();
-    GUIManager::getInstance().mainMenu->show();
-    return false;
-} // backEvent
-
-bool HiScoresMenu::resetScoresEvent(const CEGUI::EventArgs &e) {
-    return false;
-} // resetScoresEvent
-
 void HiScoresMenu::show() {
 #if USE_OGRE_LEGACY
     CEGUI::System::getSingleton().setGUISheet(mRoot);
@@ -95,3 +97,14 @@ void HiScoresMenu::hide() {
     CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(NULL);
 #endif
 } // hide
+
+bool HiScoresMenu::backEvent(const CEGUI::EventArgs &e) {
+    SoundManager::getInstance().MENU_SELECT_SOUND->play();
+    GUIManager::getInstance().mainMenu->show();
+    return false;
+} // backEvent
+
+bool HiScoresMenu::resetScoresEvent(const CEGUI::EventArgs &e) {
+    SoundManager::getInstance().MENU_SELECT_SOUND->play();
+    return false;
+} // resetScoresEvent

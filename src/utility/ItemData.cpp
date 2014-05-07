@@ -213,6 +213,10 @@ struct affixdata ItemData::getAffixData(int itemLevel) {
     return unbreakableItems;
 } // getAffixData
 
+std::string ItemData::getDescriptionForItem(std::string itemName) {
+    return baseItems[itemName];
+} // getDescriptionForItem
+
 std::pair<std::string, std::string> ItemData::getRandomItem() {
     int ran = rand() % baseItems.size();
     auto iter = baseItems.begin();

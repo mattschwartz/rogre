@@ -23,6 +23,10 @@ Entity::Entity(int level, int monsterPower, std::string name) {
     currentHitpoints = attributes[hitpoints];
 } // constructor
 
+void Entity::setName(std::string name) {
+    this->name =name;
+} // setName
+
 std::string Entity::getName() {
     return name;
 } // getName
@@ -30,6 +34,10 @@ std::string Entity::getName() {
 int Entity::getLevel() { 
     return level;
 } // getLevel
+
+void Entity::setLevel(int level) {
+    this->level = level;
+} // setLevel
 
 void Entity::setDrop(Item *drop) {
     this->drop = drop;
@@ -62,9 +70,25 @@ void Entity::die(Entity *slayer) {
     GUIManager::getInstance().inGameMenu->appendText(name + " has been slain.");
 } // die
 
+double Entity::getCurrentHitpoints() {
+    return currentHitpoints;
+} // getCurrentHitpoints
+
+void Entity::setCurrentHitpoints(double value) {
+    currentHitpoints = value;
+} // setCurrentHitpoints
+
 double Entity::getAttribute(attribute_t attribute) {
     return attributes[attribute];
 } // getAttribute
+
+void Entity::setAttribute(attribute_t attribute, double value) {
+    if (attribute < 0 || attribute > 3) {
+        return;
+    } // if
+
+    attributes[attribute] = value;
+} // setAttribute
 
 /**
  * Determines the amount of damage to deal on the next hit,

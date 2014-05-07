@@ -6,7 +6,7 @@
  */
 #include "CEGUI/CEGUI.h"
 #include <string>
-#include "src/main/BaseApplication.h"
+#include "src/gui/GUIManager.h"
 
 #if !USE_OGRE_LEGACY
     #include <boost/thread/thread.hpp>

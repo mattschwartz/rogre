@@ -36,13 +36,18 @@ public:
     Entity(int level, int monsterPower, std::string name);
 
     std::string getName();
+    void setName(std::string name);
     int getLevel();
+    void setLevel(int level);
     void setDrop(Item *drop);
     Item *getDrop();
     void spawn();
     bool isDead();
     virtual void die(Entity *slayer);
+    double getCurrentHitpoints();
+    void setCurrentHitpoints(double value);
     double getAttribute(attribute_t attribute);
+    void setAttribute(attribute_t attribute, double value);
     virtual double calculateHit();
     virtual void takeDamage(double amount, Entity *aggressor);
 

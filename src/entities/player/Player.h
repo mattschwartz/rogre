@@ -27,13 +27,13 @@ public:
     Player(int level, std::string name);
     double getRegen();
     void regenerateLife();
-    double getCurrentHitpoints();
     std::string getName();
     int getScore();
     void equipItem(Equippable *equippable);
     Equippable *getEquippedItemAt(int slotId);
     Inventory *getInventory();
     Ogre::Real getTimePlayed();
+    void setTimePlayed(Ogre::Real timeplayed);
     void updateTimePlayed(Ogre::Real secondsPassed);
 
     double calculateHit();

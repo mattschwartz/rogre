@@ -37,11 +37,14 @@ void LoadingMenu::createWidgets() {
 
     textLabel->setPosition(UVector2(UDim(0.25f, 0.0f), UDim(1.0f, -80.0f)));
     textLabel->setText("Loading...");
+    textLabel->setAlwaysOnTop(true);
 
     tipLabel->setPosition(UVector2(UDim(0.0f, 5.0f), UDim(0.0f, 5.0f)));
     tipLabel->setText("Tips");
+    tipLabel->setAlwaysOnTop(true);
 
     loadingBar->setPosition(UVector2(UDim(0.25f, 0.0f), UDim(1.0f, -40.0f)));
+    loadingBar->setAlwaysOnTop(true);
 } // createWidgets
 
 void LoadingMenu::createRootWindow() {
