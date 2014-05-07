@@ -22,9 +22,9 @@ DeathMenu::DeathMenu()
 void DeathMenu::createWidgets() {
     using namespace CEGUI;
 #if USE_OGRE_LEGACY
-    Imageset& MenuImage =ImagesetManager::getSingleton().createFromImageFile("Background", "death_menu_bg.jpg");
+    Imageset& MenuImage =ImagesetManager::getSingleton().createFromImageFile("Background2", "death_menu_bg.jpg");
     backgroundWindow = windowManager.createWindow("OgreTray/StaticImage", "DeathMenu/backgroundWindow");
-    backgroundWindow->setProperty("Image", "set:Background image:full_image");
+    backgroundWindow->setProperty("Image", "set:Background2 image:full_image");
 #endif
     
     titleLabel = windowManager.createWindow("OgreTray/Title", "DeathMenu/titleLabel");
@@ -40,32 +40,39 @@ void DeathMenu::createWidgets() {
     titleLabel->setSize(SIZE(0.0f, 300.0f, 0.0f, 40.0f));
     titleLabel->setPosition(UVector2(UDim(0.5f, -150.0f), UDim(0.5f, -70.0f)));
     titleLabel->setText("You Have Died.");
+    titleLabel->setAlwaysOnTop(true);
 
     textLabel->setSize(SIZE(0.0f, 150.0f, 0.0f, 40.0f));
     textLabel->setPosition(UVector2(UDim(0.5f, -150.0f), UDim(0.5f, -20.0f)));
     textLabel->setText("Final Score: ");
+    textLabel->setAlwaysOnTop(true);
 
     scoreTextField->setSize(SIZE(0.0f, 150.0f, 0.0f, 40.0f));
     scoreTextField->setPosition(UVector2(UDim(0.5f, 0.0f), UDim(0.5f, -20.0f)));
     scoreTextField->setText("0");
     scoreTextField->setEnabled(false);
+    scoreTextField->setAlwaysOnTop(true);
 
     slayerLabel->setSize(SIZE(0.0f, 150.0f, 0.0f, 40.0f));
     slayerLabel->setPosition(UVector2(UDim(0.5f, -150.0f), UDim(0.5f, 20.0f)));
     slayerLabel->setText("Slain by");
+    slayerLabel->setAlwaysOnTop(true);
 
     slayerTextField->setSize(SIZE(0.0f, 150.0f, 0.0f, 40.0f));
     slayerTextField->setPosition(UVector2(UDim(0.5f, 0.0f), UDim(0.5f, 20.0f)));
     slayerTextField->setText("an act of god");
     slayerTextField->setEnabled(false);
+    slayerTextField->setAlwaysOnTop(true);
 
     quitToMenuButton->setSize(SIZE(0.0f, 150.0f, 0.0f, 40.0f));
     quitToMenuButton->setPosition(UVector2(UDim(0.5f, -150.0f), UDim(0.5f, 60.0f)));
     quitToMenuButton->setText("Main Menu");
+    quitToMenuButton->setAlwaysOnTop(true);
     
     quitGameButton->setSize(SIZE(0.0f, 150.0f, 0.0f, 40.0f));
     quitGameButton->setPosition(UVector2(UDim(0.5f, 0.0f), UDim(0.5f, 60.0f)));
     quitGameButton->setText("Quit");
+    quitGameButton->setAlwaysOnTop(true);
 } // createWidgets
 
 void DeathMenu::createRootWindow() {

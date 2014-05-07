@@ -61,68 +61,83 @@ void NewPlayerMenu::createWidgets() {
     titleLabel->setSize(SIZE(0.0f, 300.0f, 0.0f, 40.0f));
     titleLabel->setPosition(POS(0.5f, -150.0f, 0.5f, -170.0f));
     titleLabel->setText("Create a New Player");
+    titleLabel->setAlwaysOnTop(true);
     
     playerNameLabel->setSize(SIZE(0.0f, 150.0f, 0.0f, 40.0f));
     playerNameLabel->setPosition(POS(0.5f, -150.0f, 0.5f, -130.0f));
     playerNameLabel->setText("Player Name");
+    playerNameLabel->setAlwaysOnTop(true);
 
     playerNameTextField->setSize(SIZE(0.0f, 150.0f, 0.0f, 40.0f));
     playerNameTextField->setPosition(POS(0.5f, 0.0f, 0.5f, -130.0f));
     playerNameTextField->setText("player1");
+    playerNameTextField->setAlwaysOnTop(true);
 
     gameSettingsLabel->setSize(SIZE(0.0f, 300.0f, 0.0f, 40.0f));
     gameSettingsLabel->setPosition(POS(0.5f, -150.0f, 0.5f, -80.0f));
     gameSettingsLabel->setText("Advanced Game Settings");
+    gameSettingsLabel->setAlwaysOnTop(true);
 
     seedLabel->setSize(SIZE(0.0f, 150.0f, 0.0f, 40.0f));
     seedLabel->setPosition(POS(0.5f, -150.0f, 0.5f, -40.0f));
     seedLabel->setText("Seed");
+    seedLabel->setAlwaysOnTop(true);
 
     seedTextField->setSize(SIZE(0.0f, 150.0f, 0.0f, 40.0f));
     seedTextField->setPosition(POS(0.5f, 0.0f, 0.5f, -40.0f));
+    seedTextField->setAlwaysOnTop(true);
 
     // middle mark
 
     difficultyLabel->setSize(SIZE(0.0f, 150.0f, 0.0f, 80.0f));
     difficultyLabel->setPosition(POS(0.5f, -150.0f, 0.5f, 0.0f));
     difficultyLabel->setText("Monster\nDifficulty");
+    difficultyLabel->setAlwaysOnTop(true);
 
     difficultySlider->setSize(SIZE(0.0f, 150.0f, 0.0f, 20.0f));
     difficultySlider->setPosition(POS(0.5f, 0.0f, 0.5f, 10.0f));
     difficultySlider->setClickStep(10.0f);
     difficultySlider->setCurrentValue(50.0f);
     difficultySlider->setMaxValue(150.0f);
+    difficultySlider->setAlwaysOnTop(true);
 
     difficultyTextField->setSize(SIZE(0.0f, 150.0f, 0.0f, 40.0f));
     difficultyTextField->setPosition(POS(0.5f, 0.0f, 0.5f, 40.0f));
     difficultyTextField->setEnabled(false);
     difficultyTextField->setText("50%");
+    difficultyTextField->setAlwaysOnTop(true);
 
     startingZoneLevelLabel->setSize(SIZE(0.0f, 150.0f, 0.0f, 40.0f));
     startingZoneLevelLabel->setPosition(POS(0.5f, -150.0f, 0.5f, 80.0f));
     startingZoneLevelLabel->setText("Monster Level");
+    startingZoneLevelLabel->setAlwaysOnTop(true);
 
     startingZoneLevelTextField->setSize(SIZE(0.0f, 150.0f, 0.0f, 40.0f));
     startingZoneLevelTextField->setPosition(POS(0.5f, 0.0f, 0.5f, 80.0f));
     startingZoneLevelTextField->setCurrentValue(1.0);
     startingZoneLevelTextField->setMinimumValue(0.0);
     startingZoneLevelTextField->setMaximumValue(20.0);
+    startingZoneLevelTextField->setAlwaysOnTop(true);
 
     blindModeLabel->setSize(SIZE(0.0f, 260.0f, 0.0f, 40.0f));
     blindModeLabel->setPosition(POS(0.5f, -150.0f, 0.5f, 120.0f));
     blindModeLabel->setText("Enable Blind Mode");
+    blindModeLabel->setAlwaysOnTop(true);
 
     blindModeCheckbox->setSize(SIZE(0.0f, 40.0f, 0.0f, 40.0f));
     blindModeCheckbox->setPosition(POS(0.5f, 110.0f, 0.5f, 120.0f));
     blindModeCheckbox->setSelected(false);
+    blindModeCheckbox->setAlwaysOnTop(true);
 
     backButton->setSize(SIZE(0.0f, 150.0f, 0.0f, 40.0f));
     backButton->setPosition(POS(0.5f, -150.0f, 0.5f, 170.0f));
     backButton->setText("Back");
+    backButton->setAlwaysOnTop(true);
 
     startGameButton->setSize(SIZE(0.0f, 150.0f, 0.0f, 40.0f));
     startGameButton->setPosition(POS(0.5f, 0.0f, 0.5f, 170.0f));
     startGameButton->setText("Start Game");
+    startGameButton->setAlwaysOnTop(true);
 } // createWidgets
 
 void NewPlayerMenu::createRootWindow() {
