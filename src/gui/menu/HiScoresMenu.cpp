@@ -24,6 +24,12 @@ void HiScoresMenu::createWidgets() {
     resetScoresButton = static_cast<PushButton*>(
         windowManager.createWindow("OgreTray/Button", "HiScoresMenu/resetScoresButton"));
     scores = windowManager.createWindow("OgreTray/MultiLineEditbox", "HiScoresMenu/scores");
+
+#if USE_OGRE_LEGACY
+    Imageset& MenuImage =ImagesetManager::getSingleton().createFromImageFile("Background", "main_menu_bg.jpg");
+    backgroundWindow = windowManager.createWindow("OgreTray/StaticImage", "HiScoreMenu/backgroundWindow");
+    backgroundWindow->setProperty("Image", "set:Background image:full_image");
+#endif
     
     titleLabel->setSize(SIZE(0.0f, 300.0f, 0.0f, 40.0f));
     titleLabel->setPosition(POS(0.5f, -150.0f, 0.5f, -175.0f));
@@ -53,11 +59,13 @@ void HiScoresMenu::createRootWindow() {
     mRoot = windowManager.createWindow("DefaultWindow", "HiScoresMenu/root");
 
 #if USE_OGRE_LEGACY
+    mRoot->addChildWindow(backgroundWindow);
     mRoot->addChildWindow(titleLabel);
     mRoot->addChildWindow(scores);
     mRoot->addChildWindow(backButton);
     mRoot->addChildWindow(resetScoresButton);
 #else
+    mRoot->addChild(backgroundWindow);
     mRoot->addChild(titleLabel);
     mRoot->addChild(scores);
     mRoot->addChild(backButton);

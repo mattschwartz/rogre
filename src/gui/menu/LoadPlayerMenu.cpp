@@ -25,30 +25,41 @@ void LoadPlayerMenu::createWidgets() {
     backButton = static_cast<PushButton*>(
         windowManager.createWindow("OgreTray/Button", "LoadPlayerMenu/backButton"));
     deleteSaveButton = static_cast<PushButton*>(
-        windowManager.createWindow("OgreTray/Button", "LoadPlayerMenu/backButton"));
+        windowManager.createWindow("OgreTray/Button", "LoadPlayerMenu/deleteSaveButton"));
     loadSaveButton = static_cast<PushButton*>(
-        windowManager.createWindow("OgreTray/Button", "LoadPlayerMenu/backButton"));
+        windowManager.createWindow("OgreTray/Button", "LoadPlayerMenu/loadSaveButton"));
+
+#if USE_OGRE_LEGACY
+    Imageset& MenuImage =ImagesetManager::getSingleton().createFromImageFile("Background", "main_menu_bg.jpg");
+    backgroundWindow = windowManager.createWindow("OgreTray/StaticImage", "LoadPlayerMenu/backgroundWindow");
+    backgroundWindow->setProperty("Image", "set:Background image:full_image");
+#endif
 
     titleLabel->setSize(SIZE(0.0f, 300.0f, 0.0f, 40.0f));
-    titleLabel->setPosition(POS(0.5f, -150.0f, 0.5f, -250.0f));
+    titleLabel->setPosition(UVector2(UDim(0.5f, -150.0f), UDim(0.5f, -250.0f)));
     titleLabel->setText("Load Player");
+    titleLabel->setAlwaysOnTop(true);
 
     playerSaveListbox->setSize(SIZE(0.0f, 300.0f, 0.0f, 400.0f));
-    playerSaveListbox->setPosition(POS(0.5f, -150.0f, 0.5f, -200.0f));
+    playerSaveListbox->setPosition(UVector2(UDim(0.5f, -150.0f), UDim(0.5f, -200.0f)));
+    playerSaveListbox->setAlwaysOnTop(true);
 
     backButton->setSize(SIZE(0.0f, 100.0f, 0.0f, 40.0f));
-    backButton->setPosition(POS(0.5f, -150.0f, 0.5f, 200.0f));
+    backButton->setPosition(UVector2(UDim(0.5f, -150.0f), UDim(0.5f, 200.0f)));
     backButton->setText("Back");
+    backButton->setAlwaysOnTop(true);
 
     deleteSaveButton->setSize(SIZE(0.0f, 100.0f, 0.0f, 40.0f));
-    deleteSaveButton->setPosition(POS(0.5f, -50.0f, 0.5f, 200.0f));
+    deleteSaveButton->setPosition(UVector2(UDim(0.5f, -50.0f), UDim(0.5f, 200.0f)));
     deleteSaveButton->setText("Delete");
     deleteSaveButton->setEnabled(false);
+    deleteSaveButton->setAlwaysOnTop(true);
 
     loadSaveButton->setSize(SIZE(0.0f, 100.0f, 0.0f, 40.0f));
-    loadSaveButton->setPosition(POS(0.5f, 50.0f, 0.5f, 200.0f));
+    loadSaveButton->setPosition(UVector2(UDim(0.5f, 50.0f), UDim(0.5f, 200.0f)));
     loadSaveButton->setText("Load");
     loadSaveButton->setEnabled(false);
+    loadSaveButton->setAlwaysOnTop(true);
 } // createWidgets
 
 void LoadPlayerMenu::createRootWindow() {
@@ -57,12 +68,14 @@ void LoadPlayerMenu::createRootWindow() {
     mRoot = windowManager.createWindow("DefaultWindow", "LoadPlayerMenu/root");
 
 #if USE_OGRE_LEGACY
+    mRoot->addChildWindow(backgroundWindow);
     mRoot->addChildWindow(titleLabel);
     mRoot->addChildWindow(playerSaveListbox);
     mRoot->addChildWindow(backButton);
     mRoot->addChildWindow(deleteSaveButton);
     mRoot->addChildWindow(loadSaveButton);
 #else
+    mRoot->addChild(backgroundWindow);
     mRoot->addChild(titleLabel);
     mRoot->addChild(playerSaveListbox);
     mRoot->addChild(backButton);
