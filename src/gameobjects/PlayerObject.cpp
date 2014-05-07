@@ -14,6 +14,7 @@
 #include "GameObject.h"
 #include "src/gui/GUIManager.h"
 #include "src/gui/menu/ingamemenu/InGameMenu.h"
+#include "src/utility/filesys/FileManager.h"
 
 PlayerObject::PlayerObject(Player *player, float x, float y, float z) : GameObject(Ogre::Vector3(x, y, z)) {
     this->player = player;
@@ -51,6 +52,7 @@ void PlayerObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *came
     dying = false;
     dead = false;
     attacking = false;
+    updateGraveyard = true;
     walkTo = position;
     lastHealthTick = 0.0f;
 } // createObject
@@ -61,6 +63,10 @@ void PlayerObject::update(const Ogre::FrameEvent &evt) {
 
         if (mAnimationState->hasEnded()) {
             player->onDeath();
+            if (updateGraveyard) {
+                FileManager::getInstance().addToGraveyard(player);
+                updateGraveyard = false;
+            } // if
         } // if
     } // if
     else {

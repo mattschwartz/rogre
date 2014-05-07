@@ -199,6 +199,12 @@ void NewPlayerMenu::show() {
 #else
     CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(mRoot);
 #endif
+
+    // reset default options
+    playerNameTextField->setText("player1");
+    startingZoneLevelTextField->setCurrentValue(1.0);
+    difficultySlider->setCurrentValue(50.0f);
+    blindModeCheckbox->setSelected(false);
     seedTextField->setText(StringHelper::concat<int>("", seed));
 } // show
 

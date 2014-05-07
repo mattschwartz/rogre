@@ -15,9 +15,61 @@
 #include <Ogre.h>
 
 static const std::string SAVE_DATA_META_FILE = "data/save/.savefiles";
+static const std::string GRAVEYARD_FILE = "data/graveyard.txt";
 
 void FileManager::init() {
 } // init
+
+std::vector<std::string> FileManager::getGraveyard() {
+    using namespace std;
+    string line;
+    stringstream deathNote;
+    vector<string> result;
+    vector<string> split;
+    string name, score, timePlayed, timeOfDeath;
+    string filepath = GRAVEYARD_FILE;
+    fstream file(filepath);
+
+    if (!file.is_open()) {
+        return result;
+    } // if
+
+    while (!file.eof()) {
+        line = readLine(&file);
+
+        if (line[0] == '#') {
+            continue;
+        } // if
+
+        split = StringHelper::split(line, ';');
+        name = split[0];
+        score = split[1];
+        timePlayed = split[2];
+        timeOfDeath = split[3];
+
+        deathNote.str("");
+        deathNote.clear();
+
+        char buf[10];
+        sprintf(buf, "%.2f", atof(timePlayed.c_str()));
+        timePlayed = string(buf);
+
+        deathNote << name << " perished with a score of " << score << " after " << timePlayed << " seconds at " << timeOfDeath << ".";
+        result.push_back(deathNote.str());
+    } // while
+
+    return result;
+} // getGraveyard
+
+void FileManager::addToGraveyard(Player *player) {
+    using namespace std;
+    ofstream file;
+
+    file.open(GRAVEYARD_FILE, fstream::out | fstream::app);
+
+    file << player->getName() << ";" << player->getScore() << ";" << player->getTimePlayed() << ";" << timestamp() << endl;
+    file.close();
+} // addToGraveyard
 
 std::set<std::string> FileManager::getLoadablePlayers() {
     using namespace std;
