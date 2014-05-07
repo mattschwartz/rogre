@@ -2,7 +2,9 @@
  * Included files
  */
 #include "ChestDoodadObject.h"
+#include "LootObject.h"
 #include "src/doodad/ChestDoodad.h"
+#include "src/gameobjects/ObjectManager.h"
 #include "src/utility/StringHelper.h"
 
 ChestDoodadObject::ChestDoodadObject(ChestDoodad *chest, float x, float z) :
@@ -27,12 +29,32 @@ void ChestDoodadObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera 
 	objectNode->setPosition(position);
 
     objectNode->pitch(Ogre::Degree(90));
+    remove = false;
 } // createObject
 
+void ChestDoodadObject::openChest() {
+    Ogre::Vector3 lootPosition;
+    LootObject *loot;
+
+    for (Item *item : chest->getContents()) {
+        lootPosition = position;
+        
+        lootPosition.x += (rand() % 4) - 2.5;
+        lootPosition.z += (rand() % 4) - 2.5;
+
+        loot = new LootObject(item, lootPosition);
+        ObjectManager::getInstance().spawnObject(loot);
+    } // for
+} // openChest
+
 void ChestDoodadObject::show() {
+    remove = false;
+    objectNode->setVisible(true, true);
 } // show
 
 void ChestDoodadObject::hide() {
+    remove = true;
+    objectNode->setVisible(false, false);
 } // hide
 
 void ChestDoodadObject::update(const Ogre::FrameEvent &evt) {

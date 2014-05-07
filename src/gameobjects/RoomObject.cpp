@@ -70,13 +70,11 @@ void RoomObject::createEntities() {
     wall4Entity->setMaterialName("Examples/Wall");
 
     // Cast no shadows
-    floorEntity->setCastShadows(false);
-    wall1Entity->setCastShadows(false);
-    wall2Entity->setCastShadows(false);
-    wall3Entity->setCastShadows(false);
-    wall4Entity->setCastShadows(false);
-    
-    floorEntity->setQueryFlags(FLOOR_ENTITY);
+    floorEntity->setCastShadows(true);
+    wall1Entity->setCastShadows(true);
+    wall2Entity->setCastShadows(true);
+    wall3Entity->setCastShadows(true);
+    wall4Entity->setCastShadows(true);
 } // createEntities
 
 void RoomObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera) {
