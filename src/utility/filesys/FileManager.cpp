@@ -8,9 +8,53 @@
 #include "src/world/Zone.h"
 #include <time.h>
 #include <stdio.h>
+#include <algorithm>
+
+static const std::string SAVE_DATA_META_FILE = "data/save/.savefiles";
 
 void FileManager::init() {
 } // init
+
+std::set<std::string> FileManager::getLoadablePlayers() {
+    using namespace std;
+    set<string> result;
+    string playerName;
+    ifstream savelist;
+
+    savelist.open(SAVE_DATA_META_FILE);
+
+    while (savelist.is_open() && !savelist.eof()) {
+        getline(savelist, playerName);
+
+        if (playerName.length() > 0) {
+            result.insert(playerName);
+        } // if
+    } // while
+
+    return result;
+} // getLoadablePlayers
+
+Player *FileManager::loadPlayer(std::string filepath) {
+    Player *result = NULL;
+
+    return result;
+} // loadPlayer
+
+void FileManager::updateSaveMetaFile(std::string playerName) {
+    using namespace std;
+    fstream file;
+    set<string> savelist = getLoadablePlayers();
+
+    savelist.insert(playerName);
+
+    file.open(SAVE_DATA_META_FILE, fstream::out);
+
+    for (string str : savelist) {
+        file << str << endl;
+    } // for
+
+    file.close();
+} // updateSaveMetaFile
 
 void FileManager::savePlayer(int seed, Player *player, Zone *zone) {
     using namespace std;
@@ -34,7 +78,7 @@ void FileManager::savePlayer(int seed, Player *player, Zone *zone) {
     savefile << "timePlayer=" << player->getTimePlayed() << endl;
     savefile << "isDead=" << (int)player->isDead() << endl;
     
-    savefile << endl << "# Begin inventory list" << endl;
+    savefile << endl << "# Begin inventory list" << endl << endl;
 
     for (Item *item : player->getInventory()->getItems()) {
         savefile << item->getName() << "=" << item->getGoldWorth() << endl;
@@ -43,6 +87,8 @@ void FileManager::savePlayer(int seed, Player *player, Zone *zone) {
     savefile << endl << "# End inventory list" << endl;
 
     savefile.close();
+
+    updateSaveMetaFile(player->getName());
 } // savePlayer
 
 std::string FileManager::timestamp() {

@@ -1,27 +1,30 @@
-#ifndef _HI_SCORES_MENU_H_
-#define _HI_SCORES_MENU_H_
+#ifndef _LOAD_PLAYER_MENU_H_
+#define _LOAD_PLAYER_MENU_H_
 
 /**
  * Included files
  */
 #include "CEGUI/CEGUI.h"
 
-class HiScoresMenu {
+class LoadPlayerMenu {
 private:
     CEGUI::WindowManager &windowManager;
     CEGUI::Window *mRoot;
     CEGUI::Window *titleLabel;
-    CEGUI::Window *scores;
+    CEGUI::Listbox *playerSaveListbox;
     CEGUI::PushButton *backButton;
-    CEGUI::PushButton *resetScoresButton;
+    CEGUI::PushButton *loadSaveButton;
+    CEGUI::PushButton *deleteSaveButton;
     void createWidgets();
     void createRootWindow();
     void registerEvents();
     bool backEvent(const CEGUI::EventArgs &e);
-    bool resetScoresEvent(const CEGUI::EventArgs &e);
+    bool saveListSelectionChanged(const CEGUI::EventArgs &e);
+    bool deleteSaveEvent(const CEGUI::EventArgs &e);
+    bool loadSaveEvent(const CEGUI::EventArgs &e);
 
 public:
-    HiScoresMenu();
+    LoadPlayerMenu();
     void show();
     void hide();
 };

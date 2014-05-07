@@ -189,12 +189,12 @@ bool OptionsMenu::quitToMenuEvent(const CEGUI::EventArgs &e) {
     int seed = World::getInstance().getSeed();
     Player *player = World::getInstance().getCurrentPlayer();
     Zone *zone = World::getInstance().getCurrentZone();
+    FileManager::getInstance().savePlayer(seed, player, zone);
 
     SoundManager::getInstance().MENU_SELECT_SOUND->play();
     visible = false;
     GUIManager::getInstance().mainMenu->show();
     World::getInstance().playerQuit();
-    FileManager::getInstance().savePlayer(seed, player, zone);
     return true;
 } // quitToMenuEvent
 
@@ -202,9 +202,9 @@ bool OptionsMenu::quitGameEvent(const CEGUI::EventArgs &e) {
     int seed = World::getInstance().getSeed();
     Player *player = World::getInstance().getCurrentPlayer();
     Zone *zone = World::getInstance().getCurrentZone();
+    FileManager::getInstance().savePlayer(seed, player, zone);
 
     SoundManager::getInstance().MENU_SELECT_SOUND->play();
     InputManager::getInstance().shutDown();
-    FileManager::getInstance().savePlayer(seed, player, zone);
     return true;
 } // quitEvent

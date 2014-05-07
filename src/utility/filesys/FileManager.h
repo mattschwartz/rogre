@@ -4,6 +4,8 @@
 /**
  * Included files
  */
+#include <string>
+#include <set>
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -17,6 +19,7 @@ private:
     FileManager(FileManager const&);
     void operator=(FileManager const&);
     std::string timestamp();
+    void updateSaveMetaFile(std::string playerName);
 
 public:
     static FileManager &getInstance() {
@@ -25,6 +28,8 @@ public:
     } // getInstance
 
     void init();
+    std::set<std::string> getLoadablePlayers();
+    Player *loadPlayer(std::string filepath);
     void savePlayer(int seed, Player *player, Zone *zone);
     std::fstream *openFile(std::string filepath);
     void closeFile(std::fstream *file);

@@ -43,3 +43,4 @@ build/ogre.cfg
 build/CEGUI.log
 build/data/save/*
 build/data/hiscores.txt
+evals.txt
