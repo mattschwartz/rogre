@@ -1,0 +1,134 @@
+/**
+ * Included files
+ */
+#include "PlayerObject.h"
+#include "GoblinEntityObject.h"
+#include "src/entities/player/Player.h"
+#include "src/gameobjects/ObjectManager.h"
+#include "src/utility/StringHelper.h"
+#include "src/utility/MathHelper.h"
+#include "src/sound/SoundManager.h"
+#include "src/sound/SoundEffect.h"
+#include "src/entities/monsters/GoblinEntity.h"
+#include "src/world/World.h"
+#include "src/world/Zone.h"
+#include <iostream>
+using namespace std;
+
+GoblinEntityObject::GoblinEntityObject(GoblinEntity *entity, float x, float z) :
+    EntityObject(x, z) {
+} // constructor
+
+GoblinEntityObject::GoblinEntityObject(GoblinEntity *entity, Ogre::Vector3 pos) :
+    EntityObject(pos) {
+} // constructor
+
+void GoblinEntityObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera) {
+	using namespace StringHelper;
+    this->sceneManager = &sceneMgr;
+	entityNode = sceneMgr.getRootSceneNode()->createChildSceneNode(concat<int>("GoblinEntity", id));
+	cout<<endl;
+	cout<<endl;
+	cout<<sceneMgr.getRootSceneNode()->getName()<<endl;
+	cout<<endl;
+	cout<<endl;
+	entityEntity = sceneMgr.createEntity(concat<int>("GoblinEntityEntity", id), "Goblin.mesh");
+    entityEntity->setQueryFlags(MONSTER_ENTITIES);
+	entityEntity->setCastShadows(true);
+    
+	entityNode->scale(0.75f, 0.75f, 0.75f);
+	entityNode->attachObject(entityEntity);
+	entityNode->_setDerivedPosition(position);
+
+    mDirection = Ogre::Vector3::ZERO;
+    mWalkSpeed = 0.5f;
+} // createObject
+
+void GoblinEntityObject::show() {
+} // show
+
+void GoblinEntityObject::hide() {
+} // hide
+
+void GoblinEntityObject::update(const Ogre::FrameEvent &evt) {
+    move(evt);
+} // update
+
+void GoblinEntityObject::move(const Ogre::FrameEvent &evt) {
+    Ogre::SceneNode *playerNode = World::getInstance().getPlayerObject()->playerNode;
+
+    // Can we even see the player?
+    if (ObjectManager::getInstance().canSee(entityNode, playerNode)) {
+        mDestination = World::getInstance().getPlayerPosition();
+    } // if
+    else {
+        mDestination.x = 0;
+        mDestination.z = 0;
+    } // else
+
+    // is the entity already in range of the player to attack?
+    if (rangeCheck()) {
+        return;
+    } // if
+
+    // move the entity toward the player
+    mDirection = mDestination - entityNode->_getDerivedPosition();
+    mDistance = mDirection.normalise();
+    Ogre::Real move = mWalkSpeed * evt.timeSinceLastFrame;
+    mDistance -= move;
+    rotateEntity();
+
+    if (mDirection == Ogre::Vector3::ZERO) {
+    }
+    else {
+        if (mDistance <= 0.0f) {
+            entityNode->_setDerivedPosition(mDestination);
+
+            if (rangeCheck()) {
+                // set idle animation
+            } // if
+            else {
+
+            } // else
+        } // if
+        else {
+		    Ogre::Vector3 oldPos = entityNode->_getDerivedPosition();
+            entityNode->translate(mDirection * move);
+		    if (!World::getInstance().getCurrentZone()->canMove(entityNode->_getDerivedPosition())) {
+                mDirection = Ogre::Vector3::ZERO;
+			    mDistance = 0;
+			    entityNode->_setDerivedPosition(oldPos);
+		    } // if
+        } // else
+    } // else
+    
+    //mAnimationState->addTime(evt.timeSinceLastFrame);
+} // move
+
+void GoblinEntityObject::rotateEntity() {
+    Ogre::Vector3 src = entityNode->_getDerivedOrientation() * Ogre::Vector3::NEGATIVE_UNIT_X;
+    src.y = 0;
+    mDirection.y = 0;
+    src.normalise();
+    Ogre::Real mDistance = mDirection.normalise();
+    Ogre::Quaternion quat = src.getRotationTo(mDirection);
+
+    entityNode->rotate(quat);
+    entityNode->yaw(Ogre::Degree(-90));
+} // rotateEntity
+
+bool GoblinEntityObject::rangeCheck() {
+    Ogre::Vector3 playerPosition = World::getInstance().getPlayerPosition();
+    Ogre::Vector3 position = entityNode->_getDerivedPosition();
+    Ogre::Vector3 distance = playerPosition - position;
+
+    distance.x = MathHelper::abs<float>(distance.x);
+    distance.y = MathHelper::abs<float>(distance.y);
+    distance.z = MathHelper::abs<float>(distance.z);
+
+    if (distance.x <= range && distance.z <= range) {
+        return true;
+    } // if
+
+    return false;
+} // rangeCheck
