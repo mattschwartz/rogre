@@ -90,6 +90,7 @@ void LoadPlayerMenu::show() {
     using namespace CEGUI;
 
     std::set<std::string> savefiles = FileManager::getInstance().getLoadablePlayers();
+    playerSaveListbox->resetList();
 
     for (std::string str : savefiles) {
         ListboxTextItem *lbi = new ListboxTextItem(str);
