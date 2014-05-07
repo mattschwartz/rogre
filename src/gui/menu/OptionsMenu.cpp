@@ -176,10 +176,11 @@ bool OptionsMenu::toggleMenuSounds(const CEGUI::EventArgs &e) {
 
 bool OptionsMenu::saveAndResumeEvent(const CEGUI::EventArgs &e) {
     int seed = World::getInstance().getSeed();
+    bool blindModeEnabled = World::getInstance().isGameModeBlind();
     Player *player = World::getInstance().getCurrentPlayer();
     Zone *zone = World::getInstance().getCurrentZone();
 
-    FileManager::getInstance().savePlayer(seed, player, zone);
+    FileManager::getInstance().savePlayer(seed, player, zone, blindModeEnabled);
     SoundManager::getInstance().MENU_SELECT_SOUND->play();
     hide();
     return true;
@@ -187,9 +188,10 @@ bool OptionsMenu::saveAndResumeEvent(const CEGUI::EventArgs &e) {
 
 bool OptionsMenu::quitToMenuEvent(const CEGUI::EventArgs &e) {
     int seed = World::getInstance().getSeed();
+    bool blindModeEnabled = World::getInstance().isGameModeBlind();
     Player *player = World::getInstance().getCurrentPlayer();
     Zone *zone = World::getInstance().getCurrentZone();
-    FileManager::getInstance().savePlayer(seed, player, zone);
+    FileManager::getInstance().savePlayer(seed, player, zone, blindModeEnabled);
 
     SoundManager::getInstance().MENU_SELECT_SOUND->play();
     visible = false;
@@ -200,9 +202,10 @@ bool OptionsMenu::quitToMenuEvent(const CEGUI::EventArgs &e) {
 
 bool OptionsMenu::quitGameEvent(const CEGUI::EventArgs &e) {
     int seed = World::getInstance().getSeed();
+    bool blindModeEnabled = World::getInstance().isGameModeBlind();
     Player *player = World::getInstance().getCurrentPlayer();
     Zone *zone = World::getInstance().getCurrentZone();
-    FileManager::getInstance().savePlayer(seed, player, zone);
+    FileManager::getInstance().savePlayer(seed, player, zone, blindModeEnabled);
 
     SoundManager::getInstance().MENU_SELECT_SOUND->play();
     InputManager::getInstance().shutDown();

@@ -96,7 +96,11 @@ void LoadPlayerMenu::registerEvents() {
     deleteSaveButton->subscribeEvent(PushButton::EventClicked, 
         Event::Subscriber(&LoadPlayerMenu::deleteSaveEvent, this));
     loadSaveButton->subscribeEvent(PushButton::EventClicked, 
+<<<<<<< HEAD
+        Event::Subscriber(&LoadPlayerMenu::deleteSaveEvent, this));
+=======
         Event::Subscriber(&LoadPlayerMenu::loadSaveEvent, this));
+>>>>>>> 630ac646cb2702030b1868b5c99b0cfdb6120092
 } // registerEvents
 
 void LoadPlayerMenu::show() {
@@ -192,6 +196,11 @@ bool LoadPlayerMenu::loadSaveEvent(const CEGUI::EventArgs &e) {
     } // if
     
     str = playerSaveListbox->getFirstSelectedItem()->getText().c_str();
+<<<<<<< HEAD
+
+    player = FileManager::getInstance().loadPlayer(str);
+    return false;
+=======
 
     player = FileManager::getInstance().loadPlayer(str, &seed, &monsterLevel, &monsterDifficulty, &blindMode);
 
@@ -202,4 +211,5 @@ bool LoadPlayerMenu::loadSaveEvent(const CEGUI::EventArgs &e) {
     GUIManager::getInstance().inGameMenu->updatePlayerScore(player);
 
     return false;
+>>>>>>> 630ac646cb2702030b1868b5c99b0cfdb6120092
 } // loadSaveEvent

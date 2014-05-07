@@ -29,8 +29,8 @@ public:
 
     void init();
     std::set<std::string> getLoadablePlayers();
-    Player *loadPlayer(std::string filepath);
-    void savePlayer(int seed, Player *player, Zone *zone);
+    Player *loadPlayer(std::string filepath, int *, int *, int*, bool*);
+    void savePlayer(int seed, Player *player, Zone *zone, bool blindMode);
     std::fstream *openFile(std::string filepath);
     void closeFile(std::fstream *file);
     std::string readLine(std::fstream *file);

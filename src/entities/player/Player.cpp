@@ -32,10 +32,6 @@ void Player::regenerateLife() {
     currentHitpoints = MathHelper::min<double>(currentHitpoints, attributes[hitpoints]);
 } // regenerateLife
 
-double Player::getCurrentHitpoints() {
-    return currentHitpoints;
-} // getCurrentHitpoints
-
 int Player::getScore() {
     int score = 0;
 
@@ -84,6 +80,10 @@ Inventory *Player::getInventory() {
 Ogre::Real Player::getTimePlayed() {
     return timePlayed;
 } // getTimePlayed
+
+void Player::setTimePlayed(Ogre::Real timePlayed) {
+    this->timePlayed = timePlayed;
+} // setTimePlayed
 
 void Player::updateTimePlayed(Ogre::Real secondsPassed) {
     timePlayed += secondsPassed;
