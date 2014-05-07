@@ -14,6 +14,7 @@
 #include "src/utility/StringHelper.h"
 #include <thread>
 #include <string>
+#include <climits>
 
 NewPlayerMenu::NewPlayerMenu() :
     windowManager(CEGUI::WindowManager::getSingleton()) {
@@ -30,7 +31,7 @@ void NewPlayerMenu::createWidgets() {
     backgroundWindow = windowManager.createWindow("OgreTray/StaticImage", "NewPlayerMenu/backgroundWindow");
     backgroundWindow->setProperty("Image", "set:Background image:full_image");
     blindModeCheckbox = static_cast<Checkbox*>(
-        windowManager.createWindow("OgreTray/Checkbox", "NewPlayerMenu/blindModeCheckbox");
+        windowManager.createWindow("OgreTray/Checkbox", "NewPlayerMenu/blindModeCheckbox"));
 #else
     blindModeCheckbox = static_cast<ToggleButton*>(
         windowManager.createWindow("OgreTray/Checkbox", "NewPlayerMenu/blindModeCheckbox"));
@@ -142,8 +143,8 @@ void NewPlayerMenu::createRootWindow() {
     mRoot->addChildWindow(difficultyTextField);
     mRoot->addChildWindow(startingZoneLevelLabel);
     mRoot->addChildWindow(startingZoneLevelTextField);
-    mRoot->addChild(blindModeLabel);
-    mRoot->addChild(blindModeCheckbox);
+    mRoot->addChildWindow(blindModeLabel);
+    mRoot->addChildWindow(blindModeCheckbox);
     mRoot->addChildWindow(backButton);
     mRoot->addChildWindow(startGameButton);
 #else

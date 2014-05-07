@@ -122,9 +122,6 @@ void PlayerInventoryPanel::loadPlayer(Player *player) {
 
 bool PlayerInventoryPanel::inventorySelectionChanged(const CEGUI::EventArgs &e) {
     using namespace CEGUI;
-#if USE_OGRE_LEGACY
-    typedef Colour colour;
-#endif
 
     equipItemButton->setText("Equip");
     equipItemButton->setEnabled(false);
@@ -140,11 +137,19 @@ bool PlayerInventoryPanel::inventorySelectionChanged(const CEGUI::EventArgs &e) 
                         equipItemButton->setText("Unequip");
                     } // if
                 } // if
-
+#if USE_OGRE_LEGACY
+                lbti->setTextColours(colour(1.0f, 1.0f, 0.0f));
+#else
                 lbti->setTextColours(Colour(1.0f, 1.0f, 0.0f));
+#endif
+
             } // if
             else {
+#if USE_OGRE_LEGACY
+                lbti->setTextColours(colour(0.0f, 0.0f, 0.0f));
+#else
                 lbti->setTextColours(Colour(0.0f, 0.0f, 0.0f));
+#endif
             } // else
         } // if
     } // for

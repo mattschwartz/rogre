@@ -24,7 +24,7 @@
 
 #include "src/gameobjects/ObjectManager.h"
 
-#define USE_OGRE_LEGACY 0
+#define USE_OGRE_LEGACY 1
 
 class BaseApplication : public Ogre::FrameListener, public Ogre::WindowEventListener, public OIS::KeyListener, public OIS::MouseListener, OgreBites::SdkTrayListener
 {

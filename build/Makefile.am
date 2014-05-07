@@ -25,6 +25,7 @@ noinst_HEADERS = ../src/doodad/Doodad.h \
 ../src/gameobjects/ChestDoodadObject.h \
 ../src/gameobjects/DoorDoodadObject.h \
 ../src/gameobjects/GoblinEntityObject.h \
+../src/gameobjects/StairsDoodadObject.h \
 ../src/items/Affix.h \
 ../src/items/Equippable.h \
 ../src/items/Item.h \
@@ -36,6 +37,7 @@ noinst_HEADERS = ../src/doodad/Doodad.h \
 ../src/gui/menu/OptionsMenu.h \
 ../src/gui/menu/DeathMenu.h \
 ../src/gui/menu/LoadingMenu.h \
+../src/gui/menu/HiScoresMenu.h \
 ../src/gui/menu/ingamemenu/AdvancedAttributesPanel.h \
 ../src/gui/menu/ingamemenu/BasicAttributesPanel.h \
 ../src/gui/menu/ingamemenu/InGameMenu.h \
@@ -48,8 +50,9 @@ noinst_HEADERS = ../src/doodad/Doodad.h \
 ../src/utility/KeyMap.h \
 ../src/utility/StringHelper.h \
 ../src/utility/TipsUtility.h \
-../src/utility/ItemData.h \ 
+../src/utility/ItemData.h \
 ../src/utility/filesys/FileManager.h \
+../src/utility/MonsterData.h \
 ../src/world/Room.h \
 ../src/world/World.h \
 ../src/world/Zone.h \
@@ -58,10 +61,14 @@ noinst_HEADERS = ../src/doodad/Doodad.h \
 ../src/pcg/RoomGenerator.h \
 ../src/pcg/ZoneGenerator.h \
 ../src/pcg/ItemGenerator.h \
+../src/pcg/MonsterGenerator.h \
+../src/pcg/ChestGenerator.h \
 ../src/sound/SoundEffect.h \
 ../src/sound/SoundManager.h \
 ../src/sound/GameSoundEffect.h \
-../src/sound/MenuSoundEffect.h
+../src/sound/MenuSoundEffect.h \
+../src/doodad/ChestDoodad.h \
+../src/doodad/Doodad.h
 
 
 
@@ -81,6 +88,7 @@ rogue_SOURCES = ../src/doodad/Doodad.cpp \
 ../src/gameobjects/PlayerObject.cpp \
 ../src/gameobjects/DoorDoodadObject.cpp \
 ../src/gameobjects/GoblinEntityObject.cpp \
+../src/gameobjects/StairsDoodadObject.cpp \
 ../src/items/Equippable.cpp \
 ../src/items/Item.cpp \
 ../src/main/BaseApplication.cpp \
@@ -91,6 +99,7 @@ rogue_SOURCES = ../src/doodad/Doodad.cpp \
 ../src/gui/menu/OptionsMenu.cpp \
 ../src/gui/menu/DeathMenu.cpp \
 ../src/gui/menu/LoadingMenu.cpp \
+../src/gui/menu/HiScoresMenu.cpp \
 ../src/gui/menu/ingamemenu/AdvancedAttributesPanel.cpp \
 ../src/gui/menu/ingamemenu/BasicAttributesPanel.cpp \
 ../src/gui/menu/ingamemenu/InGameMenu.cpp \
@@ -105,12 +114,16 @@ rogue_SOURCES = ../src/doodad/Doodad.cpp \
 ../src/pcg/RoomGenerator.cpp \
 ../src/pcg/ZoneGenerator.cpp \
 ../src/pcg/ItemGenerator.cpp \
+../src/pcg/MonsterGenerator.cpp \
+../src/pcg/ChestGenerator.cpp \
 ../src/sound/SoundEffect.cpp \
 ../src/sound/SoundManager.cpp \
 ../src/sound/GameSoundEffect.cpp \
 ../src/sound/MenuSoundEffect.cpp \
 ../src/utility/ItemData.cpp \
-../src/utility/filesys/FileManager.cpp
+../src/utility/filesys/FileManager.cpp \
+../src/utility/MonsterData.cpp \
+../src/doodad/ChestDoodad.cpp
 
 
 
