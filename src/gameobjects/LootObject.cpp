@@ -47,6 +47,7 @@ void LootObject::show() {
 
 void LootObject::hide() {
     visible = false;
+    remove = true;
 
     objectNode->setVisible(false);
     objectNode->setPosition(position);
@@ -73,7 +74,7 @@ void LootObject::update(const Ogre::FrameEvent &evt) {
     diff.x = abs<float>(diff.x);
     diff.z = abs<float>(diff.z);
 
-    if (diff.x <= 0.5f && diff.z <= 0.5f) {
+    if (diff.x <= 1.0f && diff.z <= 1.0f) {
         hide();
     } // if
 } // update

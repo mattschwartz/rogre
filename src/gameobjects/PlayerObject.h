@@ -20,6 +20,7 @@ private:
     Ogre::Vector3 walkTo;
     Ogre::Vector3 mDirection;
     Ogre::Real mWalkSpeed;
+    Ogre::Real lastHealthTick;
     Ogre::AnimationState *mAnimationState;
     Ogre::Camera *camera;
     void init();

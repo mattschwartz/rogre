@@ -18,12 +18,14 @@ class Inventory;
  */
 class Player : public Entity {
 private:
+    double lifePerSecond;
     Ogre::Real timePlayed;
     Equippable *equippedItems[EQUIPMENT_SLOTS];
     Inventory *inventory;
 
 public:
     Player(int level, std::string name);
+    void regenerateLife();
     double getCurrentHitpoints();
     std::string getName();
     int getScore();

@@ -42,7 +42,7 @@ void PlayerObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *came
     objectNode->setPosition(position);
 
     mDirection = Ogre::Vector3::ZERO;
-    mWalkSpeed = 16.0f;
+    mWalkSpeed = 6.0f;
     mAnimationState = objectEntity->getAnimationState("Idle2");
     mAnimationState->setLoop(true);
     mAnimationState->setEnabled(true);
@@ -52,6 +52,7 @@ void PlayerObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *came
     dead = false;
     attacking = false;
     walkTo = position;
+    lastHealthTick = 0.0f;
 } // createObject
 
 void PlayerObject::update(const Ogre::FrameEvent &evt) {
@@ -63,6 +64,13 @@ void PlayerObject::update(const Ogre::FrameEvent &evt) {
         } // if
     } // if
     else {
+        lastHealthTick += evt.timeSinceLastEvent;
+
+        if (lastHealthTick >= 1.0f) {
+            player->regenerateLife();
+            lastHealthTick = 0.0;
+        } // if
+
         move(evt);
         attack(evt);
         Ogre::Vector3 campos = camera->getPosition();

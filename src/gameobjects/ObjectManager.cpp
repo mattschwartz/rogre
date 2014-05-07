@@ -93,8 +93,12 @@ void ObjectManager::update(const Ogre::FrameEvent &evt) {
     } // while
 
     for (int j : removeIndices) {
+        if (j >= objects.size()) {
+            continue;
+        } // if
+
         objects.erase(objects.begin() + j);
-    }
+    } // for
 } // update
 
 bool ObjectManager::canSee(Ogre::SceneNode *a, Ogre::SceneNode *b) {

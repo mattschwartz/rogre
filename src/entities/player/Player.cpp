@@ -9,6 +9,7 @@
 #include "src/gui/menu/DeathMenu.h"
 #include "src/gui/menu/ingamemenu/InGameMenu.h"
 #include "src/utility/StringHelper.h"
+#include "src/utility/MathHelper.h"
 
 /**
  * Data
@@ -16,7 +17,14 @@
 Player::Player(int level, std::string name) : Entity(level, 100, name) {
     this->timePlayed = 0;
     this->inventory = new Inventory();
+    lifePerSecond = 2.5; // as a percent
 } // constructor
+
+void Player::regenerateLife() {
+    double lifeRegenerated = attributes[hitpoints] * (lifePerSecond / 100.0);
+    currentHitpoints += lifeRegenerated;
+    currentHitpoints = MathHelper::max<double>(currentHitpoints, attributes[hitpoints]);
+} // regenerateLife
 
 double Player::getCurrentHitpoints() {
     return currentHitpoints;
