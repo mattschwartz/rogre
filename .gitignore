@@ -41,3 +41,5 @@ build/rogue
 build/Ogre.log
 build/ogre.cfg
 build/CEGUI.log
+build/data/save/*
+build/data/hiscores.txt
