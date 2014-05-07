@@ -67,7 +67,6 @@ void HiScoresMenu::createRootWindow() {
     mRoot->addChildWindow(backButton);
     mRoot->addChildWindow(resetScoresButton);
 #else
-    mRoot->addChild(backgroundWindow);
     mRoot->addChild(titleLabel);
     mRoot->addChild(scores);
     mRoot->addChild(backButton);

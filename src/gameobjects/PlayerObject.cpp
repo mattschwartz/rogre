@@ -61,12 +61,11 @@ void PlayerObject::update(const Ogre::FrameEvent &evt) {
     if (player->isDead()) {
         setDeathAnimation();
 
-        if (mAnimationState->hasEnded()) {
+        if (mAnimationState->hasEnded() && updateGraveyard) {
             player->onDeath();
-            if (updateGraveyard) {
-                FileManager::getInstance().addToGraveyard(player);
-                updateGraveyard = false;
-            } // if
+            FileManager::getInstance().addToGraveyard(player);
+            World::getInstance().pauseGame();
+            updateGraveyard = false;
         } // if
     } // if
     else {
