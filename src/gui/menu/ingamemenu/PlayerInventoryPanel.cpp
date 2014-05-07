@@ -99,14 +99,12 @@ void PlayerInventoryPanel::addItem(Item *item) {
 #else
         lbi->setTextColours(CEGUI::Colour(0.0f, 0.0f, 0.0f));
 #endif
-
         inventory->addItem(lbi);
         inventory->setItemSelectState(lbi, false);
         inventory->ensureItemIsVisible(lbi);
     } // for
 
     inventory->setMultiselectEnabled(false);
-
 } // addItem
 
 void PlayerInventoryPanel::loadPlayer(Player *player) {
@@ -142,7 +140,6 @@ bool PlayerInventoryPanel::inventorySelectionChanged(const CEGUI::EventArgs &e) 
 #else
                 lbti->setTextColours(Colour(1.0f, 1.0f, 0.0f));
 #endif
-
             } // if
             else {
 #if USE_OGRE_LEGACY
@@ -156,7 +153,7 @@ bool PlayerInventoryPanel::inventorySelectionChanged(const CEGUI::EventArgs &e) 
 
     inventory->invalidate(true);
 
-    return true;
+    return false;
 } // inventorySelectionChanged
 
 bool PlayerInventoryPanel::toggleInventory(const CEGUI::EventArgs &e) {

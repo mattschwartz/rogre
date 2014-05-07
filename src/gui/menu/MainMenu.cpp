@@ -5,6 +5,7 @@
 #include "NewPlayerMenu.h"
 #include "LoadingMenu.h"
 #include "DeathMenu.h"
+#include "LoadPlayerMenu.h"
 #include "src/entities/player/Player.h"
 #include "src/input/InputManager.h"
 #include "src/gui/GUIManager.h"
@@ -56,8 +57,6 @@ void MainMenu::createButtons() {
     loadPlayerButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
     hiScoresButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
     quitButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
-
-    loadPlayerButton->setEnabled(false);
 #endif
     
     titleLabel->setPosition(UVector2(UDim(0.5f, -(150.0f / 2)), UDim(0.5f, -110.0f)));
@@ -134,7 +133,7 @@ bool MainMenu::newPlayerEvent(const CEGUI::EventArgs &e) {
 
 bool MainMenu::loadPlayerEvent(const CEGUI::EventArgs &e) {
     SoundManager::getInstance().MENU_SELECT_SOUND->play();
-    GUIManager::getInstance().deathMenu->show();
+    GUIManager::getInstance().loadPlayerMenu->show();
 	return false;
 } // loadPlayerEvent
 

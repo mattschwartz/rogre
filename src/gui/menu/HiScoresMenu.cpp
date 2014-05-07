@@ -74,16 +74,6 @@ void HiScoresMenu::registerEvents() {
         Event::Subscriber(&HiScoresMenu::resetScoresEvent, this));
 } // registerEvents
 
-bool HiScoresMenu::backEvent(const CEGUI::EventArgs &e) {
-    SoundManager::getInstance().MENU_SELECT_SOUND->play();
-    GUIManager::getInstance().mainMenu->show();
-    return false;
-} // backEvent
-
-bool HiScoresMenu::resetScoresEvent(const CEGUI::EventArgs &e) {
-    return false;
-} // resetScoresEvent
-
 void HiScoresMenu::show() {
 #if USE_OGRE_LEGACY
     CEGUI::System::getSingleton().setGUISheet(mRoot);
@@ -99,3 +89,14 @@ void HiScoresMenu::hide() {
     CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(NULL);
 #endif
 } // hide
+
+bool HiScoresMenu::backEvent(const CEGUI::EventArgs &e) {
+    SoundManager::getInstance().MENU_SELECT_SOUND->play();
+    GUIManager::getInstance().mainMenu->show();
+    return false;
+} // backEvent
+
+bool HiScoresMenu::resetScoresEvent(const CEGUI::EventArgs &e) {
+    SoundManager::getInstance().MENU_SELECT_SOUND->play();
+    return false;
+} // resetScoresEvent
