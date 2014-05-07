@@ -29,6 +29,11 @@ void NewPlayerMenu::createWidgets() {
     Imageset& MenuImage =ImagesetManager::getSingleton().createFromImageFile("Background", "main_menu_bg.jpg");
     backgroundWindow = windowManager.createWindow("OgreTray/StaticImage", "NewPlayerMenu/backgroundWindow");
     backgroundWindow->setProperty("Image", "set:Background image:full_image");
+    blindModeCheckbox = static_cast<Checkbox*>(
+        windowManager.createWindow("OgreTray/Checkbox", "NewPlayerMenu/blindModeCheckbox");
+#else
+    blindModeCheckbox = static_cast<ToggleButton*>(
+        windowManager.createWindow("OgreTray/Checkbox", "NewPlayerMenu/blindModeCheckbox"));
 #endif
     
     titleLabel = windowManager.createWindow("OgreTray/Title", "NewPlayerMenu/titleLabel");
@@ -45,6 +50,7 @@ void NewPlayerMenu::createWidgets() {
     startingZoneLevelLabel = windowManager.createWindow("OgreTray/Title", "NewPlayerMenu/startingZoneLevelLabel");
     startingZoneLevelTextField = static_cast<Spinner*>(
         windowManager.createWindow("OgreTray/Spinner", "NewPlayerMenu/startingZoneLevelTextField"));
+    blindModeLabel = windowManager.createWindow("OgreTray/Title", "NewPlayerMenu/blindModeLabel");
 
     backButton = static_cast<PushButton*>(
         windowManager.createWindow("OgreTray/Button", "NewPlayerMenu/backButton"));
@@ -101,12 +107,20 @@ void NewPlayerMenu::createWidgets() {
     startingZoneLevelTextField->setMinimumValue(0.0);
     startingZoneLevelTextField->setMaximumValue(20.0);
 
+    blindModeLabel->setSize(SIZE(0.0f, 260.0f, 0.0f, 40.0f));
+    blindModeLabel->setPosition(POS(0.5f, -150.0f, 0.5f, 120.0f));
+    blindModeLabel->setText("Enable Blind Mode");
+
+    blindModeCheckbox->setSize(SIZE(0.0f, 40.0f, 0.0f, 40.0f));
+    blindModeCheckbox->setPosition(POS(0.5f, 110.0f, 0.5f, 120.0f));
+    blindModeCheckbox->setSelected(false);
+
     backButton->setSize(SIZE(0.0f, 150.0f, 0.0f, 40.0f));
-    backButton->setPosition(POS(0.5f, -150.0f, 0.5f, 120.0f));
+    backButton->setPosition(POS(0.5f, -150.0f, 0.5f, 160.0f));
     backButton->setText("Back");
 
     startGameButton->setSize(SIZE(0.0f, 150.0f, 0.0f, 40.0f));
-    startGameButton->setPosition(POS(0.5f, 0.0f, 0.5f, 120.0f));
+    startGameButton->setPosition(POS(0.5f, 0.0f, 0.5f, 160.0f));
     startGameButton->setText("Start Game");
 } // createWidgets
 
@@ -128,6 +142,8 @@ void NewPlayerMenu::createRootWindow() {
     mRoot->addChildWindow(difficultyTextField);
     mRoot->addChildWindow(startingZoneLevelLabel);
     mRoot->addChildWindow(startingZoneLevelTextField);
+    mRoot->addChild(blindModeLabel);
+    mRoot->addChild(blindModeCheckbox);
     mRoot->addChildWindow(backButton);
     mRoot->addChildWindow(startGameButton);
 #else
@@ -142,6 +158,8 @@ void NewPlayerMenu::createRootWindow() {
     mRoot->addChild(difficultyTextField);
     mRoot->addChild(startingZoneLevelLabel);
     mRoot->addChild(startingZoneLevelTextField);
+    mRoot->addChild(blindModeLabel);
+    mRoot->addChild(blindModeCheckbox);
     mRoot->addChild(backButton);
     mRoot->addChild(startGameButton);
 #endif
@@ -204,6 +222,7 @@ bool NewPlayerMenu::startGameEvent(const CEGUI::EventArgs &e) {
 } // startGameEvent
 
 void NewPlayerMenu::startNewPlayer() {
+    bool blindModeEnabled;
     int zoneLevel;
     int difficultyLevel;
     size_t seed;
@@ -213,8 +232,9 @@ void NewPlayerMenu::startNewPlayer() {
     seed = hsh(seedTextField->getText().c_str());
     difficultyLevel = (int)difficultySlider->getCurrentValue() + 50;
     zoneLevel = startingZoneLevelTextField->getCurrentValue();
+    blindModeEnabled = blindModeCheckbox->isSelected();
 
-	World::getInstance().loadZone(zoneLevel, difficultyLevel, (int)seed);
+	World::getInstance().loadZone(zoneLevel, difficultyLevel, (int)seed, blindModeEnabled);
     World::getInstance().setCurrentPlayer(player);
 	World::getInstance().spawnCurrentPlayer();
     GUIManager::getInstance().inGameMenu->loadPlayer(player);

@@ -3,6 +3,7 @@
  */
 #include "PlayerObject.h"
 #include "GoblinEntityObject.h"
+#include "LootObject.h"
 #include "src/entities/player/Player.h"
 #include "src/gameobjects/ObjectManager.h"
 #include "src/utility/StringHelper.h"
@@ -39,7 +40,7 @@ void GoblinEntityObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera
     mWalkSpeed = 3.0f;
 
     lastHit = 0.0f;
-    mAttackSpeed = 1.0f / 1.5f; // 1 second / attacks per second
+    mAttackSpeed = 1.0f / 1.8f; // 1 second / attacks per second
 } // createObject
 
 void GoblinEntityObject::show() {
@@ -50,10 +51,16 @@ void GoblinEntityObject::hide() {
 
 void GoblinEntityObject::update(const Ogre::FrameEvent &evt) {
     if (monster->isDead()) {
+        Item *drop = monster->getDrop();
+        if (drop != NULL) {
+            LootObject *loot = new LootObject(drop, objectNode->getPosition());
+            ObjectManager::getInstance().spawnObject(loot);
+        } // if
         position.y += 100.0f;
         objectNode->setPosition(position);
         objectNode->setVisible(false);
         remove = true;
+
         return;
     } // if
 

@@ -4,31 +4,50 @@
 /**
  * Included files
  */
-#include "StringHelper.h"
+#include "filesys/FileManager.h"
 #include <string>
-#include <map>
+#include <vector>
 
 namespace TipsUtility {
-    std::map<int, std::string> tips;
+    const std::string TIPS_FILE_PATH = "data/tips.txt";
+    std::vector<std::string> tips;
 
     static void init() {
-        using namespace StringHelper;
-        std::string dyk = "Did you know ";
+        FileManager &fileManager = FileManager::getInstance();
+        std::fstream *file;
+        std::string line;
 
-        tips[0] = concat<std::string>(dyk, "wombats poop cubes?");
-        tips[1] = concat<std::string>(dyk, "coconuts kill more people than sharks per year?");
-        tips[2] = concat<std::string>(dyk, "a duck's quack doesn't echo?");
-        tips[3] = concat<std::string>(dyk, "on average, 12 newborns are given to the wrong parents per day?");
-        tips[4] = concat<std::string>(dyk, "the Oscars given out during WWII were made out of wood?");
-        tips[5] = concat<std::string>(dyk, "there are no clocks in Las Vegas?");
-        tips[6] = concat<std::string>(dyk, "death is caused by an allergic reaction to dying?");
-        tips[7] = concat<std::string>(dyk, "some of these tips are completely facetious?");
+        file = fileManager.openFile(TIPS_FILE_PATH);
+
+        if (file == NULL) {
+            return;
+        } // if
+
+        while (!file->eof()) {
+            line = fileManager.readLine(file);
+        
+            if (line[0] == '#') {
+                continue;
+            } // if
+
+            tips.push_back(line);
+        } // while
+
+        fileManager.closeFile(file);
         srand(time(NULL));
     }
 
     static std::string getRandomTip() {
-        int i = rand() % tips.size();
-        return tips[i];
+        int ran = rand() % tips.size();
+        auto iter = tips.begin();
+        std::string result = "Did you know the tips utility failed to load any tips?";
+
+        std::advance(iter, rand() % tips.size());
+        if (!iter->empty()) {
+            result = iter->c_str();
+        } // if
+
+        return result;
     } // getRandomTip
 };
 

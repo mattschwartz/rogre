@@ -263,27 +263,17 @@ bool BaseApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
         mInputContext.capture();
     } // if
 #endif
-
-
-    if (World::getInstance().isGamePaused())
-        return true;
     mCameraMan->frameRenderingQueued(evt);
-    ObjectManager::getInstance().update(evt);
+
+    if (!World::getInstance().isGamePaused())
+        ObjectManager::getInstance().update(evt);
 
     return true;
 }
 //-------------------------------------------------------------------------------------
 bool BaseApplication::keyPressed( const OIS::KeyEvent &arg )
 {
-    if (arg.key == OIS::KC_SYSRQ)   // take a screenshot
-    {
-        mWindow->writeContentsToTimestampedFile("screenshot", ".jpg");
-    }
-	else 
-	{
-		InputManager::getInstance().keyPressed(arg);
-	}
-
+    InputManager::getInstance().keyPressed(arg);
     return true;
 }
 

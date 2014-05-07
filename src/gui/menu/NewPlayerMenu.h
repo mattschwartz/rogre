@@ -30,6 +30,12 @@ private:
     CEGUI::Spinner *startingZoneLevelTextField;
     CEGUI::Window *seedLabel;
     CEGUI::Window *seedTextField;
+    CEGUI::Window *blindModeLabel;
+#if USE_OGRE_LEGACY
+    CEGUI::Checkbox *blindModeCheckbox;
+#else
+    CEGUI::ToggleButton *blindModeCheckbox;
+#endif
     CEGUI::PushButton *backButton;
     CEGUI::PushButton *startGameButton;
     void createWidgets();

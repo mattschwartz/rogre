@@ -72,6 +72,10 @@ void World::spawnCurrentPlayer() {
     GUIManager::getInstance().inGameMenu->updateAttributes(currentPlayer);
 } // spawnCurrentPlayer
 
+bool World::isGameModeBlind() {
+    return blindModeEnabled;
+} // isGameModeBlind
+
 /**
  * Terminates the player's game, saving it and exiting to the main menu.
  */
@@ -98,12 +102,17 @@ bool World::isGamePaused() {
  * Generates a new Zone that is abstractly one level below the current Zone
  * and thus one level more difficult.
  */
-void World::loadZone(int zoneLevel, int monsterDifficulty, int seed) {
+void World::loadZone(int zoneLevel, int monsterDifficulty, int seed, bool blindModeEnabled) {
     int roomSize = 15;
     paused = true;
+    this->blindModeEnabled = blindModeEnabled;
 
     currentZoneLevel = zoneLevel;
     currentZone = ZoneGenerator::getInstance().generate(seed, monsterDifficulty, currentZoneLevel, roomSize);
+
+    for (RoomObject *o : currentZone->rooms) {
+        o->hide();
+    } // for
 } // loadZone
 
 int World::getZoneLevel() {

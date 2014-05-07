@@ -10,16 +10,20 @@
 
 const int RARE_CHANCE = 50;
 const int REALLY_RARE_CHANCE = 50;
+const int DROP_ITEM_CHANCE = 40;
 
 MonsterGenerator::MonsterGenerator() {
     MonsterData::getInstance().init();
 } // constructor
 
 Entity *MonsterGenerator::generateMonster(int level, int monsterDifficulty) {
+    bool drop = (rand() % 100) <= DROP_ITEM_CHANCE;
     Entity *result;
-    Item *item;
+    Item *item = NULL;
 
-    item = ItemGenerator::getInstance().generateItem(level);
+    if (drop) {
+        item = ItemGenerator::getInstance().generateItem(level);
+    } // if
     result = new GoblinEntity(level, monsterDifficulty, getName());
     result->setDrop(item);
 

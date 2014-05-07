@@ -8,7 +8,7 @@
 
 class DoorDoodadObject : public DoodadObject {
 private:
-    Ogre::Degree rollBy;
+    Ogre::Degree yawBy;
 
 public:
     DoorDoodadObject(float x, float z);

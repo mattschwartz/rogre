@@ -18,7 +18,7 @@ LootObject::LootObject(Item *item, float x, float z) :
 } // constructor
 
 LootObject::LootObject(Item *item, Ogre::Vector3 pos) : 
-    GameObject(pos) {
+    GameObject(Ogre::Vector3(pos.x, 0.5f, pos.z)) {
     this->item = item;
     this->id = lootCount++;
 } // constructor

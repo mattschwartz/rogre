@@ -13,11 +13,11 @@ DoorDoodadObject::DoorDoodadObject(Ogre::Vector3 pos) :
 } // constructor
 
 void DoorDoodadObject::setFacing(Ogre::Vector3 facing) {
-    if (facing == Ogre::Vector3::UNIT_X) {
-        rollBy = Ogre::Degree(90);
+    if (facing == Ogre::Vector3::UNIT_X || facing == Ogre::Vector3::NEGATIVE_UNIT_X) {
+        yawBy = Ogre::Degree(90);
     } // if
     else {
-        rollBy = Ogre::Degree(0);
+        yawBy = Ogre::Degree(0);
     } // else
 } // setFacing
 
@@ -30,7 +30,7 @@ void DoorDoodadObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *
 	objectNode->scale(0.5, 0.5, 0.5);
 	objectNode->attachObject(objectEntity);
     objectNode->setPosition(position);
-    objectNode->yaw(Ogre::Degree(rollBy));
+    objectNode->yaw(Ogre::Degree(yawBy));
 } // createObject
 
 void DoorDoodadObject::show() {

@@ -48,24 +48,20 @@ void MonsterData::init() {
 } // init
 
 std::string MonsterData::getFullName(bool hasPrefix, bool hasSuffix) {
-    std::stringstream ss;
-    std::string result;
+    std::stringstream result;
 
     if (hasPrefix) {
-        ss << getRandomName(PREFIX_TITLE_NAME) << " ";
+        result << getRandomName(PREFIX_TITLE_NAME) << " ";
     } // if
 
-    ss << getRandomName(FIRST_NAME) << " ";
-    ss << getRandomName(LAST_NAME) << " ";
+    result << getRandomName(FIRST_NAME) << " ";
+    result << getRandomName(LAST_NAME);
 
     if (hasSuffix) {
-        ss << getRandomName(SUFFIX_TITLE_NAME) << " ";
+        result << ", " << getRandomName(SUFFIX_TITLE_NAME);
     } // if
 
-    result = ss.str();
-    result = result.substr(0, result.size() - 1);
-
-    return result;
+    return result.str();
 } // getFullName
 
 std::string MonsterData::getRandomName(int nameId) {

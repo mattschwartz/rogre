@@ -18,6 +18,7 @@ class Zone;
 class World {
 private:
     bool paused;
+    bool blindModeEnabled;
     int currentZoneLevel;
     Player *currentPlayer;
     PlayerObject *playerObject;
@@ -32,12 +33,13 @@ public:
         return instance;
     } // getInstance
 
+    bool isGameModeBlind();
     void playerQuit();
     void pauseGame();
     void resumeGame();
     bool isGamePaused();
     void descend();
-    void loadZone(int zoneLevel, int monsterDifficulty, int seed);
+    void loadZone(int zoneLevel, int monsterDifficulty, int seed, bool blindModeEnabled);
     void spawnCurrentPlayer();
 
     /**

@@ -44,9 +44,6 @@ RoomObject::~RoomObject() {
  * in one, convenient function.
  */
 void RoomObject::init() {
-    visible = false;
-
-    // Initialize planes that make up the room
     floor = new Ogre::Plane(Ogre::Vector3::UNIT_Y, 0);
     walls[0] = new Ogre::Plane(Ogre::Vector3::UNIT_X, 0);
     walls[1] = new Ogre::Plane(-Ogre::Vector3::UNIT_X, 0);
@@ -73,11 +70,11 @@ void RoomObject::createEntities() {
     wall4Entity->setMaterialName("Examples/Wall");
 
     // Cast no shadows
-    floorEntity->setCastShadows(true);
-    wall1Entity->setCastShadows(true);
-    wall2Entity->setCastShadows(true);
-    wall3Entity->setCastShadows(true);
-    wall4Entity->setCastShadows(true);
+    floorEntity->setCastShadows(false);
+    wall1Entity->setCastShadows(false);
+    wall2Entity->setCastShadows(false);
+    wall3Entity->setCastShadows(false);
+    wall4Entity->setCastShadows(false);
     
     floorEntity->setQueryFlags(FLOOR_ENTITY);
 } // createEntities
@@ -86,13 +83,7 @@ void RoomObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera
 	using namespace StringHelper;
 
     this->sceneManager = &sceneMgr;
-
     createEntities();
-} // createScene
-
-void RoomObject::show() {
-    using namespace StringHelper;
-    visible = true;
 
     floorNode = sceneManager->getRootSceneNode()->createChildSceneNode(concat<int>("FloorNode", id));
     wallNodes[0] = sceneManager->getRootSceneNode()->createChildSceneNode(concat<int>("Wall1Node", id));
@@ -109,16 +100,22 @@ void RoomObject::show() {
 
 	// Set position
 	setPosition(position);
+} // createScene
+
+void RoomObject::show() {
+    floorNode->setVisible(true, true);
+
+    for (int i = 0; i < 4; i ++) {
+        wallNodes[i]->setVisible(true, true);
+    } // for
 } // show
 
 void RoomObject::hide() {
-    visible = false;
+    floorNode->setVisible(false, false);
 
-	ObjectManager::getInstance().destroySceneNode("FloorEntity", id);
-	ObjectManager::getInstance().destroySceneNode("Wall1Node", id);
-	ObjectManager::getInstance().destroySceneNode("Wall2Node", id);
-	ObjectManager::getInstance().destroySceneNode("Wall3Node", id);
-	ObjectManager::getInstance().destroySceneNode("Wall4Node", id);
+    for (int i = 0; i < 4; i ++) {
+        wallNodes[i]->setVisible(false, false);
+    } // for
 } // hide
 
 /**
@@ -215,10 +212,10 @@ bool RoomObject::overlaps(struct Bounds rectB) {
 } // overlaps
 
 void RoomObject::update(const Ogre::FrameEvent&) {
-    if (visible) {
-        return;
+    if (World::getInstance().isGameModeBlind()) {
+        hide();
     } // if
-
+    
     if (containsPoint(World::getInstance().getPlayerPosition())) {
         show();
     } // if

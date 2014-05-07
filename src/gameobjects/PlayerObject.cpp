@@ -41,16 +41,16 @@ void PlayerObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *came
     objectNode->setPosition(position);
 
     mDirection = Ogre::Vector3::ZERO;
-    mWalkSpeed = 6.0f;
+    mWalkSpeed = 16.0f;
     mAnimationState = objectEntity->getAnimationState("Idle2");
     mAnimationState->setLoop(true);
     mAnimationState->setEnabled(true);
     this->camera = camera;
 
     dying = false;
+    dead = false;
     attacking = false;
     walkTo = position;
-    dead = false;
 } // createObject
 
 void PlayerObject::update(const Ogre::FrameEvent &evt) {
@@ -102,6 +102,7 @@ void PlayerObject::move(const Ogre::FrameEvent &evt) {
             } // if
             else {
                 setWalkAnimation();
+                SoundManager::getInstance().PLAYER_FOOTSTEP_SOUND->stop();
                 SoundManager::getInstance().PLAYER_FOOTSTEP_SOUND->play();
             } // else
         } // else

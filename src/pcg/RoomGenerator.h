@@ -5,10 +5,10 @@
  * Included files
  */
 
-#define DEFAULT_ROOM_HEIGHT 15
-#define MIN_ROOM_WIDTH 25
+#define DEFAULT_ROOM_HEIGHT 10
+#define MIN_ROOM_WIDTH 20
 #define MIN_ROOM_DEPTH MIN_ROOM_WIDTH
-#define MAX_ROOM_WIDTH 50
+#define MAX_ROOM_WIDTH 40
 #define MAX_ROOM_DEPTH MAX_ROOM_WIDTH
 
 class Zone;

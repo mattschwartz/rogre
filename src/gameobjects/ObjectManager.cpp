@@ -98,28 +98,29 @@ void ObjectManager::update(const Ogre::FrameEvent &evt) {
 } // update
 
 bool ObjectManager::canSee(Ogre::SceneNode *a, Ogre::SceneNode *b) {
-    Ogre::Vector3 positionA = a->_getDerivedPosition();
-    positionA.normalise();
-    Ogre::Vector3 positionB = b->_getDerivedPosition();
-    positionB.normalise();
-    Ogre::RaySceneQuery *mRayScnQuery;
-    Ogre::Ray robotRay(positionA, positionB);
+    return true;
+    //Ogre::Vector3 positionA = a->_getDerivedPosition();
+    //positionA.normalise();
+    //Ogre::Vector3 positionB = b->_getDerivedPosition();
+    //positionB.normalise();
+    //Ogre::RaySceneQuery *mRayScnQuery;
+    //Ogre::Ray robotRay(positionA, positionB);
 
-    mRayScnQuery = sceneManager->createRayQuery(robotRay);
-    mRayScnQuery->setQueryMask(~(MONSTER_ENTITIES | FLOOR_ENTITY));
-    mRayScnQuery->setSortByDistance(true);
+    //mRayScnQuery = sceneManager->createRayQuery(robotRay);
+    //mRayScnQuery->setQueryMask(~(MONSTER_ENTITIES | FLOOR_ENTITY));
+    //mRayScnQuery->setSortByDistance(true);
 
-    Ogre::RaySceneQueryResult& result = mRayScnQuery->execute();
-    Ogre::RaySceneQueryResult::iterator iter = result.begin();
+    //Ogre::RaySceneQueryResult& result = mRayScnQuery->execute();
+    //Ogre::RaySceneQueryResult::iterator iter = result.begin();
 
-    if (iter != result.end()) {
-      	bool temp = iter->movable->getName() == Ogre::String(b->getAttachedObject(0)->getName());
-        mRayScnQuery->clearResults();
+    //if (iter != result.end()) {
+    //  	bool temp = iter->movable->getName() == Ogre::String(b->getAttachedObject(0)->getName());
+    //    mRayScnQuery->clearResults();
 
-        return temp;
-    }
-    mRayScnQuery->clearResults();
-    return false;
+    //    return temp;
+    //}
+    //mRayScnQuery->clearResults();
+    //return false;
 } // canSee
 
 bool ObjectManager::canReach(GameObject *object1, GameObject *object2, float reach) {
