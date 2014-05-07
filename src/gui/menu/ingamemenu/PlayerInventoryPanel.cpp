@@ -94,9 +94,9 @@ void PlayerInventoryPanel::addItem(Item *item) {
         CEGUI::ListboxTextItem *lbi = new CEGUI::ListboxTextItem(i->getName(), it++, i);
         lbi->setSelectionBrushImage("OgreTrayImages","GenericBrush");
 #if USE_OGRE_LEGACY
-        lbi->setTextColours(CEGUI::colour(0.0f, 0.0f, 0.0f));
+        //lbi->setTextColours(CEGUI::colour(0.0f, 0.0f, 0.0f));
 #else
-        lbi->setTextColours(CEGUI::Colour(0.0f, 0.0f, 0.0f));
+        //lbi->setTextColours(CEGUI::Colour(0.0f, 0.0f, 0.0f));
 #endif
         inventory->addItem(lbi);
         inventory->setItemSelectState(lbi, false);
