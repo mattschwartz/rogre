@@ -45,6 +45,12 @@ void MainMenu::createButtons() {
     loadPlayerButton->setSize(UVector2(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
     hiScoresButton->setSize(UVector2(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
     quitButton->setSize(UVector2(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
+
+    titleLabel->setAlwaysOnTop(true);
+    newPlayerButton->setAlwaysOnTop(true);
+    loadPlayerButton->setAlwaysOnTop(true);
+    hiScoresButton->setAlwaysOnTop(true);
+    quitButton->setAlwaysOnTop(true);
 #else
     titleLabel->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
     newPlayerButton->setSize(USize(UDim(0.0f, 150.0f), UDim(0.0f, 40.0f)));
