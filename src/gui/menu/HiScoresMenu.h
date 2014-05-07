@@ -12,6 +12,7 @@ private:
     CEGUI::Window *mRoot;
     CEGUI::Window *titleLabel;
     CEGUI::Window *scores;
+    CEGUI::Window *backgroundWindow;
     CEGUI::PushButton *backButton;
     CEGUI::PushButton *resetScoresButton;
     void createWidgets();

@@ -5,12 +5,14 @@
  * Included files
  */
 #include "CEGUI/CEGUI.h"
+#include <src/main/BaseApplication.h>
 
 class LoadPlayerMenu {
 private:
     CEGUI::WindowManager &windowManager;
     CEGUI::Window *mRoot;
     CEGUI::Window *titleLabel;
+    CEGUI::Window *backgroundWindow;
     CEGUI::Listbox *playerSaveListbox;
     CEGUI::PushButton *backButton;
     CEGUI::PushButton *loadSaveButton;
