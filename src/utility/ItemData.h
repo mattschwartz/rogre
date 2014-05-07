@@ -49,6 +49,7 @@ public:
 
     void init();
     struct affixdata getAffixData(int itemType);
+    std::string getDescriptionForItem(std::string itemName);
     std::pair<std::string, std::string> getRandomItem();
 };
 

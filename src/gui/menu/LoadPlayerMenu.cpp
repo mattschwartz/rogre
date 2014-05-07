@@ -4,10 +4,12 @@
 #include "LoadPlayerMenu.h"
 #include "src/utility/GUIHelper.h"
 #include "src/gui/GUIManager.h"
+#include "ingamemenu/InGameMenu.h"
 #include "src/gui/menu/MainMenu.h"
 #include "src/sound/SoundEffect.h"
 #include "src/sound/SoundManager.h"
 #include "src/utility/filesys/FileManager.h"
+#include "src/world/World.h"
 
 LoadPlayerMenu::LoadPlayerMenu() :
     windowManager(CEGUI::WindowManager::getSingleton()) {
@@ -79,9 +81,9 @@ void LoadPlayerMenu::registerEvents() {
     backButton->subscribeEvent(PushButton::EventClicked, 
         Event::Subscriber(&LoadPlayerMenu::backEvent, this));
     deleteSaveButton->subscribeEvent(PushButton::EventClicked, 
-        Event::Subscriber(&LoadPlayerMenu::loadSaveEvent, this));
-    loadSaveButton->subscribeEvent(PushButton::EventClicked, 
         Event::Subscriber(&LoadPlayerMenu::deleteSaveEvent, this));
+    loadSaveButton->subscribeEvent(PushButton::EventClicked, 
+        Event::Subscriber(&LoadPlayerMenu::loadSaveEvent, this));
 } // registerEvents
 
 void LoadPlayerMenu::show() {
@@ -163,6 +165,10 @@ bool LoadPlayerMenu::deleteSaveEvent(const CEGUI::EventArgs &e) {
 } // deleteSaveEvent
 
 bool LoadPlayerMenu::loadSaveEvent(const CEGUI::EventArgs &e) {
+    int seed = (int)time(NULL);
+    int monsterLevel = 1;
+    int monsterDifficulty = 50;
+    bool blindMode = false;
     std::string str;
     Player *player;
     
@@ -173,6 +179,13 @@ bool LoadPlayerMenu::loadSaveEvent(const CEGUI::EventArgs &e) {
     
     str = playerSaveListbox->getFirstSelectedItem()->getText().c_str();
 
-    player = FileManager::getInstance().loadPlayer(str);
+    player = FileManager::getInstance().loadPlayer(str, &seed, &monsterLevel, &monsterDifficulty, &blindMode);
+
+	World::getInstance().loadZone(monsterLevel, monsterDifficulty, (int)seed, blindMode);
+    World::getInstance().setCurrentPlayer(player);
+	World::getInstance().spawnCurrentPlayer();
+    GUIManager::getInstance().inGameMenu->loadPlayer(player);
+    GUIManager::getInstance().inGameMenu->updatePlayerScore(player);
+
     return false;
 } // loadSaveEvent
