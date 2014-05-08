@@ -45,7 +45,7 @@ void InputManager::mouseMoved(const OIS::MouseEvent &arg) {
 
 void InputManager::mousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id) {
 #if USE_OGRE_LEGACY
-    if (id == OIS::MB_Left && CEGUI::System::getSingleton().injectMouseButtonDown(CEGUI::LeftButton)) return;
+    CEGUI::System::getSingleton().injectMouseButtonDown(CEGUI::LeftButton);
 #else
     if (id == OIS::MB_Left && CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonDown(CEGUI::LeftButton)) return;
 #endif
@@ -55,7 +55,7 @@ void InputManager::mousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID i
 
 void InputManager::mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id) {
 #if USE_OGRE_LEGACY
-    if (id == OIS::MB_Left && CEGUI::System::getSingleton().injectMouseButtonUp(CEGUI::LeftButton)) return;
+    CEGUI::System::getSingleton().injectMouseButtonUp(CEGUI::LeftButton);
 #else
     if (id == OIS::MB_Left && CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonUp(CEGUI::LeftButton)) return;
 #endif

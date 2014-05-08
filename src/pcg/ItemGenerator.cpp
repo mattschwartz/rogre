@@ -4,6 +4,7 @@
 #include "ItemGenerator.h"
 #include "src/items/Item.h"
 #include "src/items/Equippable.h"
+#include "src/utility/StringHelper.h"
 
 const static int ARMOR_DROP_CHANCE = 50;
 
@@ -39,6 +40,7 @@ Equippable *ItemGenerator::generateEquippable(int monsterLevel) {
     int minWorth;
     int maxWorth;
     int numAffixes;
+    std::string name = "";
     struct affixdata itemData;
     Equippable *result = new Equippable(monsterLevel);
     equippableItem randomEquippable;
@@ -47,7 +49,11 @@ Equippable *ItemGenerator::generateEquippable(int monsterLevel) {
     minWorth = 100 * monsterLevel;
     maxWorth = 100 * (monsterLevel + 1);
     goldWorth = (rand() % maxWorth - minWorth) + minWorth;
-    numAffixes = rand() % itemData.maxAttributes;
+    numAffixes = rand() % itemData.maxAttributes + 2;
+
+    if (rand() % 100 <= 40) {
+        name += ItemData::getInstance().getRandomPrefix() + " ";
+    }
     
     for (int i = 0; i < numAffixes; i++) {
         result->addAffix(createAffix(itemData));
@@ -55,7 +61,14 @@ Equippable *ItemGenerator::generateEquippable(int monsterLevel) {
 
     randomEquippable = ItemData::getInstance().getRandomArmor();
     result->setSlotid(randomEquippable.first);
-    result->setName(randomEquippable.second.first);
+
+    name += randomEquippable.second.first;
+
+    if (rand() % 100 <= 30) {
+        name += " of " + ItemData::getInstance().getRandomSuffix();
+    }
+
+    result->setName(name);
     result->setDescription(randomEquippable.second.second);
     result->setGoldWorth(goldWorth);
 

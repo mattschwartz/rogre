@@ -150,7 +150,7 @@ bool LoadPlayerMenu::saveListSelectionChanged(const CEGUI::EventArgs &e) {
 
         if (lbti != NULL) {
             if (lbti->isSelected()) {
-                deleteSaveButton->setEnabled(true);
+                deleteSaveButton->setEnabled(false);
                 loadSaveButton->setEnabled(true);
 #if USE_OGRE_LEGACY
                 lbti->setTextColours(colour(1.0f, 1.0f, 0.0f));

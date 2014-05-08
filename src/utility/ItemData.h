@@ -50,6 +50,8 @@ public:
 
     void init();
     struct affixdata getAffixData(int itemType);
+    std::string getRandomPrefix();
+    std::string getRandomSuffix();
     std::string getDescriptionForItem(std::string itemName);
     std::pair<std::string, std::string> getRandomItem();
     equippableItem getRandomArmor();

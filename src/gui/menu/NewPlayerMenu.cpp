@@ -232,13 +232,8 @@ bool NewPlayerMenu::startGameEvent(const CEGUI::EventArgs &e) {
     SoundManager::getInstance().MENU_SELECT_SOUND->play();
     GUIManager::getInstance().loadingMenu->show();
     GUIManager::getInstance().loadingMenu->setText("Loading game ...");
-
-#if USE_OGRE_LEGACY
+    
     startNewPlayer();
-#else
-    startNewPlayer();
-    //mThread = boost::shared_ptr<boost::thread>(new boost::thread(boost::bind(&NewPlayerMenu::startNewPlayer, this)));
-#endif
 
     return false;
 } // startGameEvent

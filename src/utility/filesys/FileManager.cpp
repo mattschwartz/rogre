@@ -152,7 +152,7 @@ Player *FileManager::loadPlayer(std::string playerName, int *seed, int *monsterL
         else if (strncmp(first.c_str(), "isDead", 7) == 0) {
             if (atoi(second.c_str())) {
                 // player is dead!!!??
-                return NULL;
+                return player;
             } // if
         } // else if
         // must be an item

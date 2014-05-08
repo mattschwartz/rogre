@@ -6,6 +6,9 @@
 #include "src/utility/StringHelper.h"
 #include <iterator>
 #include <stdlib.h>
+#include <cstdlib>
+#include <stdio.h>
+#include <string.h>
 
 /**
  * Defines
@@ -22,17 +25,17 @@ const std::string DEFAULT_CHEST_DESCRIPTION = "Place on body for best results.";
 const std::string DEFAULT_GLOVES_DESCRIPTION = "Place on hands for best results.";
 const std::string DEFAULT_BOOTS_DESCRIPTION = "Place on feet for best results.";
 
-const double FLIMSY_MIN_ATTR = 1.0;
-const double FLIMSY_MAX_ATTR = 10.0;
+const double FLIMSY_MIN_ATTR = 10.0;
+const double FLIMSY_MAX_ATTR = 20.0;
 
-const double STURDY_MIN_ATTR = 11.0;
-const double STURDY_MAX_ATTR = 20.0;
+const double STURDY_MIN_ATTR = 21.0;
+const double STURDY_MAX_ATTR = 50.0;
 
-const double SOLID_MIN_ATTR = 21.0;
-const double SOLID_MAX_ATTR = 30.0;
+const double SOLID_MIN_ATTR = 51.0;
+const double SOLID_MAX_ATTR = 100.0;
 
-const double UNBREAKABLE_MIN_ATTR = 50.0;
-const double UNBREAKABLE_MAX_ATTR = 100.0;
+const double UNBREAKABLE_MIN_ATTR = 101.0;
+const double UNBREAKABLE_MAX_ATTR = 250.0;
 
 void ItemData::init() {
     initItemData();
@@ -237,6 +240,18 @@ struct affixdata ItemData::getAffixData(int itemLevel) {
 std::string ItemData::getDescriptionForItem(std::string itemName) {
     return baseItems[itemName];
 } // getDescriptionForItem
+
+std::string ItemData::getRandomPrefix() {
+    int ran = rand() % prefixAdjectives.size();
+
+    return prefixAdjectives[ran];
+}
+
+std::string ItemData::getRandomSuffix() {
+    int ran = rand() % suffixAdjectives.size();
+
+    return suffixAdjectives[ran];
+}
 
 std::pair<std::string, std::string> ItemData::getRandomItem() {
     int ran = rand() % baseItems.size();

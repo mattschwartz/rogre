@@ -39,7 +39,7 @@ void GoblinEntityObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera
     mWalkSpeed = 3.0f;
 
     lastHit = 0.0f;
-    mAttackSpeed = 1.0f / 1.8f; // 1 second / attacks per second
+    mAttackSpeed = 1.0f / 4.8f; // 1 second / attacks per second
 } // createObject
 
 void GoblinEntityObject::show() {
@@ -85,7 +85,6 @@ void GoblinEntityObject::move(const Ogre::FrameEvent &evt) {
     } // if
 
     // reset swing timer
-    lastHit = 0.0f;
 
     // move the entity toward the player
     mDirection = mDestination - objectNode->getPosition();
@@ -146,7 +145,7 @@ bool GoblinEntityObject::rangeCheck() {
 void GoblinEntityObject::attack(const Ogre::FrameEvent &evt) {
     double damage;
     Player *player;
-    lastHit += evt.timeSinceLastEvent;
+    lastHit += evt.timeSinceLastEvent * 1.8;
 
     if (lastHit >= mAttackSpeed) {
         lastHit = 0.0f;

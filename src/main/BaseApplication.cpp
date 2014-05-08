@@ -263,10 +263,11 @@ bool BaseApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
         mInputContext.capture();
     } // if
 #endif
-    mCameraMan->frameRenderingQueued(evt);
 
-    if (!World::getInstance().isGamePaused())
-        ObjectManager::getInstance().update(evt);
+    if (!World::getInstance().isGamePaused()) {
+        ObjectManager::getInstance().update(evt);   
+        mCameraMan->frameRenderingQueued(evt);
+    }
 
     return true;
 }

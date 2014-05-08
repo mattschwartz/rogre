@@ -8,12 +8,6 @@
 #include <string>
 #include "src/gui/GUIManager.h"
 
-#if !USE_OGRE_LEGACY
-    #include <boost/thread/thread.hpp>
-    #include <boost/thread/mutex.hpp>
-    #include <boost/shared_ptr.hpp>
-#endif
-
 class NewPlayerMenu {
 private:
     std::string playerName;
@@ -48,10 +42,6 @@ private:
     bool startGameEvent(const CEGUI::EventArgs &e);
 
 public:
-#if !USE_OGRE_LEGACY
-    boost::shared_ptr<boost::thread> mThread;
-#endif
-
     NewPlayerMenu();
     ~NewPlayerMenu();
     void show();

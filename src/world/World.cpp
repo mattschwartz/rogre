@@ -103,16 +103,21 @@ bool World::isGamePaused() {
 } // isGamePaused
 
 void World::descend() {
-    paused = true;
+/*    paused = true;
 
     int roomSize = 15;
     currentZoneLevel++;
     ObjectManager::getInstance().destroyScene();
     currentZone = ZoneGenerator::getInstance().generate(-1, monsterDifficulty, currentZoneLevel, roomSize);
     spawnCurrentPlayer();
+    
     GUIManager::getInstance().inGameMenu->appendText(
         StringHelper::concat<int>("Descending into level ", currentZoneLevel) + "...");
     GUIManager::getInstance().inGameMenu->appendText("Your foes have become stronger.");
+
+    for (RoomObject *o : currentZone->rooms) {
+        o->hide();
+    } // for*/
 } // descend
 
 /**

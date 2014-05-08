@@ -69,7 +69,7 @@ void PlayerObject::update(const Ogre::FrameEvent &evt) {
         } // if
     } // if
     else {
-        lastHealthTick += evt.timeSinceLastEvent;
+        lastHealthTick += evt.timeSinceLastEvent * 5.0f;
 
         if (lastHealthTick >= 1.0f) {
             player->regenerateLife();
@@ -82,7 +82,7 @@ void PlayerObject::update(const Ogre::FrameEvent &evt) {
         campos.x = objectNode->getPosition().x;
         campos.z = objectNode->getPosition().z + campos.y;
         camera->setPosition(campos);
-        player->updateTimePlayed(evt.timeSinceLastEvent);
+        player->updateTimePlayed(evt.timeSinceLastEvent * 5.0f);
         GUIManager::getInstance().inGameMenu->updateAttributes(player);
         GUIManager::getInstance().inGameMenu->updatePlayerScore(player);
     } // else
@@ -191,7 +191,7 @@ void PlayerObject::attack(const Ogre::FrameEvent &evt) {
         } // for
 
         for (DoodadObject *o : zone->doodads) {
-            if (ObjectManager::getInstance().canReach(this, o, 1.0f)) {
+            if (ObjectManager::getInstance().canReach(this, o, 0.5f)) {
                 dmg = player->calculateHit();
                 o->interact();
             } // if

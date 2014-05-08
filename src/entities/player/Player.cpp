@@ -60,7 +60,7 @@ void Player::equipItem(Equippable *equippable) {
     std::vector<affix_t> itemAffixes;
 
     if (equippedItem != NULL) {
-        unequipItem(equippedItem);
+        //unequipItem(equippedItem);
     } // if
     
     itemAffixes = equippable->getAffixes();
