@@ -39,6 +39,7 @@ noinst_HEADERS = ../src/doodad/Doodad.h \
 ../src/gui/menu/LoadingMenu.h \
 ../src/gui/menu/HiScoresMenu.h \
 ../src/gui/menu/LoadPlayerMenu.h \
+../src/gui/menu/CreditPage.h \
 ../src/gui/menu/ingamemenu/AdvancedAttributesPanel.h \
 ../src/gui/menu/ingamemenu/BasicAttributesPanel.h \
 ../src/gui/menu/ingamemenu/InGameMenu.h \
@@ -102,6 +103,7 @@ rogue_SOURCES = ../src/doodad/Doodad.cpp \
 ../src/gui/menu/LoadingMenu.cpp \
 ../src/gui/menu/HiScoresMenu.cpp \
 ../src/gui/menu/LoadPlayerMenu.cpp \
+../src/gui/menu/CreditPage.cpp \
 ../src/gui/menu/ingamemenu/AdvancedAttributesPanel.cpp \
 ../src/gui/menu/ingamemenu/BasicAttributesPanel.cpp \
 ../src/gui/menu/ingamemenu/InGameMenu.cpp \

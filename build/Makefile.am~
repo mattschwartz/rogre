@@ -102,6 +102,7 @@ rogue_SOURCES = ../src/doodad/Doodad.cpp \
 ../src/gui/menu/LoadingMenu.cpp \
 ../src/gui/menu/HiScoresMenu.cpp \
 ../src/gui/menu/LoadPlayerMenu.cpp \
+../src/gui/menu/CreditPage.cpp \
 ../src/gui/menu/ingamemenu/AdvancedAttributesPanel.cpp \
 ../src/gui/menu/ingamemenu/BasicAttributesPanel.cpp \
 ../src/gui/menu/ingamemenu/InGameMenu.cpp \
