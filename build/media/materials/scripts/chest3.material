@@ -1,0 +1,282 @@
+
+material _missing_material_
+{
+    receive_shadows off
+    technique
+    {
+        pass
+        {
+            ambient 0.1 0.1 0.1 1.0
+            diffuse 0.8 0.0 0.0 1.0
+            specular 0.5 0.5 0.5 1.0 12.5
+            emissive 0.3 0.3 0.3 1.0
+        }
+    }
+}
+
+// forziere ferro genrated by blender2ogre 0.6.0
+
+material forziere ferro 
+{
+    receive_shadows on 
+
+    technique
+    {
+        pass forziere ferro
+        {
+            ambient 0.09191378951072693 0.08584944158792496 0.08584944158792496 1.0
+            diffuse 0.0735310327042793 0.06867955429374506 0.06867955429374506 1.0
+            specular 0.5 0.5 0.5 1.0 12.5
+            emissive 0.0 0.0 0.0 1.0
+
+            alpha_to_coverage off
+            colour_write on
+            cull_hardware clockwise
+            depth_check on
+            depth_func less_equal
+            depth_write on
+            illumination_stage 
+            light_clip_planes off
+            light_scissor off
+            lighting on
+            normalise_normals off
+            polygon_mode solid
+            scene_blend one zero
+            scene_blend_op add
+            shading gouraud
+            transparent_sorting on
+
+        }
+    }
+}
+// forziere legno.001 genrated by blender2ogre 0.6.0
+
+material forziere legno.001 
+{
+    receive_shadows on 
+
+    technique
+    {
+        pass forziere legno.001
+        {
+            ambient 1.0 0.5225725769996643 0.0 1.0
+            diffuse 0.800000011920929 0.418058067829282 0.0 1.0
+            specular 0.5 0.5 0.5 1.0 12.5
+            emissive 0.0 0.0 0.0 1.0
+
+            alpha_to_coverage off
+            colour_write on
+            cull_hardware clockwise
+            depth_check on
+            depth_func less_equal
+            depth_write on
+            illumination_stage 
+            light_clip_planes off
+            light_scissor off
+            lighting on
+            normalise_normals off
+            polygon_mode solid
+            scene_blend one zero
+            scene_blend_op add
+            shading gouraud
+            transparent_sorting on
+
+        }
+    }
+}
+// aa genrated by blender2ogre 0.6.0
+
+material aa 
+{
+    receive_shadows on 
+
+    technique
+    {
+        pass aa
+        {
+            ambient 1.0 0.5926350951194763 0.0 1.0
+            diffuse 1.0 0.5926350951194763 0.0 1.0
+            specular 0.20000000298023224 0.20000000298023224 0.20000000298023224 1.0 12.5
+            emissive 0.0 0.0 0.0 1.0
+
+            alpha_to_coverage off
+            colour_write on
+            cull_hardware clockwise
+            depth_check on
+            depth_func less_equal
+            depth_write on
+            illumination_stage 
+            light_clip_planes off
+            light_scissor off
+            lighting on
+            normalise_normals off
+            polygon_mode solid
+            scene_blend one zero
+            scene_blend_op add
+            shading gouraud
+            transparent_sorting on
+
+            texture_unit 
+            {
+                texture forziere.jpg
+                tex_address_mode wrap
+                scale 1.0 1.0
+                colour_op modulate
+            }
+        }
+    }
+}
+// forziere angolo genrated by blender2ogre 0.6.0
+
+material forziere angolo 
+{
+    receive_shadows on 
+
+    technique
+    {
+        pass forziere angolo
+        {
+            ambient 0.18107721209526062 0.1554684340953827 0.1554684340953827 1.0
+            diffuse 0.14486177183481708 0.12437474912963431 0.12437474912963431 1.0
+            specular 0.5 0.5 0.5 1.0 12.5
+            emissive 0.0 0.0 0.0 1.0
+
+            alpha_to_coverage off
+            colour_write on
+            cull_hardware clockwise
+            depth_check on
+            depth_func less_equal
+            depth_write on
+            illumination_stage 
+            light_clip_planes off
+            light_scissor off
+            lighting on
+            normalise_normals off
+            polygon_mode solid
+            scene_blend one zero
+            scene_blend_op add
+            shading gouraud
+            transparent_sorting on
+
+        }
+    }
+}
+// forziere chiodi genrated by blender2ogre 0.6.0
+
+material forziere chiodi 
+{
+    receive_shadows on 
+
+    technique
+    {
+        pass forziere chiodi
+        {
+            ambient 0.3662627935409546 0.35716983675956726 0.35716983675956726 1.0
+            diffuse 0.2930102391989564 0.28573587366545006 0.28573587366545006 1.0
+            specular 0.30000001192092896 0.30000001192092896 0.30000001192092896 1.0 12.5
+            emissive 0.0 0.0 0.0 1.0
+
+            alpha_to_coverage off
+            colour_write on
+            cull_hardware clockwise
+            depth_check on
+            depth_func less_equal
+            depth_write on
+            illumination_stage 
+            light_clip_planes off
+            light_scissor off
+            lighting on
+            normalise_normals off
+            polygon_mode solid
+            scene_blend one zero
+            scene_blend_op add
+            shading gouraud
+            transparent_sorting on
+
+        }
+    }
+}
+// forziere sopra lato genrated by blender2ogre 0.6.0
+
+material forziere sopra lato 
+{
+    receive_shadows on 
+
+    technique
+    {
+        pass forziere sopra lato
+        {
+            ambient 1.0 0.8807016015052795 0.0 1.0
+            diffuse 1.0 0.8807016015052795 0.0 1.0
+            specular 0.5 0.5 0.5 1.0 12.5
+            emissive 0.0 0.0 0.0 1.0
+
+            alpha_to_coverage off
+            colour_write on
+            cull_hardware clockwise
+            depth_check on
+            depth_func less_equal
+            depth_write on
+            illumination_stage 
+            light_clip_planes off
+            light_scissor off
+            lighting on
+            normalise_normals off
+            polygon_mode solid
+            scene_blend one zero
+            scene_blend_op add
+            shading gouraud
+            transparent_sorting on
+
+            texture_unit 
+            {
+                texture forziere sopra.jpg
+                tex_address_mode wrap
+                scale 1.0 1.0
+                colour_op modulate
+            }
+        }
+    }
+}
+// forziere legno sopra genrated by blender2ogre 0.6.0
+
+material forziere legno sopra 
+{
+    receive_shadows on 
+
+    technique
+    {
+        pass forziere legno sopra
+        {
+            ambient 0.709199070930481 0.3911110460758209 0.0 1.0
+            diffuse 0.709199070930481 0.3911110460758209 0.0 1.0
+            specular 0.5 0.5 0.5 1.0 12.5
+            emissive 0.0 0.0 0.0 1.0
+
+            alpha_to_coverage off
+            colour_write on
+            cull_hardware clockwise
+            depth_check on
+            depth_func less_equal
+            depth_write on
+            illumination_stage 
+            light_clip_planes off
+            light_scissor off
+            lighting on
+            normalise_normals off
+            polygon_mode solid
+            scene_blend one zero
+            scene_blend_op add
+            shading gouraud
+            transparent_sorting on
+
+            texture_unit 
+            {
+                texture forziere sopra.jpg
+                tex_address_mode wrap
+                scale 1.0 1.0
+                colour_op modulate
+            }
+        }
+    }
+}

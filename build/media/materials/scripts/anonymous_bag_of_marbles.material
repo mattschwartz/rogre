@@ -1,0 +1,51 @@
+
+material _missing_material_
+{
+    receive_shadows off
+    technique
+    {
+        pass
+        {
+            ambient 0.1 0.1 0.1 1.0
+            diffuse 0.8 0.0 0.0 1.0
+            specular 0.5 0.5 0.5 1.0
+            emissive 0.3 0.3 0.3 1.0
+        }
+    }
+}
+
+// Cloth genrated by blender2ogre 0.6.0
+
+material Cloth 
+{
+    receive_shadows off 
+
+    technique
+    {
+        pass Cloth
+        {
+            ambient 0.15743371844291687 0.07689566165208817 0.03385298326611519 1.0
+            diffuse 0.12594697663108967 0.06151653023833825 0.02708238701645116 1.0
+            specular 0.5 0.5 0.5 1.0
+            emissive 0.0 0.0 0.0 1.0
+        }
+    }
+}
+// Rope genrated by blender2ogre 0.6.0
+
+material Rope 
+{
+    receive_shadows off 
+
+    technique
+    {
+        pass Rope
+        {
+            ambient 0.22658325731754303 0.1212422177195549 0.04680817201733589 1.0
+            diffuse 0.18126660855511734 0.09699377562096378 0.037446538171865607 1.0
+            specular 0.5 0.5 0.5 1.0
+            emissive 0.0 0.0 0.0 1.0
+
+        }
+    }
+}
