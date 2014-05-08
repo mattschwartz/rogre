@@ -16,8 +16,6 @@ CreditPage::CreditPage() :
     registerEvents();
 } // constructor
 
-
-
 void CreditPage::createWidgets() {
     using namespace CEGUI;
 
@@ -47,7 +45,6 @@ void CreditPage::createWidgets() {
     backButton->setPosition(POS(0.58f, -(450.0f / 2), 0.5f, 185.0f));
     backButton->setText("Back");
     backButton->setAlwaysOnTop(true);
-
 } //createWidgets
 
 void CreditPage::createRootWindow() {

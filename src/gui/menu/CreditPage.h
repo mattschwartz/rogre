@@ -4,7 +4,6 @@
 /**
  * Included files
  */
-
 #include <Ogre.h>
 #include "CreditPage.h"
 #include "CEGUI/CEGUI.h"
