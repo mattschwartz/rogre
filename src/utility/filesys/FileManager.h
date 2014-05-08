@@ -5,6 +5,7 @@
  * Included files
  */
 #include <string>
+#include <vector>
 #include <set>
 #include <iostream>
 #include <fstream>
@@ -28,6 +29,8 @@ public:
     } // getInstance
 
     void init();
+    std::vector<std::string> getGraveyard();
+    void addToGraveyard(Player *player);
     std::set<std::string> getLoadablePlayers();
     Player *loadPlayer(std::string filepath, int *, int *, int*, bool*);
     void savePlayer(int seed, Player *player, Zone *zone, bool blindMode);

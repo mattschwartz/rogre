@@ -77,7 +77,6 @@ void LoadPlayerMenu::createRootWindow() {
     mRoot->addChildWindow(deleteSaveButton);
     mRoot->addChildWindow(loadSaveButton);
 #else
-    mRoot->addChild(backgroundWindow);
     mRoot->addChild(titleLabel);
     mRoot->addChild(playerSaveListbox);
     mRoot->addChild(backButton);

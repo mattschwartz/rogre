@@ -16,6 +16,7 @@ private:
     bool dying;
     bool attacking;
     bool dead;
+    bool updateGraveyard;
     Player *player;
     Ogre::Vector3 walkTo;
     Ogre::Vector3 mDirection;
