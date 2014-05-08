@@ -13,6 +13,7 @@
 
 typedef std::map<std::string, std::string> itemMap;
 typedef std::pair<std::string, std::string> itemPair;
+typedef std::pair<equipmentSlot_t, itemPair> equippableItem;
 
 struct affixdata {
     int maxAttributes;
@@ -40,7 +41,7 @@ public:
     std::vector<std::string> prefixAdjectives;
     std::vector<std::string> suffixAdjectives;
     itemMap baseItems;
-    std::map<equipmentSlot_t, itemPair> baseArmorNames;
+    std::map<equipmentSlot_t, std::vector<itemPair>> baseArmorNames;
 
     static ItemData &getInstance() {
         static ItemData instance;
@@ -51,6 +52,7 @@ public:
     struct affixdata getAffixData(int itemType);
     std::string getDescriptionForItem(std::string itemName);
     std::pair<std::string, std::string> getRandomItem();
+    equippableItem getRandomArmor();
 };
 
 #endif

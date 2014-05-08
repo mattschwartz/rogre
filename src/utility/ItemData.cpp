@@ -16,6 +16,12 @@ const std::string SUFFIX_ADJECTIVES_FILE_PATH = RESOURCE_FILE_PATH + std::string
 const std::string BASE_ITEM_FILE_PATH = RESOURCE_FILE_PATH + std::string("baseItems.txt");
 const std::string BASE_ARMOR_NAMES_FILE_PATH = RESOURCE_FILE_PATH + std::string("baseArmorNames.txt");
 
+const std::string DEFAULT_ITEM_DESCRIPTION = "An unusual item.";
+const std::string DEFAULT_HELMET_DESCRIPTION = "Place on head for best results.";
+const std::string DEFAULT_CHEST_DESCRIPTION = "Place on body for best results.";
+const std::string DEFAULT_GLOVES_DESCRIPTION = "Place on hands for best results.";
+const std::string DEFAULT_BOOTS_DESCRIPTION = "Place on feet for best results.";
+
 const double FLIMSY_MIN_ATTR = 1.0;
 const double FLIMSY_MAX_ATTR = 10.0;
 
@@ -151,6 +157,7 @@ void ItemData::initArmorNames() {
     string name;
     string description;
     vector<string> strs;
+    pair<string, string> nameDes;
 
     file = fileManager.openFile(BASE_ARMOR_NAMES_FILE_PATH);
 
@@ -166,28 +173,42 @@ void ItemData::initArmorNames() {
         } // if
 
         strs = StringHelper::split(line, ';');
-        itemId = atoi(strs.back().c_str());
-        strs.pop_back();
-        description = strs.back();
-        strs.pop_back();
-        name = strs.back();
+        itemId = atoi(strs[0].c_str());
+        name = strs[1];
+        description = strs[2];
 
         switch (itemId) {
             case helmet:
-                baseArmorNames[helmet].first = name;
-                baseArmorNames[helmet].second = description;
+                if (strncmp(description.c_str(), "", 0) == 0) {
+                    description = DEFAULT_HELMET_DESCRIPTION;
+                } // if
+                
+                nameDes = make_pair(name, description);
+                baseArmorNames[helmet].push_back(nameDes);
                 break;
             case chest:
-                baseArmorNames[chest].first = name;
-                baseArmorNames[chest].second = description;
+                if (strncmp(description.c_str(), "", 0) == 0) {
+                    description = DEFAULT_CHEST_DESCRIPTION;
+                } // if
+                
+                nameDes = make_pair(name, description);
+                baseArmorNames[chest].push_back(nameDes);
                 break;
             case gloves:
-                baseArmorNames[gloves].first = name;
-                baseArmorNames[gloves].second = description;
+                if (strncmp(description.c_str(), "", 0) == 0) {
+                    description = DEFAULT_GLOVES_DESCRIPTION;
+                } // if
+                
+                nameDes = make_pair(name, description);
+                baseArmorNames[gloves].push_back(nameDes);
                 break;
             case boots:
-                baseArmorNames[boots].first = name;
-                baseArmorNames[boots].second = description;
+                if (strncmp(description.c_str(), "", 0) == 0) {
+                    description = DEFAULT_BOOTS_DESCRIPTION;
+                } // if
+                
+                nameDes = make_pair(name, description);
+                baseArmorNames[boots].push_back(nameDes);
                 break;
             default:
                 continue;
@@ -228,3 +249,33 @@ std::pair<std::string, std::string> ItemData::getRandomItem() {
 
     return result;
 } // getRandomItem
+
+equippableItem ItemData::getRandomArmor() {
+    int ran = rand() % 4;
+    equipmentSlot_t slotid;
+
+    switch (ran) {
+        case helmet:
+            slotid = helmet;
+            break;
+        case chest:
+            slotid = chest;
+            break;
+        case gloves:
+            slotid = gloves;
+            break;
+        default:
+            slotid = boots;
+    } // switch-case
+
+    ran = rand() % baseArmorNames[slotid].size();
+    auto iter = baseArmorNames[slotid].begin();
+    equippableItem result;
+
+    std::advance(iter, ran);
+    result.first = slotid;
+    result.second.first = iter->first;
+    result.second.second = iter->second;
+
+    return result;
+} // getRandomArmor

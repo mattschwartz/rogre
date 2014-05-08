@@ -129,7 +129,7 @@ bool PlayerInventoryPanel::inventorySelectionChanged(const CEGUI::EventArgs &e) 
                 if (((Item*)inventory->getFirstSelectedItem()->getUserData())->isEquippable()) {
                     equipItemButton->setEnabled(true);
 
-                    if (((Equippable*)inventory->getFirstSelectedItem()->getUserData())->isEquippable()) {
+                    if (((Equippable*)inventory->getFirstSelectedItem()->getUserData())->isEquipped()) {
                         equipItemButton->setText("Unequip");
                     } // if
                 } // if

@@ -49,6 +49,7 @@ public:
     double getAttribute(attribute_t attribute);
     void setAttribute(attribute_t attribute, double value);
     virtual double calculateHit();
+    virtual double getDamageReduction(double damageTaken);
     virtual void takeDamage(double amount, Entity *aggressor);
 
     /**

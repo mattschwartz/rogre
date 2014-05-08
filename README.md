@@ -112,7 +112,6 @@ random intervals. And the scene creation function has the ambiance play in a
 loop.
 ===============================================================================
 
-
                             First Milestone Update
 ===============================================================================
 Most of the work that we have completed so far has been dedicated to sketching

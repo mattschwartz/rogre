@@ -32,7 +32,7 @@ void InfoLogPanel::createWidgets() {
 #endif
 
     textLog->setPosition(UVector2(UDim(0.0f, 10.0f), UDim(0.80f, -5.0f)));
-    textLog->setText("Welcome to ROgre v0.1.0!");
+    textLog->setText("Welcome to ROgre v1.0.0!");
     textLog->setWordWrapping(true);
     textLog->setReadOnly(true);
 
@@ -118,5 +118,5 @@ void InfoLogPanel::addPanelTo(CEGUI::Window *mRoot) {
 } // addPanelTo
 
 void InfoLogPanel::loadPlayer(Player *player) {
-    textLog->setText("Welcome to ROgre v0.1.0, " + player->getName() + "!");
+    textLog->setText("Welcome to ROgre v1.0.0, " + player->getName() + ".");
 } // loadPlayer

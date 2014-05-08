@@ -16,7 +16,7 @@ Entity::Entity(int level, int monsterPower, std::string name) {
     this->name = name;
     drop = NULL;
 
-    attributes[strength] = 50.0 * (1 + (int)((double)level/100.0)) * ((double)monsterPower/100.0);
+    attributes[strength] = 50.0 * (1 + ((double)level / 10.0)) * ((double)monsterPower/100.0);
     attributes[hitpoints] = 100.0 * (1 + (int)((double)level/100.0)) * ((double)monsterPower/100.0);
     attributes[armor] = 25.0 * (1 + (int)((double)level/100.0)) * ((double)monsterPower/100.0);
 
@@ -102,8 +102,14 @@ void Entity::setAttribute(attribute_t attribute, double value) {
 double Entity::calculateHit() {
     onDamageDealt();
 
-    return 10.0;
+    return 15 * (1 + (attributes[strength] / 100.0));
 } // calculateHit
+
+double Entity::getDamageReduction(double damageTaken) {
+    double reduction = (1 + (100.0 / attributes[armor]));
+
+    return damageTaken * (reduction / 100.0);
+} // getDamageReduction
 
 /**
  * This function is invoked whenever the Entity is hit by
@@ -113,10 +119,13 @@ double Entity::calculateHit() {
  * @param aggressor This is the Entity who has attacked this Entity
  */
 void Entity::takeDamage(double amount, Entity *aggressor) {
-    currentHitpoints -= amount;
+    using namespace StringHelper;
+    double amountAbsorbed = getDamageReduction(amount);
+    currentHitpoints -= amount - amountAbsorbed;
     onDamageTaken();
 
-    GUIManager::getInstance().inGameMenu->appendText(StringHelper::concat<double>(name + " is damaged for ", amount) + ".");
+    GUIManager::getInstance().inGameMenu->appendText(concat<double>(name + " is damaged for ", amount) + 
+        concat<double>(" (", amountAbsorbed) + " damage absorbed).");
     
     if (currentHitpoints <= 0) {
         die(aggressor);

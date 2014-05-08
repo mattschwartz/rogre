@@ -99,10 +99,12 @@ bool Player::lowLife() {
 } // lowLife
 
 void Player::takeDamage(double amount, Entity *aggressor) {
-    currentHitpoints -= amount;
+    using namespace StringHelper;
+    double absorbed = getDamageReduction(amount);
+    currentHitpoints -= amount - absorbed;
 
-    GUIManager::getInstance().inGameMenu->appendText(StringHelper::concat<double>("You are damaged for ", amount) + ".");
-
+    GUIManager::getInstance().inGameMenu->appendText(concat<double>("You are damaged for ", amount) + 
+        concat<double>(" (", absorbed) + " damage absorbed).");
     if (lowLife()) {
         SoundManager::getInstance().PLAYER_LOW_LIFE_SOUND->stop();
         SoundManager::getInstance().PLAYER_LOW_LIFE_SOUND->play();
@@ -118,7 +120,5 @@ void Player::takeDamage(double amount, Entity *aggressor) {
 } // takeDamage
 
 double Player::calculateHit() {
-    double result = 99.0f;
-
-    return result;
+    return 30 * (1 + (attributes[strength] / 100.0));
 } // calculateHit

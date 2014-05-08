@@ -113,8 +113,6 @@ void World::descend() {
     GUIManager::getInstance().inGameMenu->appendText(
         StringHelper::concat<int>("Descending into level ", currentZoneLevel) + "...");
     GUIManager::getInstance().inGameMenu->appendText("Your foes have become stronger.");
-
-    paused = false;
 } // descend
 
 /**

@@ -46,3 +46,10 @@ Controls:
     * Press escape to open the Options Menu in order to toggle sound or quit 
       and save your progress.
 
+Known Issues:
+    *   Descending stairs sometimes crashes the game. This seems to be because
+        the camera tries to reposition itself incorrectly in the middle of a
+        descent.
+    *   The mouse needs to be moved around a bit, first, so that Ogre knows
+        where it is in game.
+        
