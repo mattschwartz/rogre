@@ -22,6 +22,7 @@ private:
     CEGUI::PushButton *loadPlayerButton;
     CEGUI::PushButton *hiScoresButton;
     CEGUI::PushButton *quitButton;
+    CEGUI::PushButton *creditButton;
     void createButtons();
     void createRootWindow();
     void registerEvents();
@@ -29,6 +30,7 @@ private:
     bool loadPlayerEvent(const CEGUI::EventArgs &e);
     bool hiScoresEvent(const CEGUI::EventArgs &e);
     bool quitEvent(const CEGUI::EventArgs &e);
+    bool creditEvent(const CEGUI::EventArgs &e);
 
 public:
     MainMenu();

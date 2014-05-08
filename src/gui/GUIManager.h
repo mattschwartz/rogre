@@ -20,6 +20,7 @@ class OptionsMenu;
 class LoadingMenu;
 class DeathMenu;
 class InGameMenu;
+class CreditPage;
 
 /**
  * Data
@@ -43,6 +44,7 @@ public:
     LoadingMenu *loadingMenu;
     DeathMenu *deathMenu;
     InGameMenu *inGameMenu;
+    CreditPage *creditPage;
 
     static GUIManager &getInstance() {
         static GUIManager instance;

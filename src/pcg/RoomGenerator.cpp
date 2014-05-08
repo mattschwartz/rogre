@@ -33,18 +33,18 @@ Room *RoomGenerator::generate(Zone *zone, float x, float z,
 
     while (!done) {
         e = (GoblinEntity*)MonsterGenerator::getInstance().generateMonster(zone->zoneLevel, zone->monsterDifficulty);
-		eX = (rand() % (int)width) + x;
-		eZ = (rand() % (int)depth) + z;
+		eX = (rand() % (2 + ((int)width - 2))) + x;
+		eZ = (rand() % (2 + ((int)depth - 2))) + z;
         zone->addEntity(new GoblinEntityObject(e, eX, eZ));
 
         d = ChestGenerator::getInstance().generateChest(zone->zoneLevel);
-		eX = (rand() % (int)width) + x;
-		eZ = (rand() % (int)depth) + z;
+		eX = (rand() % (2 + ((int)width - 2))) + x;
+		eZ = (rand() % (2 + ((int)depth - 2))) + z;
         zone->addDoodad(new ChestDoodadObject(d, eX, eZ));
 
         i = ItemGenerator::getInstance().generateItem(zone->zoneLevel);
-		eX = (rand() % (int)width) + x;
-		eZ = (rand() % (int)depth) + z;
+		eX = (rand() % (2 + ((int)width - 2))) + x;
+		eZ = (rand() % (2 + ((int)depth - 2))) + z;
         zone->addLoot(new LootObject(i, eX, eZ));
 
         done = true;

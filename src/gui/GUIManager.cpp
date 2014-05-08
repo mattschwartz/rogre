@@ -12,6 +12,7 @@
 #include "menu/DeathMenu.h"
 #include "menu/ingamemenu/InGameMenu.h"
 #include "menu/HiScoresMenu.h"
+#include "menu/CreditPage.h"
 
 void GUIManager::init() {
     initCEGUI();
@@ -23,6 +24,7 @@ void GUIManager::init() {
     deathMenu = new DeathMenu();
     inGameMenu = new InGameMenu();
     hiScoresMenu = new HiScoresMenu();
+    creditPage = new CreditPage();
 } // init
 
 void GUIManager::initCEGUI() {
