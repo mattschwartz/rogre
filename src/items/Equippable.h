@@ -26,14 +26,21 @@ class Player;
  */
 class Equippable : public Item {
 private:
+    bool equipped;
     equipmentSlot_t equipmentSlot;
     std::vector<affix_t> affixes;
 
 public:
-    Equippable(int id, int level, int goldWorth, int stackSize, std::string name, int numAffixes, affix_t *affixes);
-    equipmentSlot_t getSlotId();
+    Equippable(int level);
+    Equippable(int level, int goldWorth, int stackSize, std::string name, int numAffixes, affix_t *affixes);
+
+    bool isEquipped();
+    void setEquipped(bool value);
+    void setSlotid(equipmentSlot_t slotid);
+    equipmentSlot_t getSlotid();
     int getNumAffixes();
     std::vector<affix_t> getAffixes();
+    void addAffix(affix_t affix);
 };
 
 #endif

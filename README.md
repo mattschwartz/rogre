@@ -3,7 +3,73 @@
 Authors:     Nick Carter (nac568), Alex Ip (ati84), Matt Schwartz (mas7279)
 Project:     Final Assignment
 Course:      CS 354R - Game Technology
-Date:        04.22.2014 (Updated Again)
+Date:        05.07.2014 (Final Update)
+===============================================================================
+
+                              Final Turnin Update
+===============================================================================
+With a very small number of exceptions, I believe that I have at least met my
+vision of what the end result should be. I am thankful that I had to cut very
+few of the original ideas from the final result.
+
+A brief description of the game:
+I have been using the working title for my game "ROgre", which is a composite 
+of Rogue, the game after which mine is modeled, and Ogre, the rendering system
+for my game. One of the best features ROgre has to offer the player is 
+customization. When creating the game, the player has the option to name his or
+her character and adjust many of the game's settings to make the game as easy
+or difficult as the player wishes. These features are:
+  * Seed
+    This is what the game's PRNG is seeded with. Supplying the same seed in 
+    different generations will cause the same exact game to be generated twice
+    which allows a player to play another player's "world" or repeat a past
+    game in the exact same way.
+
+  * Starting monster level
+    By default, monsters start out at the same level as you are and increase by
+    1 every time the player descends further into the game. If the player 
+    desires a harder game, he or she can simply increase this value (max 20).
+
+  * Starting monster difficulty
+    This increases the power of the monster by a direct percentage. Default is
+    50% and goes up to 200%. This multiplier affects every monster's hitpoints,
+    armor and strength.
+
+  * Blind mode
+    If enabled, blind mode causes previously explored rooms to be hidden again.
+
+Another great feature of ROgre is that everything is randomized to provide for
+unique experiences across multiple playthroughs. I believe this is the 
+signature for every Roguelike game out there. Rooms are randomly generated and
+doors are randomly placed. Chests contain a random number of random items. 
+Monsters are randomly generated in rooms with randomly generated names and
+randomly generated loot that drops when they are killed.
+
+ROgre is also quite easily mod-able. Inside the data/ folder, there are a few
+text files which contain the data for almost every major aspect in the game and
+can be easily modified by the player to change the feel of the game in a few 
+different ways. Most notable of these modifiable features are:
+  * Item names and descriptions
+    The player can modify an item's name, description, rare items and 
+    adjectives which can spawn on equippable items.
+
+  * Monster names
+    The player can modify the first, last, prefix and suffix titles that can
+    spawn on a monster.
+
+  * Tips
+    These are the strings that are displayed when the player is loading the 
+    game.
+Do note that these files are quite sensitive, so the format must be strictly
+followed or the game may crash during runtime.
+
+ROgre allows for continuation. The player can save his or her game, quit and 
+come back to it at any point and continue their progress. Everything is saved,
+but the room is regenerated (which can allow for exploits, unfortunately).
+
+ROgre displays your past triumphs. When a player dies, they are remembered in 
+the graveyard. Every deceased player's name, score, time played and time of
+death is recorded here.
 ===============================================================================
 
                            Second Milestone Update
@@ -45,7 +111,6 @@ For example, when the Player walks, footsteps play. Monsters will snarl at
 random intervals. And the scene creation function has the ambiance play in a
 loop.
 ===============================================================================
-
 
                             First Milestone Update
 ===============================================================================

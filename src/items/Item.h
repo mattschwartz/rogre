@@ -9,24 +9,21 @@
 #include "Affix.h"
 
 /**
- * Defines
- */
-#define MAX_AFFIXES 3
-
-/**
  * Data
  */
 class Item {
 protected:
-    int id;
+    bool equippable;
     int level;
     int goldWorth;
     int stackSize;
     int numAffixes;
     std::string name;
+    std::string description;
 
 public:
-    Item(int id, int level, int goldWorth, int stackSize, std::string name);
+    Item(int level);
+    Item(int level, int goldWorth, int stackSize, std::string name);
 
     /**
      * Overriding operators
@@ -37,12 +34,16 @@ public:
     /**
      * Getters & Setters
      */
-    int getId();
-    void setId(int id);
+    bool isEquippable();
     int getGoldWorth();
     void setGoldWorth(int goldWorth);
     int getStackSize();
     void setStackSize(int stackSize);
+    void setName(std::string name);
+    std::string getName();
+    std::string pickupText();
+    std::string getDescription();
+    void setDescription(std::string text);
 };
 
 #endif

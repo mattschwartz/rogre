@@ -1,0 +1,7 @@
+# These tips will be displayed in the loading screen
+# Comments start with a pound symbol (#)
+# Format is 1 tip per line
+
+You can replay past games by entering the same seed.
+Adjust difficulty when creating a new game for a more challenging or easier game.
+Pick up items to increase your score.

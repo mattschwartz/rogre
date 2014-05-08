@@ -1,0 +1,191 @@
+
+material _missing_material_
+{
+    receive_shadows off
+    technique
+    {
+        pass
+        {
+            ambient 0.1 0.1 0.1 1.0
+            diffuse 0.8 0.0 0.0 1.0
+            specular 0.5 0.5 0.5 1.0 12.5
+            emissive 0.3 0.3 0.3 1.0
+        }
+    }
+}
+
+// Wood genrated by blender2ogre 0.6.0
+
+material Wood 
+{
+    receive_shadows on 
+
+    technique
+    {
+        pass Wood
+        {
+            ambient 0.6471695899963379 0.6471695899963379 0.6471695899963379 1.0
+            diffuse 0.517735679711933 0.517735679711933 0.517735679711933 1.0
+            specular 0.16300182044506073 0.16300182044506073 0.16300182044506073 1.0 0.25
+            emissive 0.0 0.0 0.0 1.0
+
+            alpha_to_coverage off
+            colour_write on
+            cull_hardware clockwise
+            depth_check on
+            depth_func less_equal
+            depth_write on
+            illumination_stage 
+            light_clip_planes off
+            light_scissor off
+            lighting on
+            normalise_normals off
+            polygon_mode solid
+            scene_blend one zero
+            scene_blend_op add
+            shading gouraud
+            transparent_sorting on
+
+        }
+    }
+}
+// Alpha genrated by blender2ogre 0.6.0
+
+material Alpha 
+{
+    receive_shadows on 
+
+    technique
+    {
+        pass Alpha
+        {
+            ambient 0.800000011920929 0.800000011920929 0.800000011920929 1.0
+            diffuse 0.6400000190734865 0.6400000190734865 0.6400000190734865 1.0
+            specular 0.5 0.5 0.5 1.0 12.5
+            emissive 0.0 0.0 0.0 1.0
+
+            alpha_to_coverage off
+            colour_write on
+            cull_hardware clockwise
+            depth_check on
+            depth_func less_equal
+            depth_write on
+            illumination_stage 
+            light_clip_planes off
+            light_scissor off
+            lighting on
+            normalise_normals off
+            polygon_mode solid
+            scene_blend one zero
+            scene_blend_op add
+            shading gouraud
+            transparent_sorting on
+
+        }
+    }
+}
+// Rock genrated by blender2ogre 0.6.0
+
+material Rock 
+{
+    receive_shadows on 
+
+    technique
+    {
+        pass Rock
+        {
+            ambient 0.50452721118927 0.50452721118927 0.50452721118927 1.0
+            diffuse 0.40362177496584906 0.40362177496584906 0.40362177496584906 1.0
+            specular 0.23975136876106262 0.23975136876106262 0.23975136876106262 1.0 0.25
+            emissive 0.0 0.0 0.0 1.0
+
+            alpha_to_coverage off
+            colour_write on
+            cull_hardware clockwise
+            depth_check on
+            depth_func less_equal
+            depth_write on
+            illumination_stage 
+            light_clip_planes off
+            light_scissor off
+            lighting on
+            normalise_normals off
+            polygon_mode solid
+            scene_blend one zero
+            scene_blend_op add
+            shading gouraud
+            transparent_sorting on
+
+        }
+    }
+}
+// Iron genrated by blender2ogre 0.6.0
+
+material Iron 
+{
+    receive_shadows on 
+
+    technique
+    {
+        pass Iron
+        {
+            ambient 0.800000011920929 0.800000011920929 0.800000011920929 1.0
+            diffuse 0.6400000190734865 0.6400000190734865 0.6400000190734865 1.0
+            specular 1.5509945154190063 1.5509945154190063 1.5509945154190063 1.0 47.5
+            emissive 0.0 0.0 0.0 1.0
+
+            alpha_to_coverage off
+            colour_write on
+            cull_hardware clockwise
+            depth_check on
+            depth_func less_equal
+            depth_write on
+            illumination_stage 
+            light_clip_planes off
+            light_scissor off
+            lighting on
+            normalise_normals off
+            polygon_mode solid
+            scene_blend one zero
+            scene_blend_op add
+            shading gouraud
+            transparent_sorting on
+
+        }
+    }
+}
+// Material genrated by blender2ogre 0.6.0
+
+material Material 
+{
+    receive_shadows on 
+
+    technique
+    {
+        pass Material
+        {
+            ambient 0.5304622054100037 0.5304622054100037 0.5304622054100037 1.0
+            diffuse 0.4243697706516052 0.4243697706516052 0.4243697706516052 1.0
+            specular 0.18191833794116974 0.18191833794116974 0.18191833794116974 1.0 0.25
+            emissive 0.0 0.0 0.0 1.0
+
+            alpha_to_coverage off
+            colour_write on
+            cull_hardware clockwise
+            depth_check on
+            depth_func less_equal
+            depth_write on
+            illumination_stage 
+            light_clip_planes off
+            light_scissor off
+            lighting on
+            normalise_normals off
+            polygon_mode solid
+            scene_blend one zero
+            scene_blend_op add
+            shading gouraud
+            transparent_sorting on
+
+        }
+    }
+}

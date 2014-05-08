@@ -1,0 +1,22 @@
+# Everything has the following format:
+# <slot id>;<item name>;<description>?
+# note that everything is delimited by semicolons (;)
+# and that the description is optional
+# if no description, default is used
+#
+# Rare names are generated for higher level items and do not
+# have prefix or suffix adjectives
+
+# Helmets
+0;the dragon's helm;
+0;nightmare dome;
+0;face concealer;
+
+# Chest armors
+1;the dragon's breast;
+
+# Gloves
+2;the dragon's claws;
+
+# Boots
+3;the dragon's talons;

@@ -1,0 +1,13 @@
+# A list of adjectives to be picked from when generating
+# a random item. prefix adjectives will be generated in front
+# of the item's name
+
+healthy
+robust
+strong
+calming
+peculiar
+dim
+sticky
+dusty
+foretold

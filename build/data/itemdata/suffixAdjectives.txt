@@ -1,0 +1,16 @@
+# A list of adjectives to be picked from when generating
+# a random item. suffix adjectives will be generated behind
+# the item's name
+
+melting
+peculiarity
+anxiety
+obnoxiousness
+haunting
+the bear
+the fox
+the italian
+the german
+the lion
+scalding
+craftiness

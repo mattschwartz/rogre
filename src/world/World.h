@@ -17,6 +17,10 @@ class Zone;
  */
 class World {
 private:
+    bool paused;
+    bool blindModeEnabled;
+    int seed;
+    int monsterDifficulty;
     int currentZoneLevel;
     Player *currentPlayer;
     PlayerObject *playerObject;
@@ -31,9 +35,15 @@ public:
         return instance;
     } // getInstance
 
+    bool isGameModeBlind();
+    int getSeed();
     void playerQuit();
-    void loadZone();
-    void spawnCurrentPlayer(float x, float y, float z);
+    void pauseGame();
+    void resumeGame();
+    bool isGamePaused();
+    void descend();
+    void loadZone(int zoneLevel, int monsterDifficulty, int seed, bool blindModeEnabled);
+    void spawnCurrentPlayer();
 
     /**
      * Getters & Setters
@@ -41,6 +51,7 @@ public:
     int getZoneLevel();
     void setZoneLevel(int zoneLevel);
     Player *getCurrentPlayer();
+    PlayerObject *getPlayerObject();
     Ogre::Vector3 getPlayerPosition();
     void setCurrentPlayer(Player *player);
     Zone *getCurrentZone();

@@ -14,18 +14,18 @@
 #endif
 
 class SoundEffect {
-private:
+protected:
     int channel;
     Mix_Chunk *sound;
 
 public:
     SoundEffect(const std::string filepath);
     ~SoundEffect();
-    void play();
-    void pause();
-    void resume();
-    void stop();
-    void loop(int loops);
+    virtual void play() = 0;
+    virtual void pause() = 0;
+    virtual void resume() = 0;
+    virtual void stop() = 0;
+    virtual void loop(int loops) = 0;
 };
 
 #endif

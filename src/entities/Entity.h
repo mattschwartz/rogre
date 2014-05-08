@@ -10,7 +10,7 @@
  * Defines
  */
 #define NUM_ATTRIBUTES 3
-#define EQUIPMENT_SLOTS 5
+#define EQUIPMENT_SLOTS 4
 
 typedef enum {
     strength = 0,
@@ -18,22 +18,39 @@ typedef enum {
     armor = 2
 } attribute_t;
 
+class Item;
+
 /**
  * Data
  */
 class Entity {
 protected:
     int level;
+    int monsterPower;
     double currentHitpoints;
     double attributes[NUM_ATTRIBUTES];
     std::string name;
+    Item *drop;
 
 public:
-    Entity(int level, std::string name);
+    Entity(int level, int monsterPower, std::string name);
+
+    std::string getName();
+    void setName(std::string name);
+    int getLevel();
+    void setLevel(int level);
+    void setDrop(Item *drop);
+    Item *getDrop();
     void spawn();
-    void die(Entity *slayer);
-    double calculateHit();
-    void takeDamage(double amount, Entity *aggressor);
+    bool isDead();
+    virtual void die(Entity *slayer);
+    double getCurrentHitpoints();
+    void setCurrentHitpoints(double value);
+    double getAttribute(attribute_t attribute);
+    void setAttribute(attribute_t attribute, double value);
+    virtual double calculateHit();
+    virtual double getDamageReduction(double damageTaken);
+    virtual void takeDamage(double amount, Entity *aggressor);
 
     /**
      * This optional function is invoked whenever the Entity is spawned into 

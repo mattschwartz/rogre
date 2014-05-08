@@ -1,57 +1,84 @@
 /**
  * Included files
  */
-#include <Ogre.h>
 #include "SoundManager.h"
 #include "SoundEffect.h"
+#include "GameSoundEffect.h"
+#include "MenuSoundEffect.h"
+
+bool GameSoundEffect::enabled = true;
+bool MenuSoundEffect::enabled = true;
 
 void SoundManager::init() {
     SDL_Init(SDL_INIT_AUDIO);
-    if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 1024) < 0) {
-        MessageBox(NULL, Mix_GetError(), "An exception has occured!", MB_OK | MB_ICONERROR | MB_TASKMODAL);
-    } // if
+    Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 1024);
     Mix_Volume(-1, MIX_MAX_VOLUME);
 
-    PLAYER_FOOTSTEP_SOUND = new SoundEffect("media/sound/footstep.wav");
-    MONSTER_BREATHING_1_SOUND = new SoundEffect("media/sound/monsterBreath1.wav");
-    MONSTER_BREATHING_2_SOUND = new SoundEffect("media/sound/monsterBreath2.wav");
-    MONSTER_BREATHING_3_SOUND = new SoundEffect("media/sound/monsterBreath3.wav");
-    MONSTER_BREATHING_4_SOUND = new SoundEffect("media/sound/monsterBreath4.wav");
-    ATTACK_HIT_1_SOUND = new SoundEffect("media/sound/attackHit1.wav");
-    ATTACK_MISS_1_SOUND = new SoundEffect("media/sound/attackMiss.wav");
-    MENU_SELECT_SOUND = new SoundEffect("media/sound/menuSelect.wav");
-    AMBIANCE_RUMBLE_SOUND = new SoundEffect("media/sound/ambianceRumble.wav");
+    PLAYER_FOOTSTEP_SOUND = new GameSoundEffect("media/sound/footstep.wav");
+    MONSTER_BREATHING_1_SOUND = new GameSoundEffect("media/sound/monsterBreath1.wav");
+    MONSTER_BREATHING_2_SOUND = new GameSoundEffect("media/sound/monsterBreath2.wav");
+    MONSTER_BREATHING_3_SOUND = new GameSoundEffect("media/sound/monsterBreath3.wav");
+    MONSTER_BREATHING_4_SOUND = new GameSoundEffect("media/sound/monsterBreath4.wav");
+    PLAYER_DAMAGED_SOUND = new GameSoundEffect("media/sound/playerTakeDamage.wav");
+    PLAYER_LOW_LIFE_SOUND = new GameSoundEffect("media/sound/playerLowLife.wav");
+    ATTACK_MISS_1_SOUND = new GameSoundEffect("media/sound/attackMiss1.wav");
+    MENU_SELECT_SOUND = new MenuSoundEffect("media/sound/menuSelect.wav");
+    AMBIANCE_RUMBLE_SOUND = new GameSoundEffect("media/sound/ambianceRumble.wav");
+    CHEST_OPEN_SOUND = new GameSoundEffect("media/sound/chestOpen.wav");
+    DESCEND_STAIRS_SOUND = new GameSoundEffect("media/sound/woodenStairs.wav");
+    LOOT_ITEM_SOUND = new GameSoundEffect("media/sound/lootItem.wav");
     
-    soundEnabled = true;
+    gameSoundEffects.push_back(PLAYER_FOOTSTEP_SOUND);
+    gameSoundEffects.push_back(MONSTER_BREATHING_1_SOUND);
+    gameSoundEffects.push_back(MONSTER_BREATHING_2_SOUND);
+    gameSoundEffects.push_back(MONSTER_BREATHING_3_SOUND);
+    gameSoundEffects.push_back(MONSTER_BREATHING_4_SOUND);
+    gameSoundEffects.push_back(PLAYER_DAMAGED_SOUND);
+    gameSoundEffects.push_back(ATTACK_MISS_1_SOUND);
+    gameSoundEffects.push_back(AMBIANCE_RUMBLE_SOUND);
+    menuSoundEffects.push_back(MENU_SELECT_SOUND);
 } // init
 
-bool SoundManager::isSoundEnabled() {
-    return soundEnabled;
-} // isSoundEnabled
+bool SoundManager::isMenuSoundEnabled() {
+    return MenuSoundEffect::enabled;
+} // isMenuSoundEnabled
 
-void SoundManager::toggleSound() {
-    soundEnabled = !soundEnabled;
+bool SoundManager::isGameSoundEnabled() {
+    return GameSoundEffect::enabled;
+} // isGameSoundEnabled
 
-    if (soundEnabled) {
-        PLAYER_FOOTSTEP_SOUND->resume();
-        MONSTER_BREATHING_1_SOUND->resume();
-        MONSTER_BREATHING_2_SOUND->resume();
-        MONSTER_BREATHING_3_SOUND->resume();
-        MONSTER_BREATHING_4_SOUND->resume();
-        ATTACK_HIT_1_SOUND->resume();
-        ATTACK_MISS_1_SOUND->resume();
-        MENU_SELECT_SOUND->resume();
-        AMBIANCE_RUMBLE_SOUND->resume();
+void SoundManager::resetSound() {
+    Mix_HaltChannel(-1);
+    GameSoundEffect::enabled = true;
+    MenuSoundEffect::enabled = true;
+} // resetSound
+
+void SoundManager::setGameSoundEnabled(bool enabled) {
+    GameSoundEffect::enabled = enabled;
+
+    if (enabled) {
+        for (SoundEffect *fx : gameSoundEffects) {
+            fx->resume();
+        } // for
     } // if
     else {
-        PLAYER_FOOTSTEP_SOUND->pause();
-        MONSTER_BREATHING_1_SOUND->pause();
-        MONSTER_BREATHING_2_SOUND->pause();
-        MONSTER_BREATHING_3_SOUND->pause();
-        MONSTER_BREATHING_4_SOUND->pause();
-        ATTACK_HIT_1_SOUND->pause();
-        ATTACK_MISS_1_SOUND->pause();
-        MENU_SELECT_SOUND->pause();
-        AMBIANCE_RUMBLE_SOUND->pause();
+        for (SoundEffect *fx : gameSoundEffects) {
+            fx->pause();
+        } // for
     } // else
-} // toggleSound
+} // setGameSoundEnabled
+
+void SoundManager::setMenuSoundEnabled(bool enabled) {
+    MenuSoundEffect::enabled = enabled;
+
+    if (enabled) {
+        for (SoundEffect *fx : menuSoundEffects) {
+            fx->resume();
+        } // for
+    } // if
+    else {
+        for (SoundEffect *fx : menuSoundEffects) {
+            fx->pause();
+        } // for
+    } // else
+} // setMenuSoundEnabled

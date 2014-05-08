@@ -6,15 +6,16 @@
 #include "src/world/Room.h"
 #include "src/utility/MathHelper.h"
 #include "src/utility/StringHelper.h"
+#include "src/world/World.h"
 
 /**
  * Data
  */
-RoomObject::RoomObject(int id, Room *room, float width, float depth, float height, 
-                       Ogre::Vector3 pos) : GameObject(pos) {
-    checkId(id);
+static int roomCount = 0;
 
-    this->id = id;
+RoomObject::RoomObject(Room *room, float width, float depth, float height, 
+    Ogre::Vector3 pos) : GameObject(pos) {
+    this->id = roomCount++;
 	this->room = room;
     this->dimensions.width = width;
     this->dimensions.depth = depth;
@@ -22,49 +23,27 @@ RoomObject::RoomObject(int id, Room *room, float width, float depth, float heigh
     init();
 } // constructor
 
-RoomObject::RoomObject(int id, Room *room, struct Dimension d, Ogre::Vector3 pos) : 
+RoomObject::RoomObject(Room *room, struct Dimension d, Ogre::Vector3 pos) : 
     GameObject(pos) {
-    checkId(id);
-
-    this->id = id;
+    this->id = roomCount++;
 	this->room = room;
     this->dimensions = d;
     init();
 } // constructor
 
 RoomObject::~RoomObject() {
-	int index = 0;
-
-	for (int id : idList) {
-		if (this->id == id) {
-			idList.erase(idList.begin() + index);
-			break;
-		}
-		index++;
-	} // for
-
-	// Remove entities
-	ObjectManager::getInstance().destroyEntity("");
-
-	// Remove scene nodes
-	ObjectManager::getInstance().destroySceneNode("");
+	ObjectManager::getInstance().destroySceneNode("FloorEntity", id);
+	ObjectManager::getInstance().destroySceneNode("Wall1Node", id);
+	ObjectManager::getInstance().destroySceneNode("Wall2Node", id);
+	ObjectManager::getInstance().destroySceneNode("Wall3Node", id);
+	ObjectManager::getInstance().destroySceneNode("Wall4Node", id);
 } // destructor
-
-void RoomObject::checkId(int id) {
-    if (!idList.empty() &&
-        std::find(idList.begin(), idList.end(), id) != idList.end()) {
-            throw std::invalid_argument("All IDs must be unique!");
-    } // if
-
-    idList.push_back(id);
-} // checkId
 
 /** 
  * Performs the tasks that all constructors have in common
  * in one, convenient function.
  */
 void RoomObject::init() {
-    // Initialize planes that make up the room
     floor = new Ogre::Plane(Ogre::Vector3::UNIT_Y, 0);
     walls[0] = new Ogre::Plane(Ogre::Vector3::UNIT_X, 0);
     walls[1] = new Ogre::Plane(-Ogre::Vector3::UNIT_X, 0);
@@ -72,26 +51,16 @@ void RoomObject::init() {
     walls[3] = new Ogre::Plane(-Ogre::Vector3::UNIT_Z, 0);
 } // init
 
-void RoomObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera) {
-    // Let there be lights
-    createLights(sceneMgr);
-
-    // manage meshes for planes
-    createMeshes();
-
-    // Create plane entities
+void RoomObject::createEntities() {
 	using namespace StringHelper;
 
-    Ogre::Entity *floorEntity = sceneMgr.createEntity(concat<int>("FloorEntity", id), concat<int>("floor", id));
-    Ogre::Entity *wall1Entity = sceneMgr.createEntity(concat<int>("Wall1Entity", id), concat<int>("wall1", id));
-    Ogre::Entity *wall2Entity = sceneMgr.createEntity(concat<int>("Wall2Entity", id), concat<int>("wall2", id));
-    Ogre::Entity *wall3Entity = sceneMgr.createEntity(concat<int>("Wall3Entity", id), concat<int>("wall3", id));
-    Ogre::Entity *wall4Entity = sceneMgr.createEntity(concat<int>("Wall4Entity", id), concat<int>("wall4", id));
-    floorNode = sceneMgr.getRootSceneNode()->createChildSceneNode(concat<int>("FloorNode", id));
-    wallNodes[0] = sceneMgr.getRootSceneNode()->createChildSceneNode(concat<int>("Wall1Node", id));
-    wallNodes[1] = sceneMgr.getRootSceneNode()->createChildSceneNode(concat<int>("Wall2Node", id));
-    wallNodes[2] = sceneMgr.getRootSceneNode()->createChildSceneNode(concat<int>("Wall3Node", id));
-    wallNodes[3] = sceneMgr.getRootSceneNode()->createChildSceneNode(concat<int>("Wall4Node", id));
+    createMeshes();
+
+    floorEntity = sceneManager->createEntity(concat<int>("FloorEntity", id), concat<int>("floor", id));
+    wall1Entity = sceneManager->createEntity(concat<int>("Wall1Entity", id), concat<int>("wall1", id));
+    wall2Entity = sceneManager->createEntity(concat<int>("Wall2Entity", id), concat<int>("wall2", id));
+    wall3Entity = sceneManager->createEntity(concat<int>("Wall3Entity", id), concat<int>("wall3", id));
+    wall4Entity = sceneManager->createEntity(concat<int>("Wall4Entity", id), concat<int>("wall4", id));
 
     // Meshes
     floorEntity->setMaterialName("Examples/Floor");
@@ -106,9 +75,19 @@ void RoomObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera
     wall2Entity->setCastShadows(true);
     wall3Entity->setCastShadows(true);
     wall4Entity->setCastShadows(true);
+} // createEntities
 
-	// Set position
-	setPosition(position);
+void RoomObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera) {
+	using namespace StringHelper;
+
+    this->sceneManager = &sceneMgr;
+    createEntities();
+
+    floorNode = sceneManager->getRootSceneNode()->createChildSceneNode(concat<int>("FloorNode", id));
+    wallNodes[0] = sceneManager->getRootSceneNode()->createChildSceneNode(concat<int>("Wall1Node", id));
+    wallNodes[1] = sceneManager->getRootSceneNode()->createChildSceneNode(concat<int>("Wall2Node", id));
+    wallNodes[2] = sceneManager->getRootSceneNode()->createChildSceneNode(concat<int>("Wall3Node", id));
+    wallNodes[3] = sceneManager->getRootSceneNode()->createChildSceneNode(concat<int>("Wall4Node", id));
 
     // Attach them to nodes
     floorNode->attachObject(floorEntity);
@@ -116,24 +95,26 @@ void RoomObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera
     wallNodes[1]->attachObject(wall2Entity);
     wallNodes[2]->attachObject(wall3Entity);
     wallNodes[3]->attachObject(wall4Entity);
+
+	// Set position
+	setPosition(position);
 } // createScene
 
-/**
- * Sets up the lights for the room.
- */
-void RoomObject::createLights(Ogre::SceneManager &sceneMgr) {
-    if (rand() % 100 < 10) {
-        Ogre::Light *pointLight;
-	    using namespace StringHelper;
+void RoomObject::show() {
+    floorNode->setVisible(true, true);
 
-        pointLight = sceneMgr.createLight(concat<int>("pointLight", id));
+    for (int i = 0; i < 4; i ++) {
+        wallNodes[i]->setVisible(true, true);
+    } // for
+} // show
 
-        pointLight->setType(Ogre::Light::LT_POINT);
-        pointLight->setPosition(position.x + 0, position.y + getHeight() / 2 - 1, position.z + 0);
-        pointLight->setDiffuseColour(0.3f, 0.3f, 0.3f);
-        pointLight->setSpecularColour(1.0f, 1.0f, 1.0f);
-    } // if
-} // createLights
+void RoomObject::hide() {
+    floorNode->setVisible(false, false);
+
+    for (int i = 0; i < 4; i ++) {
+        wallNodes[i]->setVisible(false, false);
+    } // for
+} // hide
 
 /**
  * Create the meshes for the 6 planes of the room
@@ -226,22 +207,14 @@ bool RoomObject::overlaps(struct Bounds rectB) {
 	} // if
 
 	return false;
-} // containsPoint
+} // overlaps
 
-bool RoomObject::contains(const OIS::MouseEvent &evt) {
-    return false;
-} // contains
-
-void RoomObject::update(const Ogre::FrameEvent &evt) {
-} // render
-
-void RoomObject::keyPressed(const OIS::KeyEvent &arg) {}
-
-void RoomObject::mouseMoved(const OIS::MouseEvent &evt) {
-} // mouseMoved
-
-void RoomObject::mousePressed(const OIS::MouseEvent &evt, OIS::MouseButtonID id) {
-} // mousePressed
-
-void RoomObject::mouseReleased(const OIS::MouseEvent &evt, OIS::MouseButtonID id) {
-} // mouseReleased
+void RoomObject::update(const Ogre::FrameEvent&) {
+    if (World::getInstance().isGameModeBlind()) {
+        hide();
+    } // if
+    
+    if (containsPoint(World::getInstance().getPlayerPosition())) {
+        show();
+    } // if
+} // update

@@ -8,11 +8,18 @@
 #include <OISMouse.h>
 #include <OISKeyboard.h>
 #include <vector>
+#include <queue>
 
 /**
  * Forward declarations
  */
 class GameObject;
+class EntityObject;
+
+enum QueryFlags{
+    MONSTER_ENTITIES,
+    FLOOR_ENTITY
+};
 
 class ObjectManager {
 private:
@@ -30,9 +37,15 @@ public:
     } // getInstance
 
     void init(Ogre::SceneManager *sceneMgr, Ogre::Camera *camera);
-	void destroyEntity(std::string name);
 	void destroySceneNode(std::string name);
+	void destroySceneNode(std::string name, int);
     void spawnObject(GameObject *object);
+    void destroyScene();
+    Ogre::Camera *getCamera();
+    Ogre::SceneManager *getSceneManager();
+
+    bool canSee(Ogre::SceneNode *a, Ogre::SceneNode *b);
+    bool canReach(GameObject *object1, GameObject *object2, float reach);
 
     void update(const Ogre::FrameEvent &evt);
     bool contains(const OIS::MouseEvent &evt);
@@ -40,6 +53,7 @@ public:
     void mouseMoved(const OIS::MouseEvent &evt);
     void mousePressed(const OIS::MouseEvent &evt, OIS::MouseButtonID id);
     void mouseReleased(const OIS::MouseEvent &evt, OIS::MouseButtonID id);
+    
 };
 
 #endif

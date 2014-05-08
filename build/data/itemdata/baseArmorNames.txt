@@ -1,0 +1,34 @@
+# Everything has the following format:
+# <slot id>;<item name>;<description>?
+# note that everything is delimited by semicolons (;)
+# and that the description is optional
+# if no description, default is used
+
+# Helmets
+0;fluted bascinet;
+0;full helmet;
+0;leather hat;
+0;cloth cap;
+0;wedding veil;Did you hear bells?
+0;steel cap;
+0;tinfoil hat;Don't let them hear your thoughts.
+
+# Chest armors
+1;full metal jacket;Sir, yes, sir!
+1;leather garb;
+1;leather harness;
+1;cloth shirt;You are now a little bit warmer.
+1;halter top;Giiiirl.
+1;leotard;Uhh..
+
+# Gloves
+2;leather gloves;
+2;cloth gloves;
+2;driving gloves;
+2;steel gauntlets;
+
+# Boots
+3;leather boots;
+3;steel boots;
+3;slippers;
+3;hiking boots;

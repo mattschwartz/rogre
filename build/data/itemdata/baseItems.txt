@@ -1,0 +1,24 @@
+# Format - <item name>;<item description>
+# the description is optional
+# if no description, default is used
+
+rock;A rock.
+rock;A beautiful rock.
+rock;Not just a boulder. It's a rock.
+wooden plank;Building a house, there, are we?
+tooth;Not yours, i hope..
+meaty tail;Bet it'd make a nice stew..
+slimy substance;Ew.. Why is it so slimy?
+peculiar object;How peculiar..
+metal chunk;A chunk of metal.
+yellow seed;Perhaps you could plant this in the ground, Farmer Brown.
+chalk;You could lecture with this.
+stone chunk;A chunk of stone.
+rat feces;Why would you pick these up?
+key;A useless piece of crafted metal..
+leather scraps;Some scraps of leather
+tongue;Did it just wiggle?
+gold coin;Worth something to someone..
+crowbar;A place where crows can go to get drunk.
+empty potion bottle;Littering is a crime..
+cracked mirror;So is this only 2 years bad luck or..
