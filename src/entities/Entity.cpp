@@ -16,8 +16,8 @@ Entity::Entity(int level, int monsterPower, std::string name) {
     this->name = name;
     drop = NULL;
 
-    attributes[strength] = 50.0 * (1 + ((double)level / 10.0)) * ((double)monsterPower/100.0);
-    attributes[hitpoints] = 100.0 * (1 + (int)((double)level/100.0)) * ((double)monsterPower/100.0);
+    attributes[strength] = 10.0 * (1 + ((double)level / 10.0)) * ((double)monsterPower/100.0);
+    attributes[hitpoints] = 70.0 * (1 + (int)((double)level/100.0)) * ((double)monsterPower/100.0);
     attributes[armor] = 25.0 * (1 + (int)((double)level/100.0)) * ((double)monsterPower/100.0);
 
     currentHitpoints = attributes[hitpoints];
@@ -106,7 +106,7 @@ double Entity::calculateHit() {
 } // calculateHit
 
 double Entity::getDamageReduction(double damageTaken) {
-    double reduction = (1 + (100.0 / attributes[armor]));
+    double reduction = (1 + (75.0 / attributes[armor]));
 
     return damageTaken * (reduction / 100.0);
 } // getDamageReduction

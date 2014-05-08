@@ -38,6 +38,7 @@ Equippable *ItemGenerator::generateEquippable(int monsterLevel) {
     int goldWorth;
     int minWorth;
     int maxWorth;
+    int numAffixes;
     struct affixdata itemData;
     Equippable *result = new Equippable(monsterLevel);
     equippableItem randomEquippable;
@@ -46,8 +47,9 @@ Equippable *ItemGenerator::generateEquippable(int monsterLevel) {
     minWorth = 100 * monsterLevel;
     maxWorth = 100 * (monsterLevel + 1);
     goldWorth = (rand() % maxWorth - minWorth) + minWorth;
-
-    for (int i = 0; i < itemData.maxAttributes; i++) {
+    numAffixes = rand() % itemData.maxAttributes;
+    
+    for (int i = 0; i < numAffixes; i++) {
         result->addAffix(createAffix(itemData));
     } // for
 
@@ -83,6 +85,8 @@ affix_t ItemGenerator::createAffix(struct affixdata data) {
                 data.armorRange.max);
             break;
     } // switch-case
+
+    result.amount = amount;
 
     return result;
 } // createAffix

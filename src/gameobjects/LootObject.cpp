@@ -14,21 +14,20 @@
 #include "src/sound/SoundManager.h"
 
 LootObject::LootObject(Item *item, float x, float z) : 
-    GameObject(Ogre::Vector3(x, 0.5f, z)) {
+    GameObject(Ogre::Vector3(x, 2.0f, z)) {
     this->item = item;
     this->id = lootCount++;
 } // constructor
 
 LootObject::LootObject(Item *item, Ogre::Vector3 pos) : 
-    GameObject(Ogre::Vector3(pos.x, 0.5f, pos.z)) {
+    GameObject(Ogre::Vector3(pos.x, 2.0f, pos.z)) {
     this->item = item;
     this->id = lootCount++;
 } // constructor
 
 void LootObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera) {
 	using namespace StringHelper;
-	objectEntity = sceneMgr.createEntity(concat<int>("LootEntity", id), "sphere.mesh");
-    objectEntity->setMaterialName("Examples/LootTexture");
+	objectEntity = sceneMgr.createEntity(concat<int>("LootEntity", id), "Bag.mesh");
 	objectEntity->setCastShadows(true);
     bounceUp = true;
     show();
@@ -43,7 +42,7 @@ void LootObject::show() {
     objectNode = sceneMgr->getRootSceneNode()->createChildSceneNode(concat<int>("LootNode", id));
 
 	objectNode->attachObject(objectEntity);
-	objectNode->scale(0.005f, 0.005f, 0.005f);
+	objectNode->scale(0.25f, 0.25f, 0.25f);
 	objectNode->setPosition(position);
 } // show
 

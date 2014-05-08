@@ -179,7 +179,7 @@ void ItemData::initArmorNames() {
 
         switch (itemId) {
             case helmet:
-                if (strncmp(description.c_str(), "", 0) == 0) {
+                if (strncmp(description.c_str(), "", 1) == 0) {
                     description = DEFAULT_HELMET_DESCRIPTION;
                 } // if
                 
@@ -187,7 +187,7 @@ void ItemData::initArmorNames() {
                 baseArmorNames[helmet].push_back(nameDes);
                 break;
             case chest:
-                if (strncmp(description.c_str(), "", 0) == 0) {
+                if (strncmp(description.c_str(), "", 1) == 0) {
                     description = DEFAULT_CHEST_DESCRIPTION;
                 } // if
                 
@@ -195,7 +195,7 @@ void ItemData::initArmorNames() {
                 baseArmorNames[chest].push_back(nameDes);
                 break;
             case gloves:
-                if (strncmp(description.c_str(), "", 0) == 0) {
+                if (strncmp(description.c_str(), "", 1) == 0) {
                     description = DEFAULT_GLOVES_DESCRIPTION;
                 } // if
                 
@@ -203,7 +203,7 @@ void ItemData::initArmorNames() {
                 baseArmorNames[gloves].push_back(nameDes);
                 break;
             case boots:
-                if (strncmp(description.c_str(), "", 0) == 0) {
+                if (strncmp(description.c_str(), "", 1) == 0) {
                     description = DEFAULT_BOOTS_DESCRIPTION;
                 } // if
                 

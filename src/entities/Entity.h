@@ -10,7 +10,7 @@
  * Defines
  */
 #define NUM_ATTRIBUTES 3
-#define EQUIPMENT_SLOTS 5
+#define EQUIPMENT_SLOTS 4
 
 typedef enum {
     strength = 0,

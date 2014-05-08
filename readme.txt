@@ -46,10 +46,15 @@ Controls:
     * Press escape to open the Options Menu in order to toggle sound or quit 
       and save your progress.
 
+Credits for music:
+    http://incompetech.com/music/royalty-free/
+
 Known Issues:
     *   Descending stairs sometimes crashes the game. This seems to be because
         the camera tries to reposition itself incorrectly in the middle of a
         descent.
     *   The mouse needs to be moved around a bit, first, so that Ogre knows
         where it is in game.
-        
+    *   Objects can be spawned partly into the wall.
+    *   Door meshes were loaded into ogre weirdly.
+    *   Armor's stats aren't recorded

@@ -10,7 +10,7 @@
 #include "src/sound/SoundManager.h"
 
 ChestDoodadObject::ChestDoodadObject(ChestDoodad *chest, float x, float z) :
-    DoodadObject(x, 1.2f, z) {
+    DoodadObject(x, 1.0f, z) {
     this->chest = chest;
 } // constructor
 
@@ -22,11 +22,10 @@ ChestDoodadObject::ChestDoodadObject(ChestDoodad *chest, Ogre::Vector3 pos) :
 void ChestDoodadObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera) {
 	using namespace StringHelper;
 	objectNode = sceneMgr.getRootSceneNode()->createChildSceneNode(concat<int>("ChestDoodad", id));
-	objectEntity = sceneMgr.createEntity(concat<int>("ChestDoodadEntity", id), "chest.mesh");
-    objectEntity->setMaterialName("Chest Wood");
+	objectEntity = sceneMgr.createEntity(concat<int>("ChestDoodadEntity", id), "chest3.mesh");
 	objectEntity->setCastShadows(false);
 
-	objectNode->scale(2, 2, 2);
+	objectNode->scale(0.4f, 0.4f, 0.4f);
 	objectNode->attachObject(objectEntity);
 	objectNode->setPosition(position);
 

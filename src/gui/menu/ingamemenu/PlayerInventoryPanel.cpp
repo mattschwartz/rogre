@@ -169,7 +169,6 @@ bool PlayerInventoryPanel::toggleInventory(const CEGUI::EventArgs &e) {
         parent->addChild(equipItemButton);
         parent->addChild(examineItemButton);
 #endif
-
         inventoryLabel->setPosition(UVector2(UDim(1.0f, -210.0f), UDim(1.0f, -335.0f)));
         inventoryLabel->setText("Collapse Inventory");
     } // if 
@@ -192,10 +191,20 @@ bool PlayerInventoryPanel::toggleInventory(const CEGUI::EventArgs &e) {
 
 bool PlayerInventoryPanel::equipItemEvent(const CEGUI::EventArgs &e) {
     Equippable *item;
-
+    Player *player;
+    
     if (((Item*)inventory->getFirstSelectedItem()->getUserData())->isEquippable()) {
         item = (Equippable*)inventory->getFirstSelectedItem()->getUserData();
-        World::getInstance().getCurrentPlayer()->equipItem(item);
+        player = World::getInstance().getCurrentPlayer();
+
+        if (item->isEquipped()) {
+            player->unequipItem(item);
+            equipItemButton->setText("Equip");
+        } // if
+        else {
+            player->equipItem(item);
+            equipItemButton->setText("Unequip");
+        } // else
     } // if
 
     return true;

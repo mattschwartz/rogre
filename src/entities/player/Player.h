@@ -30,6 +30,7 @@ public:
     std::string getName();
     int getScore();
     void equipItem(Equippable *equippable);
+    void unequipItem(Equippable *equippable);
     Equippable *getEquippedItemAt(int slotId);
     Inventory *getInventory();
     Ogre::Real getTimePlayed();

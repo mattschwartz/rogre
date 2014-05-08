@@ -20,6 +20,14 @@ Player::Player(int level, std::string name) : Entity(level, 100, name) {
     this->timePlayed = 0;
     this->inventory = new Inventory();
     lifePerSecond = 2.5; // as a percent
+
+    currentHitpoints = attributes[hitpoints] = 200.0;
+    attributes[strength] = 50.0;
+    attributes[armor] = 100.0;
+
+    for (int i = 0; i < EQUIPMENT_SLOTS; i++) {
+        equippedItems[i] = NULL;
+    } // for
 } // constructor
 
 double Player::getRegen() {
@@ -47,23 +55,35 @@ std::string Player::getName() {
 } // getName
 
 void Player::equipItem(Equippable *equippable) {
-    Equippable *equippedItem = getEquippedItemAt(equippable->getSlotid());
+    int slotid = equippable->getSlotid();
+    Equippable *equippedItem = getEquippedItemAt(slotid);
     std::vector<affix_t> itemAffixes;
 
     if (equippedItem != NULL) {
-        itemAffixes = equippedItem->getAffixes();
-
-        for (affix_t affix : itemAffixes) {
-            attributes[affix.attr] -= affix.amount;
-        } // for
+        unequipItem(equippedItem);
     } // if
     
     itemAffixes = equippable->getAffixes();
+    equippedItems[slotid] = equippable;
+    equippable->setEquipped(true);
         
     for (affix_t affix : itemAffixes) {
-            attributes[affix.attr] -= affix.amount;
+        attributes[affix.attr] += affix.amount;
     } // for
 } // equipItem
+
+void Player::unequipItem(Equippable *equippable) {
+    int slotid = equippable->getSlotid();
+    Equippable *equippedItem = getEquippedItemAt(slotid);
+    std::vector<affix_t> itemAffixes;
+
+    equippedItem->setEquipped(false);
+    itemAffixes = equippedItem->getAffixes();
+
+    for (affix_t affix : itemAffixes) {
+        attributes[affix.attr] -= affix.amount;
+    } // for
+} // unequipItem
 
 Equippable *Player::getEquippedItemAt(int slotId) {
     if (slotId < 0 || slotId >= EQUIPMENT_SLOTS) {

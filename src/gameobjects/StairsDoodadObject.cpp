@@ -9,22 +9,20 @@
 #include "src/sound/SoundManager.h"
 
 StairsDoodadObject::StairsDoodadObject(float x, float z) :
-    DoodadObject(x, -1.8f, z) {
+    DoodadObject(x, 0.0f, z) {
 } // constructor
 
 StairsDoodadObject::StairsDoodadObject(Ogre::Vector3 pos) :
-    DoodadObject(pos.x, -1.8f, pos.z) {
+    DoodadObject(pos.x, 0.0f, pos.z) {
 } // constructor
 
 void StairsDoodadObject::createObject(Ogre::SceneManager &sceneMgr, Ogre::Camera *camera) {
 	using namespace StringHelper;
-	objectEntity = sceneMgr.createEntity(concat<int>("StairsDoodad", id), "cube.mesh");
-    objectEntity->setMaterialName("Examples/StairsTexture");
+	objectEntity = sceneMgr.createEntity(concat<int>("StairsDoodad", id), "Shield.mesh");
 	objectEntity->setCastShadows(false);
 
     objectNode = sceneMgr.getRootSceneNode()->createChildSceneNode(concat<int>("StairsDoodad", id));
 	objectNode->attachObject(objectEntity);
-	objectNode->scale(0.05f, 0.05f, 0.05f);
 	objectNode->setPosition(position);
 } // createObject
 
